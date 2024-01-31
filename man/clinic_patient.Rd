@@ -10,7 +10,6 @@ A data frame with 230 rows and 8 columns
  \describe{
   \item{id:}{Identifier of each patient.}
   \item{age:}{Age values.}
-  \item{included:}{The patient satisfies the inclusion criteria?}
   \item{consent:}{The patient has signed the informed consent?}
   \item{group:}{Randomized group: control/treatment.}
   \item{n_visits:}{Number of follow-up visits.}

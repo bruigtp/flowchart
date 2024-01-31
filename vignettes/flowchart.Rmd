@@ -49,7 +49,7 @@ install.packages("flowchart")
 
 # Example dataset
 
-We will use the built-in datasets in the package:`clinic_patient` and `clinic_visit`. These datasets belong to the same simulated clinical trial, one containing the information per patient and the other per visit. This study simulates a clinical trial in which subjects have been randomised into a control and treatment group after meeting some inclusion criteria. These subjects are then followed for two visits and observations are collected on a biomarker.
+We will use the built-in datasets in the package:`clinic_patient` and `clinic_visit`. These datasets belong to the same simulated clinical trial, one containing the information per patient and the other per visit. This study simulates a clinical trial in which subjects have been randomised into a control and treatment group after meeting some inclusion criteria: over 18 years of age and signed informed consent. These subjects are then followed for two visits and observations are collected on a biomarker.
 
 ```{r}
 data(clinic_patient)
@@ -64,7 +64,7 @@ str(clinic_visit)
 
 # Basic operations
 
-The first step is to initialise the flowchart with `as_fc`. The last step, if we want to visualise the created flowchart, is to draw the flowchart with `fc_draw`. In between we can combine the functions `fc_split`., `fc_filter`, `fc_merge`, `fc_stack` with the operator pipe (`%>%`) to create very complex flowchart structures.
+The first step is to initialise the flowchart with `as_fc`. The last step, if we want to visualise the created flowchart, is to draw the flowchart with `fc_draw`. In between we can combine the functions `fc_split`., `fc_filter`, `fc_merge`, `fc_stack` with the operator pipe (`%>%`) to create complex flowchart structures.
 
 ## Initialize
 
@@ -80,7 +80,6 @@ The `fc` object created is a list containing the tibble of the dataframe associa
 
 ## Draw
 
-
 ```{r}
 fc %>% 
   fc_draw()
@@ -88,7 +87,7 @@ fc %>%
 
 ## Filter 
 
-We can filter the flowchart using `fc_filter()` specifying the logic in which the filter is to be applied:
+We can filter the flowchart using `fc_filter()` specifying the logic in which the filter is to be applied. For example, we want to show the number of patients included in the study, that is, those over the age of 18 who have signed an informed consent. 
 
 ```{r fig.width = 6, fig.height = 5}
 clinic_patient %>% 
@@ -96,6 +95,8 @@ clinic_patient %>%
   fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) %>% 
   fc_draw()
 ```
+
+See 'Modify function arguments' for more information on the `label=` and `show_exc=` arguments.
 
 ## Split
 
@@ -115,7 +116,7 @@ clinic_patient %>%
 
 ## Merge
 
-We can combine different flowcharts horizontally using `fc_merge()`:
+We can combine different flowcharts horizontally using `fc_merge()`. For example, we might want to represent the flow of patients included in the study next to the flow of their corresponding visits:
 
 ```{r fig.width = 8}
 #Create first flowchart for patients
@@ -137,7 +138,7 @@ list(fc1, fc2) %>%
 
 ## Stack
 
-We can combine different flowcharts vertically using `fc_stack()`:
+We can combine different flowcharts vertically using `fc_stack()`. For example, we might want to combine in one flowchart the flow of patients included in the study and the flow of their corresponding visits, which come from different dataframes:
 
 ```{r warning = FALSE, fig.width = 6, fig.height = 5}
 #Create first flowchart for patients
@@ -322,7 +323,7 @@ Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the 
 
 The function `modify_fc` allows the user to customise the created flowchart by modifying its parameters, which are stored in `.$fc`. 
 
-For example, we could fully customise the text in the exclusion box, without following a predefined text pattern:
+For example, we could fully customise the text in the exclusion box if we wanted to specify the different reasons for exclusion:
  
 ```{r fig.width = 6, fig.height = 5}
 fc <- clinic_patient %>% 
