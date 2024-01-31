@@ -1,0 +1,447 @@
+---
+title: "flowchart"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 5
+    number_sections: true
+package: "`flowchart`"
+vignette: >
+  %\VignetteIndexEntry{flowchart}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(flowchart)
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(stringr)
+library(tibble)
+```
+
+# Overview 
+
+`flowchart` is a package for drawing participant flow diagrams directly from a dataframe using tidyverse. It provides a set of functions that can be combined with `%>%` to create all kinds of flowcharts from a dataframe in an easy way:
+
+- `as_fc()` initializes a dataframe into a `fc` object that can be manipulated by the package.
+
+- `fc_split()` splits a flowchart according to the different values of a column in the dataframe.
+
+- `fc_filter()` creates a filtered box from the flowchart, based on the evaluation of an expression in the dataframe.
+
+- `fc_merge()` combines horizontally two different flowcharts.
+
+- `fc_stack()` combines vertically two different flowcharts.
+
+- `fc_modify()` allows to modify the parameters of the flowchart which are stored in `.$fc`.
+
+- `fc_draw()` draws the flowchart created by the previous functions.
+
+# Installation
+
+```{r eval=FALSE}
+install.packages("flowchart")
+```
+
+# Example dataset
+
+We will use the built-in datasets in the package:`clinic_patient` and `clinic_visit`. These datasets belong to the same simulated clinical trial, one containing the information per patient and the other per visit. This study simulates a clinical trial in which subjects have been randomised into a control and treatment group after meeting some inclusion criteria. These subjects are then followed for two visits and observations are collected on a biomarker.
+
+```{r}
+data(clinic_patient)
+data(clinic_visit)
+
+#Per patient dataset
+str(clinic_patient)
+
+#Per visit dataset
+str(clinic_visit)
+```
+
+# Basic operations
+
+The first step is to initialise the flowchart with `as_fc`. The last step, if we want to visualise the created flowchart, is to draw the flowchart with `fc_draw`. In between we can combine the functions `fc_split`., `fc_filter`, `fc_merge`, `fc_stack` with the operator pipe (`%>%`) to create very complex flowchart structures.
+
+## Initialize
+
+```{r}
+fc <- clinic_patient %>% 
+  as_fc() 
+
+class(fc)
+str(fc)
+```
+
+The `fc` object created is a list containing the tibble of the dataframe associated with the flowchart and the tibble that stores the flowchart parameters.
+
+## Draw
+
+
+```{r}
+fc %>% 
+  fc_draw()
+```
+
+## Filter 
+
+We can filter the flowchart using `fc_filter()` specifying the logic in which the filter is to be applied:
+
+```{r fig.width = 6, fig.height = 5}
+clinic_patient %>% 
+  as_fc(label = "Patients included") %>% 
+  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) %>% 
+  fc_draw()
+```
+
+## Split
+
+We can split the flowchart into groups using `fc_split()` specifying the grouping variable. The function will split the flowchart into as many categories as the specified variable has:
+
+```{r fig.width = 6, fig.height = 5}
+clinic_patient %>% 
+  filter(!is.na(group)) %>% 
+  as_fc(label = "Patients included") %>% 
+  fc_split(group) %>% 
+  fc_draw()
+```
+
+# Combine
+
+`fc_merge()` and `fc_stack()` allow you to combine different flowcharts horizontally or vertically. This is very useful when you need to combine flowcharts generated from different dataframes, as shown here. 
+
+## Merge
+
+We can combine different flowcharts horizontally using `fc_merge()`:
+
+```{r fig.width = 8}
+#Create first flowchart for patients
+fc1 <- clinic_patient %>% 
+  filter(!is.na(group)) %>% 
+  as_fc(label = "Patients included") %>% 
+  fc_split(group)
+
+#Create second flowchart for visits
+fc2 <- clinic_visit %>% 
+  filter(!is.na(group)) %>% 
+  as_fc(label = "Number of visits") %>% 
+  fc_split(group) 
+
+list(fc1, fc2) %>% 
+  fc_merge() %>% 
+  fc_draw()
+```
+
+## Stack
+
+We can combine different flowcharts vertically using `fc_stack()`:
+
+```{r warning = FALSE, fig.width = 6, fig.height = 5}
+#Create first flowchart for patients
+fc1 <- clinic_patient %>% 
+  filter(!is.na(group)) %>% 
+  as_fc(label = "Patients included") %>% 
+  fc_split(group)
+
+#Create second flowchart for visits
+fc2 <- clinic_visit %>% 
+  filter(!is.na(group)) %>% 
+  as_fc(hide = TRUE) %>% 
+  fc_split(group, label = c("Number of visits (Control)", "Number of visits (Treatment)"), text_pattern = "{label}\n {n}") 
+
+list(fc1, fc2) %>% 
+  fc_stack() %>% 
+  fc_draw()
+```
+
+See 'Modify function arguments' for more information on the `hide=` and `text_pattern=` arguments.
+
+# Customize output
+
+We can customize the flowchart either with the arguments provided by each function in the process of creating it, or directly in the final output using the function `modify_fc`. 
+
+## Modify function arguments
+
+Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the appearance of the boxes created at each step:
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Argument </th>
+   <th style="text-align:left;"> Description </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> `label=` </td>
+   <td style="text-align:left;"> modify the label. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `text_pattern=` </td>
+   <td style="text-align:left;"> modify the pattern of the text. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `text_color=` </td>
+   <td style="text-align:left;"> modify the color of the text. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `text_fs=` </td>
+   <td style="text-align:left;"> modify the font size of the text. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `bg_fill=` </td>
+   <td style="text-align:left;"> modify the background color of the box. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `border_color=` </td>
+   <td style="text-align:left;"> modify the color of the box border. </td>
+  </tr>
+</tbody>
+</table>
+
+`as_fc()` arguments:
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Argument </th>
+   <th style="text-align:left;"> Description </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> `hide=` </td>
+   <td style="text-align:left;"> to hide the first initial box created by this function. </td>
+  </tr>
+</tbody>
+</table>
+
+`fc_filter()` arguments:
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Argument </th>
+   <th style="text-align:left;"> Description </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> `sel_group=` </td>
+   <td style="text-align:left;"> apply the filter only in the specified groups (if data is grouped). </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `show_exc=` </td>
+   <td style="text-align:left;"> show the box with the excluded rows that do not match the filter. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `direction_exc=` </td>
+   <td style="text-align:left;"> change the direction of the exclusion box (left or right). </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `label_exc=` </td>
+   <td style="text-align:left;"> modify the label of the exclusion box. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `text_pattern_exc=` </td>
+   <td style="text-align:left;"> modify the pattern of the exclusion box. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `text_color_exc=` </td>
+   <td style="text-align:left;"> modify the color of the text in the exclusion box. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `text_fs_exc=` </td>
+   <td style="text-align:left;"> modify the font size of the text in the exclusion box. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `bg_fill_exc=` </td>
+   <td style="text-align:left;"> modify the background color of the exclusion box. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `border_color_exc=` </td>
+   <td style="text-align:left;"> modify the color of the exclusion box border. </td>
+  </tr>
+</tbody>
+</table>
+
+`fc_split()` arguments:
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Argument </th>
+   <th style="text-align:left;"> Description </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> `sel_group=` </td>
+   <td style="text-align:left;"> split the flowchart only in the specified groups (if data is grouped). </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `na.rm=` </td>
+   <td style="text-align:left;"> omit the missing values in the grouping variable. </td>
+  </tr>
+</tbody>
+</table>
+
+`fc_draw()` arguments are heredited from `arrow`: 
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Argument </th>
+   <th style="text-align:left;"> Description </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> `arrow_angle=` </td>
+   <td style="text-align:left;"> angle of the arrow head in degrees. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `arrow_length=` </td>
+   <td style="text-align:left;"> unit specifying the lenth of the arrow head. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `arrow_ends=` </td>
+   <td style="text-align:left;"> specify the ends of the line to draw arrow head (last/first/both). </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `arrow_type=` </td>
+   <td style="text-align:left;"> whether the arrow head should be a closed triangle. </td>
+  </tr>
+</tbody>
+</table>
+
+## Function to customize the flowchart
+
+The function `modify_fc` allows the user to customise the created flowchart by modifying its parameters, which are stored in `.$fc`. 
+
+For example, we could fully customise the text in the exclusion box, without following a predefined text pattern:
+ 
+```{r fig.width = 6, fig.height = 5}
+fc <- clinic_patient %>% 
+  as_fc(label = "Patients included") %>% 
+  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) %>% 
+  fc_modify(~.x %>% 
+              mutate(
+                text = case_when(
+                  id == 3 ~ str_glue("Excluded patients:
+                                     - {sum(clinic_patient$age < 18)} under-age
+                                     - {sum(clinic_patient$consent == 'No')} without a signed consent
+                                     "),
+                  TRUE ~ text
+                )
+              )) 
+
+fc %>% 
+  fc_draw()
+```
+
+We could also use `fc_modify()` to change the default _x_ and _y_ coordinates:
+
+```{r fig.width = 6, fig.height = 5}
+fc %>% 
+  fc_modify(~.x %>% 
+              mutate(
+                x = case_when(
+                  id == 3 ~ 0.8,
+                  TRUE ~ x
+                ),
+                y = case_when(
+                  id == 1 ~ 0.85,
+                  id == 2 ~ 0.15,
+                  id == 3 ~ 0.5
+                )
+              )) %>% 
+  fc_draw()
+```
+
+# Examples
+
+## Example 1
+
+```{r warning = FALSE, fig.width = 7, fig.height = 6}
+clinic_patient %>% 
+  as_fc(label = "Available patients") %>% 
+  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) %>% 
+  fc_split(group) %>% 
+  fc_filter(n_visits == 2, label = "Two visits available", show_exc = TRUE) %>% 
+  fc_split(marker_alt, label = c("Marker not alterated", "Marker alterated")) %>% 
+  fc_draw()
+```
+
+## Example 2
+
+For this example, we will use another built-in dataset called `safo`, which is a randomly generated dataset from the SAFO trial. SAFO is an open-label, multicentre, phase III–IV superiority randomised clinical trial designed to assess whether cloxacillin plus fosfomycin administered during the first 7 days of therapy achieves better treatment outcomes than cloxacillin alone in hospitalised patients with meticillin-sensitive Staphylococcus aureus bacteraemia. In this example, we reproduce the original flowchart of the trial published in Nature Medicine[^1].
+
+[^1]: Grillo, S., Pujol, M., Miró, J.M. et al. Cloxacillin plus fosfomycin versus cloxacillin alone for methicillin-susceptible Staphylococcus aureus bacteremia: a randomized trial. Nat Med 29, 2518–2525 (2023). https://doi.org/10.1038/s41591-023-02569-0
+
+First, we need to do some pre-processing to reproduce the text in the larger boxes:
+
+```{r warning=FALSE, fig.width = 9, fig.height = 7}
+#Create labels for exclusion box:
+data(safo)
+
+label_exc <- paste(
+  c(str_glue("{sum(safo$inclusion_crit == 1 | safo$exclusion_crit == 1 | safo$decline_part == 1, na.rm = T)} excluded:"),
+    map_chr(c("inclusion_crit", "decline_part", "exclusion_crit"), ~str_glue("{sum(safo[[.x]] == 1, na.rm = TRUE)} {attr(safo[[.x]], 'label')}")),
+    map_chr(4:15, ~str_glue(" -  {sum(safo[[.x]] == 1)} {attr(safo[[.x]], 'label')}"))),
+  collapse = "\n")
+
+label_exc <- gsub("exclusion criteria", "exclusion criteria:", label_exc)
+
+safo1 <- safo %>% 
+  filter(group == "cloxacilin alone", !is.na(reason_pp)) %>% 
+  mutate(reason_pp = droplevels(reason_pp))
+
+label_exc1 <- paste(
+  c(str_glue("{nrow(safo1)} excluded:"),
+    map_chr(levels(safo1$reason_pp), ~str_glue(" -  {sum(safo1$reason_pp == .x)} {.x}"))),
+  collapse = "\n")
+
+label_exc1 <- str_replace_all(label_exc1, c("resistant" = "resistant\n", "blood" = "blood\n"))
+
+safo2 <- safo %>% 
+  filter(group == "cloxacilin plus fosfomycin", !is.na(reason_pp)) %>% 
+  mutate(reason_pp = droplevels(reason_pp))
+
+label_exc2 <- paste(
+  c(str_glue("{nrow(safo2)} excluded:"),
+    map_chr(levels(safo2$reason_pp), ~str_glue(" -  {sum(safo2$reason_pp == .x)} {.x}"))),
+  collapse = "\n")
+
+label_exc2 <- str_replace_all(label_exc2, c("nosocomial" = "nosocomial\n", "treatment" = "treatment\n"))
+```
+
+Second, let's create and customise the flowchart using the features in the package:
+
+```{r warning=FALSE, fig.width = 10, fig.height = 7}
+safo %>% 
+  as_fc("patients assessed for eligibility", text_pattern = "{n} {label}") %>% 
+  fc_filter(!is.na(group), label = "randomized", text_pattern = "{n} {label}", show_exc = TRUE,
+            just_exc = "left", text_pattern_exc = "{label}", label_exc = label_exc, text_fs_exc = 7) %>%
+  fc_split(group, text_pattern = "{n} {label}") %>% 
+  fc_filter(itt == 1, label = "included in intention-to-treat\n population", show_exc = TRUE, 
+            text_pattern = "{n} {label}", 
+            label_exc = "patient did not receive allocated\n treatment (withdrew consent)", 
+            text_pattern_exc = "{n} {label}", , text_fs_exc = 7) %>%
+  fc_filter(pp == 1, label = "included in per-protocol\n population", show_exc = TRUE,
+            just_exc = "left", text_pattern = "{n} {label}", text_fs_exc = 7) %>% 
+  fc_modify(
+    ~.x %>% 
+      filter(id != 9) %>% 
+      mutate(
+        text = case_when(id == 11 ~ label_exc1, id == 13 ~ label_exc2, TRUE ~ text),
+        x = case_when(id == 3 ~ 0.8, id %in% c(7, 11) ~ 0.15, id == 13 ~ x + 0.035, TRUE ~ x),
+        y = case_when(id == 3 ~ y + 0.015, TRUE ~ y)
+      )
+  ) %>% 
+  fc_draw()
+```
+

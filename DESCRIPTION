@@ -1,0 +1,31 @@
+Package: flowchart
+Type: Package
+Title: Tidy Flowchart Generator
+Version: 0.1.0
+Authors@R: c(
+    person("Pau", "Satorra", role = c("aut", "cre")),
+    person("João", "Carmezim", role = c("aut")),
+    person("Natàlia", "Pallarés", role = c("aut")),
+    person("Cristian", "Tebé", role = c("aut"))
+    )
+Maintainer: Pau Satorra <psatorra@igtp.cat>
+Description: Flowchart is a package for drawing participant flow diagrams directly from a dataframe using tidyverse. Representing the flow of participants through each stage of a study, especially in clinical trials, is essential to assess the generalisability and validity of the results. This package provides a set of functions that can be combined with %>% to create all kinds of flowcharts from a dataframe in an easy way.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    Gmisc,
+    grid,
+    tidyr,
+    dplyr,
+    purrr,
+    stringr,
+    tibble,
+    tidyselect,
+    magrittr,
+    rlang
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+RoxygenNote: 7.2.3
