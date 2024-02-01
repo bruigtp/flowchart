@@ -27,7 +27,7 @@ library(tibble)
 
 `flowchart` is a package for drawing participant flow diagrams directly from a dataframe using tidyverse. It provides a set of functions that can be combined with `%>%` to create all kinds of flowcharts from a dataframe in an easy way:
 
-- `as_fc()` initializes a dataframe into a `fc` object that can be manipulated by the package.
+- `as_fc()` transforms a dataframe into a `fc` object that can be manipulated by the package.
 
 - `fc_split()` splits a flowchart according to the different values of a column in the dataframe.
 
@@ -55,10 +55,10 @@ We will use the built-in datasets in the package:`clinic_patient` and `clinic_vi
 data(clinic_patient)
 data(clinic_visit)
 
-#Per patient dataset
+# Per patient dataset
 str(clinic_patient)
 
-#Per visit dataset
+# Per visit dataset
 str(clinic_visit)
 ```
 
@@ -119,13 +119,13 @@ clinic_patient %>%
 We can combine different flowcharts horizontally using `fc_merge()`. For example, we might want to represent the flow of patients included in the study next to the flow of their corresponding visits:
 
 ```{r fig.width = 8}
-#Create first flowchart for patients
+# Create first flowchart for patients
 fc1 <- clinic_patient %>% 
   filter(!is.na(group)) %>% 
   as_fc(label = "Patients included") %>% 
   fc_split(group)
 
-#Create second flowchart for visits
+# Create second flowchart for visits
 fc2 <- clinic_visit %>% 
   filter(!is.na(group)) %>% 
   as_fc(label = "Number of visits") %>% 
@@ -141,13 +141,13 @@ list(fc1, fc2) %>%
 We can combine different flowcharts vertically using `fc_stack()`. For example, we might want to combine in one flowchart the flow of patients included in the study and the flow of their corresponding visits, which come from different dataframes:
 
 ```{r warning = FALSE, fig.width = 6, fig.height = 5}
-#Create first flowchart for patients
+# Create first flowchart for patients
 fc1 <- clinic_patient %>% 
   filter(!is.na(group)) %>% 
   as_fc(label = "Patients included") %>% 
   fc_split(group)
 
-#Create second flowchart for visits
+# Create second flowchart for visits
 fc2 <- clinic_visit %>% 
   filter(!is.na(group)) %>% 
   as_fc(hide = TRUE) %>% 
@@ -198,7 +198,7 @@ Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the 
   </tr>
   <tr>
    <td style="text-align:left;"> `border_color=` </td>
-   <td style="text-align:left;"> modify the color of the box border. </td>
+   <td style="text-align:left;"> modify the border color of the box. </td>
   </tr>
 </tbody>
 </table>
@@ -215,7 +215,7 @@ Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the 
 <tbody>
   <tr>
    <td style="text-align:left;"> `hide=` </td>
-   <td style="text-align:left;"> to hide the first initial box created by this function. </td>
+   <td style="text-align:left;"> hide the first initial box created by this function. </td>
   </tr>
 </tbody>
 </table>
@@ -264,7 +264,7 @@ Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the 
   </tr>
   <tr>
    <td style="text-align:left;"> `border_color_exc=` </td>
-   <td style="text-align:left;"> modify the color of the exclusion box border. </td>
+   <td style="text-align:left;"> modify the border color of the exclusion box. </td>
   </tr>
 </tbody>
 </table>
@@ -306,11 +306,11 @@ Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the 
   </tr>
   <tr>
    <td style="text-align:left;"> `arrow_length=` </td>
-   <td style="text-align:left;"> unit specifying the lenth of the arrow head. </td>
+   <td style="text-align:left;"> unit specifying the length of the arrow head. </td>
   </tr>
   <tr>
    <td style="text-align:left;"> `arrow_ends=` </td>
-   <td style="text-align:left;"> specify the ends of the line to draw arrow head (last/first/both). </td>
+   <td style="text-align:left;"> specify the ends of the line to draw the arrow head (last/first/both). </td>
   </tr>
   <tr>
    <td style="text-align:left;"> `arrow_type=` </td>
@@ -386,7 +386,7 @@ For this example, we will use another built-in dataset called `safo`, which is a
 First, we need to do some pre-processing to reproduce the text in the larger boxes:
 
 ```{r warning=FALSE, fig.width = 9, fig.height = 7}
-#Create labels for exclusion box:
+# Create labels for exclusion box:
 data(safo)
 
 label_exc <- paste(
@@ -420,7 +420,7 @@ label_exc2 <- paste(
 label_exc2 <- str_replace_all(label_exc2, c("nosocomial" = "nosocomial\n", "treatment" = "treatment\n"))
 ```
 
-Second, let's create and customise the flowchart using the features in the package:
+Second, let's create and customise the flowchart using the functions in the package:
 
 ```{r warning=FALSE, fig.width = 10, fig.height = 7}
 safo %>% 
@@ -431,7 +431,7 @@ safo %>%
   fc_filter(itt == 1, label = "included in intention-to-treat\n population", show_exc = TRUE, 
             text_pattern = "{n} {label}", 
             label_exc = "patient did not receive allocated\n treatment (withdrew consent)", 
-            text_pattern_exc = "{n} {label}", , text_fs_exc = 7) %>%
+            text_pattern_exc = "{n} {label}", text_fs_exc = 7) %>%
   fc_filter(pp == 1, label = "included in per-protocol\n population", show_exc = TRUE,
             just_exc = "left", text_pattern = "{n} {label}", text_fs_exc = 7) %>% 
   fc_modify(
