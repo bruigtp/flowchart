@@ -13,6 +13,8 @@ Description: Flowchart is a package for drawing participant flow diagrams direct
 License: MIT + file LICENSE
 BugReports: https://github.com/bruigtp/flowchart/issues
 Encoding: UTF-8
+Depends: 
+    R (>= 3.5.0)
 LazyData: true
 Imports:
     Gmisc,
