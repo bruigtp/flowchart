@@ -4,7 +4,7 @@
 #' @param object fc object that we want to split.
 #' @param var variable column of the database from which it will be splitted.
 #' @param label Vector of characters with the label of each category in order. It has to have as many elements as categories has the column. By default, it will put the labels of the categories.
-#' @param text_pattern Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "{label}\\n {n} ({perc}\%)".
+#' @param text_pattern Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".
 #' @param sel_group Specify if the splitting has to be done only by one of the previous groups. By default is NULL.
 #' @param na.rm logical. Should missing values of the grouping variable be removed? Default is FALSE.
 #' @param just Justification for the text: left, center or right. Default is center.

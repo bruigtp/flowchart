@@ -25,7 +25,7 @@ fc_split(
 
 \item{label}{Vector of characters with the label of each category in order. It has to have as many elements as categories has the column. By default, it will put the labels of the categories.}
 
-\item{text_pattern}{Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "{label}\\n {n} ({perc}\%)".}
+\item{text_pattern}{Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".}
 
 \item{sel_group}{Specify if the splitting has to be done only by one of the previous groups. By default is NULL.}
 

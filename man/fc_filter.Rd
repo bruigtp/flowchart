@@ -33,7 +33,7 @@ fc_filter(
 
 \item{label}{Character that will be the title of the box. By default it will be the evaluated condition.}
 
-\item{text_pattern}{Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "{label}\\n {n} ({perc}\%)".}
+\item{text_pattern}{Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".}
 
 \item{show_exc}{Logical value. If TRUE a box showing the number of excluded rows will be added to the flow chart.}
 
@@ -41,7 +41,7 @@ fc_filter(
 
 \item{label_exc}{Character that will be the title of the added box showing the excluded patients. By default it will show "Excluded".}
 
-\item{text_pattern_exc}{Structure that will have the text in each of the excluded boxes. It recognizes label, n, N and perc within brackets. For default it is "{label}\\n {n} ({perc}\%)".}
+\item{text_pattern_exc}{Structure that will have the text in each of the excluded boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".}
 
 \item{sel_group}{Specify if the filtering has to be done only by one of the previous groups. By default is NULL.}
 

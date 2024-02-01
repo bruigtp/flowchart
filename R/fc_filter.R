@@ -4,11 +4,11 @@
 #' @param object fc object that we want to filter.
 #' @param filter Expression that returns a logical value and are defined in terms of the variables in the data frame. The data base will be filtered by this expression, and it will create a box showing the number of rows satisfying this condition.
 #' @param label Character that will be the title of the box. By default it will be the evaluated condition.
-#' @param text_pattern Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "{label}\\n {n} ({perc}\%)".
+#' @param text_pattern Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".
 #' @param show_exc Logical value. If TRUE a box showing the number of excluded rows will be added to the flow chart.
 #' @param direction_exc One of "left" or "right" indicating if the exclusion box goes into the left direction or in the right direction. By default is "right".
 #' @param label_exc Character that will be the title of the added box showing the excluded patients. By default it will show "Excluded".
-#' @param text_pattern_exc Structure that will have the text in each of the excluded boxes. It recognizes label, n, N and perc within brackets. For default it is "{label}\\n {n} ({perc}\%)".
+#' @param text_pattern_exc Structure that will have the text in each of the excluded boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".
 #' @param sel_group Specify if the filtering has to be done only by one of the previous groups. By default is NULL.
 #' @param just Justification for the text: left, center or right. Default is center.
 #' @param text_color Color of the text. It is black by default.

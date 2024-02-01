@@ -21,7 +21,7 @@ as_fc(
 
 \item{label}{Character with the text that will be shown in the box.}
 
-\item{text_pattern}{Structure that will have the text in the box. It recognizes label, n, N and perc within brackets. For default it is "{label}\\n{N}".}
+\item{text_pattern}{Structure that will have the text in the box. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n\{N\}".}
 
 \item{just}{Justification for the text: left, center or right. Default is center.}
 

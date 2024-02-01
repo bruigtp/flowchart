@@ -3,7 +3,7 @@
 #'
 #' @param .data Data frame that we want to show the number of rows.
 #' @param label Character with the text that will be shown in the box.
-#' @param text_pattern Structure that will have the text in the box. It recognizes label, n, N and perc within brackets. For default it is "{label}\\n{N}".
+#' @param text_pattern Structure that will have the text in the box. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n\{N\}".
 #' @param just Justification for the text: left, center or right. Default is center.
 #' @param text_color Color of the text. It is black by default.
 #' @param text_fs Font size of the text. It is 8 by default.
