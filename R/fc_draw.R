@@ -8,12 +8,12 @@
 #' @param arrow_type One of "open" or "closed" indicating whether the arrow head should be a closed triangle, as in `arrow`.
 #'
 #' @examples
-#' clinic_patient %>%
-#'   as_fc(label = "Available patients") %>%
-#'   fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) %>%
-#'   fc_split(group) %>%
-#'   fc_filter(n_visits == 2, label = "Two visits available", show_exc = TRUE) %>%
-#'   fc_split(marker_alt, label = c("Marker not alterated", "Marker alterated")) %>%
+#' clinic_patient |>
+#'   as_fc(label = "Available patients") |>
+#'   fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) |>
+#'   fc_split(group) |>
+#'   fc_filter(n_visits == 2, label = "Two visits available", show_exc = TRUE) |>
+#'   fc_split(marker_alt, label = c("Marker not alterated", "Marker alterated")) |>
 #'   fc_draw()
 #'
 #' @export
@@ -27,7 +27,7 @@ fc_draw <- function(object, arrow_angle = 30, arrow_length = grid::unit(0.1, "in
   grid::grid.newpage()
 
   if(tibble::is_tibble(object$fc)) object$fc <- list(object$fc)
-  plot_fc <- purrr::map(object$fc, ~.x %>%
+  plot_fc <- purrr::map(object$fc, ~.x |>
                           dplyr::mutate(
                             bg = purrr::pmap(list(.data$x, .data$y, .data$text, .data$type, .data$group, .data$just, .data$text_color, .data$text_fs, .data$bg_fill, .data$border_color), function(...) {
                               arg <- list(...)
@@ -52,14 +52,14 @@ fc_draw <- function(object, arrow_angle = 30, arrow_length = grid::unit(0.1, "in
   for(i in 1:length(plot_fc)) {
 
     #Identify each step of the process of connecting the flowchart
-    step <- object$fc[[i]] %>%
+    step <- object$fc[[i]] |>
       dplyr::distinct(.data$y, .data$type)
 
     if(nrow(step) > 1) {
       for(j in 2:nrow(step)) {
-        ids <- object$fc[[i]] %>%
-          dplyr::mutate(id = dplyr::row_number()) %>%
-          dplyr::filter(.data$y == step$y[j], .data$type == step$type[j]) %>%
+        ids <- object$fc[[i]] |>
+          dplyr::mutate(id = dplyr::row_number()) |>
+          dplyr::filter(.data$y == step$y[j], .data$type == step$type[j]) |>
           dplyr::pull(.data$id)
 
         type <- unique(object$fc[[i]][["type"]][ids])
@@ -74,18 +74,18 @@ fc_draw <- function(object, arrow_angle = 30, arrow_length = grid::unit(0.1, "in
             #If there is only one group, the parent box is the right before them
             if(group_par == "") {
 
-              id_par <- object$fc[[i]] %>%
-                dplyr::mutate(id = dplyr::row_number()) %>%
-                dplyr::filter(.data$id < min(ids), .data$type != "exclude") %>%
-                dplyr::last() %>%
+              id_par <- object$fc[[i]] |>
+                dplyr::mutate(id = dplyr::row_number()) |>
+                dplyr::filter(.data$id < min(ids), .data$type != "exclude") |>
+                dplyr::last() |>
                 dplyr::pull(.data$id)
 
             } else {
 
-              id_par <- object$fc[[i]] %>%
-                dplyr::mutate(id = dplyr::row_number()) %>%
-                dplyr::filter(.data$id < min(ids), .data$group == group_par) %>%
-                dplyr::last() %>%
+              id_par <- object$fc[[i]] |>
+                dplyr::mutate(id = dplyr::row_number()) |>
+                dplyr::filter(.data$id < min(ids), .data$group == group_par) |>
+                dplyr::last() |>
                 dplyr::pull(.data$id)
 
             }
@@ -102,10 +102,10 @@ fc_draw <- function(object, arrow_angle = 30, arrow_length = grid::unit(0.1, "in
           for(k in ids) {
 
             #Get the parent box (the last with the same x coordinate)
-            id <- object$fc[[i]] %>%
-              dplyr::mutate(id = dplyr::row_number()) %>%
-              dplyr::filter(.data$x == object$fc[[i]][["x"]][k], .data$id < min(ids)) %>%
-              dplyr::last() %>%
+            id <- object$fc[[i]] |>
+              dplyr::mutate(id = dplyr::row_number()) |>
+              dplyr::filter(.data$x == object$fc[[i]][["x"]][k], .data$id < min(ids)) |>
+              dplyr::last() |>
               dplyr::pull(.data$id)
 
             #If it exists because now the initial box can be hided
@@ -126,8 +126,8 @@ fc_draw <- function(object, arrow_angle = 30, arrow_length = grid::unit(0.1, "in
         } else if(type == "stack") {
 
           #Find the last box (in height) of the previous flow chart (before stack)
-          y_last <- min(object$fc[[i]] %>%
-                          dplyr::filter(dplyr::row_number() < ids[1]) %>%
+          y_last <- min(object$fc[[i]] |>
+                          dplyr::filter(dplyr::row_number() < ids[1]) |>
                           dplyr::pull(.data$y)
           )
 

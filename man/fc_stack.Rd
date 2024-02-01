@@ -19,19 +19,19 @@ This function allows to combine vertically two different flowcharts.
 }
 \examples{
 #Create first flowchart for patients
-fc1 <- clinic_patient \%>\%
-  dplyr::filter(!is.na(group)) \%>\%
-  as_fc(label = "Patients included") \%>\%
+fc1 <- clinic_patient |>
+  dplyr::filter(!is.na(group)) |>
+  as_fc(label = "Patients included") |>
   fc_split(group)
 
 #Create second flowchart for visits
-fc2 <- clinic_visit \%>\%
-  dplyr::filter(!is.na(group)) \%>\%
-  as_fc(hide = TRUE) \%>\%
+fc2 <- clinic_visit |>
+  dplyr::filter(!is.na(group)) |>
+  as_fc(hide = TRUE) |>
   fc_split(group, label = rep("Number visits", 2), text_pattern = "{label}\\\\n #' {n}")
 
-list(fc1, fc2) \%>\%
-  fc_stack() \%>\%
+list(fc1, fc2) |>
+  fc_stack() |>
   fc_draw()
 
 }

@@ -6,19 +6,19 @@
 #'
 #' @examples
 #' #Create first flowchart for patients
-#' fc1 <- clinic_patient %>%
-#'   dplyr::filter(!is.na(group)) %>%
-#'   as_fc(label = "Patients included") %>%
+#' fc1 <- clinic_patient |>
+#'   dplyr::filter(!is.na(group)) |>
+#'   as_fc(label = "Patients included") |>
 #'   fc_split(group)
 #'
 #' #Create second flowchart for visits
-#' fc2 <- clinic_visit %>%
-#'   dplyr::filter(!is.na(group)) %>%
-#'   as_fc(label = "Number of visits") %>%
+#' fc2 <- clinic_visit |>
+#'   dplyr::filter(!is.na(group)) |>
+#'   as_fc(label = "Number of visits") |>
 #'   fc_split(group)
 #'
-#' list(fc1, fc2) %>%
-#'   fc_merge() %>%
+#' list(fc1, fc2) |>
+#'   fc_merge() |>
 #'   fc_draw()
 #'
 #' @export
@@ -32,10 +32,10 @@ fc_merge <- function(fcs) {
     id = 1:length(fcs),
     data = purrr::map(fcs, ~.x$data),
     fc = purrr::map(fcs, ~.x$fc)
-  ) %>%
+  ) |>
     dplyr::mutate(
       fc = purrr::map(seq_along(.data$fc), function(i) {
-        .data$fc[[i]] %>%
+        .data$fc[[i]] |>
           dplyr::mutate(
             x = update_x(.data$x, i, length(fcs))
           )

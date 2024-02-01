@@ -42,8 +42,8 @@ List with the dataset and the initialized flowchart.
 This function allows to initialize a flow chart given any database. It will create a fc object showing the number of rows of the database.
 }
 \examples{
-clinic_patient \%>\%
-as_fc(label = "All patients") \%>\%
+clinic_patient |>
+as_fc(label = "All patients") |>
 fc_draw()
 
 }

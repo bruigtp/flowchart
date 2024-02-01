@@ -27,12 +27,12 @@ fc_draw(
 This function allows to draw the flowchart from a fc object.
 }
 \examples{
-clinic_patient \%>\%
-  as_fc(label = "Available patients") \%>\%
-  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) \%>\%
-  fc_split(group) \%>\%
-  fc_filter(n_visits == 2, label = "Two visits available", show_exc = TRUE) \%>\%
-  fc_split(marker_alt, label = c("Marker not alterated", "Marker alterated")) \%>\%
+clinic_patient |>
+  as_fc(label = "Available patients") |>
+  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) |>
+  fc_split(group) |>
+  fc_filter(n_visits == 2, label = "Two visits available", show_exc = TRUE) |>
+  fc_split(marker_alt, label = c("Marker not alterated", "Marker alterated")) |>
   fc_draw()
 
 }

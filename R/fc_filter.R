@@ -23,9 +23,9 @@
 #' @return List with the filtered dataset and the flowchart with the resulting filtered box.
 #'
 #' @examples
-#' clinic_patient %>%
-#'   as_fc(label = "Patients included") %>%
-#'   fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) %>%
+#' clinic_patient |>
+#'   as_fc(label = "Patients included") |>
+#'   fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) |>
 #'   fc_draw()
 #'
 #' @export
@@ -51,11 +51,11 @@ fc_filter <- function(object, filter, label = NULL, text_pattern = "{label}\n {n
   xval <-  seq(0, 1, by = 1/(nhor + 1))
   xval <- xval[!xval %in% c(0, 1)]
 
-  new_fc <- object$data %>%
+  new_fc <- object$data |>
     dplyr::summarise(
       n = sum({{filter}}, na.rm = TRUE),
       N = dplyr::n()
-    ) %>%
+    ) |>
     dplyr::mutate(
       x = xval,
       y = NA,
@@ -73,24 +73,24 @@ fc_filter <- function(object, filter, label = NULL, text_pattern = "{label}\n {n
   group0 <- group0[group0 != ".rows"]
 
   if(length(group0) > 0) {
-    new_fc <- new_fc %>%
-      tidyr::unite("group", tidyselect::all_of(group0), sep = ", ") %>%
+    new_fc <- new_fc |>
+      tidyr::unite("group", tidyselect::all_of(group0), sep = ", ") |>
       dplyr::ungroup()
   } else {
-    new_fc <- new_fc %>%
+    new_fc <- new_fc |>
       dplyr::mutate(group = NA)
   }
 
 
   if(is.null(sel_group)) {
 
-    new_fc <- new_fc %>%
+    new_fc <- new_fc |>
       dplyr::select("x", "y", "n", "N", "perc", "text", "type", "group", "just", "text_color", "text_fs", "bg_fill", "border_color")
 
   } else {
 
-    new_fc <- new_fc %>%
-      dplyr::filter(.data$group %in% sel_group) %>%
+    new_fc <- new_fc |>
+      dplyr::filter(.data$group %in% sel_group) |>
       dplyr::select("x", "y", "n", "N", "perc", "text", "type", "group", "just", "text_color", "text_fs", "bg_fill", "border_color")
 
   }
@@ -98,17 +98,17 @@ fc_filter <- function(object, filter, label = NULL, text_pattern = "{label}\n {n
 
   #remove the id previous to adding the next one
   if(!is.null(object$fc)) {
-    object$fc <- object$fc %>%
+    object$fc <- object$fc |>
       dplyr::select(-"id")
   }
 
 
   object$fc <- rbind(
-    object$fc %>%
+    object$fc |>
       dplyr::mutate(old = TRUE),
-    new_fc %>%
+    new_fc |>
       dplyr::mutate(old = FALSE)
-  ) %>%
+  ) |>
     dplyr::mutate(
       y = update_y(.data$y, .data$type, .data$x)
     )
@@ -123,17 +123,17 @@ fc_filter <- function(object, filter, label = NULL, text_pattern = "{label}\n {n
     )
 
     #Calculate the middle distance between the box and the parent
-    new_fc <- object$fc %>%
+    new_fc <- object$fc |>
       dplyr::filter(!.data$old)
 
     #The label in the text_pattern references to label_exc and not to label
     label <- label_exc
 
-    new_fc2 <- new_fc %>%
+    new_fc2 <- new_fc |>
       dplyr::mutate(
-        parent = purrr::map(.data$x, ~object$fc %>%
-                              dplyr::filter(.data$x == .x, .data$old) %>%
-                              dplyr::last() %>%
+        parent = purrr::map(.data$x, ~object$fc |>
+                              dplyr::filter(.data$x == .x, .data$old) |>
+                              dplyr::last() |>
                               dplyr::select("y", "n")
         ),
         x = .data$x + add_x,
@@ -149,7 +149,7 @@ fc_filter <- function(object, filter, label = NULL, text_pattern = "{label}\n {n
         text_fs = text_fs_exc,
         bg_fill = bg_fill_exc,
         border_color = border_color_exc
-      ) %>%
+      ) |>
       dplyr::select(-"parent")
 
     new_fc3 <- NULL
@@ -158,22 +158,22 @@ fc_filter <- function(object, filter, label = NULL, text_pattern = "{label}\n {n
     }
 
     object$fc <- rbind(
-      object$fc %>% dplyr::filter(.data$old),
-      new_fc3 %>%
+      object$fc |> dplyr::filter(.data$old),
+      new_fc3 |>
         tibble::as_tibble()
     )
 
   }
 
-  object$fc <- object$fc %>%
-    dplyr::select(-"old") %>%
+  object$fc <- object$fc |>
+    dplyr::select(-"old") |>
     dplyr::mutate(
       id = dplyr::row_number()
-    ) %>%
+    ) |>
     dplyr::relocate("id")
 
   #Quan fem un filter la bbdd ha de quedar filtrada
-  object$data <- object$data %>%
+  object$data <- object$data |>
     dplyr::filter({{filter}})
 
   object

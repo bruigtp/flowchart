@@ -9,7 +9,7 @@ fc_modify(object, fun, ...)
 \arguments{
 \item{object}{flowchart created as a fc object.}
 
-\item{fun}{A function or formula that will be applied to `.$fc`. If a _function_, it is used as is. If a _formula_, e.g. `fun = ~.x \%>\% mutate(x = x + 0.2)`, it is converted to a function.}
+\item{fun}{A function or formula that will be applied to `.$fc`. If a _function_, it is used as is. If a _formula_, e.g. `fun = ~.x |> mutate(x = x + 0.2)`, it is converted to a function.}
 
 \item{...}{Additional arguments passed on to the mapped function.}
 }
@@ -18,10 +18,10 @@ This function allows to modify the `.$fc` tibble included in each fc object that
 }
 \examples{
 #Example 1 (change text):
-clinic_patient \%>\%
-  as_fc(label = "Patients included") \%>\%
-  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) \%>\%
-  fc_modify(~.x \%>\%
+clinic_patient |>
+  as_fc(label = "Patients included") |>
+  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) |>
+  fc_modify(~.x |>
               dplyr::mutate(
                 text = dplyr::case_when(
                   id == 3 ~ stringr::str_glue("Excluded patients:
@@ -30,14 +30,14 @@ clinic_patient \%>\%
                                      "),
                   TRUE ~ text
                 )
-              )) \%>\%
+              )) |>
   fc_draw()
 
 #Example 2 (change coordinates):
-clinic_patient \%>\%
-  as_fc(label = "Patients included") \%>\%
-  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) \%>\%
-  fc_modify(~.x \%>\%
+clinic_patient |>
+  as_fc(label = "Patients included") |>
+  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) |>
+  fc_modify(~.x |>
              dplyr::mutate(
                x = dplyr::case_when(
                  id == 3 ~ 0.8,
@@ -48,6 +48,6 @@ clinic_patient \%>\%
                  id == 2 ~ 0.15,
                  id == 3 ~ 0.5
                )
-             )) \%>\%
+             )) |>
    fc_draw()
 }

@@ -14,8 +14,8 @@
 #' @return List with the dataset and the initialized flowchart.
 #'
 #' @examples
-#' clinic_patient %>%
-#' as_fc(label = "All patients") %>%
+#' clinic_patient |>
+#' as_fc(label = "All patients") |>
 #' fc_draw()
 #'
 #' @export
@@ -48,7 +48,7 @@ as_fc <- function(.data, label = "Initial dataframe", text_pattern = "{label}\n{
 
   #Initialize flowchart as x is a dataframe
   object <- list(
-    data = .data %>%
+    data = .data |>
       dplyr::ungroup(),
     fc = fc_new
   )

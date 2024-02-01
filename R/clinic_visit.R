@@ -16,10 +16,10 @@
 #'
 #' @keywords datasets
 #' @examples
-#' clinic_visit %>%
-#'   dplyr::filter(!is.na(group)) %>%
-#'   as_fc(label = "Number of visits") %>%
-#'   fc_split(group) %>%
+#' clinic_visit |>
+#'   dplyr::filter(!is.na(group)) |>
+#'   as_fc(label = "Number of visits") |>
+#'   fc_split(group) |>
 #'   fc_draw()
 #'
 

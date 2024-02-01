@@ -15,10 +15,10 @@
 #' @return List with the dataset grouped by the splitting variable and the flowchart with the resulting split.
 #'
 #' @examples
-#' clinic_patient %>%
-#'   dplyr::filter(!is.na(group)) %>%
-#'   as_fc(label = "Patients included") %>%
-#'   fc_split(group) %>%
+#' clinic_patient |>
+#'   dplyr::filter(!is.na(group)) |>
+#'   as_fc(label = "Patients included") |>
+#'   fc_split(group) |>
 #'   fc_draw()
 #'
 #' @export
@@ -38,13 +38,13 @@ fc_split <- function(object, var, label = NULL, text_pattern = "{label}\n {n} ({
   N <- nrow(object$data)
 
   if(na.rm) {
-    object$data <- object$data %>%
+    object$data <- object$data |>
       dplyr::filter_at(var, ~!is.na(.x))
   }
 
-  new_fc <- object$data %>%
-    dplyr::mutate_at(var, as.factor) %>%
-    dplyr::count(label = get(var), .drop = FALSE) %>%
+  new_fc <- object$data |>
+    dplyr::mutate_at(var, as.factor) |>
+    dplyr::count(label = get(var), .drop = FALSE) |>
     #To save the original label previous to changing it (in case that label is specified)
     dplyr::mutate(label0 = .data$label)
 
@@ -53,7 +53,7 @@ fc_split <- function(object, var, label = NULL, text_pattern = "{label}\n {n} ({
     new_fc$label <- factor(new_fc$label, levels = unique(new_fc$label), labels = label)
   }
 
-  new_fc <- new_fc %>%
+  new_fc <- new_fc |>
     dplyr::mutate(
       x = NA,
       y = NA,
@@ -72,7 +72,7 @@ fc_split <- function(object, var, label = NULL, text_pattern = "{label}\n {n} ({
   group0 <- names(attr(object$data, "groups"))
   group0 <- group0[group0 != ".rows"]
 
-  object$data <- object$data %>%
+  object$data <- object$data |>
     dplyr::group_by_at(c(group0, var), .drop = FALSE)
 
   #Fiquem les posicions horitzontals
@@ -84,45 +84,45 @@ fc_split <- function(object, var, label = NULL, text_pattern = "{label}\n {n} ({
 
   if(length(group0) > 0) {
 
-    new_fc <- new_fc %>%
-      tidyr::unite("aux_group", tidyselect::all_of(group0), sep = ", ", remove = FALSE) %>%
+    new_fc <- new_fc |>
+      tidyr::unite("aux_group", tidyselect::all_of(group0), sep = ", ", remove = FALSE) |>
       dplyr::ungroup()
 
     if(is.null(sel_group)) {
 
-      new_fc <- new_fc %>%
+      new_fc <- new_fc |>
         dplyr::select(-"aux_group")
 
     } else {
 
-      new_fc <- new_fc %>%
-        dplyr::filter(.data$aux_group %in% sel_group) %>%
+      new_fc <- new_fc |>
+        dplyr::filter(.data$aux_group %in% sel_group) |>
         dplyr::select(-"aux_group")
 
     }
   }
 
 
-  new_fc <- new_fc %>%
-    tidyr::unite("group", c(tidyselect::all_of(group0), "label0"), sep = ", ") %>%
-    dplyr::ungroup() %>%
+  new_fc <- new_fc |>
+    tidyr::unite("group", c(tidyselect::all_of(group0), "label0"), sep = ", ") |>
+    dplyr::ungroup() |>
     dplyr::select("x", "y", "n", "N", "perc", "text", "type", "group", "just", "text_color", "text_fs", "bg_fill", "border_color")
 
   #remove the id previous to adding the next one
   if(!is.null(object$fc)) {
-    object$fc <- object$fc %>%
+    object$fc <- object$fc |>
       dplyr::select(-"id")
   }
 
   object$fc <- rbind(
     object$fc,
-    new_fc %>%
+    new_fc |>
       tibble::as_tibble()
-  ) %>%
+  ) |>
     dplyr::mutate(
       y = update_y(.data$y, .data$type, .data$x),
       id = dplyr::row_number()
-    ) %>%
+    ) |>
     dplyr::relocate("id")
 
   object

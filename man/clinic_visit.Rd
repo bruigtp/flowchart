@@ -24,10 +24,10 @@ Simulated clinical trial information by visit
 Simulated dataset of a clinical trial comparing some biomarker values between two randomized groups (control/treatment). This dataset contains the information by visit. It is equivalent to the dataset clinic_patient, which has the same information by patient.
 }
 \examples{
-clinic_visit \%>\%
-  dplyr::filter(!is.na(group)) \%>\%
-  as_fc(label = "Number of visits") \%>\%
-  fc_split(group) \%>\%
+clinic_visit |>
+  dplyr::filter(!is.na(group)) |>
+  as_fc(label = "Number of visits") |>
+  fc_split(group) |>
   fc_draw()
 
 }

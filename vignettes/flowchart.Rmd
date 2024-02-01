@@ -25,7 +25,7 @@ library(tibble)
 
 # Overview 
 
-`flowchart` is a package for drawing participant flow diagrams directly from a dataframe using tidyverse. It provides a set of functions that can be combined with `%>%` to create all kinds of flowcharts from a dataframe in an easy way:
+`flowchart` is a package for drawing participant flow diagrams directly from a dataframe using tidyverse. It provides a set of functions that can be combined with `|>` to create all kinds of flowcharts from a dataframe in an easy way:
 
 - `as_fc()` transforms a dataframe into a `fc` object that can be manipulated by the package.
 
@@ -64,12 +64,12 @@ str(clinic_visit)
 
 # Basic operations
 
-The first step is to initialise the flowchart with `as_fc`. The last step, if we want to visualise the created flowchart, is to draw the flowchart with `fc_draw`. In between we can combine the functions `fc_split`., `fc_filter`, `fc_merge`, `fc_stack` with the operator pipe (`%>%`) to create complex flowchart structures.
+The first step is to initialise the flowchart with `as_fc`. The last step, if we want to visualise the created flowchart, is to draw the flowchart with `fc_draw`. In between we can combine the functions `fc_split`., `fc_filter`, `fc_merge`, `fc_stack` with the operator pipe (`|>`) to create complex flowchart structures.
 
 ## Initialize
 
 ```{r}
-fc <- clinic_patient %>% 
+fc <- clinic_patient |> 
   as_fc() 
 
 class(fc)
@@ -81,7 +81,7 @@ The `fc` object created is a list containing the tibble of the dataframe associa
 ## Draw
 
 ```{r}
-fc %>% 
+fc |> 
   fc_draw()
 ```
 
@@ -90,9 +90,9 @@ fc %>%
 We can filter the flowchart using `fc_filter()` specifying the logic in which the filter is to be applied. For example, we want to show the number of patients included in the study, that is, those over the age of 18 who have signed an informed consent. 
 
 ```{r fig.width = 6, fig.height = 5}
-clinic_patient %>% 
-  as_fc(label = "Patients included") %>% 
-  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) %>% 
+clinic_patient |> 
+  as_fc(label = "Patients included") |> 
+  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) |> 
   fc_draw()
 ```
 
@@ -103,10 +103,10 @@ See 'Modify function arguments' for more information on the `label=` and `show_e
 We can split the flowchart into groups using `fc_split()` specifying the grouping variable. The function will split the flowchart into as many categories as the specified variable has:
 
 ```{r fig.width = 6, fig.height = 5}
-clinic_patient %>% 
-  filter(!is.na(group)) %>% 
-  as_fc(label = "Patients included") %>% 
-  fc_split(group) %>% 
+clinic_patient |> 
+  filter(!is.na(group)) |> 
+  as_fc(label = "Patients included") |> 
+  fc_split(group) |> 
   fc_draw()
 ```
 
@@ -120,19 +120,19 @@ We can combine different flowcharts horizontally using `fc_merge()`. For example
 
 ```{r fig.width = 8}
 # Create first flowchart for patients
-fc1 <- clinic_patient %>% 
-  filter(!is.na(group)) %>% 
-  as_fc(label = "Patients included") %>% 
+fc1 <- clinic_patient |> 
+  filter(!is.na(group)) |> 
+  as_fc(label = "Patients included") |> 
   fc_split(group)
 
 # Create second flowchart for visits
-fc2 <- clinic_visit %>% 
-  filter(!is.na(group)) %>% 
-  as_fc(label = "Number of visits") %>% 
+fc2 <- clinic_visit |> 
+  filter(!is.na(group)) |> 
+  as_fc(label = "Number of visits") |> 
   fc_split(group) 
 
-list(fc1, fc2) %>% 
-  fc_merge() %>% 
+list(fc1, fc2) |> 
+  fc_merge() |> 
   fc_draw()
 ```
 
@@ -142,19 +142,19 @@ We can combine different flowcharts vertically using `fc_stack()`. For example, 
 
 ```{r warning = FALSE, fig.width = 6, fig.height = 5}
 # Create first flowchart for patients
-fc1 <- clinic_patient %>% 
-  filter(!is.na(group)) %>% 
-  as_fc(label = "Patients included") %>% 
+fc1 <- clinic_patient |> 
+  filter(!is.na(group)) |> 
+  as_fc(label = "Patients included") |> 
   fc_split(group)
 
 # Create second flowchart for visits
-fc2 <- clinic_visit %>% 
-  filter(!is.na(group)) %>% 
-  as_fc(hide = TRUE) %>% 
+fc2 <- clinic_visit |> 
+  filter(!is.na(group)) |> 
+  as_fc(hide = TRUE) |> 
   fc_split(group, label = c("Number of visits (Control)", "Number of visits (Treatment)"), text_pattern = "{label}\n {n}") 
 
-list(fc1, fc2) %>% 
-  fc_stack() %>% 
+list(fc1, fc2) |> 
+  fc_stack() |> 
   fc_draw()
 ```
 
@@ -326,10 +326,10 @@ The function `modify_fc` allows the user to customise the created flowchart by m
 For example, we could fully customise the text in the exclusion box if we wanted to specify the different reasons for exclusion:
  
 ```{r fig.width = 6, fig.height = 5}
-fc <- clinic_patient %>% 
-  as_fc(label = "Patients included") %>% 
-  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) %>% 
-  fc_modify(~.x %>% 
+fc <- clinic_patient |> 
+  as_fc(label = "Patients included") |> 
+  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) |> 
+  fc_modify(~.x |> 
               mutate(
                 text = case_when(
                   id == 3 ~ str_glue("Excluded patients:
@@ -340,15 +340,15 @@ fc <- clinic_patient %>%
                 )
               )) 
 
-fc %>% 
+fc |> 
   fc_draw()
 ```
 
 We could also use `fc_modify()` to change the default _x_ and _y_ coordinates:
 
 ```{r fig.width = 6, fig.height = 5}
-fc %>% 
-  fc_modify(~.x %>% 
+fc |> 
+  fc_modify(~.x |> 
               mutate(
                 x = case_when(
                   id == 3 ~ 0.8,
@@ -359,7 +359,7 @@ fc %>%
                   id == 2 ~ 0.15,
                   id == 3 ~ 0.5
                 )
-              )) %>% 
+              )) |> 
   fc_draw()
 ```
 
@@ -368,12 +368,12 @@ fc %>%
 ## Example 1
 
 ```{r warning = FALSE, fig.width = 7, fig.height = 6}
-clinic_patient %>% 
-  as_fc(label = "Available patients") %>% 
-  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) %>% 
-  fc_split(group) %>% 
-  fc_filter(n_visits == 2, label = "Two visits available", show_exc = TRUE) %>% 
-  fc_split(marker_alt, label = c("Marker not alterated", "Marker alterated")) %>% 
+clinic_patient |> 
+  as_fc(label = "Available patients") |> 
+  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) |> 
+  fc_split(group) |> 
+  fc_filter(n_visits == 2, label = "Two visits available", show_exc = TRUE) |> 
+  fc_split(marker_alt, label = c("Marker not alterated", "Marker alterated")) |> 
   fc_draw()
 ```
 
@@ -397,8 +397,8 @@ label_exc <- paste(
 
 label_exc <- gsub("exclusion criteria", "exclusion criteria:", label_exc)
 
-safo1 <- safo %>% 
-  filter(group == "cloxacilin alone", !is.na(reason_pp)) %>% 
+safo1 <- safo |> 
+  filter(group == "cloxacilin alone", !is.na(reason_pp)) |> 
   mutate(reason_pp = droplevels(reason_pp))
 
 label_exc1 <- paste(
@@ -408,8 +408,8 @@ label_exc1 <- paste(
 
 label_exc1 <- str_replace_all(label_exc1, c("resistant" = "resistant\n", "blood" = "blood\n"))
 
-safo2 <- safo %>% 
-  filter(group == "cloxacilin plus fosfomycin", !is.na(reason_pp)) %>% 
+safo2 <- safo |> 
+  filter(group == "cloxacilin plus fosfomycin", !is.na(reason_pp)) |> 
   mutate(reason_pp = droplevels(reason_pp))
 
 label_exc2 <- paste(
@@ -423,26 +423,26 @@ label_exc2 <- str_replace_all(label_exc2, c("nosocomial" = "nosocomial\n", "trea
 Second, let's create and customise the flowchart using the functions in the package:
 
 ```{r warning=FALSE, fig.width = 10, fig.height = 7}
-safo %>% 
-  as_fc("patients assessed for eligibility", text_pattern = "{n} {label}") %>% 
+safo |> 
+  as_fc("patients assessed for eligibility", text_pattern = "{n} {label}") |> 
   fc_filter(!is.na(group), label = "randomized", text_pattern = "{n} {label}", show_exc = TRUE,
-            just_exc = "left", text_pattern_exc = "{label}", label_exc = label_exc, text_fs_exc = 7) %>%
-  fc_split(group, text_pattern = "{n} {label}") %>% 
+            just_exc = "left", text_pattern_exc = "{label}", label_exc = label_exc, text_fs_exc = 7) |>
+  fc_split(group, text_pattern = "{n} {label}") |> 
   fc_filter(itt == 1, label = "included in intention-to-treat\n population", show_exc = TRUE, 
             text_pattern = "{n} {label}", 
             label_exc = "patient did not receive allocated\n treatment (withdrew consent)", 
-            text_pattern_exc = "{n} {label}", text_fs_exc = 7) %>%
+            text_pattern_exc = "{n} {label}", text_fs_exc = 7) |>
   fc_filter(pp == 1, label = "included in per-protocol\n population", show_exc = TRUE,
-            just_exc = "left", text_pattern = "{n} {label}", text_fs_exc = 7) %>% 
+            just_exc = "left", text_pattern = "{n} {label}", text_fs_exc = 7) |> 
   fc_modify(
-    ~.x %>% 
-      filter(id != 9) %>% 
+    ~.x |> 
+      filter(id != 9) |> 
       mutate(
         text = case_when(id == 11 ~ label_exc1, id == 13 ~ label_exc2, TRUE ~ text),
         x = case_when(id == 3 ~ 0.8, id %in% c(7, 11) ~ 0.15, id == 13 ~ x + 0.035, TRUE ~ x),
         y = case_when(id == 3 ~ y + 0.015, TRUE ~ y)
       )
-  ) %>% 
+  ) |> 
   fc_draw()
 ```
 

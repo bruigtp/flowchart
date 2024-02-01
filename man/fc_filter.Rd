@@ -72,9 +72,9 @@ List with the filtered dataset and the flowchart with the resulting filtered box
 This function allows to filter the flowchart in function of a expression that returns a logic value that are defined in terms of the variables in the database. It will generate one box per group showing the number of rows of the group that matches the condition, and will retain only those rows in the data base.
 }
 \examples{
-clinic_patient \%>\%
-  as_fc(label = "Patients included") \%>\%
-  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) \%>\%
+clinic_patient |>
+  as_fc(label = "Patients included") |>
+  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) |>
   fc_draw()
 
 }

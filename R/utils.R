@@ -107,7 +107,7 @@ update_y_stack <- function(y, x, type, i, n) {
 #'
 is_class <- function(x, class) {
   if (!inherits(x, class)) {
-    stringr::str_glue("Expecting object of class {class}") %>%
+    stringr::str_glue("Expecting object of class {class}") |>
       stop(call. = FALSE)
   }
 }
