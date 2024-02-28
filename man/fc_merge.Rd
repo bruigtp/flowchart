@@ -10,7 +10,7 @@ fc_merge(fcs)
 \item{fcs}{list with all the flowcharts that we want to merge}
 }
 \value{
-List containing a list with the datasets belonging to each flowchart and another list with each of the flowcharts to merge.
+List containing a list with the datasets belonging to each flowchart and another list with each of the flowcharts parameters to merge.
 }
 \description{
 This function allows to combine horizontally two different flowcharts.

@@ -4,6 +4,8 @@
 #' @param object flowchart created as a fc object.
 #' @param fun A function or formula that will be applied to `.$fc`. If a _function_, it is used as is. If a _formula_, e.g. `fun = ~.x |> mutate(x = x + 0.2)`, it is converted to a function.
 #' @param ... Additional arguments passed on to the mapped function.
+#' @return List with the dataset and the modified flowchart parameters.
+#'
 #' @examples
 #' #Example 1 (change text):
 #' clinic_patient |>

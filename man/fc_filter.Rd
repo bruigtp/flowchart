@@ -66,7 +66,7 @@ fc_filter(
 \item{border_color_exc}{Box background color of the exclude box. It is black by default.}
 }
 \value{
-List with the filtered dataset and the flowchart with the resulting filtered box.
+List with the filtered dataset and the flowchart parameters with the resulting filtered box.
 }
 \description{
 This function allows to filter the flowchart in function of a expression that returns a logic value that are defined in terms of the variables in the database. It will generate one box per group showing the number of rows of the group that matches the condition, and will retain only those rows in the data base.

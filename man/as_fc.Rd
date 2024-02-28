@@ -36,7 +36,7 @@ as_fc(
 \item{hide}{Logical value to hide the initial box or not. Default is FALSE. hide = TRUE can only be combined with fc_split().}
 }
 \value{
-List with the dataset and the initialized flowchart.
+List with the dataset and the initialized flowchart parameters.
 }
 \description{
 This function allows to initialize a flow chart given any database. It will create a fc object showing the number of rows of the database.

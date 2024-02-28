@@ -12,7 +12,7 @@ fc_stack(fcs, unite = TRUE)
 \item{unite}{logical value if the boxes have to be united or not}
 }
 \value{
-List containing a list with the datasets belonging to each flowchart and the flowchart combining all the flowcharts.
+List containing a list with the datasets belonging to each flowchart and the flowchart parameters combining all the flowcharts.
 }
 \description{
 This function allows to combine vertically two different flowcharts.

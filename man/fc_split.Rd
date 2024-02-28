@@ -42,7 +42,7 @@ fc_split(
 \item{border_color}{Box border color. It is black by default.}
 }
 \value{
-List with the dataset grouped by the splitting variable and the flowchart with the resulting split.
+List with the dataset grouped by the splitting variable and the flowchart parameters with the resulting split.
 }
 \description{
 This function allows to split the flowchart in function of the categories of a column of the database. It will generate as many boxes as categories has the column showing in each one the frequency of each category. It will additionally group the database per this column.

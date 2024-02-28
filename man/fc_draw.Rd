@@ -23,6 +23,9 @@ fc_draw(
 
 \item{arrow_type}{One of "open" or "closed" indicating whether the arrow head should be a closed triangle, as in `arrow`.}
 }
+\value{
+Invisibly returns a list with the dataset and the represented flowchart parameters.
+}
 \description{
 This function allows to draw the flowchart from a fc object.
 }

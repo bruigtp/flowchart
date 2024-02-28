@@ -11,7 +11,7 @@
 #' @param border_color Box border color. It is black by default.
 #' @param hide Logical value to hide the initial box or not. Default is FALSE. hide = TRUE can only be combined with fc_split().
 #'
-#' @return List with the dataset and the initialized flowchart.
+#' @return List with the dataset and the initialized flowchart parameters.
 #'
 #' @examples
 #' clinic_patient |>

@@ -13,6 +13,9 @@ fc_modify(object, fun, ...)
 
 \item{...}{Additional arguments passed on to the mapped function.}
 }
+\value{
+List with the dataset and the modified flowchart parameters.
+}
 \description{
 This function allows to modify the `.$fc` tibble included in each fc object that contains all the parameters of the flowchart.
 }

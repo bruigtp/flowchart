@@ -20,7 +20,7 @@
 #' @param text_fs_exc Font size of the text of the exclude box. It is 6 by default.
 #' @param bg_fill_exc Exclude box background color. It is white by default.
 #' @param border_color_exc Box background color of the exclude box. It is black by default.
-#' @return List with the filtered dataset and the flowchart with the resulting filtered box.
+#' @return List with the filtered dataset and the flowchart parameters with the resulting filtered box.
 #'
 #' @examples
 #' clinic_patient |>

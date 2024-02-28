@@ -6,6 +6,7 @@
 #' @param arrow_length A unit specifying the length of the arrow head (from tip to base), as in `arrow`.
 #' @param arrow_ends One of "last", "first", or "both", indicating which ends of the line to draw arrow heads, as in `arrow`.
 #' @param arrow_type One of "open" or "closed" indicating whether the arrow head should be a closed triangle, as in `arrow`.
+#' @return Invisibly returns a list with the dataset and the represented flowchart parameters.
 #'
 #' @examples
 #' clinic_patient |>

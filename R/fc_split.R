@@ -12,7 +12,7 @@
 #' @param text_fs Font size of the text. It is 8 by default.
 #' @param bg_fill Box background color. It is white by default.
 #' @param border_color Box border color. It is black by default.
-#' @return List with the dataset grouped by the splitting variable and the flowchart with the resulting split.
+#' @return List with the dataset grouped by the splitting variable and the flowchart parameters with the resulting split.
 #'
 #' @examples
 #' clinic_patient |>

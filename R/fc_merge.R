@@ -2,7 +2,7 @@
 #' @description This function allows to combine horizontally two different flowcharts.
 #'
 #' @param fcs list with all the flowcharts that we want to merge
-#' @return List containing a list with the datasets belonging to each flowchart and another list with each of the flowcharts to merge.
+#' @return List containing a list with the datasets belonging to each flowchart and another list with each of the flowcharts parameters to merge.
 #'
 #' @examples
 #' #Create first flowchart for patients
