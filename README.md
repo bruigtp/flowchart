@@ -6,11 +6,9 @@
 
 ## How to install it?
 
-The package has been submitted to CRAN. For now, you can get the development version from github:
-
+The package is available on CRAN: https://cran.r-project.org/web/packages/flowchart/index.html
 ``` r
-# install.packages("remotes")
-remotes::install_github('bruigtp/flowchart')
+install.packages("flowchart")
 ```
 
 ## About
