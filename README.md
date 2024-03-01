@@ -16,6 +16,14 @@ We can download the development version from the github repository:
 remotes::install_github('bruigtp/flowchart')
 ```
 
+## How it works?
+
+The following GIF provides an example of the tidy process of drawing a flowchart for a clinical trial:
+
+<img src = "https://github.com/bruigtp/flowchart/raw/main/data-raw/flowchart_example.gif" alt = "animated" width = "100%">
+
+A detailed overview of the package can be found in the [vignette](https://cran.r-project.org/web/packages/flowchart/vignettes/flowchart.html).
+
 ## About
 
 Package: flowchart
