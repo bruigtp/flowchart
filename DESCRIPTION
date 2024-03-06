@@ -1,11 +1,11 @@
 Package: flowchart
 Type: Package
 Title: Tidy Flowchart Generator
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(
     person("Pau", "Satorra", email = "psatorra@igtp.cat", role = c("aut", "cre")),
     person("João", "Carmezim", role = c("aut")),
-    person("Natàlia", "Pallarés", role = c("aut")),
+    person("Natàlia", "Pallarès", role = c("aut")),
     person("Cristian", "Tebé", role = c("aut"))
     )
 Maintainer: Pau Satorra <psatorra@igtp.cat>
