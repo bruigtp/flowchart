@@ -28,4 +28,6 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Depends: 
+    R (>= 4.1.0)
 RoxygenNote: 7.2.3
