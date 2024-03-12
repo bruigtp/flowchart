@@ -33,10 +33,9 @@ update_y <- function(y, type, x) {
 
   for(i in 1:length(yold)) {
 
-    y <- dplyr::case_match(
-      y,
-      yold[i] ~ yval[i],
-      .default = y
+    y <- dplyr::case_when(
+      y == yold[i] ~ yval[i],
+      TRUE ~ y
     )
 
   }
