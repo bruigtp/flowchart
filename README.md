@@ -40,4 +40,4 @@ License: MIT + file LICENSE
 
 Encoding: UTF-8
 
-Depends: R (>= 3.5.0)
+Depends: R (>= 4.1.0)
