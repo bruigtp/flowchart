@@ -11,6 +11,7 @@ fc_split(
   text_pattern = "{label}\\n {n} ({perc}\%)",
   sel_group = NULL,
   na.rm = FALSE,
+  round_digits = 2,
   just = "center",
   text_color = "black",
   text_fs = 8,
@@ -30,6 +31,8 @@ fc_split(
 \item{sel_group}{Specify if the splitting has to be done only by one of the previous groups. By default is NULL.}
 
 \item{na.rm}{logical. Should missing values of the grouping variable be removed? Default is FALSE.}
+
+\item{round_digits}{Number of digits to round percentages. It is 2 by default.}
 
 \item{just}{Justification for the text: left, center or right. Default is center.}
 

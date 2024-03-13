@@ -10,6 +10,7 @@
 #' @param label_exc Character that will be the title of the added box showing the excluded patients. By default it will show "Excluded".
 #' @param text_pattern_exc Structure that will have the text in each of the excluded boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".
 #' @param sel_group Specify if the filtering has to be done only by one of the previous groups. By default is NULL.
+#' @param round_digits Number of digits to round percentages. It is 2 by default.
 #' @param just Justification for the text: left, center or right. Default is center.
 #' @param text_color Color of the text. It is black by default.
 #' @param text_fs Font size of the text. It is 8 by default.
@@ -31,7 +32,7 @@
 #' @export
 #' @importFrom rlang .data
 
-fc_filter <- function(object, filter, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, just = "center", text_color = "black", text_fs = 8, bg_fill = "white", border_color = "black", just_exc = "center", text_color_exc = "black", text_fs_exc = 6, bg_fill_exc = "white", border_color_exc = "black") {
+fc_filter <- function(object, filter, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, just = "center", text_color = "black", text_fs = 8, bg_fill = "white", border_color = "black", just_exc = "center", text_color_exc = "black", text_fs_exc = 6, bg_fill_exc = "white", border_color_exc = "black") {
 
   is_class(object, "fc")
 
@@ -59,7 +60,7 @@ fc_filter <- function(object, filter, label = NULL, text_pattern = "{label}\n {n
     dplyr::mutate(
       x = xval,
       y = NA,
-      perc = round(.data$n*100/.data$N, 2),
+      perc = round(.data$n*100/.data$N, round_digits),
       text = as.character(stringr::str_glue(text_pattern)),
       type = "filter",
       just = just,
@@ -140,7 +141,7 @@ fc_filter <- function(object, filter, label = NULL, text_pattern = "{label}\n {n
         y = purrr::map2_dbl(.data$parent, .data$y, ~(.y + .x$y)/2),
         n = purrr::map2_int(.data$parent, .data$n, ~.x$n - .y),
         N = purrr::map_int(.data$parent, ~.x$n),
-        perc = purrr::map2_dbl(.data$n, .data$N, ~round(.x*100/.y, 2)),
+        perc = purrr::map2_dbl(.data$n, .data$N, ~round(.x*100/.y, round_digits)),
         text = as.character(stringr::str_glue(text_pattern_exc)),
         type = "exclude",
         group = NA,
