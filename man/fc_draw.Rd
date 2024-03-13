@@ -24,7 +24,7 @@ fc_draw(
 \item{arrow_type}{One of "open" or "closed" indicating whether the arrow head should be a closed triangle, as in `arrow`.}
 }
 \value{
-Invisibly returns a list with the dataset and the represented flowchart parameters.
+Invisibly returns the same object that has been given to the function, with the given arguments to draw the flowchart stored in the attributes.
 }
 \description{
 This function allows to draw the flowchart from a fc object.

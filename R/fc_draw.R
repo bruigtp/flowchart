@@ -6,7 +6,7 @@
 #' @param arrow_length A unit specifying the length of the arrow head (from tip to base), as in `arrow`.
 #' @param arrow_ends One of "last", "first", or "both", indicating which ends of the line to draw arrow heads, as in `arrow`.
 #' @param arrow_type One of "open" or "closed" indicating whether the arrow head should be a closed triangle, as in `arrow`.
-#' @return Invisibly returns a list with the dataset and the represented flowchart parameters.
+#' @return Invisibly returns the same object that has been given to the function, with the given arguments to draw the flowchart stored in the attributes.
 #'
 #' @examples
 #' clinic_patient |>
@@ -26,6 +26,15 @@ fc_draw <- function(object, arrow_angle = 30, arrow_length = grid::unit(0.1, "in
 
   #Initialize grid
   grid::grid.newpage()
+
+  object0 <- object #to return the object unaltered
+
+  #We have to return the parameters of the function in the attribute of object$fc
+  params <- c("arrow_angle", "arrow_length", "arrow_ends", "arrow_type")
+  attr_draw <- purrr::map(params, ~get(.x))
+  names(attr_draw) <- params
+
+  attr(object0$fc, "draw") <- attr_draw
 
   if(tibble::is_tibble(object$fc)) object$fc <- list(object$fc)
   plot_fc <- purrr::map(object$fc, ~.x |>
@@ -168,6 +177,6 @@ fc_draw <- function(object, arrow_angle = 30, arrow_length = grid::unit(0.1, "in
 
   }
 
-  invisible(object)
+  invisible(object0)
 
 }

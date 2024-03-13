@@ -2,6 +2,7 @@
 
 export(as_fc)
 export(fc_draw)
+export(fc_export)
 export(fc_filter)
 export(fc_merge)
 export(fc_modify)

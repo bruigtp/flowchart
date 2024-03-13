@@ -9,3 +9,5 @@
 * Older minimum version for dplyr
 
 * Added `round_digits=` argument to `fc_filter()` and `fc_split()` functions, which allows to change the number of decimals to round percentages.
+
+* New `fc_export()` function to export a flowchart in the desired format.

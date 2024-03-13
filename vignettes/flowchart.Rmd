@@ -363,6 +363,19 @@ fc |>
   fc_draw()
 ```
 
+# Export
+
+Once the flowchart has been drawn we can export it to the desired format using `fc_export()`:
+
+```{r eval = FALSE}
+clinic_patient |> 
+  filter(!is.na(group)) |> 
+  as_fc(label = "Patients included") |> 
+  fc_split(group) |> 
+  fc_draw() |> 
+  fc_export("flowchart.png")
+```
+
 # Examples
 
 ## Example 1
@@ -373,7 +386,7 @@ clinic_patient |>
   fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) |> 
   fc_split(group) |> 
   fc_filter(n_visits == 2, label = "Two visits available", show_exc = TRUE) |> 
-  fc_split(marker_alt, label = c("Marker not alterated", "Marker alterated")) |> 
+  fc_split(marker_alt, label = c("Marker not altered", "Marker altered")) |> 
   fc_draw()
 ```
 

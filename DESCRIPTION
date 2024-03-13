@@ -23,7 +23,8 @@ Imports:
     stringr,
     tibble,
     tidyselect,
-    rlang
+    rlang,
+    grDevices
 Suggests: 
     knitr,
     rmarkdown
