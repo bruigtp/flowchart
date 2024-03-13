@@ -1,5 +1,5 @@
 #' @title fc_export
-#' @description This function allows to export the flowchart to the desired graphic device.
+#' @description This function allows to export the flowchart drawn to the desired format.
 #'
 #' @param object fc object that we want to export.
 #' @param filename File name to create on disk.

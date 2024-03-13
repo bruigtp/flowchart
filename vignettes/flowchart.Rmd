@@ -41,6 +41,8 @@ library(tibble)
 
 - `fc_draw()` draws the flowchart created by the previous functions.
 
+- `fc_export()` allows to export the flowchart drawn to the desired format.
+
 # Installation
 
 ```{r eval=FALSE}
