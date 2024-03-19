@@ -1,7 +1,8 @@
 #' @title as_fc
-#' @description This function allows to initialize a flow chart given any database. It will create a fc object showing the number of rows of the database.
+#' @description This function allows to initialize a flow chart given any database. It will create a fc object showing the number of rows of the database. If a database is not available, the user can instead directly enter the number of rows in the study.
 #'
-#' @param .data Data frame that we want to show the number of rows.
+#' @param .data Data frame to be initialised as a flowchart.
+#' @param N Number of rows of the study in case `.data` is NULL.
 #' @param label Character with the text that will be shown in the box.
 #' @param text_pattern Structure that will have the text in the box. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n\{N\}".
 #' @param just Justification for the text: left, center or right. Default is center.
@@ -20,9 +21,19 @@
 #'
 #' @export
 
-as_fc <- function(.data, label = "Initial dataframe", text_pattern = "{label}\n{N}", just = "center", text_color = "black", text_fs = 8, bg_fill = "white", border_color = "black", hide = FALSE) {
+as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_pattern = "{label}\n{N}", just = "center", text_color = "black", text_fs = 8, bg_fill = "white", border_color = "black", hide = FALSE) {
 
-  N <- nrow(.data)
+  if(is.null(.data) & is.null(N)) {
+    stop("Either `.data` or `N` arguments have to be specified.")
+  }else if(!is.null(.data) & !is.null(N)) {
+    stop("`.data` and `N` argumetns cannot be specified simultaneously.")
+  }
+
+  if(!is.null(.data)) {
+    N <- nrow(.data)
+  } else {
+    .data <- tibble::tibble(id = 1:N)
+  }
 
   if(!hide) {
     fc_new <- tibble::tibble(

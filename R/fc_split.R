@@ -3,6 +3,7 @@
 #'
 #' @param object fc object that we want to split.
 #' @param var variable column of the database from which it will be splitted.
+#' @param N Number of rows after the split in case `var` is NULL.
 #' @param label Vector of characters with the label of each category in order. It has to have as many elements as categories has the column. By default, it will put the labels of the categories.
 #' @param text_pattern Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".
 #' @param sel_group Specify if the splitting has to be done only by one of the previous groups. By default is NULL.
@@ -26,7 +27,7 @@
 #' @importFrom rlang .data
 
 #var can be either a string or a non-quoted name
-fc_split <- function(object, var, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", sel_group = NULL, na.rm = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, bg_fill = "white", border_color = "black") {
+fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", sel_group = NULL, na.rm = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, bg_fill = "white", border_color = "black") {
 
   is_class(object, "fc")
 
@@ -34,6 +35,65 @@ fc_split <- function(object, var, label = NULL, text_pattern = "{label}\n {n} ({
 
   if(!is.character(var)) {
     var <- deparse(var)
+  }
+
+  if(var == "NULL" & is.null(N)) {
+    stop("Either `var` or `N` arguments have to be specified.")
+  }else if(var != "NULL" & !is.null(N)) {
+    stop("`var` and `N` arguments cannot be specified simultaneously.")
+  }
+
+  if(var == "NULL") {
+    num <- length(grep("split\\d+", names(object$data)))
+    var <- stringr::str_glue("split{num + 1}")
+
+    if(!is.null(attr(object$data, "groups"))) {
+      if(length(N) %% nrow(attr(object$data, "groups")) != 0) {
+        stop(str_glue("The length of `N` has to be a multiple to the number of groups in the dataset: {nrow(attr(object$data, 'groups'))}"))
+      }
+
+      nsplit <- length(N)/nrow(attr(object$data, "groups"))
+      ngroups <- nrow(attr(object$data, "groups"))
+      message_group <- "in each group."
+
+    } else {
+      nsplit <- length(N)
+      ngroups <- 1
+      message_group <- "."
+    }
+
+    object$data$row_number_delete <- 1:nrow(object$data)
+
+    #select rows to be true the filter
+    nrows <- dplyr::group_rows(object$data)
+
+    N_list <- split(N, rep(1:ngroups, rep(nsplit, ngroups)))
+
+    split_rows <- purrr::map_df(seq_along(nrows), function (x) {
+
+      if(sum(N_list[[x]]) != length(nrows[[x]])) {
+        stop(paste0("The number of rows after the split specified in N has to be equal to the original number of rows", message_group))
+      }
+
+      tibble(group = paste("group", 1:nsplit)) |>
+        mutate(
+          rows = split(nrows[[x]], rep(1:nsplit, N_list[[x]]))
+        )
+
+    })
+
+    object$data[[var]] <- NA
+
+    for(i in 1:nrow(split_rows)) {
+      object$data[[var]] <- case_when(
+        object$data$row_number_delete %in% split_rows$rows[[i]] ~ split_rows$group[[i]],
+        TRUE ~ object$data[[var]]
+      )
+    }
+
+    object$data <- object$data |>
+      dplyr::select(-row_number_delete)
+
   }
 
   N <- nrow(object$data)

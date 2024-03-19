@@ -80,10 +80,21 @@ str(fc)
 
 The `fc` object created is a list containing the tibble of the dataframe associated with the flowchart and the tibble that stores the flowchart parameters.
 
+Alternatively, if a dataframe is not available, we can initialize a flowchart using the `N =` argument manually specifying the number of rows:
+
+```{r}
+fc2 <- as_fc(N = 230)
+```
+
 ## Draw
 
 ```{r}
 fc |> 
+  fc_draw()
+```
+
+```{r}
+fc2 |> 
   fc_draw()
 ```
 
@@ -98,7 +109,16 @@ clinic_patient |>
   fc_draw()
 ```
 
-See 'Modify function arguments' for more information on the `label=` and `show_exc=` arguments.
+See 'Modify function arguments' for more information on the `label=` and `show_exc=` arguments. 
+
+Alternatively, if the column to filter is not available, we can use the `N =` argument to manually specify the number of rows of the resulting filter:
+
+```{r fig.width = 6, fig.height = 5}
+clinic_patient |> 
+  as_fc(label = "Patients included") |> 
+  fc_filter(N = 200, label = "Patients included", show_exc = TRUE) |> 
+  fc_draw()
+```
 
 ## Split
 
@@ -109,6 +129,16 @@ clinic_patient |>
   filter(!is.na(group)) |> 
   as_fc(label = "Patients included") |> 
   fc_split(group) |> 
+  fc_draw()
+```
+
+Alternatively, if the column to split is not available, we can use the `N =` argument to manually specify the number of rows in each group of the resulting split:
+
+```{r fig.width = 6, fig.height = 5}
+clinic_patient |> 
+  filter(!is.na(group)) |> 
+  as_fc(label = "Patients included") |> 
+  fc_split(N = c(100, 100), label = c("Control", "Treatment")) |> 
   fc_draw()
 ```
 
@@ -458,6 +488,18 @@ safo |>
         y = case_when(id == 3 ~ y + 0.015, TRUE ~ y)
       )
   ) |> 
+  fc_draw()
+```
+
+## Example 3
+
+In this example, we will create a flowchart without any dataframe, using the `N =` argument to manually specify the numbers to display in the boxes:
+
+```{r warning=FALSE, fig.height = 4.5}
+as_fc(N = 300) |> 
+  fc_filter(N = 240, label = "Randomized patients", show_exc = TRUE) |> 
+  fc_split(N = c(100, 80, 60), label = c("Group A", "Group B", "Group C")) |>
+  fc_filter(N = c(80, 75, 50), label = "Finished the study") |> 
   fc_draw()
 ```
 

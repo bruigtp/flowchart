@@ -3,6 +3,7 @@
 #'
 #' @param object fc object that we want to filter.
 #' @param filter Expression that returns a logical value and are defined in terms of the variables in the data frame. The data base will be filtered by this expression, and it will create a box showing the number of rows satisfying this condition.
+#' @param N Number of rows after the filter in case `filter` is NULL.
 #' @param label Character that will be the title of the box. By default it will be the evaluated condition.
 #' @param text_pattern Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".
 #' @param show_exc Logical value. If TRUE a box showing the number of excluded rows will be added to the flow chart.
@@ -32,14 +33,58 @@
 #' @export
 #' @importFrom rlang .data
 
-fc_filter <- function(object, filter, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, just = "center", text_color = "black", text_fs = 8, bg_fill = "white", border_color = "black", just_exc = "center", text_color_exc = "black", text_fs_exc = 6, bg_fill_exc = "white", border_color_exc = "black") {
+fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, just = "center", text_color = "black", text_fs = 8, bg_fill = "white", border_color = "black", just_exc = "center", text_color_exc = "black", text_fs_exc = 6, bg_fill_exc = "white", border_color_exc = "black") {
 
   is_class(object, "fc")
 
-  filter_txt <- paste(deparse(substitute(filter)), collapse = "")
-  filter_txt <- gsub("  ", "", filter_txt)
+  filter <- paste(deparse(substitute(filter)), collapse = "")
+  filter <- gsub("  ", "", filter)
+
+  if(filter == "NULL" & is.null(N)) {
+    stop("Either `filter` or `N` arguments have to be specified.")
+  }else if(filter != "NULL" & !is.null(N)) {
+    stop("`filter` and `N` arguments cannot be specified simultaneously.")
+  }
+
+  if(filter == "NULL") {
+    num <- length(grep("filter\\d+", names(object$data)))
+    filter <- stringr::str_glue("filter{num + 1}")
+
+    if(is.null(attr(object$data, "groups"))) {
+      if(length(N) > 1) {
+        stop("The length of `N` has to be 1.")
+      }
+    } else {
+      if(length(N) != nrow(attr(object$data, "groups"))) {
+        stop(str_glue("The length of `N` has to match the number of groups in the dataset: {nrow(attr(object$data, 'groups'))}"))
+      }
+    }
+
+
+    object$data$row_number_delete <- 1:nrow(object$data)
+    #select rows to be true the filter
+    nrows <- dplyr::group_rows(object$data)
+    filt_rows <- unlist(purrr::map(seq_along(nrows), function (x) {
+      if(N[x] > length(nrows[[x]])) {
+        stop("The number of rows after the filter specified in N can't be greater than the original number of rows")
+      } else {
+        nrows[[x]][1:N[x]]
+      }
+      }))
+
+    object$data <- object$data |>
+      dplyr::mutate(
+        "{filter}" := dplyr::case_when(
+          row_number_delete %in% filt_rows ~ TRUE,
+          TRUE ~ FALSE
+        )
+      ) |>
+      dplyr::select(-row_number_delete)
+
+  }
+
   if(is.null(label)) {
-    label <- filter_txt
+    label <- filter
   }
 
   #Fiquem les posicions horitzontals
@@ -54,7 +99,7 @@ fc_filter <- function(object, filter, label = NULL, text_pattern = "{label}\n {n
 
   new_fc <- object$data |>
     dplyr::summarise(
-      n = sum({{filter}}, na.rm = TRUE),
+      n = sum(eval(parse(text = filter)), na.rm = TRUE),
       N = dplyr::n()
     ) |>
     dplyr::mutate(
@@ -175,7 +220,7 @@ fc_filter <- function(object, filter, label = NULL, text_pattern = "{label}\n {n
 
   #Quan fem un filter la bbdd ha de quedar filtrada
   object$data <- object$data |>
-    dplyr::filter({{filter}})
+    dplyr::filter(eval(parse(text = filter)))
 
   object
 
