@@ -93,11 +93,6 @@ fc |>
   fc_draw()
 ```
 
-```{r}
-fc2 |> 
-  fc_draw()
-```
-
 ## Filter 
 
 We can filter the flowchart using `fc_filter()` specifying the logic in which the filter is to be applied. For example, we want to show the number of patients included in the study, that is, those over the age of 18 who have signed an informed consent. 
@@ -495,7 +490,7 @@ safo |>
 
 In this example, we will create a flowchart without any dataframe, using the `N =` argument to manually specify the numbers to display in the boxes:
 
-```{r warning=FALSE, fig.height = 4.5}
+```{r warning=FALSE, fig.width = 7, fig.height = 4.5}
 as_fc(N = 300) |> 
   fc_filter(N = 240, label = "Randomized patients", show_exc = TRUE) |> 
   fc_split(N = c(100, 80, 60), label = c("Group A", "Group B", "Group C")) |>
