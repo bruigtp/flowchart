@@ -6,7 +6,8 @@
 \usage{
 fc_filter(
   object,
-  filter,
+  filter = NULL,
+  N = NULL,
   label = NULL,
   text_pattern = "{label}\\n {n} ({perc}\%)",
   show_exc = FALSE,
@@ -31,6 +32,8 @@ fc_filter(
 \item{object}{fc object that we want to filter.}
 
 \item{filter}{Expression that returns a logical value and are defined in terms of the variables in the data frame. The data base will be filtered by this expression, and it will create a box showing the number of rows satisfying this condition.}
+
+\item{N}{Number of rows after the filter in case `filter` is NULL.}
 
 \item{label}{Character that will be the title of the box. By default it will be the evaluated condition.}
 

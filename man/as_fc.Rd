@@ -5,7 +5,8 @@
 \title{as_fc}
 \usage{
 as_fc(
-  .data,
+  .data = NULL,
+  N = NULL,
   label = "Initial dataframe",
   text_pattern = "{label}\\n{N}",
   just = "center",
@@ -17,7 +18,9 @@ as_fc(
 )
 }
 \arguments{
-\item{.data}{Data frame that we want to show the number of rows.}
+\item{.data}{Data frame to be initialised as a flowchart.}
+
+\item{N}{Number of rows of the study in case `.data` is NULL.}
 
 \item{label}{Character with the text that will be shown in the box.}
 
@@ -39,7 +42,7 @@ as_fc(
 List with the dataset and the initialized flowchart parameters.
 }
 \description{
-This function allows to initialize a flow chart given any database. It will create a fc object showing the number of rows of the database.
+This function allows to initialize a flow chart given any database. It will create a fc object showing the number of rows of the database. If a database is not available, the user can instead directly enter the number of rows in the study.
 }
 \examples{
 clinic_patient |>

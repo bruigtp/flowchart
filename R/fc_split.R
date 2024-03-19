@@ -49,7 +49,7 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
 
     if(!is.null(attr(object$data, "groups"))) {
       if(length(N) %% nrow(attr(object$data, "groups")) != 0) {
-        stop(str_glue("The length of `N` has to be a multiple to the number of groups in the dataset: {nrow(attr(object$data, 'groups'))}"))
+        stop(stringr::str_glue("The length of `N` has to be a multiple to the number of groups in the dataset: {nrow(attr(object$data, 'groups'))}"))
       }
 
       nsplit <- length(N)/nrow(attr(object$data, "groups"))
@@ -75,8 +75,8 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
         stop(paste0("The number of rows after the split specified in N has to be equal to the original number of rows", message_group))
       }
 
-      tibble(group = paste("group", 1:nsplit)) |>
-        mutate(
+      tibble::tibble(group = paste("group", 1:nsplit)) |>
+        dplyr::mutate(
           rows = split(nrows[[x]], rep(1:nsplit, N_list[[x]]))
         )
 
@@ -85,14 +85,14 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
     object$data[[var]] <- NA
 
     for(i in 1:nrow(split_rows)) {
-      object$data[[var]] <- case_when(
+      object$data[[var]] <- dplyr::case_when(
         object$data$row_number_delete %in% split_rows$rows[[i]] ~ split_rows$group[[i]],
         TRUE ~ object$data[[var]]
       )
     }
 
     object$data <- object$data |>
-      dplyr::select(-row_number_delete)
+      dplyr::select(-"row_number_delete")
 
   }
 

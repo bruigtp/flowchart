@@ -32,6 +32,7 @@
 #'
 #' @export
 #' @importFrom rlang .data
+#' @importFrom rlang :=
 
 fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, just = "center", text_color = "black", text_fs = 8, bg_fill = "white", border_color = "black", just_exc = "center", text_color_exc = "black", text_fs_exc = 6, bg_fill_exc = "white", border_color_exc = "black") {
 
@@ -56,7 +57,7 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
       }
     } else {
       if(length(N) != nrow(attr(object$data, "groups"))) {
-        stop(str_glue("The length of `N` has to match the number of groups in the dataset: {nrow(attr(object$data, 'groups'))}"))
+        stop(stringr::str_glue("The length of `N` has to match the number of groups in the dataset: {nrow(attr(object$data, 'groups'))}"))
       }
     }
 
@@ -75,11 +76,11 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
     object$data <- object$data |>
       dplyr::mutate(
         "{filter}" := dplyr::case_when(
-          row_number_delete %in% filt_rows ~ TRUE,
+          .data$row_number_delete %in% filt_rows ~ TRUE,
           TRUE ~ FALSE
         )
       ) |>
-      dplyr::select(-row_number_delete)
+      dplyr::select(-"row_number_delete")
 
   }
 

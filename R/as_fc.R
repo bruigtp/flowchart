@@ -26,7 +26,7 @@ as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_patt
   if(is.null(.data) & is.null(N)) {
     stop("Either `.data` or `N` arguments have to be specified.")
   }else if(!is.null(.data) & !is.null(N)) {
-    stop("`.data` and `N` argumetns cannot be specified simultaneously.")
+    stop("`.data` and `N` arguments cannot be specified simultaneously.")
   }
 
   if(!is.null(.data)) {

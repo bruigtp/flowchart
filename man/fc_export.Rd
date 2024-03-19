@@ -34,7 +34,7 @@ fc_export(
 Invisibly returns the same object that has been given to the function.
 }
 \description{
-This function allows to export the flowchart to the desired graphic device.
+This function allows to export the flowchart drawn to the desired format.
 }
 \examples{
 \dontrun{

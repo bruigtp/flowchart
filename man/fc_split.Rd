@@ -6,7 +6,8 @@
 \usage{
 fc_split(
   object,
-  var,
+  var = NULL,
+  N = NULL,
   label = NULL,
   text_pattern = "{label}\\n {n} ({perc}\%)",
   sel_group = NULL,
@@ -23,6 +24,8 @@ fc_split(
 \item{object}{fc object that we want to split.}
 
 \item{var}{variable column of the database from which it will be splitted.}
+
+\item{N}{Number of rows after the split in case `var` is NULL.}
 
 \item{label}{Vector of characters with the label of each category in order. It has to have as many elements as categories has the column. By default, it will put the labels of the categories.}
 
