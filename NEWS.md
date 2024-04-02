@@ -16,6 +16,8 @@
 
 * Added `round_digits=` argument to `fc_filter()` and `fc_split()` functions, which allows to change the number of decimals to round percentages.
 
+* Added `show_zero=` argument to `fc_split()`, which allows to control whether the groups with zero events should be shown in a box or not.
+
 * Updated description with minimum R version (>= 4.1.0).
 
 * Older minimum version for dplyr.
