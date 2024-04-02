@@ -94,7 +94,7 @@ fc_draw <- function(object, arrow_angle = 30, arrow_length = grid::unit(0.1, "in
 
               id_par <- object$fc[[i]] |>
                 dplyr::mutate(id = dplyr::row_number()) |>
-                dplyr::filter(.data$id < min(ids), .data$group == group_par) |>
+                dplyr::filter(.data$id < min(ids), .data$group == group_par, .data$type != "exclude") |>
                 dplyr::last() |>
                 dplyr::pull(.data$id)
 

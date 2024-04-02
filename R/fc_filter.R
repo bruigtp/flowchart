@@ -88,23 +88,28 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
     label <- filter
   }
 
-  #Fiquem les posicions horitzontals
-  if(!is.null(attr(object$data, "groups"))) {
-    nhor <- nrow(attr(object$data, "groups"))
-  } else {
-    nhor <- 1
-  }
-
-  xval <-  seq(0, 1, by = 1/(nhor + 1))
-  xval <- xval[!xval %in% c(0, 1)]
+  group0 <- names(attr(object$data, "groups"))
+  group0 <- group0[group0 != ".rows"]
 
   new_fc <- object$data |>
     dplyr::summarise(
       n = sum(eval(parse(text = filter)), na.rm = TRUE),
       N = dplyr::n()
-    ) |>
+    )
+
+  if(is.null(group0)) {
+    new_fc$group <- NA
+  } else {
+    new_fc <- new_fc |>
+      tidyr::unite("group", c(tidyselect::all_of(group0)), sep = ", ", na.rm = TRUE)
+  }
+
+  new_fc <- new_fc |>
+    dplyr::left_join(object$fc |> dplyr::filter(.data$type != "exclude") |> dplyr::select("x", "group"), by = "group") |>
+    dplyr::group_by(.data$group) |>
+    dplyr::slice_tail(n = 1) |>
+    dplyr::ungroup() |>
     dplyr::mutate(
-      x = xval,
       y = NA,
       perc = round(.data$n*100/.data$N, round_digits),
       text = as.character(stringr::str_glue(text_pattern)),
@@ -114,19 +119,8 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
       text_fs = text_fs,
       bg_fill = bg_fill,
       border_color = border_color
-    )
-
-  group0 <- names(attr(object$data, "groups"))
-  group0 <- group0[group0 != ".rows"]
-
-  if(length(group0) > 0) {
-    new_fc <- new_fc |>
-      tidyr::unite("group", tidyselect::all_of(group0), sep = ", ") |>
-      dplyr::ungroup()
-  } else {
-    new_fc <- new_fc |>
-      dplyr::mutate(group = NA)
-  }
+    ) |>
+    dplyr::ungroup()
 
 
   if(is.null(sel_group)) {
@@ -168,6 +162,24 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
       direction_exc == "left" ~ -0.15,
       TRUE ~ NA
     )
+    #For the box to not escape the margins:
+    x_margin <- new_fc |>
+      dplyr::mutate(
+        limit = dplyr::case_when(
+          .data$x + add_x <= 0 ~ -.data$x/2,
+          .data$x + add_x >= 1 ~ (1 - .data$x)/2,
+          TRUE ~ NA
+        )
+      ) |>
+      dplyr::filter(!is.na(.data$limit))
+
+    if(nrow(x_margin) > 0) {
+      min_add <- min(abs(x_margin$limit))
+      add_x <- dplyr::case_when(
+        sign(add_x) != sign(min_add) ~ min_add*(-1),
+        TRUE ~ min_add
+      )
+    }
 
     #Calculate the middle distance between the box and the parent
     new_fc <- object$fc |>
@@ -190,7 +202,6 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
         perc = purrr::map2_dbl(.data$n, .data$N, ~round(.x*100/.y, round_digits)),
         text = as.character(stringr::str_glue(text_pattern_exc)),
         type = "exclude",
-        group = NA,
         just = just_exc,
         text_color = text_color_exc,
         text_fs = text_fs_exc,
