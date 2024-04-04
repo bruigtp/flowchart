@@ -262,6 +262,10 @@ Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the 
    <td style="text-align:left;"> apply the filter only in the specified groups (if data is grouped). </td>
   </tr>
   <tr>
+   <td style="text-align:left;"> `round_digits=` </td>
+   <td style="text-align:left;"> modify the number of digits to round percentages. </td>
+  </tr>
+  <tr>
    <td style="text-align:left;"> `show_exc=` </td>
    <td style="text-align:left;"> show the box with the excluded rows that do not match the filter. </td>
   </tr>
@@ -313,6 +317,14 @@ Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the 
   <tr>
    <td style="text-align:left;"> `na.rm=` </td>
    <td style="text-align:left;"> omit the missing values in the grouping variable. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `round_digits=` </td>
+   <td style="text-align:left;"> modify the number of digits to round percentages. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `show_zero=` </td>
+   <td style="text-align:left;"> omit the levels of the grouping variable that don't have an event. </td>
   </tr>
 </tbody>
 </table>

@@ -4,7 +4,7 @@
 #' @param object fc object that we want to export.
 #' @param filename File name to create on disk.
 #' @param path Path of the directory to save plot to: path and filename are combined to create the fully qualified file name. Defaults to the working directory.
-#' @param device Device to use. A device function (e.g. png), as in `dev.copy`. If NULL (default), the device is guessed based on the filename extension.
+#' @param format Format to export the image. One of png, jpeg or tiff. If NULL (default), the format is guessed based on the filename extension.
 #' @param width,height Plot size in units expressed by the `units` argument. Default is 600px.
 #' @param units One of the following units in which the width and height arguments are expressed: "in", "cm", "mm" or "px". Default is "px".
 #' @param res The nominal resolution in ppi which will be recorded in the bitmap file, if a positive integer. Also used for units other than the default, and to convert points to pixels. Default is 100.
@@ -25,7 +25,7 @@
 #' @export
 #' @importFrom rlang .data
 
-fc_export <- function(object, filename, path = NULL, device = NULL, width = NA, height = NA, units = "px", res = 100) {
+fc_export <- function(object, filename, path = NULL, format = NULL, width = NA, height = NA, units = "px", res = 100) {
 
   is_class(object, "fc")
 
@@ -35,12 +35,17 @@ fc_export <- function(object, filename, path = NULL, device = NULL, width = NA, 
     stop("Expecting object created with fc_draw()")
   }
 
-  #Get device from filename if not specified
-  if (is.null(device)) {
-    device <- tolower(tools::file_ext(filename))
-    if (identical(device, "")) {
-      stop("filename has no file extension and device is NULL")
+  #Get format from filename if not specified
+  if (is.null(format)) {
+    format <- tolower(tools::file_ext(filename))
+    if (identical(format, "")) {
+      stop("filename has no file extension and format is NULL")
     }
+  }
+
+  #If format is not one of 'png', 'jpeg' or 'tiff':
+  if(! format %in% c("png", "jpeg", "tiff")) {
+    stop("The format has to be one of png, jpeg or tiff")
   }
 
   if (!is.null(path)) {
@@ -63,7 +68,7 @@ fc_export <- function(object, filename, path = NULL, device = NULL, width = NA, 
     }
   }
 
-  grDevices::dev.copy(device = get(device), filename = filename, width = width, height = height, units = units, res = res)
+  grDevices::dev.copy(device = get(format), filename = filename, width = width, height = height, units = units, res = res)
 
   object |>
     fc_draw(arrow_angle = params$arrow_angle, arrow_length = params$arrow_length, arrow_ends = params$arrow_ends, arrow_type = params$arrow_type)

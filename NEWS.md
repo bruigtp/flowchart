@@ -10,7 +10,7 @@
 
 * New `fc_export()` function to export a flowchart in the desired format.
 
-* Solved bug when performing a split. Now the x-coordinates of the resulting boxes are placed symmetrically around the parent box.
+* Solved bug when performing a split. Now the x-coordinates of the resulting boxes are placed symmetrically around the parent box, not homogeneously distributed across all the space.
 
 ## Minor changes
 
@@ -20,4 +20,4 @@
 
 * Updated description with minimum R version (>= 4.1.0).
 
-* Older minimum version for dplyr.
+* Older minimum version for dplyr ().

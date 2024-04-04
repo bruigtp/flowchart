@@ -104,7 +104,7 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
       dplyr::filter_at(var, ~!is.na(.x))
   }
 
-  if(inherits(object$data[[var]], "factor")) {
+  if(!inherits(object$data[[var]], "factor")) {
     object$data <- object$data |>
       dplyr::mutate_at(var, as.factor)
   }
