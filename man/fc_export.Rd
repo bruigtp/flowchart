@@ -8,7 +8,7 @@ fc_export(
   object,
   filename,
   path = NULL,
-  device = NULL,
+  format = NULL,
   width = NA,
   height = NA,
   units = "px",
@@ -22,7 +22,7 @@ fc_export(
 
 \item{path}{Path of the directory to save plot to: path and filename are combined to create the fully qualified file name. Defaults to the working directory.}
 
-\item{device}{Device to use. A device function (e.g. png), as in `dev.copy`. If NULL (default), the device is guessed based on the filename extension.}
+\item{format}{Format to export the image. One of png, jpeg or tiff. If NULL (default), the format is guessed based on the filename extension.}
 
 \item{width, height}{Plot size in units expressed by the `units` argument. Default is 600px.}
 
