@@ -16,3 +16,4 @@ update_x(x, i, n)
 \description{
 Function to update the horizontal position of the previuosly created flow charts, to merge two flowcharts used in fc_merge().
 }
+\keyword{internal}

@@ -16,3 +16,4 @@ update_y(y, type, x)
 \description{
 Function to update the vertical position of the previuosly created boxes, to add the new ones with fc_split() or fc_filter().
 }
+\keyword{internal}

@@ -14,3 +14,4 @@ is_class(x, class)
 \description{
 Function to check if an object is from a given class.
 }
+\keyword{internal}
