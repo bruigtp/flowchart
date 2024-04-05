@@ -404,7 +404,7 @@ fc |>
 
 # Export
 
-Once the flowchart has been drawn we can export it to the desired format using `fc_export()`:
+Once the flowchart has been drawn we can export it to the most popular image formats (png, jpeg, tiff) using `fc_export()`:
 
 ```{r eval = FALSE}
 clinic_patient |> 

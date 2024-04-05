@@ -1,10 +1,10 @@
 #' @title fc_export
-#' @description This function allows to export the flowchart drawn to the desired format.
+#' @description This function allows you to export the drawn flowchart to the most popular image formats (png, jpeg, tiff).
 #'
 #' @param object fc object that we want to export.
 #' @param filename File name to create on disk.
 #' @param path Path of the directory to save plot to: path and filename are combined to create the fully qualified file name. Defaults to the working directory.
-#' @param format Format to export the image. One of png, jpeg or tiff. If NULL (default), the format is guessed based on the filename extension.
+#' @param format Format to export the image. One of 'png', 'jpeg' or 'tiff'. If NULL (default), the format is guessed based on the filename extension.
 #' @param width,height Plot size in units expressed by the `units` argument. Default is 600px.
 #' @param units One of the following units in which the width and height arguments are expressed: "in", "cm", "mm" or "px". Default is "px".
 #' @param res The nominal resolution in ppi which will be recorded in the bitmap file, if a positive integer. Also used for units other than the default, and to convert points to pixels. Default is 100.

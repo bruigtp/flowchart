@@ -22,7 +22,7 @@ fc_export(
 
 \item{path}{Path of the directory to save plot to: path and filename are combined to create the fully qualified file name. Defaults to the working directory.}
 
-\item{format}{Format to export the image. One of png, jpeg or tiff. If NULL (default), the format is guessed based on the filename extension.}
+\item{format}{Format to export the image. One of 'png', 'jpeg' or 'tiff'. If NULL (default), the format is guessed based on the filename extension.}
 
 \item{width, height}{Plot size in units expressed by the `units` argument. Default is 600px.}
 
@@ -34,7 +34,7 @@ fc_export(
 Invisibly returns the same object that has been given to the function.
 }
 \description{
-This function allows to export the flowchart drawn to the desired format.
+This function allows you to export the drawn flowchart to the most popular image formats (png, jpeg, tiff).
 }
 \examples{
 \dontrun{
