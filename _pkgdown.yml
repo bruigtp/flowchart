@@ -3,14 +3,14 @@ template:
   bootstrap: 5
 
 reference:
-- title: "Creating a flowchart"
+- title: "Creating flowchart"
   desc: "Functions to create a flowchart design"
   contents:
   - as_fc
   - fc_draw
   - fc_filter
   - fc_split
-- title: "Customizing a flowchart"
+- title: "Customizing flowchart"
   desc: "Function to customize a flowchart"
   contents:
   - fc_modify
@@ -19,7 +19,7 @@ reference:
   contents:
   - fc_merge
   - fc_stack
-- title: "Exporting a flowchart"
+- title: "Exporting flowchart"
   desc: "Function to export a flowchart"
   contents:
   - fc_export
