@@ -2,3 +2,30 @@ url: https://bruigtp.github.io/flowchart/
 template:
   bootstrap: 5
 
+reference:
+- title: "Creating a flowchart"
+  desc: "Functions to create a flowchart design"
+  contents:
+  - as_fc
+  - fc_draw
+  - fc_filter
+  - fc_split
+- title: "Customizing a flowchart"
+  desc: "Function to customize a flowchart"
+  contents:
+  - fc_modify
+- title: "Combining flowcharts"
+  desc: "Functions to combine different flowcharts"
+  contents:
+  - fc_merge
+  - fc_stack
+- title: "Exporting a flowchart"
+  desc: "Function to export a flowchart"
+  contents:
+  - fc_export
+- title: "Built-in datasets"
+  desc: "Datasets that are included in the package for testing"
+  contents:
+  - clinic_patient
+  - clinic_visit
+  - safo
