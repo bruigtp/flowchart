@@ -4,6 +4,8 @@
 
 `flowchart` is an R package for drawing participant flow diagrams directly from a dataframe using tidyverse. It provides a set of functions that can be combined with a pipe operator to create all kinds of flowcharts from a dataframe in an easy way.
 
+You can see the package in action in: https://bruigtp.github.io/flowchart/
+
 ## How to install it?
 
 The package is available on CRAN: https://cran.r-project.org/web/packages/flowchart/index.html.
@@ -22,15 +24,13 @@ The following GIF provides an example of the tidy process of drawing a flowchart
 
 <img src = "https://github.com/bruigtp/flowchart/raw/main/data-raw/flowchart_example.gif" alt = "animated" width = "100%">
 
-A detailed overview of the package can be found in the [vignette](https://cran.r-project.org/web/packages/flowchart/vignettes/flowchart.html).
-
 ## About
 
 Package: flowchart
 
 Type: Package
 
-Version: 0.1.0 (stable in CRAN); 0.2.0 (development in GitHub)
+Version: 0.2.0
 
 Authors: Pau Satorra, João Carmezim, Natàlia Pallarés, Cristian Tebé.
 
