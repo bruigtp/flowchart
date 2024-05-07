@@ -173,10 +173,13 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
         center = unique(.data$x)
       )
 
-    xval <- new_fc |>
-      dplyr::group_by(.data$group) |>
-      dplyr::summarise(
-        nboxes = dplyr::n()
+    xval <- tibble::tibble(group = unique(new_fc$group)) |>
+      dplyr::mutate(
+        label = purrr::map(.data$group, ~new_fc |>
+                             dplyr::filter(.data$group == .) |>
+                             dplyr::distinct(.data$label)
+                             ),
+        nboxes = purrr::map_dbl(.data$label, nrow)
       ) |>
       dplyr::left_join(
         object_center, by = "group"
@@ -205,9 +208,15 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
 
         })
       ) |>
-      dplyr::pull("x")
+      dplyr::select("group", "label", "x") |>
+      tidyr::unnest(c("label", "x"))
 
-    new_fc$x <- unlist(xval)
+    #Juntar new_fc amb xval
+
+    new_fc <- new_fc |>
+      dplyr::select(-"x") |>
+      dplyr::left_join(xval, by = c("group", "label")) |>
+      dplyr::relocate("x", .before = "y")
 
     }
 

@@ -19,3 +19,9 @@
 * Added `show_zero=` argument to `fc_split()`, which allows to control whether the groups with zero events should be shown in a box or not.
 
 * Updated description with minimum R version (>= 4.1.0).
+
+# flowchart 0.3.0
+
+## Major changes
+
+* Bug in the `fc_split()` function when splitting by a factor with levels that are not arranged in alphabetical order.
