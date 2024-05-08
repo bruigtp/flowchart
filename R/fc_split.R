@@ -97,9 +97,6 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
 
   }
 
-  Ndata <- object$data |>
-    dplyr::count(name = "N")
-
   if(na.rm) {
     object$data <- object$data |>
       dplyr::filter_at(var, ~!is.na(.x))
@@ -126,8 +123,24 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
     new_fc$label <- factor(new_fc$label, levels = unique(new_fc$label), labels = label)
   }
 
+  if(!is.null(attr(object$data, "groups"))) {
+
+    Ndata <- object$data |>
+      dplyr::count(name = "N")
+
+    new_fc <- new_fc |>
+      dplyr::left_join(Ndata, by = "group")
+
+  } else {
+
+    new_fc <- new_fc |>
+      dplyr::mutate(
+        N = nrow(object$data)
+      )
+
+  }
+
   new_fc <- new_fc |>
-    dplyr::left_join(Ndata, by = "group") |>
     dplyr::mutate(
       x = NA,
       y = NA,
