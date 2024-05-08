@@ -97,7 +97,8 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
 
   }
 
-  N <- nrow(object$data)
+  Ndata <- object$data |>
+    dplyr::count(name = "N")
 
   if(na.rm) {
     object$data <- object$data |>
@@ -126,10 +127,10 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
   }
 
   new_fc <- new_fc |>
+    dplyr::left_join(Ndata, by = "group") |>
     dplyr::mutate(
       x = NA,
       y = NA,
-      N = N,
       perc = round(.data$n*100/.data$N, round_digits),
       text = as.character(stringr::str_glue(text_pattern)),
       type = "split",
