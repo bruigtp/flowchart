@@ -128,8 +128,11 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
     Ndata <- object$data |>
       dplyr::count(name = "N")
 
+    group0 <- names(attr(object$data, "groups"))
+    group0 <- group0[group0 != ".rows"]
+
     new_fc <- new_fc |>
-      dplyr::left_join(Ndata, by = "group")
+      dplyr::left_join(Ndata, by = group0)
 
   } else {
 
@@ -137,6 +140,8 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
       dplyr::mutate(
         N = nrow(object$data)
       )
+
+    group0 <- NULL
 
   }
 
@@ -153,10 +158,6 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
       bg_fill = bg_fill,
       border_color = border_color
     )
-
-  #Quan fem un split la bbdd ha de quedar agrupada per saber després si les caixetes que venen a continuació s'han de fer per a cada grup o no!
-  group0 <- names(attr(object$data, "groups"))
-  group0 <- group0[group0 != ".rows"]
 
   object$data <- object$data |>
     dplyr::group_by_at(c(group0, var), .drop = FALSE)
