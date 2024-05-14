@@ -1,6 +1,6 @@
 # flowchart
 
-[![CRAN status](https://www.r-pkg.org/badges/version/flowchart)](https://cran.r-project.org/package=flowchart) &#160;&#160 [![R-CMD-check](https://github.com/bruigtp/flowchart/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bruigtp/flowchart/actions/workflows/R-CMD-check.yaml) &#160;&#160; [![downloads](http://cranlogs.r-pkg.org/badges/flowchart)](https://cranlogs.r-pkg.org:443/) &#160;&#160; [![total](http://cranlogs.r-pkg.org/badges/grand-total/flowchart)](https://cranlogs.r-pkg.org:443/)
+[![CRAN status](https://www.r-pkg.org/badges/version/flowchart)](https://cran.r-project.org/package=flowchart) &#160;&#160; [![R-CMD-check](https://github.com/bruigtp/flowchart/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bruigtp/flowchart/actions/workflows/R-CMD-check.yaml) &#160;&#160; [![downloads](http://cranlogs.r-pkg.org/badges/flowchart)](https://cranlogs.r-pkg.org:443/) &#160;&#160; [![total](http://cranlogs.r-pkg.org/badges/grand-total/flowchart)](https://cranlogs.r-pkg.org:443/)
 
 ## Tidy Flowchart Generator
 
