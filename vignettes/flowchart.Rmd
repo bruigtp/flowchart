@@ -343,7 +343,7 @@ The function `modify_fc` allows the user to customise the created flowchart by m
 
 For example, we could fully customise the text in the exclusion box if we wanted to specify the different reasons for exclusion:
  
-```{r fig.width = 6, fig.height = 5}
+```{r fig.width = 7, fig.height = 5}
 safo_fc <- safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
