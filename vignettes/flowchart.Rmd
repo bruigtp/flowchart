@@ -21,7 +21,6 @@ library(tidyr)
 library(purrr)
 library(stringr)
 library(tibble)
-library(gt)
 ```
 
 # Overview 
@@ -70,9 +69,7 @@ library(flowchart)
 
 data(safo)
 
-head(safo) |> 
-  gt() |> 
-  cols_align("center")
+head(safo) 
 ```
 
 # Basic operations
@@ -93,9 +90,7 @@ str(safo_fc, max.level = 1)
 The `safo_fc` object created is a `fc` object, which consists of a list containing the tibble of the dataframe associated with the flowchart and the tibble that stores the flowchart parameters. In this example, `safo_fc$data` corresponds to the `safo` dataset while `safo_fc$fc` contains the parameters of the initial flowchart:
 
 ```{r}
-safo_fc$fc |> 
-  gt() |> 
-  cols_align("center")
+safo_fc$fc
 ```
 
 Alternatively, if a dataframe is not available, we can initialize a flowchart using the `N =` argument manually specifying the number of rows:
