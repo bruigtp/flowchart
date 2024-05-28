@@ -5,17 +5,16 @@
 #' @return List containing a list with the datasets belonging to each flowchart and another list with each of the flowcharts parameters to merge.
 #'
 #' @examples
-#' #Create first flowchart for patients
-#' fc1 <- clinic_patient |>
-#'   dplyr::filter(!is.na(group)) |>
-#'   as_fc(label = "Patients included") |>
-#'   fc_split(group)
+#' # Create first flowchart for ITT
+#' fc1 <- safo |>
+#'   as_fc(label = "Patients assessed for eligibility") |>
+#'   fc_filter(itt == "Yes", label = "Intention to treat (ITT)")
 #'
-#' #Create second flowchart for visits
-#' fc2 <- clinic_visit |>
-#'   dplyr::filter(!is.na(group)) |>
-#'   as_fc(label = "Number of visits") |>
-#'   fc_split(group)
+#'
+#' # Create second flowchart for PP
+#' fc2 <- safo |>
+#'   as_fc(label = "Patients assessed for eligibility") |>
+#'  fc_filter(pp == "Yes", label = "Per protocol (PP)")
 #'
 #' list(fc1, fc2) |>
 #'   fc_merge() |>

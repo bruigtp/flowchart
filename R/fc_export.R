@@ -1,10 +1,10 @@
 #' @title fc_export
-#' @description This function allows you to export the drawn flowchart to the most popular image formats (png, jpeg, tiff).
+#' @description This function allows you to export the drawn flowchart to the most popular graphic devices (png, jpeg, tiff, bmp).
 #'
 #' @param object fc object that we want to export.
 #' @param filename File name to create on disk.
 #' @param path Path of the directory to save plot to: path and filename are combined to create the fully qualified file name. Defaults to the working directory.
-#' @param format Format to export the image. One of 'png', 'jpeg' or 'tiff'. If NULL (default), the format is guessed based on the filename extension.
+#' @param format Name of the graphic device. One of 'png', 'jpeg', 'tiff' or 'bmp'. If NULL (default), the format is guessed based on the filename extension.
 #' @param width,height Plot size in units expressed by the `units` argument. Default is 600px.
 #' @param units One of the following units in which the width and height arguments are expressed: "in", "cm", "mm" or "px". Default is "px".
 #' @param res The nominal resolution in ppi which will be recorded in the bitmap file, if a positive integer. Also used for units other than the default, and to convert points to pixels. Default is 100.
@@ -12,14 +12,18 @@
 #'
 #' @examples
 #' \dontrun{
-#' clinic_patient |>
-#'   as_fc(label = "Available patients") |>
-#'   fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) |>
-#'   fc_split(group) |>
-#'   fc_filter(n_visits == 2, label = "Two visits available", show_exc = TRUE) |>
-#'   fc_split(marker_alt, label = c("Marker not alterated", "Marker alterated")) |>
+#' safo |>
+#'  as_fc(label = "Patients assessed for eligibility") |>
+#'  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |>
+#'  fc_draw() |>
+#'  fc_export("flowchart.png")
+#'
+#'  #Specifying size and resolution
+#'  safo |>
+#'   as_fc(label = "Patients assessed for eligibility") |>
+#'   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |>
 #'   fc_draw() |>
-#'   fc_export("flowchart.png")
+#'   fc_export("flowchart.png", width = 2500, height = 2000, res = 700)
 #'
 #' }
 #' @export
@@ -43,9 +47,9 @@ fc_export <- function(object, filename, path = NULL, format = NULL, width = NA, 
     }
   }
 
-  #If format is not one of 'png', 'jpeg' or 'tiff':
-  if(! format %in% c("png", "jpeg", "tiff")) {
-    stop("The format has to be one of png, jpeg or tiff")
+  #If format is not one of 'png', 'jpeg', 'tiff' or 'bmp':
+  if(! format %in% c("png", "jpeg", "tiff", "bmp")) {
+    stop("The format has to be one of png, jpeg, tiff or bmp")
   }
 
   if (!is.null(path)) {

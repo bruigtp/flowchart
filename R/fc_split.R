@@ -18,9 +18,9 @@
 #' @return List with the dataset grouped by the splitting variable and the flowchart parameters with the resulting split.
 #'
 #' @examples
-#' clinic_patient |>
+#' safo |>
 #'   dplyr::filter(!is.na(group)) |>
-#'   as_fc(label = "Patients included") |>
+#'   as_fc(label = "Randomized patients") |>
 #'   fc_split(group) |>
 #'   fc_draw()
 #'

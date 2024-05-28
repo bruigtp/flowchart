@@ -20,37 +20,34 @@ List with the dataset and the modified flowchart parameters.
 This function allows to modify the `.$fc` tibble included in each fc object that contains all the parameters of the flowchart.
 }
 \examples{
-#Example 1 (change text):
-clinic_patient |>
-  as_fc(label = "Patients included") |>
-  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) |>
-  fc_modify(~.x |>
-              dplyr::mutate(
-                text = dplyr::case_when(
-                  id == 3 ~ stringr::str_glue("Excluded patients:
-                                     - {sum(clinic_patient$age < 18)} under-age
-                                     - {sum(clinic_patient$consent == 'No')} no consent
-                                     "),
-                  TRUE ~ text
-                )
-              )) |>
-  fc_draw()
+#Example
+text_exc <- paste0(
+  sum(safo$inclusion_crit == "Yes"),
+  " not met the inclusion criteria\n",
+  sum(safo$exclusion_crit == "Yes"),
+  " met the exclusion criteria"
+)
 
-#Example 2 (change coordinates):
-clinic_patient |>
-  as_fc(label = "Patients included") |>
-  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) |>
-  fc_modify(~.x |>
-             dplyr::mutate(
-               x = dplyr::case_when(
-                 id == 3 ~ 0.8,
-                 TRUE ~ x
-               ),
-               y = dplyr::case_when(
-                 id == 1 ~ 0.85,
-                 id == 2 ~ 0.15,
-                 id == 3 ~ 0.5
-               )
-             )) |>
-   fc_draw()
+safo |>
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |>
+  fc_modify(
+    ~ . |>
+      dplyr::mutate(
+        text = dplyr::case_when(
+           type == "exclude" ~ text_exc,
+          TRUE ~ text
+        ),
+        x = dplyr::case_when(
+          id == 3 ~ 0.75,
+          TRUE ~ x
+        ),
+        y = dplyr::case_when(
+          id == 1 ~ 0.8,
+          id == 2 ~ 0.2,
+          TRUE ~ y
+        )
+      )
+  ) |>
+  fc_draw()
 }

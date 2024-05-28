@@ -57,9 +57,9 @@ List with the dataset grouped by the splitting variable and the flowchart parame
 This function allows to split the flowchart in function of the categories of a column of the database. It will generate as many boxes as categories has the column showing in each one the frequency of each category. It will additionally group the database per this column.
 }
 \examples{
-clinic_patient |>
+safo |>
   dplyr::filter(!is.na(group)) |>
-  as_fc(label = "Patients included") |>
+  as_fc(label = "Randomized patients") |>
   fc_split(group) |>
   fc_draw()
 

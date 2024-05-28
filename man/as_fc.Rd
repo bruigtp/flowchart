@@ -45,8 +45,8 @@ List with the dataset and the initialized flowchart parameters.
 This function allows to initialize a flow chart given any database. It will create a fc object showing the number of rows of the database. If a database is not available, the user can instead directly enter the number of rows in the study.
 }
 \examples{
-clinic_patient |>
-as_fc(label = "All patients") |>
+safo |>
+as_fc(label = "Patients assessed for eligibility") |>
 fc_draw()
 
 }

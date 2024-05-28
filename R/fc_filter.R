@@ -25,9 +25,9 @@
 #' @return List with the filtered dataset and the flowchart parameters with the resulting filtered box.
 #'
 #' @examples
-#' clinic_patient |>
-#'   as_fc(label = "Patients included") |>
-#'   fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) |>
+#' safo |>
+#'   as_fc(label = "Patients assessed for eligibility") |>
+#'   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |>
 #'   fc_draw()
 #'
 #' @export

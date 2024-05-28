@@ -15,8 +15,8 @@
 #' @return List with the dataset and the initialized flowchart parameters.
 #'
 #' @examples
-#' clinic_patient |>
-#' as_fc(label = "All patients") |>
+#' safo |>
+#' as_fc(label = "Patients assessed for eligibility") |>
 #' fc_draw()
 #'
 #' @export

@@ -30,12 +30,12 @@ Invisibly returns the same object that has been given to the function, with the 
 This function allows to draw the flowchart from a fc object.
 }
 \examples{
-clinic_patient |>
-  as_fc(label = "Available patients") |>
-  fc_filter(age >= 18 & consent == "Yes", label = "Patients included", show_exc = TRUE) |>
+safo |>
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |>
   fc_split(group) |>
-  fc_filter(n_visits == 2, label = "Two visits available", show_exc = TRUE) |>
-  fc_split(marker_alt, label = c("Marker not alterated", "Marker alterated")) |>
+  fc_filter(itt == "Yes", label = "Included in ITT") |>
+  fc_filter(pp == "Yes", label = "Included in PP") |>
   fc_draw()
 
 }

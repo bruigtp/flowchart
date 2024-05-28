@@ -4,12 +4,12 @@
 \alias{fc_stack}
 \title{fc_stack}
 \usage{
-fc_stack(fcs, unite = TRUE)
+fc_stack(fcs, unite = FALSE)
 }
 \arguments{
 \item{fcs}{list with all the flowcharts that we want to merge}
 
-\item{unite}{logical value if the boxes have to be united or not}
+\item{unite}{logical value if the boxes have to be united or not. Default is FALSE.}
 }
 \value{
 List containing a list with the datasets belonging to each flowchart and the flowchart parameters combining all the flowcharts.
@@ -18,17 +18,16 @@ List containing a list with the datasets belonging to each flowchart and the flo
 This function allows to combine vertically two different flowcharts.
 }
 \examples{
-#Create first flowchart for patients
-fc1 <- clinic_patient |>
-  dplyr::filter(!is.na(group)) |>
-  as_fc(label = "Patients included") |>
-  fc_split(group)
+# Create first flowchart for ITT
+fc1 <- safo |>
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(itt == "Yes", label = "Intention to treat (ITT)")
 
-#Create second flowchart for visits
-fc2 <- clinic_visit |>
-  dplyr::filter(!is.na(group)) |>
-  as_fc(hide = TRUE) |>
-  fc_split(group, label = rep("Number visits", 2), text_pattern = "{label}\\\\n #' {n}")
+
+# Create second flowchart for PP
+fc2 <- safo |>
+  as_fc(label = "Patients assessed for eligibility") |>
+ fc_filter(pp == "Yes", label = "Per protocol (PP)")
 
 list(fc1, fc2) |>
   fc_stack() |>
