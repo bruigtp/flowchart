@@ -8,7 +8,7 @@
 #' @param text_pattern Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".
 #' @param sel_group Specify if the splitting has to be done only by one of the previous groups. By default is NULL.
 #' @param na.rm logical. Should missing values of the grouping variable be removed? Default is FALSE.
-#' @param show_zero logical. Should the levels of the grouping variable that don't have an event be shown? Default is FALSE.
+#' @param show_zero logical. Should the levels of the grouping variable that don't have data be shown? Default is FALSE.
 #' @param round_digits Number of digits to round percentages. It is 2 by default.
 #' @param just Justification for the text: left, center or right. Default is center.
 #' @param text_color Color of the text. It is black by default.

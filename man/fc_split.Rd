@@ -36,7 +36,7 @@ fc_split(
 
 \item{na.rm}{logical. Should missing values of the grouping variable be removed? Default is FALSE.}
 
-\item{show_zero}{logical. Should the levels of the grouping variable that don't have an event be shown? Default is FALSE.}
+\item{show_zero}{logical. Should the levels of the grouping variable that don't have data be shown? Default is FALSE.}
 
 \item{round_digits}{Number of digits to round percentages. It is 2 by default.}
 

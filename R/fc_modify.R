@@ -7,7 +7,7 @@
 #' @return List with the dataset and the modified flowchart parameters.
 #'
 #' @examples
-#' #Example
+#' #Example: let's modify the excluded box
 #' text_exc <- paste0(
 #'   sum(safo$inclusion_crit == "Yes"),
 #'   " not met the inclusion criteria\n",
@@ -21,19 +21,8 @@
 #'   fc_modify(
 #'     ~ . |>
 #'       dplyr::mutate(
-#'         text = dplyr::case_when(
-#'            type == "exclude" ~ text_exc,
-#'           TRUE ~ text
-#'         ),
-#'         x = dplyr::case_when(
-#'           id == 3 ~ 0.75,
-#'           TRUE ~ x
-#'         ),
-#'         y = dplyr::case_when(
-#'           id == 1 ~ 0.8,
-#'           id == 2 ~ 0.2,
-#'           TRUE ~ y
-#'         )
+#'         text = ifelse(id == 3, text_exc, text),
+#'         x = ifelse(id == 3, 0.75, x)
 #'       )
 #'   ) |>
 #'   fc_draw()

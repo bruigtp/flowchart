@@ -27,3 +27,17 @@
 * Bug in the `fc_split()` function when splitting by a factor with levels that are not arranged in alphabetical order.
 
 * Bug in the `fc_split()` function when performing multiple splits and showing percentages. These percentages were calculated based on the total number of rows, not the total number of rows in each of the groups defined by the previous splits. 
+
+# flowchart 0.4.0
+
+## Major changes
+
+* Removed `clinic_patient` and `clinic_visit` built-in datasets
+
+## Minor changes
+
+* Changed `safo` built-in dataset
+
+* Now `unite=FALSE` is the default in the `fc_stack()` function
+
+* Added `bmp` format to the `fc_export()` function

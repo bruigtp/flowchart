@@ -299,7 +299,7 @@ Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the 
   </tr>
   <tr>
    <td style="text-align:left;"> `show_zero=` </td>
-   <td style="text-align:left;"> omit the levels of the grouping variable that don't have an event. </td>
+   <td style="text-align:left;"> omit the levels of the grouping variable that don't have data. </td>
   <tr>
    <td style="text-align:left;"> `round_digits=` </td>
    <td style="text-align:left;"> modify the number of digits to round percentages. </td>
@@ -350,12 +350,7 @@ safo_fc <- safo |>
   fc_modify(
     ~ . |> 
       mutate(
-        text = case_when(
-          type == "exclude" ~ str_glue("- {sum(safo$inclusion_crit == 'Yes')} not met the inclusion criteria
-                                        - {sum(safo$exclusion_crit == 'Yes')} not met the exclusion criteria
-                                       "),
-          TRUE ~ text
-        )
+        text = ifelse(id == 3, str_glue("- {sum(safo$inclusion_crit == 'Yes')} not met the inclusion criteria\n- {sum(safo$exclusion_crit == 'Yes')} met the exclusion criteria"), text)
       )
   ) 
 
@@ -462,7 +457,7 @@ safo |>
 
 ## Example 2
 
-In this example, we will try to exactly reproduce the original flowchart of the SAFO study published in Nature Medicine[^1].
+In this example, we will try to exactly reproduce the original flowchart of the SAFO study published in Nature Medicine: [SAFO flowchart](https://www.nature.com/articles/s41591-023-02569-0/figures/1).
 
 First, we need to do some pre-processing to reproduce the text in the larger boxes:
 
