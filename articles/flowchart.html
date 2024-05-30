@@ -503,7 +503,7 @@ omit the missing values in the grouping variable.
 <code>show_zero=</code>
 </td>
 <td style="text-align:left;">
-omit the levels of the grouping variable that don’t have an event.
+omit the levels of the grouping variable that don’t have data.
 </td>
 </tr>
 <tr>
@@ -578,12 +578,7 @@ if we wanted to specify the different reasons for exclusion:</p>
 <span>  <span class="fu"><a href="../reference/fc_modify.html">fc_modify</a></span><span class="op">(</span></span>
 <span>    <span class="op">~</span> <span class="va">.</span> <span class="op">|&gt;</span> </span>
 <span>      <span class="fu">mutate</span><span class="op">(</span></span>
-<span>        text <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
-<span>          <span class="va">type</span> <span class="op">==</span> <span class="st">"exclude"</span> <span class="op">~</span> <span class="fu">str_glue</span><span class="op">(</span><span class="st">"- {sum(safo$inclusion_crit == 'Yes')} not met the inclusion criteria</span></span>
-<span><span class="st">                                        - {sum(safo$exclusion_crit == 'Yes')} not met the exclusion criteria</span></span>
-<span><span class="st">                                       "</span><span class="op">)</span>,</span>
-<span>          <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">text</span></span>
-<span>        <span class="op">)</span></span>
+<span>        text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">id</span> <span class="op">==</span> <span class="fl">3</span>, <span class="fu">str_glue</span><span class="op">(</span><span class="st">"- {sum(safo$inclusion_crit == 'Yes')} not met the inclusion criteria\n- {sum(safo$exclusion_crit == 'Yes')} met the exclusion criteria"</span><span class="op">)</span>, <span class="va">text</span><span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
 <span>  <span class="op">)</span> </span>
 <span></span>
@@ -703,10 +698,8 @@ flow of patients in the SAFO study:</p>
 <h3 id="example-2">Example 2<a class="anchor" aria-label="anchor" href="#example-2"></a>
 </h3>
 <p>In this example, we will try to exactly reproduce the original
-flowchart of the SAFO study published in Nature Medicine<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Grillo, S., Pujol, M., Miró, J.M. et al. Cloxacillin
-plus fosfomycin versus cloxacillin alone for methicillin-susceptible
-Staphylococcus aureus bacteremia: a randomized trial. Nat Med 29,
-2518–2525 (2023). &lt;a href="https://doi.org/10.1038/s41591-023-02569-0" class="external-link uri"&gt;https://doi.org/10.1038/s41591-023-02569-0&lt;/a&gt;&lt;/p&gt;'><sup>2</sup></a>.</p>
+flowchart of the SAFO study published in Nature Medicine: <a href="https://www.nature.com/articles/s41591-023-02569-0/figures/1" class="external-link">SAFO
+flowchart</a>.</p>
 <p>First, we need to do some pre-processing to reproduce the text in the
 larger boxes:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
