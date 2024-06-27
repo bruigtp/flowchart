@@ -34,7 +34,7 @@ Type: Package
 
 Version: 0.4.0 (CRAN)
 
-Authors: Pau Satorra, João Carmezim, Natàlia Pallarés, Cristian Tebé.
+Authors: Pau Satorra, João Carmezim, Natàlia Pallarès, Cristian Tebé.
 
 Maintainer: Pau Satorra
 
