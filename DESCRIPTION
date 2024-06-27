@@ -18,7 +18,7 @@ Imports:
     Gmisc,
     grid,
     tidyr,
-    dplyr,
+    dplyr (>= 1.1.0),
     purrr,
     stringr,
     tibble,
