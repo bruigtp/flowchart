@@ -39,14 +39,14 @@ fc_draw <- function(object, arrow_angle = 30, arrow_length = grid::unit(0.1, "in
   if(tibble::is_tibble(object$fc)) object$fc <- list(object$fc)
   plot_fc <- purrr::map(object$fc, ~.x |>
                           dplyr::mutate(
-                            bg = purrr::pmap(list(.data$x, .data$y, .data$text, .data$type, .data$group, .data$just, .data$text_color, .data$text_fs, .data$bg_fill, .data$border_color), function(...) {
+                            bg = purrr::pmap(list(.data$x, .data$y, .data$text, .data$type, .data$group, .data$just, .data$text_color, .data$text_fs, .data$text_fface, .data$text_ffamily, .data$bg_fill, .data$border_color), function(...) {
                               arg <- list(...)
-                              names(arg) <- c("x", "y", "text", "type", "group", "just", "text_color", "text_fs", "bg_fill", "border_color")
+                              names(arg) <- c("x", "y", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "bg_fill", "border_color")
                               fs <- dplyr::case_when(
                                 arg$type == "exclude" ~ 6,
                                 TRUE ~ 8
                               )
-                              Gmisc::boxGrob(arg$text, x = arg$x, y = arg$y, just = arg$just, txt_gp = grid::gpar(col = arg$text_color, fontsize = arg$text_fs), box_gp = grid::gpar(fill = arg$bg_fill, col = arg$border_color))
+                              Gmisc::boxGrob(arg$text, x = arg$x, y = arg$y, just = arg$just, txt_gp = grid::gpar(col = arg$text_color, fontsize = arg$text_fs, fontface = arg$text_fface, fontfamily = arg$text_ffamily), box_gp = grid::gpar(fill = arg$bg_fill, col = arg$border_color))
                             })
                           )
   )

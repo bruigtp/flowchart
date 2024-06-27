@@ -195,6 +195,14 @@ Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the 
    <td style="text-align:left;"> modify the font size of the text. </td>
   </tr>
   <tr>
+   <td style="text-align:left;"> `text_fface=` </td>
+   <td style="text-align:left;"> modify the font face of the text. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `text_ffamily=` </td>
+   <td style="text-align:left;"> modify the font family of the text. </td>
+  </tr>
+  <tr>
    <td style="text-align:left;"> `bg_fill=` </td>
    <td style="text-align:left;"> modify the background color of the box. </td>
   </tr>
@@ -266,7 +274,15 @@ Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the 
   </tr>
   <tr>
    <td style="text-align:left;"> `text_fs_exc=` </td>
-   <td style="text-align:left;"> modify the font size of the text in the exclusion box. </td>
+   <td style="text-align:left;"> modify the font size of the text in the exclusion box.     </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `text_fface_exc=` </td>
+   <td style="text-align:left;"> modify the font face of the text in the exclusion box. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `text_ffamily_exc=` </td>
+   <td style="text-align:left;"> modify the font family of the text in the exclusion box. </td>
   </tr>
   <tr>
    <td style="text-align:left;"> `bg_fill_exc=` </td>

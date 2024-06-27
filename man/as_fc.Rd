@@ -12,6 +12,8 @@ as_fc(
   just = "center",
   text_color = "black",
   text_fs = 8,
+  text_fface = 1,
+  text_ffamily = NA,
   bg_fill = "white",
   border_color = "black",
   hide = FALSE
@@ -28,13 +30,17 @@ as_fc(
 
 \item{just}{Justification for the text: left, center or right. Default is center.}
 
-\item{text_color}{Color of the text. It is black by default.}
+\item{text_color}{Color of the text. It is black by default. See the `col` parameter for \code{\link{gpar}}.}
 
-\item{text_fs}{Font size of the text. It is 8 by default.}
+\item{text_fs}{Font size of the text. It is 8 by default. See the `fontsize` parameter for \code{\link{gpar}}.}
 
-\item{bg_fill}{Box background color. It is white by default.}
+\item{text_fface}{Font face of the text. It is 1 by default. See the `fontface` parameter for \code{\link{gpar}}.}
 
-\item{border_color}{Box border color. It is black by default.}
+\item{text_ffamily}{Changes the font family of the text. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}.}
+
+\item{bg_fill}{Box background color. It is white by default. See the `fill` parameter for \code{\link{gpar}}.}
+
+\item{border_color}{Box border color. It is black by default. See the `col` parameter for \code{\link{gpar}}.}
 
 \item{hide}{Logical value to hide the initial box or not. Default is FALSE. hide = TRUE can only be combined with fc_split().}
 }

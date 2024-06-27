@@ -13,6 +13,8 @@
 #' @param just Justification for the text: left, center or right. Default is center.
 #' @param text_color Color of the text. It is black by default.
 #' @param text_fs Font size of the text. It is 8 by default.
+#' @param text_fface Font face of the text. It is 1 by default. See the `fontface` parameter for \code{\link{gpar}}.
+#' @param text_ffamily Changes the font family of the text. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}.
 #' @param bg_fill Box background color. It is white by default.
 #' @param border_color Box border color. It is black by default.
 #' @return List with the dataset grouped by the splitting variable and the flowchart parameters with the resulting split.
@@ -28,7 +30,7 @@
 #' @importFrom rlang .data
 
 #var can be either a string or a non-quoted name
-fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, bg_fill = "white", border_color = "black") {
+fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, bg_fill = "white", border_color = "black") {
 
   is_class(object, "fc")
 
@@ -155,6 +157,8 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
       just = just,
       text_color = text_color,
       text_fs = text_fs,
+      text_fface = text_fface,
+      text_ffamily = text_ffamily,
       bg_fill = bg_fill,
       border_color = border_color
     )
@@ -238,7 +242,7 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
   new_fc <- new_fc |>
     tidyr::unite("group", c("group", "label0"), sep = ", ", na.rm = TRUE) |>
     dplyr::ungroup() |>
-    dplyr::select("x", "y", "n", "N", "perc", "text", "type", "group", "just", "text_color", "text_fs", "bg_fill", "border_color")
+    dplyr::select("x", "y", "n", "N", "perc", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "bg_fill", "border_color")
 
   #remove the id previous to adding the next one
   if(!is.null(object$fc)) {

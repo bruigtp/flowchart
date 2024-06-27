@@ -17,6 +17,8 @@ fc_split(
   just = "center",
   text_color = "black",
   text_fs = 8,
+  text_fface = 1,
+  text_ffamily = NA,
   bg_fill = "white",
   border_color = "black"
 )
@@ -45,6 +47,10 @@ fc_split(
 \item{text_color}{Color of the text. It is black by default.}
 
 \item{text_fs}{Font size of the text. It is 8 by default.}
+
+\item{text_fface}{Font face of the text. It is 1 by default. See the `fontface` parameter for \code{\link{gpar}}.}
+
+\item{text_ffamily}{Changes the font family of the text. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}.}
 
 \item{bg_fill}{Box background color. It is white by default.}
 
