@@ -1,6 +1,6 @@
 # flowchart <a href="https://bruigtp.github.io/flowchart/"><img src="man/figures/logo.png" align="right" height="138" alt="flowchart website" /></a>
 
-[![CRAN status](https://www.r-pkg.org/badges/version/flowchart)](https://cran.r-project.org/package=flowchart) &#160;&#160; [![R-CMD-check](https://github.com/bruigtp/flowchart/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bruigtp/flowchart/actions/workflows/R-CMD-check.yaml) &#160;&#160; [![](https://cranlogs.r-pkg.org/badges/flowchart)](https://cran.r-project.org/package=flowchart) &#160;&#160; [![total](http://cranlogs.r-pkg.org/badges/grand-total/flowchart)](https://cran.r-project.org/package=flowchart)
+[![CRAN status](https://www.r-pkg.org/badges/version/flowchart)](https://cran.r-project.org/package=flowchart) &#160;&#160; [![R-CMD-check](https://github.com/bruigtp/flowchart/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bruigtp/flowchart/actions/workflows/R-CMD-check.yaml) &#160;&#160; [![](https://cranlogs.r-pkg.org/badges/flowchart)](https://cran.r-project.org/package=flowchart) &#160;&#160; [![](http://cranlogs.r-pkg.org/badges/grand-total/flowchart)](https://cran.r-project.org/package=flowchart)
 
 ## Tidy Flowchart Generator
 
