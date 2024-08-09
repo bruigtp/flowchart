@@ -6,10 +6,12 @@
 #' @param label Character with the text that will be shown in the box.
 #' @param text_pattern Structure that will have the text in the box. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n\{N\}".
 #' @param just Justification for the text: left, center or right. Default is center.
-#' @param text_color Color of the text. It is black by default.
-#' @param text_fs Font size of the text. It is 8 by default.
-#' @param bg_fill Box background color. It is white by default.
-#' @param border_color Box border color. It is black by default.
+#' @param text_color Color of the text. It is black by default. See the `col` parameter for \code{\link{gpar}}.
+#' @param text_fs Font size of the text. It is 8 by default. See the `fontsize` parameter for \code{\link{gpar}}.
+#' @param text_fface Font face of the text. It is 1 by default. See the `fontface` parameter for \code{\link{gpar}}.
+#' @param text_ffamily Changes the font family of the text. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}.
+#' @param bg_fill Box background color. It is white by default. See the `fill` parameter for \code{\link{gpar}}.
+#' @param border_color Box border color. It is black by default. See the `col` parameter for \code{\link{gpar}}.
 #' @param hide Logical value to hide the initial box or not. Default is FALSE. hide = TRUE can only be combined with fc_split().
 #'
 #' @return List with the dataset and the initialized flowchart parameters.
@@ -21,7 +23,7 @@
 #'
 #' @export
 
-as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_pattern = "{label}\n{N}", just = "center", text_color = "black", text_fs = 8, bg_fill = "white", border_color = "black", hide = FALSE) {
+as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_pattern = "{label}\n{N}", just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, bg_fill = "white", border_color = "black", hide = FALSE) {
 
   if(is.null(.data) & is.null(N)) {
     stop("Either `.data` or `N` arguments have to be specified.")
@@ -49,6 +51,8 @@ as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_patt
       just = just,
       text_color = text_color,
       text_fs = text_fs,
+      text_fface = text_fface,
+      text_ffamily = text_ffamily,
       bg_fill = bg_fill,
       border_color = border_color
     )

@@ -19,11 +19,15 @@ fc_filter(
   just = "center",
   text_color = "black",
   text_fs = 8,
+  text_fface = 1,
+  text_ffamily = NA,
   bg_fill = "white",
   border_color = "black",
   just_exc = "center",
   text_color_exc = "black",
   text_fs_exc = 6,
+  text_fface_exc = 1,
+  text_ffamily_exc = NA,
   bg_fill_exc = "white",
   border_color_exc = "black"
 )
@@ -53,23 +57,31 @@ fc_filter(
 
 \item{just}{Justification for the text: left, center or right. Default is center.}
 
-\item{text_color}{Color of the text. It is black by default.}
+\item{text_color}{Color of the text. It is black by default. See the `col` parameter for \code{\link{gpar}}.}
 
-\item{text_fs}{Font size of the text. It is 8 by default.}
+\item{text_fs}{Font size of the text. It is 8 by default. See the `fontsize` parameter for \code{\link{gpar}}.}
 
-\item{bg_fill}{Box background color. It is white by default.}
+\item{text_fface}{Font face of the text. It is 1 by default. See the `fontface` parameter for \code{\link{gpar}}.}
 
-\item{border_color}{Box border color. It is black by default.}
+\item{text_ffamily}{Changes the font family of the text. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}.}
+
+\item{bg_fill}{Box background color. It is white by default. See the `fill` parameter for \code{\link{gpar}}.}
+
+\item{border_color}{Box border color. It is black by default. See the `col` parameter for \code{\link{gpar}}.}
 
 \item{just_exc}{Justification for the text of the exclude box: left, center or right. Default is center.}
 
-\item{text_color_exc}{Color of the text of the exclude box. It is black by default.}
+\item{text_color_exc}{Color of the text of the exclude box. It is black by default. See `text_color`.}
 
-\item{text_fs_exc}{Font size of the text of the exclude box. It is 6 by default.}
+\item{text_fs_exc}{Font size of the text of the exclude box. It is 6 by default. See `text_fs`.}
 
-\item{bg_fill_exc}{Exclude box background color. It is white by default.}
+\item{text_fface_exc}{Font face of the text of the exclude box. It is 1 by default. See the `fontface` parameter for \code{\link{gpar}}. See `text_fface`.}
 
-\item{border_color_exc}{Box background color of the exclude box. It is black by default.}
+\item{text_ffamily_exc}{Changes the font family of the text of the exclude box. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}. See `text_ffamily`.}
+
+\item{bg_fill_exc}{Exclude box background color. It is white by default. See `bg_fill`.}
+
+\item{border_color_exc}{Box background color of the exclude box. It is black by default. See `border_color`.}
 }
 \value{
 List with the filtered dataset and the flowchart parameters with the resulting filtered box.
