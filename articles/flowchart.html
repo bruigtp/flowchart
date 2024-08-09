@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flowchart</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -155,7 +155,7 @@ create complex flowchart structures.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">safo_fc</span>, max.level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## List of 2</span></span>
 <span><span class="co">##  $ data: tibble [925 × 21] (S3: tbl_df/tbl/data.frame)</span></span>
-<span><span class="co">##  $ fc  : tibble [1 × 14] (S3: tbl_df/tbl/data.frame)</span></span>
+<span><span class="co">##  $ fc  : tibble [1 × 16] (S3: tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">##  - attr(*, "class")= chr "fc"</span></span></code></pre>
 <p>The <code>safo_fc</code> object created is a <code>fc</code> object,
 which consists of a list containing the tibble of the dataframe
@@ -165,11 +165,12 @@ the <code>safo</code> dataset while <code>safo_fc$fc</code> contains the
 parameters of the initial flowchart:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo_fc</span><span class="op">$</span><span class="va">fc</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 14</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 16</span></span></span>
 <span><span class="co">##      id     x     y     n     N perc  text  type  group just  text_color text_fs</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">1</span>     1   0.5   0.5   925   925 100   <span style="color: #949494;">"</span>Ini… init  <span style="color: #BB0000;">NA</span>    cent… black            8</span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ 2 more variables: bg_fill &lt;chr&gt;, border_color &lt;chr&gt;</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 4 more variables: text_fface &lt;dbl&gt;, text_ffamily &lt;lgl&gt;, bg_fill &lt;chr&gt;,</span></span></span>
+<span><span class="co">## <span style="color: #949494;">#   border_color &lt;chr&gt;</span></span></span></code></pre>
 <p>Alternatively, if a dataframe is not available, we can initialize a
 flowchart using the <code>N =</code> argument manually specifying the
 number of rows:</p>
@@ -310,6 +311,22 @@ modify the font size of the text.
 </tr>
 <tr>
 <td style="text-align:left;">
+<code>text_fface=</code>
+</td>
+<td style="text-align:left;">
+modify the font face of the text.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>text_ffamily=</code>
+</td>
+<td style="text-align:left;">
+modify the font family of the text.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 <code>bg_fill=</code>
 </td>
 <td style="text-align:left;">
@@ -426,6 +443,22 @@ modify the color of the text in the exclusion box.
 </td>
 <td style="text-align:left;">
 modify the font size of the text in the exclusion box.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>text_fface_exc=</code>
+</td>
+<td style="text-align:left;">
+modify the font face of the text in the exclusion box.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>text_ffamily_exc=</code>
+</td>
+<td style="text-align:left;">
+modify the font family of the text in the exclusion box.
 </td>
 </tr>
 <tr>
