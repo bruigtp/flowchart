@@ -240,6 +240,10 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
     }
 
   new_fc <- new_fc |>
+    dplyr::mutate(label0 = dplyr::case_when(
+      is.na(label0) ~ "NA",
+      TRUE ~ label0
+    )) |>
     tidyr::unite("group", c("group", "label0"), sep = ", ", na.rm = TRUE) |>
     dplyr::ungroup() |>
     dplyr::select("x", "y", "n", "N", "perc", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "bg_fill", "border_color")

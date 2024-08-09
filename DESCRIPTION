@@ -1,7 +1,7 @@
 Package: flowchart
 Type: Package
 Title: Tidy Flowchart Generator
-Version: 0.4.0.1
+Version: 0.4.0.2
 Authors@R: c(
     person("Pau", "Satorra", email = "psatorra@igtp.cat", role = c("aut", "cre")),
     person("João", "Carmezim", role = c("aut")),
@@ -31,5 +31,5 @@ Suggests:
 VignetteBuilder: knitr
 Depends: 
     R (>= 4.1.0)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 URL: https://bruigtp.github.io/flowchart/
