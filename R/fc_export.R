@@ -45,6 +45,16 @@ fc_export <- function(object, filename, path = NULL, format = NULL, width = NA, 
     if (identical(format, "")) {
       stop("filename has no file extension and format is NULL")
     }
+  } else {
+    #Put format to filename if format is specified
+    format_file <- tolower(tools::file_ext(filename))
+    if(identical(format_file, "")) {
+      filename <- paste0(filename, ".", format)
+    } else {
+      if(!identical(format_file, format)) {
+        stop("filename extension and the specified format don't match")
+      }
+    }
   }
 
   #If format is not one of 'png', 'jpeg', 'tiff' or 'bmp':
