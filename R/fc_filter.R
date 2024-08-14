@@ -172,8 +172,8 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
     x_margin <- new_fc |>
       dplyr::mutate(
         limit = dplyr::case_when(
-          .data$x + add_x <= 0 ~ -.data$x/2,
-          .data$x + add_x >= 1 ~ (1 - .data$x)/2,
+          .data$x + add_x <= 0.05 ~ -.data$x/2,
+          .data$x + add_x >= 0.95 ~ (1 - .data$x)/2,
           TRUE ~ NA
         )
       ) |>
