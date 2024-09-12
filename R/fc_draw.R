@@ -10,7 +10,7 @@
 #' @param title_x x coordinate for the title. Default is 0.5.
 #' @param title_y y coordinate for the title. Default is 0.9.
 #' @param title_color Color of the title. It is black by default. See the `col` parameter for \code{\link{gpar}}.
-#' @param title_fs Font size of the title. It is 20 by default. See the `fontsize` parameter for \code{\link{gpar}}.
+#' @param title_fs Font size of the title. It is 15 by default. See the `fontsize` parameter for \code{\link{gpar}}.
 #' @param title_fface Font face of the title. It is 2 by default. See the `fontface` parameter for \code{\link{gpar}}.
 #' @param title_ffamily Changes the font family of the title. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}.
 
@@ -28,7 +28,7 @@
 #' @export
 #' @importFrom rlang .data
 
-fc_draw <- function(object, arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 20, title_fface = 2, title_ffamily = NULL) {
+fc_draw <- function(object, arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL) {
 
   is_class(object, "fc")
 
