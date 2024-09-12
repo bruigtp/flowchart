@@ -9,7 +9,14 @@ fc_draw(
   arrow_angle = 30,
   arrow_length = grid::unit(0.1, "inches"),
   arrow_ends = "last",
-  arrow_type = "closed"
+  arrow_type = "closed",
+  title = NULL,
+  title_x = 0.5,
+  title_y = 0.9,
+  title_color = "black",
+  title_fs = 20,
+  title_fface = 2,
+  title_ffamily = NULL
 )
 }
 \arguments{
@@ -22,6 +29,20 @@ fc_draw(
 \item{arrow_ends}{One of "last", "first", or "both", indicating which ends of the line to draw arrow heads, as in `arrow`.}
 
 \item{arrow_type}{One of "open" or "closed" indicating whether the arrow head should be a closed triangle, as in `arrow`.}
+
+\item{title}{The title of the flowchart. Default is NULL (no title).}
+
+\item{title_x}{x coordinate for the title. Default is 0.5.}
+
+\item{title_y}{y coordinate for the title. Default is 0.9.}
+
+\item{title_color}{Color of the title. It is black by default. See the `col` parameter for \code{\link{gpar}}.}
+
+\item{title_fs}{Font size of the title. It is 20 by default. See the `fontsize` parameter for \code{\link{gpar}}.}
+
+\item{title_fface}{Font face of the title. It is 2 by default. See the `fontface` parameter for \code{\link{gpar}}.}
+
+\item{title_ffamily}{Changes the font family of the title. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}.}
 }
 \value{
 Invisibly returns the same object that has been given to the function, with the given arguments to draw the flowchart stored in the attributes.
