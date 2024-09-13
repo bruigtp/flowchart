@@ -14,7 +14,7 @@ fc_draw(
   title_x = 0.5,
   title_y = 0.9,
   title_color = "black",
-  title_fs = 20,
+  title_fs = 15,
   title_fface = 2,
   title_ffamily = NULL
 )
@@ -38,7 +38,7 @@ fc_draw(
 
 \item{title_color}{Color of the title. It is black by default. See the `col` parameter for \code{\link{gpar}}.}
 
-\item{title_fs}{Font size of the title. It is 20 by default. See the `fontsize` parameter for \code{\link{gpar}}.}
+\item{title_fs}{Font size of the title. It is 15 by default. See the `fontsize` parameter for \code{\link{gpar}}.}
 
 \item{title_fface}{Font face of the title. It is 2 by default. See the `fontface` parameter for \code{\link{gpar}}.}
 
