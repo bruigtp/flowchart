@@ -10,6 +10,7 @@ fc_filter(
   N = NULL,
   label = NULL,
   text_pattern = "{label}\\n {n} ({perc}\%)",
+  perc_total = FALSE,
   show_exc = FALSE,
   direction_exc = "right",
   label_exc = "Excluded",
@@ -43,6 +44,8 @@ fc_filter(
 \item{label}{Character that will be the title of the box. By default it will be the evaluated condition.}
 
 \item{text_pattern}{Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".}
+
+\item{perc_total}{logical. Should percentages be calculated using the total number at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.}
 
 \item{show_exc}{Logical value. If TRUE a box showing the number of excluded rows will be added to the flow chart.}
 

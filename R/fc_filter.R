@@ -6,6 +6,7 @@
 #' @param N Number of rows after the filter in case `filter` is NULL.
 #' @param label Character that will be the title of the box. By default it will be the evaluated condition.
 #' @param text_pattern Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".
+#' @param perc_total logical. Should percentages be calculated using the total number at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.
 #' @param show_exc Logical value. If TRUE a box showing the number of excluded rows will be added to the flow chart.
 #' @param direction_exc One of "left" or "right" indicating if the exclusion box goes into the left direction or in the right direction. By default is "right".
 #' @param label_exc Character that will be the title of the added box showing the excluded patients. By default it will show "Excluded".
@@ -39,7 +40,7 @@
 #' @importFrom rlang .data
 #' @importFrom rlang :=
 
-fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, bg_fill = "white", border_color = "black", just_exc = "center", text_color_exc = "black", text_fs_exc = 6, text_fface_exc = 1, text_ffamily_exc = NA, bg_fill_exc = "white", border_color_exc = "black", offset_exc = NULL) {
+fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, bg_fill = "white", border_color = "black", just_exc = "center", text_color_exc = "black", text_fs_exc = 6, text_fface_exc = 1, text_ffamily_exc = NA, bg_fill_exc = "white", border_color_exc = "black", offset_exc = NULL) {
 
   is_class(object, "fc")
 
@@ -113,10 +114,22 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
     dplyr::left_join(object$fc |> dplyr::filter(.data$type != "exclude") |> dplyr::select("x", "group"), by = "group") |>
     dplyr::group_by(.data$group) |>
     dplyr::slice_tail(n = 1) |>
-    dplyr::ungroup() |>
+    dplyr::ungroup()
+
+  if(perc_total) {
+    N_total <- unique(
+      object$fc |>
+        dplyr::filter(is.na(.data$group)) |>
+        dplyr::pull(N)
+    )
+  } else {
+    N_total <- new_fc$N
+  }
+
+  new_fc <- new_fc |>
     dplyr::mutate(
       y = NA,
-      perc = round(.data$n*100/.data$N, round_digits),
+      perc = round(.data$n*100/N_total, round_digits),
       text = as.character(stringr::str_glue(text_pattern)),
       type = "filter",
       just = just,
@@ -209,8 +222,22 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
         x = .data$x + add_x,
         y = purrr::map2_dbl(.data$parent, .data$y, ~(.y + .x$y)/2),
         n = purrr::map2_int(.data$parent, .data$n, ~.x$n - .y),
-        N = purrr::map_int(.data$parent, ~.x$n),
-        perc = purrr::map2_dbl(.data$n, .data$N, ~round(.x*100/.y, round_digits)),
+        N = purrr::map_int(.data$parent, ~.x$n)
+      )
+
+    if(perc_total) {
+      N_total <- unique(
+        object$fc |>
+          dplyr::filter(is.na(.data$group)) |>
+          dplyr::pull("N")
+      )
+    } else {
+      N_total <- new_fc2$N
+    }
+
+    new_fc2 <- new_fc2 |>
+      dplyr::mutate(
+        perc = purrr::map2_dbl(.data$n, N_total, ~round(.x*100/.y, round_digits)),
         text = as.character(stringr::str_glue(text_pattern_exc)),
         type = "exclude",
         just = just_exc,

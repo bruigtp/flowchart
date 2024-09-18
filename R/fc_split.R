@@ -6,6 +6,7 @@
 #' @param N Number of rows after the split in case `var` is NULL.
 #' @param label Vector of characters with the label of each category in order. It has to have as many elements as categories has the column. By default, it will put the labels of the categories.
 #' @param text_pattern Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".
+#' @param perc_total logical. Should percentages be calculated using the total number at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.
 #' @param sel_group Specify if the splitting has to be done only by one of the previous groups. Default is NULL.
 #' @param na.rm logical. Should missing values of the grouping variable be removed? Default is FALSE.
 #' @param show_zero logical. Should the levels of the grouping variable that don't have data be shown? Default is FALSE.
@@ -31,7 +32,7 @@
 #' @importFrom rlang .data
 
 #var can be either a string or a non-quoted name
-fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, bg_fill = "white", border_color = "black", offset = NULL) {
+fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, bg_fill = "white", border_color = "black", offset = NULL) {
 
   is_class(object, "fc")
 
@@ -148,11 +149,21 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
 
   }
 
+  if(perc_total) {
+    N_total <- unique(
+      object$fc |>
+        dplyr::filter(is.na(.data$group)) |>
+        dplyr::pull("N")
+    )
+  } else {
+    N_total <- new_fc$N
+  }
+
   new_fc <- new_fc |>
     dplyr::mutate(
       x = NA,
       y = NA,
-      perc = round(.data$n*100/.data$N, round_digits),
+      perc = round(.data$n*100/N_total, round_digits),
       text = as.character(stringr::str_glue(text_pattern)),
       type = "split",
       just = just,

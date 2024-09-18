@@ -10,6 +10,7 @@ fc_split(
   N = NULL,
   label = NULL,
   text_pattern = "{label}\\n {n} ({perc}\%)",
+  perc_total = FALSE,
   sel_group = NULL,
   na.rm = FALSE,
   show_zero = FALSE,
@@ -34,6 +35,8 @@ fc_split(
 \item{label}{Vector of characters with the label of each category in order. It has to have as many elements as categories has the column. By default, it will put the labels of the categories.}
 
 \item{text_pattern}{Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".}
+
+\item{perc_total}{logical. Should percentages be calculated using the total number at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.}
 
 \item{sel_group}{Specify if the splitting has to be done only by one of the previous groups. Default is NULL.}
 
