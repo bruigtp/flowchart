@@ -19,8 +19,9 @@ reference:
   - fc_stack
 - title: Exporting flowchart
   desc: Function to export a flowchart
-  contents: Access flowchart information
-  desc: Function to get $data or $fc
+  contents: fc_export
+- title: View flowchart elements
+  desc: Function to return $data or $fc
   contents: fc_view
 - title: Built-in datasets
   desc: Datasets that are included in the package for testing
