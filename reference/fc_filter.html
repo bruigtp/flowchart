@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flowchart</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,6 +45,7 @@
 <span>  N <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  text_pattern <span class="op">=</span> <span class="st">"{label}\n {n} ({perc}%)"</span>,</span>
+<span>  perc_total <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show_exc <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  direction_exc <span class="op">=</span> <span class="st">"right"</span>,</span>
 <span>  label_exc <span class="op">=</span> <span class="st">"Excluded"</span>,</span>
@@ -91,6 +92,10 @@
 
 <dt id="arg-text-pattern">text_pattern<a class="anchor" aria-label="anchor" href="#arg-text-pattern"></a></dt>
 <dd><p>Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "{label}\n {n} ({perc}%)".</p></dd>
+
+
+<dt id="arg-perc-total">perc_total<a class="anchor" aria-label="anchor" href="#arg-perc-total"></a></dt>
+<dd><p>logical. Should percentages be calculated using the total number at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.</p></dd>
 
 
 <dt id="arg-show-exc">show_exc<a class="anchor" aria-label="anchor" href="#arg-show-exc"></a></dt>
@@ -201,7 +206,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer></div>
