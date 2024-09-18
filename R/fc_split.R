@@ -244,11 +244,11 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
     if(!is.null(offset)) {
 
       xval <- xval |>
-        mutate(
-          x = case_when(
-            x > center ~ x + offset,
-            x < center ~ x - offset,
-            .default = x
+        dplyr::mutate(
+          x = dplyr::case_when(
+            .data$x > center ~ .data$x + offset,
+            .data$x < center ~ .data$x - offset,
+            .default = .data$x
           )
         )
 

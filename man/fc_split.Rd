@@ -20,7 +20,8 @@ fc_split(
   text_fface = 1,
   text_ffamily = NA,
   bg_fill = "white",
-  border_color = "black"
+  border_color = "black",
+  offset = NULL
 )
 }
 \arguments{
@@ -34,7 +35,7 @@ fc_split(
 
 \item{text_pattern}{Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".}
 
-\item{sel_group}{Specify if the splitting has to be done only by one of the previous groups. By default is NULL.}
+\item{sel_group}{Specify if the splitting has to be done only by one of the previous groups. Default is NULL.}
 
 \item{na.rm}{logical. Should missing values of the grouping variable be removed? Default is FALSE.}
 
@@ -55,6 +56,8 @@ fc_split(
 \item{bg_fill}{Box background color. It is white by default.}
 
 \item{border_color}{Box border color. It is black by default.}
+
+\item{offset}{Amount of space to add to the distance between boxes (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. Default is NULL (no offset).}
 }
 \value{
 List with the dataset grouped by the splitting variable and the flowchart parameters with the resulting split.

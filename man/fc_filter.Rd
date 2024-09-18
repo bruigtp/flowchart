@@ -29,7 +29,8 @@ fc_filter(
   text_fface_exc = 1,
   text_ffamily_exc = NA,
   bg_fill_exc = "white",
-  border_color_exc = "black"
+  border_color_exc = "black",
+  offset_exc = NULL
 )
 }
 \arguments{
@@ -82,6 +83,8 @@ fc_filter(
 \item{bg_fill_exc}{Exclude box background color. It is white by default. See `bg_fill`.}
 
 \item{border_color_exc}{Box background color of the exclude box. It is black by default. See `border_color`.}
+
+\item{offset_exc}{Amount of space to add to the distance between the box and the excluded box (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. The default is NULL (no offset).}
 }
 \value{
 List with the filtered dataset and the flowchart parameters with the resulting filtered box.
