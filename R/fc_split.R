@@ -6,7 +6,7 @@
 #' @param N Number of rows after the split in case `var` is NULL.
 #' @param label Vector of characters with the label of each category in order. It has to have as many elements as categories has the column. By default, it will put the labels of the categories.
 #' @param text_pattern Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".
-#' @param sel_group Specify if the splitting has to be done only by one of the previous groups. By default is NULL.
+#' @param sel_group Specify if the splitting has to be done only by one of the previous groups. Default is NULL.
 #' @param na.rm logical. Should missing values of the grouping variable be removed? Default is FALSE.
 #' @param show_zero logical. Should the levels of the grouping variable that don't have data be shown? Default is FALSE.
 #' @param round_digits Number of digits to round percentages. It is 2 by default.
@@ -17,6 +17,7 @@
 #' @param text_ffamily Changes the font family of the text. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}.
 #' @param bg_fill Box background color. It is white by default.
 #' @param border_color Box border color. It is black by default.
+#' @param offset Amount of space to add to the distance between boxes (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. Default is NULL (no offset).
 #' @return List with the dataset grouped by the splitting variable and the flowchart parameters with the resulting split.
 #'
 #' @examples
@@ -30,7 +31,7 @@
 #' @importFrom rlang .data
 
 #var can be either a string or a non-quoted name
-fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, bg_fill = "white", border_color = "black") {
+fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, bg_fill = "white", border_color = "black", offset = NULL) {
 
   is_class(object, "fc")
 
@@ -171,6 +172,16 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
   if(is.null(group0)) {
 
     xval <-  purrr::map_dbl(0:(nrow(new_fc) - 1), ~ (1 + 2*.x)/(2*nrow(new_fc)))
+
+    #Offset distance between boxes:
+    if(!is.null(offset)) {
+      xval <- dplyr::case_when(
+        xval > 0.5 ~ xval + offset,
+        xval < 0.5 ~ xval - offset,
+        .default = xval
+      )
+    }
+
     new_fc$x <- xval
     new_fc$group <- NA
 
@@ -227,8 +238,24 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
 
         })
       ) |>
-      dplyr::select("group", "label", "x") |>
       tidyr::unnest(c("label", "x"))
+
+
+    if(!is.null(offset)) {
+
+      xval <- xval |>
+        mutate(
+          x = case_when(
+            x > center ~ x + offset,
+            x < center ~ x - offset,
+            .default = x
+          )
+        )
+
+    }
+
+    xval <- xval |>
+      dplyr::select("group", "label", "x")
 
     #Juntar new_fc amb xval
 
@@ -237,7 +264,7 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
       dplyr::left_join(xval, by = c("group", "label")) |>
       dplyr::relocate("x", .before = "y")
 
-    }
+  }
 
   new_fc <- new_fc |>
     dplyr::mutate(label0 = dplyr::case_when(

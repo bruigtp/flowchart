@@ -26,6 +26,7 @@
 #' @param text_ffamily_exc Changes the font family of the text of the exclude box. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}. See `text_ffamily`.
 #' @param bg_fill_exc Exclude box background color. It is white by default. See `bg_fill`.
 #' @param border_color_exc Box background color of the exclude box. It is black by default. See `border_color`.
+#' @param offset_exc Amount of space to add to the distance between the box and the excluded box (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. The default is NULL (no offset).
 #' @return List with the filtered dataset and the flowchart parameters with the resulting filtered box.
 #'
 #' @examples
@@ -38,7 +39,7 @@
 #' @importFrom rlang .data
 #' @importFrom rlang :=
 
-fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, bg_fill = "white", border_color = "black", just_exc = "center", text_color_exc = "black", text_fs_exc = 6, text_fface_exc = 1, text_ffamily_exc = NA, bg_fill_exc = "white", border_color_exc = "black") {
+fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, bg_fill = "white", border_color = "black", just_exc = "center", text_color_exc = "black", text_fs_exc = 6, text_fface_exc = 1, text_ffamily_exc = NA, bg_fill_exc = "white", border_color_exc = "black", offset_exc = NULL) {
 
   is_class(object, "fc")
 
@@ -185,6 +186,10 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
         sign(add_x) != sign(min_add) ~ min_add*(-1),
         TRUE ~ min_add
       )
+    }
+
+    if(!is.null(offset_exc)) {
+      add_x <- add_x + offset_exc
     }
 
     #Calculate the middle distance between the box and the parent
