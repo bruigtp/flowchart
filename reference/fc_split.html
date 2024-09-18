@@ -55,7 +55,8 @@
 <span>  text_fface <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  text_ffamily <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  bg_fill <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>  border_color <span class="op">=</span> <span class="st">"black"</span></span>
+<span>  border_color <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  offset <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -84,7 +85,7 @@
 
 
 <dt id="arg-sel-group">sel_group<a class="anchor" aria-label="anchor" href="#arg-sel-group"></a></dt>
-<dd><p>Specify if the splitting has to be done only by one of the previous groups. By default is NULL.</p></dd>
+<dd><p>Specify if the splitting has to be done only by one of the previous groups. Default is NULL.</p></dd>
 
 
 <dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>
@@ -125,6 +126,10 @@
 
 <dt id="arg-border-color">border_color<a class="anchor" aria-label="anchor" href="#arg-border-color"></a></dt>
 <dd><p>Box border color. It is black by default.</p></dd>
+
+
+<dt id="arg-offset">offset<a class="anchor" aria-label="anchor" href="#arg-offset"></a></dt>
+<dd><p>Amount of space to add to the distance between boxes (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. Default is NULL (no offset).</p></dd>
 
 </dl></div>
     <div class="section level2">
