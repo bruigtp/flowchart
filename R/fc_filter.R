@@ -122,10 +122,17 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
     N_total <- unique(
       object$fc |>
         dplyr::filter(is.na(.data$group)) |>
-        dplyr::pull(N)
+        dplyr::pull("N")
     )
+    new_fc <- new_fc |>
+      dplyr::mutate(
+        N_total = N_total
+      )
   } else {
-    N_total <- new_fc$N
+    new_fc <- new_fc |>
+      dplyr::mutate(
+        N_total = .data$N
+      )
   }
 
   if(text_padding == 0 | text_padding_exc == 0) {
@@ -135,7 +142,7 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
   new_fc <- new_fc |>
     dplyr::mutate(
       y = NA,
-      perc = round(.data$n*100/N_total, round_digits),
+      perc = round(.data$n*100/.data$N_total, round_digits),
       text = as.character(stringr::str_glue(text_pattern)),
       type = "filter",
       just = just,
@@ -147,7 +154,8 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
       bg_fill = bg_fill,
       border_color = border_color
     ) |>
-    dplyr::ungroup()
+    dplyr::ungroup() |>
+    dplyr::select(-N_total)
 
 
   if(is.null(sel_group)) {
@@ -238,13 +246,21 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
           dplyr::filter(is.na(.data$group)) |>
           dplyr::pull("N")
       )
+      new_fc2 <- new_fc2 |>
+        dplyr::mutate(
+          N_total = N_total
+        )
     } else {
-      N_total <- new_fc2$N
+      new_fc2 <- new_fc2 |>
+        dplyr::mutate(
+          N_total = .data$N
+        )
     }
+
 
     new_fc2 <- new_fc2 |>
       dplyr::mutate(
-        perc = purrr::map2_dbl(.data$n, N_total, ~round(.x*100/.y, round_digits)),
+        perc = purrr::map2_dbl(.data$n, .data$N_total, ~round(.x*100/.y, round_digits)),
         text = as.character(stringr::str_glue(text_pattern_exc)),
         type = "exclude",
         just = just_exc,
@@ -256,7 +272,7 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
         bg_fill = bg_fill_exc,
         border_color = border_color_exc
       ) |>
-      dplyr::select(-"parent")
+      dplyr::select(-"parent", -"N_total")
 
     new_fc3 <- NULL
     for(i in 1:nrow(new_fc2)) {

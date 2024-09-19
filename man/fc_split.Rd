@@ -23,6 +23,14 @@ fc_split(
   text_padding = 1,
   bg_fill = "white",
   border_color = "black",
+  title = NULL,
+  text_color_title = "black",
+  text_fs_title = 8,
+  text_fface_title = 1,
+  text_ffamily_title = NA,
+  text_padding_title = 0.6,
+  bg_fill_title = "white",
+  border_color_title = "black",
   offset = NULL
 )
 }
@@ -62,6 +70,22 @@ fc_split(
 \item{bg_fill}{Box background color. It is white by default.}
 
 \item{border_color}{Box border color. It is black by default.}
+
+\item{title}{Add a title box to the split. Default is NULL.}
+
+\item{text_color_title}{Color of the title text. It is black by default.}
+
+\item{text_fs_title}{Font size of the title text. It is 8 by default.}
+
+\item{text_fface_title}{Font face of the title text. It is 1 by default. See the `fontface` parameter for \code{\link{gpar}}.}
+
+\item{text_ffamily_title}{Changes the font family of the title text. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}.}
+
+\item{text_padding_title}{Changes the title text padding inside the box. Default is 1. This number has to be greater than 0.}
+
+\item{bg_fill_title}{Title box background color. It is white by default.}
+
+\item{border_color_title}{Title box border color. It is black by default.}
 
 \item{offset}{Amount of space to add to the distance between boxes (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. Default is NULL (no offset).}
 }
