@@ -16,6 +16,7 @@
 #' @param text_fs Font size of the text. It is 8 by default.
 #' @param text_fface Font face of the text. It is 1 by default. See the `fontface` parameter for \code{\link{gpar}}.
 #' @param text_ffamily Changes the font family of the text. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}.
+#' @param text_padding Changes the text padding inside the box. Default is 1. This number has to be greater than 0.
 #' @param bg_fill Box background color. It is white by default.
 #' @param border_color Box border color. It is black by default.
 #' @param offset Amount of space to add to the distance between boxes (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. Default is NULL (no offset).
@@ -32,7 +33,7 @@
 #' @importFrom rlang .data
 
 #var can be either a string or a non-quoted name
-fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, bg_fill = "white", border_color = "black", offset = NULL) {
+fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", offset = NULL) {
 
   is_class(object, "fc")
 
@@ -159,6 +160,10 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
     N_total <- new_fc$N
   }
 
+  if(text_padding == 0) {
+    stop("Text padding cannot be equal to zero")
+  }
+
   new_fc <- new_fc |>
     dplyr::mutate(
       x = NA,
@@ -171,6 +176,7 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
       text_fs = text_fs,
       text_fface = text_fface,
       text_ffamily = text_ffamily,
+      text_padding = text_padding,
       bg_fill = bg_fill,
       border_color = border_color
     )
@@ -284,7 +290,7 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
     )) |>
     tidyr::unite("group", c("group", "label0"), sep = ", ", na.rm = TRUE) |>
     dplyr::ungroup() |>
-    dplyr::select("x", "y", "n", "N", "perc", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "bg_fill", "border_color")
+    dplyr::select("x", "y", "n", "N", "perc", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color")
 
   #remove the id previous to adding the next one
   if(!is.null(object$fc)) {

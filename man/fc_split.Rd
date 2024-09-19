@@ -20,6 +20,7 @@ fc_split(
   text_fs = 8,
   text_fface = 1,
   text_ffamily = NA,
+  text_padding = 1,
   bg_fill = "white",
   border_color = "black",
   offset = NULL
@@ -55,6 +56,8 @@ fc_split(
 \item{text_fface}{Font face of the text. It is 1 by default. See the `fontface` parameter for \code{\link{gpar}}.}
 
 \item{text_ffamily}{Changes the font family of the text. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}.}
+
+\item{text_padding}{Changes the text padding inside the box. Default is 1. This number has to be greater than 0.}
 
 \item{bg_fill}{Box background color. It is white by default.}
 

@@ -22,6 +22,7 @@ fc_filter(
   text_fs = 8,
   text_fface = 1,
   text_ffamily = NA,
+  text_padding = 1,
   bg_fill = "white",
   border_color = "black",
   just_exc = "center",
@@ -29,6 +30,7 @@ fc_filter(
   text_fs_exc = 6,
   text_fface_exc = 1,
   text_ffamily_exc = NA,
+  text_padding_exc = 1,
   bg_fill_exc = "white",
   border_color_exc = "black",
   offset_exc = NULL
@@ -69,6 +71,8 @@ fc_filter(
 
 \item{text_ffamily}{Changes the font family of the text. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}.}
 
+\item{text_padding}{Changes the text padding inside the box. Default is 1. This number has to be greater than 0.}
+
 \item{bg_fill}{Box background color. It is white by default. See the `fill` parameter for \code{\link{gpar}}.}
 
 \item{border_color}{Box border color. It is black by default. See the `col` parameter for \code{\link{gpar}}.}
@@ -82,6 +86,8 @@ fc_filter(
 \item{text_fface_exc}{Font face of the text of the exclude box. It is 1 by default. See the `fontface` parameter for \code{\link{gpar}}. See `text_fface`.}
 
 \item{text_ffamily_exc}{Changes the font family of the text of the exclude box. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}. See `text_ffamily`.}
+
+\item{text_padding_exc}{Changes the text padding inside the exclude box. Default is 1. This number has to be greater than 0.}
 
 \item{bg_fill_exc}{Exclude box background color. It is white by default. See `bg_fill`.}
 
