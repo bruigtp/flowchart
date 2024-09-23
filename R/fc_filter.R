@@ -99,9 +99,10 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
   group0 <- names(attr(object$data, "groups"))
   group0 <- group0[group0 != ".rows"]
 
+  filter_to_parse <- filter
   new_fc <- object$data |>
     dplyr::summarise(
-      n = sum(eval(parse(text = filter)), na.rm = TRUE),
+      n = sum(rlang::eval_tidy(rlang::parse_expr(filter_to_parse)), na.rm = TRUE),
       N = dplyr::n()
     )
 
@@ -296,7 +297,7 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
 
   #Quan fem un filter la bbdd ha de quedar filtrada
   object$data <- object$data |>
-    dplyr::filter(eval(parse(text = filter)))
+    dplyr::filter(rlang::eval_tidy(rlang::parse_expr(filter_to_parse)))
 
   object
 
