@@ -29,7 +29,7 @@
 #' @param text_padding_exc Changes the text padding inside the exclude box. Default is 1. This number has to be greater than 0.
 #' @param bg_fill_exc Exclude box background color. It is white by default. See `bg_fill`.
 #' @param border_color_exc Box background color of the exclude box. It is black by default. See `border_color`.
-#' @param offset_exc Amount of space to add to the distance between the box and the excluded box (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. The default is NULL (no offset).
+#' @param offset_exc Amount of space to add to the distance between the box and the excluded box (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. This number has to be at least between 0 and 1 (plot limits) and the resulting x coordinate cannot exceed these plot limits. The default is NULL (no offset).
 #' @return List with the filtered dataset and the flowchart parameters with the resulting filtered box.
 #'
 #' @examples
@@ -240,6 +240,12 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
         n = purrr::map2_int(.data$parent, .data$n, ~.x$n - .y),
         N = purrr::map_int(.data$parent, ~.x$n)
       )
+
+    if(!is.null(offset_exc)) {
+      if(!all(new_fc2$x >= 0 & new_fc2$x <= 1)) {
+        stop("The x-coordinate cannot exceed the plot limits 0 and 1. The argument offset_exc has to be set to a smaller number.")
+      }
+    }
 
     if(perc_total) {
       N_total <- unique(

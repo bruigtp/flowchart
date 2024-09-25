@@ -27,7 +27,7 @@
 #' @param text_padding_title Changes the title text padding inside the box. Default is 1. This number has to be greater than 0.
 #' @param bg_fill_title Title box background color. It is white by default.
 #' @param border_color_title Title box border color. It is black by default.
-#' @param offset Amount of space to add to the distance between boxes (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. Default is NULL (no offset).
+#' @param offset Amount of space to add to the distance between boxes (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. This number has to be at least between 0 and 1 (plot limits) and the resulting x coordinate cannot exceed these plot limits. The default is NULL (no offset).
 #' @return List with the dataset grouped by the splitting variable and the flowchart parameters with the resulting split.
 #'
 #' @examples
@@ -213,6 +213,11 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
         xval < 0.5 ~ xval - offset,
         .default = xval
       )
+
+      if(!all(xval >= 0 & xval <= 1)) {
+        stop("The x-coordinate cannot exceed the plot limits 0 and 1. The argument offset has to be set to a smaller number.")
+      }
+
     }
 
     new_fc$x <- xval
