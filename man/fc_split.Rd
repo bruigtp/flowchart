@@ -25,7 +25,7 @@ fc_split(
   border_color = "black",
   title = NULL,
   text_color_title = "black",
-  text_fs_title = 8,
+  text_fs_title = 10,
   text_fface_title = 1,
   text_ffamily_title = NA,
   text_padding_title = 0.6,
@@ -45,7 +45,7 @@ fc_split(
 
 \item{text_pattern}{Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".}
 
-\item{perc_total}{logical. Should percentages be calculated using the total number at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.}
+\item{perc_total}{logical. Should percentages be calculated using the total number of rows at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.}
 
 \item{sel_group}{Specify if the splitting has to be done only by one of the previous groups. Default is NULL.}
 

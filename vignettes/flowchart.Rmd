@@ -158,7 +158,7 @@ safo |>
 
 We can customize the flowchart either with the arguments provided by each function in the process of creating it, or directly in the final output using the function `modify_fc`. 
 
-## Modify function arguments
+## Change function arguments
 
 Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the appearance of the boxes created at each step:
 
@@ -203,6 +203,10 @@ Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the 
    <td style="text-align:left;"> modify the font family of the text. </td>
   </tr>
   <tr>
+   <td style="text-align:left;"> `text_padding=` </td>
+   <td style="text-align:left;"> modify the padding of the text inside the box. </td>
+  </tr>
+  <tr>
    <td style="text-align:left;"> `bg_fill=` </td>
    <td style="text-align:left;"> modify the background color of the box. </td>
   </tr>
@@ -240,6 +244,10 @@ Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the 
   </tr>
  </thead>
 <tbody>
+  <tr>
+   <td style="text-align:left;"> `perc_total=` </td>
+   <td style="text-align:left;"> calculate percentages using the total number of rows at the beginning of the flowchart. </td>
+  </tr>
   <tr>
    <td style="text-align:left;"> `sel_group=` </td>
    <td style="text-align:left;"> apply the filter only in the specified groups (if data is grouped). </td>
@@ -285,12 +293,20 @@ Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the 
    <td style="text-align:left;"> modify the font family of the text in the exclusion box. </td>
   </tr>
   <tr>
+   <td style="text-align:left;"> `text_padding_exc=` </td>
+   <td style="text-align:left;"> modify the padding of the text inside the exclusion box. </td>
+  </tr>
+  <tr>
    <td style="text-align:left;"> `bg_fill_exc=` </td>
    <td style="text-align:left;"> modify the background color of the exclusion box. </td>
   </tr>
   <tr>
    <td style="text-align:left;"> `border_color_exc=` </td>
    <td style="text-align:left;"> modify the border color of the exclusion box. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `offset_exc=` </td>
+   <td style="text-align:left;"> add space to the distance between the box and the excluded box (in the x-coordinate). </td>
   </tr>
 </tbody>
 </table>
@@ -306,6 +322,10 @@ Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the 
  </thead>
 <tbody>
   <tr>
+   <td style="text-align:left;"> `perc_total=` </td>
+   <td style="text-align:left;"> calculate percentages using the total number of rows at the beginning of the flowchart. </td>
+  </tr>
+  <tr>
    <td style="text-align:left;"> `sel_group=` </td>
    <td style="text-align:left;"> split the flowchart only in the specified groups (if data is grouped). </td>
   </tr>
@@ -319,6 +339,42 @@ Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the 
   <tr>
    <td style="text-align:left;"> `round_digits=` </td>
    <td style="text-align:left;"> modify the number of digits to round percentages. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `title=` </td>
+   <td style="text-align:left;"> add a title box to the split. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `text_color_title=` </td>
+   <td style="text-align:left;"> modify the color of the text in the title box. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `text_fs_title=` </td>
+   <td style="text-align:left;"> modify the font size of the text in the title box. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `text_fface_title=` </td>
+   <td style="text-align:left;"> modify the font face of the text in the title box. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `text_ffamily_title=` </td>
+   <td style="text-align:left;"> modify the font family of the text in the title box. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `text_padding_title=` </td>
+   <td style="text-align:left;"> modify the padding of the text in the title box. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `bg_fill_title=` </td>
+   <td style="text-align:left;"> modify the background color of the title box. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `border_color_title=` </td>
+   <td style="text-align:left;"> modify the border color of the title box. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `offset=` </td>
+   <td style="text-align:left;"> add space to the distance between the boxes (in the x-coordinate). </td>
   </tr>
   </tr>
 </tbody>
@@ -350,37 +406,68 @@ Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the 
    <td style="text-align:left;"> `arrow_type=` </td>
    <td style="text-align:left;"> whether the arrow head should be a closed triangle. </td>
   </tr>
+  <tr>
+   <td style="text-align:left;"> `title=` </td>
+   <td style="text-align:left;"> title of the flowchart. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `title_x=` </td>
+   <td style="text-align:left;"> x coordinate of the title. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `title_y=` </td>
+   <td style="text-align:left;"> y coordinate of the title. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `title_color=` </td>
+   <td style="text-align:left;"> color of the title. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `title_fs=` </td>
+   <td style="text-align:left;"> font size of the title. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `title_fface=` </td>
+   <td style="text-align:left;"> font face of the title. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `title_ffamily=` </td>
+   <td style="text-align:left;"> font family of the title. </td>
+  </tr>
 </tbody>
 </table>
+
 
 ## Function to customize the flowchart
 
 The function `modify_fc` allows the user to customise the created flowchart by modifying its parameters, which are stored in `.$fc`. 
 
-For example, we could fully customise the text in the exclusion box if we wanted to specify the different reasons for exclusion:
- 
-```{r fig.width = 7, fig.height = 5}
-safo_fc <- safo |> 
+For example, let's customize the following flowchart:
+
+```{r fig.width = 6, fig.height = 4}
+ safo_fc <- safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
-  fc_modify(
-    ~ . |> 
-      mutate(
-        text = ifelse(id == 3, str_glue("- {sum(safo$inclusion_crit == 'Yes')} not met the inclusion criteria\n- {sum(safo$exclusion_crit == 'Yes')} met the exclusion criteria"), text)
-      )
-  ) 
+  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) 
 
 safo_fc |> 
   fc_draw()
 ```
 
-We could also use `fc_modify()` to change the default _x_ and the _y_ coordinates:
+Previous to modifying it, we can use the function `fc_view()` to inspect the element `$fc` that we want to change:
 
-```{r fig.width = 6, fig.height = 5}
+```{r}
+safo_fc |> 
+  fc_view("fc")
+```
+
+Let's customise the text in the exclusion box (`id = 3`) to specify different reasons for exclusion, and change the _x_ and _y_ coordinate:
+ 
+```{r fig.width = 7, fig.height = 5}
 safo_fc |> 
   fc_modify(
     ~ . |> 
       mutate(
+        text = ifelse(id == 3, str_glue("- {sum(safo$inclusion_crit == 'Yes')} not met the inclusion criteria\n- {sum(safo$exclusion_crit == 'Yes')} met the exclusion criteria"), text),
         x = case_when(
           id == 3 ~ 0.75,
           TRUE ~ x
@@ -545,5 +632,81 @@ as_fc(N = 300) |>
   fc_filter(N = 240, label = "Randomized patients", show_exc = TRUE) |> 
   fc_split(N = c(100, 80, 60), label = c("Group A", "Group B", "Group C")) |>
   fc_filter(N = c(80, 75, 50), label = "Finished the study") |> 
+  fc_draw()
+```
+
+## Example 4
+
+In this example, we will explore some of the arguments to customize the following flowchart:
+
+```{r fig.width = 6, fig.height = 5}
+safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
+  fc_split(group) |> 
+  fc_draw()
+```
+
+### Add a title to the flowchart
+
+We can add a title to the flowchart using the argument `title=` in the `fc_draw()` function:
+
+```{r fig.width = 6, fig.height = 5}
+safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
+  fc_split(group) |> 
+  fc_draw(title = "SAFO flowchart")
+```
+
+### Add a title to the split
+
+We can also add a title to a split in the flowchart, using the argument `title` in the `fc_split()` function:
+
+```{r fig.width = 6, fig.height = 5}
+safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, perc_total = TRUE) |> 
+  fc_split(group, perc_total = TRUE, title = "Treatment", bg_fill_title = "skyblue") |> 
+  fc_draw()
+```
+
+### Percentage with respect to the total rows
+
+We can change the calculation of all percentages in a flowchart. By default, percentages are calculated with respect to the box in the previous level. With the argument `perc_total=` we can change it, to calculate it with respect to the initial box with the total number of rows:
+
+```{r fig.width = 6, fig.height = 5}
+safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, perc_total = TRUE) |> 
+  fc_split(group, perc_total = TRUE) |> 
+  fc_draw()
+```
+
+### Offset
+
+We can add/remove space to the distance between boxes in a split using the argument `offset`:
+
+```{r fig.width = 6, fig.height = 5}
+safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, perc_total = TRUE) |> 
+  fc_split(group, offset = 0.1) |> 
+  fc_draw()
+
+safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, perc_total = TRUE) |> 
+  fc_split(group, offset = -0.1) |> 
+  fc_draw()
+```
+
+We can also add/remove space to the distance between the excluded box in a filter using the argument `offset_exc`:
+
+```{r fig.width = 6, fig.height = 5}
+safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, offset_exc = 0.1) |> 
+  fc_split(group) |> 
   fc_draw()
 ```

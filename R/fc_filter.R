@@ -6,7 +6,7 @@
 #' @param N Number of rows after the filter in case `filter` is NULL.
 #' @param label Character that will be the title of the box. By default it will be the evaluated condition.
 #' @param text_pattern Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".
-#' @param perc_total logical. Should percentages be calculated using the total number at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.
+#' @param perc_total logical. Should percentages be calculated using the total number of rows at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.
 #' @param show_exc Logical value. If TRUE a box showing the number of excluded rows will be added to the flow chart.
 #' @param direction_exc One of "left" or "right" indicating if the exclusion box goes into the left direction or in the right direction. By default is "right".
 #' @param label_exc Character that will be the title of the added box showing the excluded patients. By default it will show "Excluded".

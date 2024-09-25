@@ -47,7 +47,7 @@ fc_filter(
 
 \item{text_pattern}{Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".}
 
-\item{perc_total}{logical. Should percentages be calculated using the total number at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.}
+\item{perc_total}{logical. Should percentages be calculated using the total number of rows at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.}
 
 \item{show_exc}{Logical value. If TRUE a box showing the number of excluded rows will be added to the flow chart.}
 
