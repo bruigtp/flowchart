@@ -87,7 +87,7 @@ fc_split(
 
 \item{border_color_title}{Title box border color. It is black by default.}
 
-\item{offset}{Amount of space to add to the distance between boxes (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. Default is NULL (no offset).}
+\item{offset}{Amount of space to add to the distance between boxes (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. This number has to be at least between 0 and 1 (plot limits) and the resulting x coordinate cannot exceed these plot limits. The default is NULL (no offset).}
 }
 \value{
 List with the dataset grouped by the splitting variable and the flowchart parameters with the resulting split.

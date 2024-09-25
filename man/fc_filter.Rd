@@ -93,7 +93,7 @@ fc_filter(
 
 \item{border_color_exc}{Box background color of the exclude box. It is black by default. See `border_color`.}
 
-\item{offset_exc}{Amount of space to add to the distance between the box and the excluded box (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. The default is NULL (no offset).}
+\item{offset_exc}{Amount of space to add to the distance between the box and the excluded box (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. This number has to be at least between 0 and 1 (plot limits) and the resulting x coordinate cannot exceed these plot limits. The default is NULL (no offset).}
 }
 \value{
 List with the filtered dataset and the flowchart parameters with the resulting filtered box.
