@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flowchart</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0.12</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,6 +70,25 @@
 <ul><li><p>Changed <code>safo</code> built-in dataset</p></li>
 <li><p>Now <code>unite=FALSE</code> is the default in the <code><a href="../reference/fc_stack.html">fc_stack()</a></code> function</p></li>
 <li><p>Added <code>bmp</code> format to the <code><a href="../reference/fc_export.html">fc_export()</a></code> function</p></li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.5.0" id="flowchart-050">flowchart 0.5.0<a class="anchor" aria-label="anchor" href="#flowchart-050"></a></h2><p class="text-muted">CRAN release: 2024-09-26</p>
+<div class="section level3">
+<h3 id="major-changes-0-5-0">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-0-5-0"></a></h3>
+<ul><li><p>New arguments <code>text_fface</code>, <code>text_ffamily</code> and <code>text_padding</code> to change the font face, font family and padding of the text inside the box</p></li>
+<li><p>New argument <code>perc_total</code> to calculate percentages with respect to the total number of rows</p></li>
+<li><p>New argument <code>offset</code> to add space to the distance between boxes in a split, and <code>offset_exc</code> to add space to the distance from the exclude box in a filter</p></li>
+<li><p>New function <code><a href="../reference/fc_view.html">fc_view()</a></code> to view the <code>$fc</code> element or the <code>$data</code> element, associated to a flowchart</p></li>
+<li><p>New argument <code>title</code> in the <code><a href="../reference/fc_draw.html">fc_draw()</a></code> function to add a title to a flowchart, along with some additional arguments to customize it</p></li>
+<li><p>New argument <code>title</code> in the <code><a href="../reference/fc_split.html">fc_split()</a></code> function to add a title box in a split, together with some additional arguments to customize it</p></li>
+<li><p>Bug in the exclusion box out of margins</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="minor-changes-0-5-0">Minor changes<a class="anchor" aria-label="anchor" href="#minor-changes-0-5-0"></a></h3>
+<ul><li><p>Added minimum version for dplyr (&gt;= 1.1.0)</p></li>
+<li><p>Bug in the <code><a href="../reference/fc_export.html">fc_export()</a></code> function when using the <code>format</code> argument</p></li>
+<li><p>Replaced evaluations to tidy evaluations using <code><a href="https://rlang.r-lib.org/reference/eval_tidy.html" class="external-link">rlang::eval_tidy()</a></code></p></li>
 </ul></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
