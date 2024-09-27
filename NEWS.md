@@ -41,3 +41,29 @@
 * Now `unite=FALSE` is the default in the `fc_stack()` function
 
 * Added `bmp` format to the `fc_export()` function
+
+# flowchart 0.5.0
+
+## Major changes
+
+* New arguments `text_fface`, `text_ffamily` and `text_padding` to change the font face, font family and padding of the text inside the box
+
+* New argument `perc_total` to calculate percentages with respect to the total number of rows
+
+* New argument `offset` to add space to the distance between boxes in a split, and `offset_exc` to add space to the distance from the exclude box in a filter
+
+* New function `fc_view()` to view the `$fc` element or the `$data` element, associated to a flowchart
+
+* New argument `title` in the `fc_draw()` function to add a title to a flowchart, along with some additional arguments to customize it
+
+* New argument `title` in the `fc_split()` function to add a title box in a split, together with some additional arguments to customize it
+
+* Bug in the exclusion box out of margins
+
+## Minor changes
+
+* Added minimum version for dplyr (>= 1.1.0)
+
+* Bug in the `fc_export()` function when using the `format` argument
+
+* Replaced evaluations to tidy evaluations using `rlang::eval_tidy()`

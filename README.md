@@ -32,7 +32,7 @@ Package: flowchart
 
 Type: Package
 
-Version: 0.4.0 (CRAN)
+Version: 0.5.0 (CRAN)
 
 Authors: Pau Satorra, João Carmezim, Natàlia Pallarès, Cristian Tebé.
 
