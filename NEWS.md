@@ -67,3 +67,8 @@
 * Bug in the `fc_export()` function when using the `format` argument
 
 * Replaced evaluations to tidy evaluations using `rlang::eval_tidy()`
+
+# flowchart 0.5.1
+
+* Changed license to GPL (>= 3) license
+

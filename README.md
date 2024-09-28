@@ -32,13 +32,13 @@ Package: flowchart
 
 Type: Package
 
-Version: 0.5.0 (CRAN)
+Version: 0.5.1 (CRAN)
 
 Authors: Pau Satorra, João Carmezim, Natàlia Pallarès, Cristian Tebé.
 
 Maintainer: Pau Satorra
 
-License: MIT + file LICENSE
+License: GPL (>= 3)
 
 Encoding: UTF-8
 
