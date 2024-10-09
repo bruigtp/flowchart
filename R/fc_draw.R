@@ -2,7 +2,7 @@
 #' @description This function allows to draw the flowchart from a fc object.
 #'
 #' @param object fc object that we want to draw.
-#' @param box_corners Indicator of whether to draw boxes with rounded (`"rounded"`) vs non-rounded (`"sharp"`) corners. Default is `"rounded"`.
+#' @param box_corners Indicator of whether to draw boxes with round (`"round"`) vs non-round (`"sharp"`) corners. Default is `"round"`.
 #' @param arrow_angle The angle of the arrow head in degrees, as in `arrow`.
 #' @param arrow_length A unit specifying the length of the arrow head (from tip to base), as in `arrow`.
 #' @param arrow_ends One of "last", "first", or "both", indicating which ends of the line to draw arrow heads, as in `arrow`.
@@ -29,16 +29,16 @@
 #' @export
 #' @importFrom rlang .data
 
-fc_draw <- function(object, box_corners = "rounded", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL) {
+fc_draw <- function(object, box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL) {
 
   is_class(object, "fc")
 
   # Check for valid corners argument
-  if (!box_corners %in% c("rounded", "sharp")) {
-    stop("Invalid box_corners argument: must be 'rounded' or 'sharp'")
+  if (!box_corners %in% c("round", "sharp")) {
+    stop("Invalid box_corners argument: must be 'round' or 'sharp'")
   }
 
-  if (box_corners == "rounded") {
+  if (box_corners == "round") {
     rect_type <- grid::roundrectGrob
   } else {
     rect_type <- grid::rectGrob
