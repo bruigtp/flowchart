@@ -72,3 +72,6 @@
 
 * Changed license to GPL (>= 3) license
 
+# flowchart (development version)
+
+* Added `box_corners` argument to `fc_draw()` to allow drawing boxes with or without round corners; default set to `"round"` to avoid breaking changes (#2; @kenkomodo)

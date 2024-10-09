@@ -156,7 +156,7 @@ safo |>
 
 # Customize output
 
-We can customize the flowchart either with the arguments provided by each function in the process of creating it, or directly in the final output using the function `modify_fc`. 
+We can customize the flowchart either with the arguments provided by each function in the process of creating it, or directly in the final output using the function `fc_modify`. We can also change the box style for all boxes in the flowchart using an argument in `fc_draw`.
 
 ## Change function arguments
 
@@ -391,6 +391,10 @@ Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the 
  </thead>
 <tbody>
   <tr>
+   <td style="text-align:left;"> `box_corners=` </td>
+   <td style="text-align:left;"> specify corner type for all flowchart boxes. </td>
+  </tr>
+  <tr>
    <td style="text-align:left;"> `arrow_angle=` </td>
    <td style="text-align:left;"> angle of the arrow head in degrees. </td>
   </tr>
@@ -440,7 +444,7 @@ Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the 
 
 ## Function to customize the flowchart
 
-The function `modify_fc` allows the user to customise the created flowchart by modifying its parameters, which are stored in `.$fc`. 
+The function `fc_modify` allows the user to customise the created flowchart by modifying its parameters, which are stored in `.$fc`. 
 
 For example, let's customize the following flowchart:
 
@@ -709,4 +713,16 @@ safo |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, offset_exc = 0.1) |> 
   fc_split(group) |> 
   fc_draw()
+```
+
+### Change Box Corner Style
+
+We can change the corner style of the flowchart boxes using the `box_corners` argument with `fc_draw`:
+
+```{r fig.width = 6, fig.height = 5}
+safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
+  fc_split(group) |> 
+  fc_draw(box_corners = "sharp")
 ```

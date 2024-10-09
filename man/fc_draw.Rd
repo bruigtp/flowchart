@@ -6,6 +6,7 @@
 \usage{
 fc_draw(
   object,
+  box_corners = "round",
   arrow_angle = 30,
   arrow_length = grid::unit(0.1, "inches"),
   arrow_ends = "last",
@@ -21,6 +22,8 @@ fc_draw(
 }
 \arguments{
 \item{object}{fc object that we want to draw.}
+
+\item{box_corners}{Indicator of whether to draw boxes with round (`"round"`) vs non-round (`"sharp"`) corners. Default is `"round"`.}
 
 \item{arrow_angle}{The angle of the arrow head in degrees, as in `arrow`.}
 

@@ -2,6 +2,7 @@
 #' @description This function allows to draw the flowchart from a fc object.
 #'
 #' @param object fc object that we want to draw.
+#' @param box_corners Indicator of whether to draw boxes with round (`"round"`) vs non-round (`"sharp"`) corners. Default is `"round"`.
 #' @param arrow_angle The angle of the arrow head in degrees, as in `arrow`.
 #' @param arrow_length A unit specifying the length of the arrow head (from tip to base), as in `arrow`.
 #' @param arrow_ends One of "last", "first", or "both", indicating which ends of the line to draw arrow heads, as in `arrow`.
@@ -28,9 +29,20 @@
 #' @export
 #' @importFrom rlang .data
 
-fc_draw <- function(object, arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL) {
+fc_draw <- function(object, box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL) {
 
   is_class(object, "fc")
+
+  # Check for valid corners argument
+  if (!box_corners %in% c("round", "sharp")) {
+    stop("Invalid box_corners argument: must be 'round' or 'sharp'")
+  }
+
+  if (box_corners == "round") {
+    rect_type <- grid::roundrectGrob
+  } else {
+    rect_type <- grid::rectGrob
+  }
 
   #Initialize grid
   grid::grid.newpage()
@@ -51,7 +63,7 @@ fc_draw <- function(object, arrow_angle = 30, arrow_length = grid::unit(0.1, "in
                             bg = purrr::pmap(list(.data$x, .data$y, .data$text, .data$type, .data$group, .data$just, .data$text_color, .data$text_fs, .data$text_fface, .data$text_ffamily, .data$text_padding, .data$bg_fill, .data$border_color), function(...) {
                               arg <- list(...)
                               names(arg) <- c("x", "y", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color")
-                              Gmisc::boxGrob(arg$text, x = arg$x, y = arg$y, just = arg$just, txt_gp = grid::gpar(col = arg$text_color, fontsize = arg$text_fs/arg$text_padding, fontface = arg$text_fface, fontfamily = arg$text_ffamily, cex = arg$text_padding), box_gp = grid::gpar(fill = arg$bg_fill, col = arg$border_color))
+                              Gmisc::boxGrob(arg$text, x = arg$x, y = arg$y, just = arg$just, txt_gp = grid::gpar(col = arg$text_color, fontsize = arg$text_fs/arg$text_padding, fontface = arg$text_fface, fontfamily = arg$text_ffamily, cex = arg$text_padding), box_gp = grid::gpar(fill = arg$bg_fill, col = arg$border_color), box_fn = rect_type)
                             })
                           )
   )
