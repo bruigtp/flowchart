@@ -1,5 +1,3 @@
-# flowchart (development version)
-
 # flowchart 0.1.0
 
 * Initial CRAN submission.
@@ -74,3 +72,6 @@
 
 * Changed license to GPL (>= 3) license
 
+# flowchart (development version)
+
+* Added `box_corners` argument to `fc_draw()` to allow drawing boxes with or without rounded corners; default set to `"rounded"` to avoid breaking changes (#2; @kenkomodo)
