@@ -3,7 +3,7 @@
 #'
 #' @details
 #' - **Vector Formats ('svg', 'pdf'):** These formats are ideal for graphics that need to be scaled without loss of quality. The default units for width and height are inches. If user specifies `units` other than inches, the function will convert the dimensions to inches using standard conversion formulas for "mm" and "cm" `units`; "px" conversion to inches is calculated using the specified dimension divided by `res`.
-#' - **Bitmap Formats ('png', 'jpeg', 'tiff', 'bmp'):** For these formats, the function uses the `ragg` package devices when available, providing higher performance and higher quality output. The default units for width and height are pixels.
+#' - **Bitmap Formats ('png', 'jpeg', 'tiff', 'bmp'):** For these formats (with the exception of 'bmp'), the function uses the `ragg` package devices when available, providing higher performance and higher quality output. The default units for width and height are pixels.
 #' - **Suggested Dependencies:** For superior performance and quality bitmap outputs, it is recommended to install the `ragg` package. For exporting to 'pdf' format with enhanced features, the Cairo graphics library will be used if it is available.
 #'
 #' @param object fc object that we want to export.
