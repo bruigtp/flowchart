@@ -526,7 +526,7 @@ list(fc1, fc2) |>
 
 # Export
 
-Once the flowchart has been drawn we can export it to the most popular image formats (png, jpeg, tiff, bmp) using `fc_export()`:
+Once the flowchart has been drawn we can export it to the most popular image formats, including both bitmap (png, jpeg, tiff, bmp) and vector (svg, pdf) formats, using `fc_export()`:
 
 ```{r eval = FALSE}
 safo |> 
