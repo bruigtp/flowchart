@@ -22,11 +22,11 @@ fc_export(
 
 \item{path}{Path of the directory to save plot to: path and filename are combined to create the fully qualified file name. Defaults to the working directory.}
 
-\item{format}{Name of the graphic device. One of 'png', 'jpeg', 'tiff' or 'bmp'. If NULL (default), the format is guessed based on the filename extension.}
+\item{format}{Name of the graphic device. One of 'png', 'jpeg', 'tiff', 'bmp', 'svg', or 'pdf'. If `NULL` (default), the format is guessed based on the filename extension.}
 
-\item{width, height}{Plot size in units expressed by the `units` argument. Default is 600px.}
+\item{width, height}{Plot size in units expressed by the `units` argument. Default is 600px for bitmap formats and 6 inches for vector formats.}
 
-\item{units}{One of the following units in which the width and height arguments are expressed: "in", "cm", "mm" or "px". Default is "px".}
+\item{units}{One of the following units in which the width and height arguments are expressed: "in", "cm", "mm" or "px". Defaults are "px" for bitmap formats and "in" for vector formats.}
 
 \item{res}{The nominal resolution in ppi which will be recorded in the bitmap file, if a positive integer. Also used for units other than the default, and to convert points to pixels. Default is 100.}
 }
@@ -34,7 +34,12 @@ fc_export(
 Invisibly returns the same object that has been given to the function.
 }
 \description{
-This function allows you to export the drawn flowchart to the most popular graphic devices (png, jpeg, tiff, bmp).
+This function allows you to export the drawn flowchart to the most popular graphic formats, including bitmap formats (png, jpeg, tiff, bmp) and vector formats (svg, pdf). For bitmap formats, it uses the `ragg` package devices when available for higher performance and higher quality output than standard raster devices provide by `grDevices`.
+}
+\details{
+- **Vector Formats ('svg', 'pdf'):** These formats are ideal for graphics that need to be scaled without loss of quality. The default units for width and height are inches. If user specifies `units` other than inches, the function will convert the dimensions to inches using standard conversion formulas for "mm" and "cm" `units`; "px" conversion to inches is calculated using the specified dimension divided by `res`.
+- **Bitmap Formats ('png', 'jpeg', 'tiff', 'bmp'):** For these formats, the function uses the `ragg` package devices when available, providing higher performance and higher quality output. The default units for width and height are pixels.
+- **Suggested Dependencies:** For superior performance and quality bitmap outputs, it is recommended to install the `ragg` package. For exporting to 'pdf' format with enhanced features, the Cairo graphics library will be used if it is available.
 }
 \examples{
 \dontrun{
@@ -44,12 +49,25 @@ safo |>
  fc_draw() |>
  fc_export("flowchart.png")
 
- #Specifying size and resolution
- safo |>
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |>
-  fc_draw() |>
-  fc_export("flowchart.png", width = 2500, height = 2000, res = 700)
+#Specifying size and resolution
+safo |>
+ as_fc(label = "Patients assessed for eligibility") |>
+ fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |>
+ fc_draw() |>
+ fc_export("flowchart.png", width = 2500, height = 2000, res = 700)
 
+#Exporting to an SVG file
+safo |>
+ as_fc(label = "Patients assessed for eligibility") |>
+ fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |>
+ fc_draw() |>
+ fc_export("flowchart.svg")
+
+#Exporting to a PDF file
+safo |>
+ as_fc(label = "Patients assessed for eligibility") |>
+ fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |>
+ fc_draw() |>
+ fc_export("flowchart.pdf")
 }
 }
