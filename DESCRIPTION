@@ -33,6 +33,7 @@ Imports:
     grDevices
 Suggests: 
     knitr,
+    ragg,
     rmarkdown
 VignetteBuilder: knitr
 Depends: 

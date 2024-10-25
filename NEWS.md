@@ -75,3 +75,5 @@
 # flowchart (development version)
 
 * Added `box_corners` argument to `fc_draw()` to allow drawing boxes with or without round corners; default set to `"round"` to avoid breaking changes (#2; @kenkomodo)
+
+* Updated `fc_export()` to include vector formats (svg, pdf) and to use `ragg` in place of `grDevices` for relevant bitmap formats (png, jpeg, tiff) for improved performance and image quality when `ragg` is installed (#16; @kenkomodo)
