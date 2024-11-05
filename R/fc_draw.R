@@ -27,11 +27,18 @@
 #'   fc_draw()
 #'
 #' @export
-#' @importFrom rlang .data
 
 fc_draw <- function(object, box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL) {
 
   is_class(object, "fc")
+  UseMethod("fc_draw")
+
+}
+
+#' @importFrom rlang .data
+#' @export
+
+fc_draw.fc <- function(object, box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL) {
 
   # Check for valid corners argument
   if (!box_corners %in% c("round", "sharp")) {

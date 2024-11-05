@@ -54,7 +54,7 @@ safo |>
  as_fc(label = "Patients assessed for eligibility") |>
  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |>
  fc_draw() |>
- fc_export("flowchart.png", width = 2500, height = 2000, res = 700)
+ fc_export("flowchart.png", width = 3000, height = 4000, res = 700)
 
 #Exporting to an SVG file
 safo |>

@@ -45,11 +45,18 @@
 #'  fc_export("flowchart.pdf")
 #' }
 #' @export
-#' @importFrom rlang .data
 
 fc_export <- function(object, filename, path = NULL, format = NULL, width = NA, height = NA, units = NULL, res = 100) {
 
   is_class(object, "fc")
+  UseMethod("fc_export")
+
+}
+
+#' @importFrom rlang .data
+#' @export
+
+fc_export.fc <- function(object, filename, path = NULL, format = NULL, width = NA, height = NA, units = NULL, res = 100) {
 
   #Get parameters from the previously drawn object
   params <- attr(object$fc, "draw")

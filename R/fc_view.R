@@ -19,11 +19,18 @@
 #'  fc_view("fc")
 #'
 #' @export
-#' @importFrom rlang .data
 
 fc_view <- function(object, what) {
 
   is_class(object, "fc")
+  UseMethod("fc_view")
+
+}
+
+#' @export
+#' @importFrom rlang .data
+
+fc_view.fc <- function(object, what) {
 
   if(!what %in% c("data", "fc")) {
     stop('what argument has to be one of "data" or "fc"')

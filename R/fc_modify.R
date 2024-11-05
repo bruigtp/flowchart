@@ -26,11 +26,19 @@
 #'       )
 #'   ) |>
 #'   fc_draw()
+#'
 #' @export
 
 fc_modify <- function(object, fun, ...) {
 
   is_class(object, "fc")
+  UseMethod("fc_modify")
+
+}
+
+#' @export
+
+fc_modify.fc <- function(object, fun, ...) {
 
   #Execute function on .$fc
 
