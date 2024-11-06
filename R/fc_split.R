@@ -328,12 +328,12 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
   #remove the id previous to adding the next one
   if(!is.null(object$fc)) {
     object$fc <- object$fc |>
-      dplyr::select(-"id")
+      dplyr::select(-"id") |>
+      dplyr::mutate(old = TRUE)
   }
 
   object$fc <- rbind(
-    object$fc |>
-      dplyr::mutate(old = TRUE),
+    object$fc,
     new_fc |>
       tibble::as_tibble() |>
       dplyr::mutate(old = FALSE)
