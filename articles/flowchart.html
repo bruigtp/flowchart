@@ -852,6 +852,16 @@ flowcharts vertically instead of horizontally.</p>
 <span>  <span class="fu"><a href="../reference/fc_stack.html">fc_stack</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="flowchart_files/figure-html/unnamed-chunk-17-1.png" width="576"></p>
+<p>We can use the argument <code>unite = TRUE</code> to connect two
+stacked flowcharts. For example:</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fc1</span> <span class="op">&lt;-</span> <span class="va">fc1</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">fc1</span>, <span class="va">fc2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/fc_stack.html">fc_stack</a></span><span class="op">(</span>unite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="flowchart_files/figure-html/unnamed-chunk-18-1.png" width="576"></p>
 </div>
 </div>
 <div class="section level2">
@@ -860,19 +870,19 @@ flowcharts vertically instead of horizontally.</p>
 <p>Once the flowchart has been drawn we can export it to the most
 popular image formats, including both bitmap (png, jpeg, tiff, bmp) and
 vector (svg, pdf) formats, using <code><a href="../reference/fc_export.html">fc_export()</a></code>:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_export.html">fc_export</a></span><span class="op">(</span><span class="st">"flowchart.png"</span><span class="op">)</span></span></code></pre></div>
 <p>We can change the size and resolution of the stored image.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/fc_export.html">fc_export</a></span><span class="op">(</span><span class="st">"flowchart.png"</span>, width <span class="op">=</span> <span class="fl">2500</span>, height <span class="op">=</span> <span class="fl">2000</span>, res <span class="op">=</span> <span class="fl">700</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/fc_export.html">fc_export</a></span><span class="op">(</span><span class="st">"flowchart.png"</span>, width <span class="op">=</span> <span class="fl">3000</span>, height <span class="op">=</span> <span class="fl">4000</span>, res <span class="op">=</span> <span class="fl">700</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
@@ -882,7 +892,7 @@ vector (svg, pdf) formats, using <code><a href="../reference/fc_export.html">fc_
 </h3>
 <p>In this example, we will try to create a flowchart for the complete
 flow of patients in the SAFO study:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -890,7 +900,7 @@ flow of patients in the SAFO study:</p>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="va">itt</span> <span class="op">==</span> <span class="st">"Yes"</span>, label <span class="op">=</span> <span class="st">"Included in ITT"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="va">pp</span> <span class="op">==</span> <span class="st">"Yes"</span>, label <span class="op">=</span> <span class="st">"Included in PP"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart_files/figure-html/unnamed-chunk-20-1.png" width="672"></p>
+<p><img src="flowchart_files/figure-html/unnamed-chunk-21-1.png" width="672"></p>
 </div>
 <div class="section level3">
 <h3 id="example-2">Example 2<a class="anchor" aria-label="anchor" href="#example-2"></a>
@@ -900,7 +910,7 @@ flowchart of the SAFO study published in Nature Medicine: <a href="https://www.n
 flowchart</a>.</p>
 <p>First, we need to do some pre-processing to reproduce the text in the
 larger boxes:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create labels for exclusion box:</span></span>
 <span><span class="va">label_exc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">str_glue</span><span class="op">(</span><span class="st">"{sum(safo$inclusion_crit == 'Yes' | safo$exclusion_crit == 'Yes' | safo$decline_part == 'Yes', na.rm = T)} excluded:"</span><span class="op">)</span>,</span>
@@ -933,7 +943,7 @@ larger boxes:</p>
 <span><span class="va">label_exc2</span> <span class="op">&lt;-</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">label_exc2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nosocomial"</span> <span class="op">=</span> <span class="st">"nosocomial\n"</span>, <span class="st">"treatment"</span> <span class="op">=</span> <span class="st">"treatment\n"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Second, let’s create and customise the flowchart using the functions
 in the package:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"patients assessed for eligibility"</span>, text_pattern <span class="op">=</span> <span class="st">"{n} {label}"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"randomized"</span>, text_pattern <span class="op">=</span> <span class="st">"{n} {label}"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -955,7 +965,7 @@ in the package:</p>
 <span>      <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart_files/figure-html/unnamed-chunk-22-1.png" width="1152"></p>
+<p><img src="flowchart_files/figure-html/unnamed-chunk-23-1.png" width="1152"></p>
 </div>
 <div class="section level3">
 <h3 id="example-3">Example 3<a class="anchor" aria-label="anchor" href="#example-3"></a>
@@ -963,51 +973,51 @@ in the package:</p>
 <p>In this example, we will create a flowchart without any dataframe,
 using the <code>N =</code> argument to manually specify the numbers to
 display in the boxes:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fl">300</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fl">240</span>, label <span class="op">=</span> <span class="st">"Randomized patients"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">80</span>, <span class="fl">60</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Group A"</span>, <span class="st">"Group B"</span>, <span class="st">"Group C"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">80</span>, <span class="fl">75</span>, <span class="fl">50</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Finished the study"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart_files/figure-html/unnamed-chunk-23-1.png" width="672"></p>
+<p><img src="flowchart_files/figure-html/unnamed-chunk-24-1.png" width="672"></p>
 </div>
 <div class="section level3">
-<h3 id="example-4">Example 4<a class="anchor" aria-label="anchor" href="#example-4"></a>
+<h3 id="customization-examples">Customization examples<a class="anchor" aria-label="anchor" href="#customization-examples"></a>
 </h3>
-<p>In this example, we will explore some of the arguments to customize
+<p>In this examples, we will explore some of the arguments to customize
 the following flowchart:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart_files/figure-html/unnamed-chunk-24-1.png" width="576"></p>
-<div class="section level4">
-<h4 id="add-a-title-to-the-flowchart">Add a title to the flowchart<a class="anchor" aria-label="anchor" href="#add-a-title-to-the-flowchart"></a>
-</h4>
-<p>We can add a title to the flowchart using the argument
-<code>title=</code> in the <code><a href="../reference/fc_draw.html">fc_draw()</a></code> function:</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"SAFO flowchart"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="flowchart_files/figure-html/unnamed-chunk-25-1.png" width="576"></p>
+<div class="section level4">
+<h4 id="add-a-title-to-the-flowchart">Add a title to the flowchart<a class="anchor" aria-label="anchor" href="#add-a-title-to-the-flowchart"></a>
+</h4>
+<p>We can add a title to the flowchart using the argument
+<code>title=</code> in the <code><a href="../reference/fc_draw.html">fc_draw()</a></code> function:</p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"SAFO flowchart"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="flowchart_files/figure-html/unnamed-chunk-26-1.png" width="576"></p>
 </div>
 <div class="section level4">
 <h4 id="add-a-title-to-the-split">Add a title to the split<a class="anchor" aria-label="anchor" href="#add-a-title-to-the-split"></a>
 </h4>
 <p>We can also add a title to a split in the flowchart, using the
 argument <code>title</code> in the <code><a href="../reference/fc_split.html">fc_split()</a></code> function:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span>, perc_total <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span>, perc_total <span class="op">=</span> <span class="cn">TRUE</span>, title <span class="op">=</span> <span class="st">"Treatment"</span>, bg_fill_title <span class="op">=</span> <span class="st">"skyblue"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart_files/figure-html/unnamed-chunk-26-1.png" width="576"></p>
+<p><img src="flowchart_files/figure-html/unnamed-chunk-27-1.png" width="576"></p>
 </div>
 <div class="section level4">
 <h4 id="percentage-with-respect-to-the-total-rows">Percentage with respect to the total rows<a class="anchor" aria-label="anchor" href="#percentage-with-respect-to-the-total-rows"></a>
@@ -1017,55 +1027,69 @@ default, percentages are calculated with respect to the box in the
 previous level. With the argument <code>perc_total=</code> we can change
 it, to calculate it with respect to the initial box with the total
 number of rows:</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span>, perc_total <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span>, perc_total <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart_files/figure-html/unnamed-chunk-27-1.png" width="576"></p>
+<p><img src="flowchart_files/figure-html/unnamed-chunk-28-1.png" width="576"></p>
 </div>
 <div class="section level4">
 <h4 id="offset">Offset<a class="anchor" aria-label="anchor" href="#offset"></a>
 </h4>
 <p>We can add/remove space to the distance between boxes in a split
 using the argument <code>offset</code>:</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span>, perc_total <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span>, offset <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart_files/figure-html/unnamed-chunk-28-1.png" width="576"></p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<p><img src="flowchart_files/figure-html/unnamed-chunk-29-1.png" width="576"></p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span>, perc_total <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span>, offset <span class="op">=</span> <span class="op">-</span><span class="fl">0.1</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart_files/figure-html/unnamed-chunk-28-2.png" width="576"></p>
+<p><img src="flowchart_files/figure-html/unnamed-chunk-29-2.png" width="576"></p>
 <p>We can also add/remove space to the distance between the excluded box
 in a filter using the argument <code>offset_exc</code>:</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span>, offset_exc <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart_files/figure-html/unnamed-chunk-29-1.png" width="576"></p>
+<p><img src="flowchart_files/figure-html/unnamed-chunk-30-1.png" width="576"></p>
 </div>
 <div class="section level4">
 <h4 id="change-box-corner-style">Change Box Corner Style<a class="anchor" aria-label="anchor" href="#change-box-corner-style"></a>
 </h4>
 <p>We can change the corner style of the flowchart boxes using the
 <code>box_corners</code> argument with <code>fc_draw</code>:</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span>box_corners <span class="op">=</span> <span class="st">"sharp"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart_files/figure-html/unnamed-chunk-30-1.png" width="576"></p>
+<p><img src="flowchart_files/figure-html/unnamed-chunk-31-1.png" width="576"></p>
+</div>
+<div class="section level4">
+<h4 id="split-in-one-group">Split in one group<a class="anchor" aria-label="anchor" href="#split-in-one-group"></a>
+</h4>
+<p>We can perform an additional split only in one of the groups using
+the argument <code>sel_group</code>:</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">60</span><span class="op">)</span>, sel_group <span class="op">=</span> <span class="st">"cloxacillin alone"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="flowchart_files/figure-html/unnamed-chunk-32-1.png" width="576"></p>
 </div>
 </div>
 </div>
