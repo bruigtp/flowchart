@@ -524,6 +524,17 @@ list(fc1, fc2) |>
   fc_draw()
 ```
 
+We can use the argument `unite = TRUE` to connect two stacked flowcharts. For example:
+
+```{r warning=FALSE, fig.width = 6, fig.height = 5}
+fc1 <- fc1 |> 
+  fc_split(group)
+
+list(fc1, fc2) |> 
+  fc_stack(unite = TRUE) |> 
+  fc_draw()
+```
+
 # Export
 
 Once the flowchart has been drawn we can export it to the most popular image formats, including both bitmap (png, jpeg, tiff, bmp) and vector (svg, pdf) formats, using `fc_export()`:
@@ -543,7 +554,7 @@ safo |>
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
   fc_draw() |> 
-  fc_export("flowchart.png", width = 2500, height = 2000, res = 700)
+  fc_export("flowchart.png", width = 3000, height = 4000, res = 700)
 ```
 
 # Examples
@@ -639,9 +650,9 @@ as_fc(N = 300) |>
   fc_draw()
 ```
 
-## Example 4
+## Customization examples
 
-In this example, we will explore some of the arguments to customize the following flowchart:
+In this examples, we will explore some of the arguments to customize the following flowchart:
 
 ```{r fig.width = 6, fig.height = 5}
 safo |> 
@@ -725,4 +736,17 @@ safo |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
   fc_split(group) |> 
   fc_draw(box_corners = "sharp")
+```
+
+### Split in one group
+
+We can perform an additional split only in one of the groups using the argument `sel_group`:
+
+```{r fig.width = 6, fig.height = 5}
+safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
+  fc_split(group) |> 
+  fc_split(N = c(50, 60), sel_group = "cloxacillin alone") |> 
+  fc_draw()
 ```

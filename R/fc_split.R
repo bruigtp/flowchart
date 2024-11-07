@@ -19,7 +19,7 @@
 #' @param text_padding Changes the text padding inside the box. Default is 1. This number has to be greater than 0.
 #' @param bg_fill Box background color. It is white by default.
 #' @param border_color Box border color. It is black by default.
-#' @param title Add a title box to the split. Default is NULL.
+#' @param title Add a title box to the split. Default is NULL. It can only be used when there are only two resulting boxes after the split.
 #' @param text_color_title Color of the title text. It is black by default.
 #' @param text_fs_title Font size of the title text. It is 8 by default.
 #' @param text_fface_title Font face of the title text. It is 1 by default. See the `fontface` parameter for \code{\link{gpar}}.
@@ -69,28 +69,53 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
     var <- stringr::str_glue("split{num + 1}")
 
     if(!is.null(attr(object$data, "groups"))) {
-      if(length(N) %% nrow(attr(object$data, "groups")) != 0) {
-        stop(stringr::str_glue("The length of `N` has to be a multiple to the number of groups in the dataset: {nrow(attr(object$data, 'groups'))}"))
+
+      if(!is.null(sel_group)) {
+
+        nrows <- dplyr::group_rows(object$data)
+        names(nrows) <- object$data |>
+          attr("groups") |>
+          dplyr::pull(1)
+        nrows <- nrows[sel_group]
+
+        ngroups <- sel_group
+
+
+      } else {
+
+        nrows <- dplyr::group_rows(object$data)
+        names(nrows) <- object$data |>
+          attr("groups") |>
+          dplyr::pull(1)
+
+        ngroups <- names(nrows)
+
       }
 
-      nsplit <- length(N)/nrow(attr(object$data, "groups"))
-      ngroups <- nrow(attr(object$data, "groups"))
-      message_group <- "in each group."
+      if(length(N) %% length(ngroups) != 0) {
+
+        stop(stringr::str_glue("The length of `N` has to be a multiple to the number of groups in the dataset: {nrow(attr(object$data, 'groups'))}"))
+
+      }
+
+      nsplit <- length(N)/length(ngroups)
+      message_group <- " in each group."
 
     } else {
-      nsplit <- length(N)
+
+      nrows <- list(1:nrow(object$data))
       ngroups <- 1
+      nsplit <- length(N)
       message_group <- "."
+
     }
 
     object$data$row_number_delete <- 1:nrow(object$data)
 
     #select rows to be true the filter
-    nrows <- dplyr::group_rows(object$data)
+    N_list <- split(N, rep(1:length(ngroups), rep(nsplit, length(ngroups))))
 
-    N_list <- split(N, rep(1:ngroups, rep(nsplit, ngroups)))
-
-    split_rows <- purrr::map_df(seq_along(nrows), function (x) {
+    split_rows <- purrr::map_df(seq_along(N_list), function (x) {
 
       if(sum(N_list[[x]]) != length(nrows[[x]])) {
         stop(paste0("The number of rows after the split specified in N has to be equal to the original number of rows", message_group))
@@ -259,9 +284,11 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
                              ),
         nboxes = purrr::map_dbl(.data$label, nrow)
       ) |>
-      dplyr::left_join(
+      dplyr::full_join(
         object_center, by = "group"
       ) |>
+      dplyr::arrange(.data$center) |>
+      dplyr::filter(!is.na(.data$group)) |>
       dplyr::mutate(
         margins = purrr::pmap(list(.data$center, dplyr::lag(.data$center), dplyr::lead(.data$center)), function (x, xlag, xlead) {
           if(is.na(xlag)) {
@@ -273,6 +300,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
           }
         })
       ) |>
+      dplyr::filter(!is.na(.data$nboxes)) |>
       dplyr::mutate(
         x = purrr::pmap(list(.data$center, .data$margins, .data$nboxes), function (xcenter, xmarg, xn) {
 
@@ -351,31 +379,42 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
       dplyr::mutate(group = group_old) |>
       dplyr::group_by(.data$group) |>
       dplyr::summarise(n_boxes = dplyr::n(),
-                       y = unique(.data$y)) |>
-      dplyr::filter(.data$n_boxes > 1) |>
-      dplyr::left_join(object_center, by = "group") |>
-      dplyr::mutate(
-        id = NA,
-        x = .data$center,
-        n = NA,
-        N = NA,
-        n = NA,
-        N = NA,
-        perc = NA,
-        text = title,
-        type = "title_split",
-        just = "center",
-        text_color = text_color_title,
-        text_fs = text_fs_title,
-        text_fface = text_fface_title,
-        text_ffamily = text_ffamily_title,
-        text_padding = text_padding_title,
-        bg_fill = bg_fill_title,
-        border_color = border_color_title
-      ) |>
-      dplyr::select(-"center", -"n_boxes") |>
-      dplyr::relocate("y", .after = "x") |>
-      dplyr::relocate("group", .after = "type")
+                       y = unique(.data$y))
+
+    if(any(new_fc2$n_boxes == 2)) {
+
+      new_fc2 <- new_fc2 |>
+        dplyr::filter(.data$n_boxes == 2) |>
+        dplyr::left_join(object_center, by = "group") |>
+        dplyr::mutate(
+          id = NA,
+          x = .data$center,
+          n = NA,
+          N = NA,
+          n = NA,
+          N = NA,
+          perc = NA,
+          text = title,
+          type = "title_split",
+          just = "center",
+          text_color = text_color_title,
+          text_fs = text_fs_title,
+          text_fface = text_fface_title,
+          text_ffamily = text_ffamily_title,
+          text_padding = text_padding_title,
+          bg_fill = bg_fill_title,
+          border_color = border_color_title
+        ) |>
+        dplyr::select(-"center", -"n_boxes") |>
+        dplyr::relocate("y", .after = "x") |>
+        dplyr::relocate("group", .after = "type")
+
+    } else {
+
+      stop("The title argument can only be used when there are only two resulting boxes after the split.")
+
+    }
+
 
     object$fc <- rbind(
       object$fc,

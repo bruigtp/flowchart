@@ -71,7 +71,7 @@ fc_split(
 
 \item{border_color}{Box border color. It is black by default.}
 
-\item{title}{Add a title box to the split. Default is NULL.}
+\item{title}{Add a title box to the split. Default is NULL. It can only be used when there are only two resulting boxes after the split.}
 
 \item{text_color_title}{Color of the title text. It is black by default.}
 
