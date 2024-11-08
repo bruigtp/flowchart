@@ -614,7 +614,7 @@ label_exc2 <- str_replace_all(label_exc2, c("nosocomial" = "nosocomial\n", "trea
 
 Second, let's create and customise the flowchart using the functions in the package:
 
-```{r warning=FALSE, fig.width = 12, fig.height = 9}
+```{r warning=FALSE, fig.width = 13, fig.height = 9}
 safo |> 
   as_fc(label = "patients assessed for eligibility", text_pattern = "{n} {label}") |> 
   fc_filter(!is.na(group), label = "randomized", text_pattern = "{n} {label}", show_exc = TRUE,
@@ -642,7 +642,7 @@ safo |>
 
 In this example, we will create a flowchart without any dataframe, using the `N =` argument to manually specify the numbers to display in the boxes:
 
-```{r warning=FALSE, fig.width = 7, fig.height = 4.5}
+```{r warning=FALSE, fig.width = 7, fig.height = 6}
 as_fc(N = 300) |> 
   fc_filter(N = 240, label = "Randomized patients", show_exc = TRUE) |> 
   fc_split(N = c(100, 80, 60), label = c("Group A", "Group B", "Group C")) |>
@@ -742,7 +742,7 @@ safo |>
 
 We can perform an additional split only in one of the groups using the argument `sel_group`:
 
-```{r fig.width = 6, fig.height = 5}
+```{r fig.width = 6, fig.height = 6}
 safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
