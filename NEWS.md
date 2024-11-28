@@ -91,3 +91,5 @@
 * Solved `bug` when `sel_group` is used repeatedly in the same flowchart
 
 * Changed y-coordinate distribution of boxes when using `fc_stack()` with `unite = TRUE`
+
+* When performing multiple splits in a flowchart, the group label is stored in `$fc` concatenating the values of the different groups separated by '//'.
