@@ -47,7 +47,7 @@ fc_split(
 
 \item{perc_total}{logical. Should percentages be calculated using the total number of rows at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.}
 
-\item{sel_group}{Specify if the splitting has to be done only by one of the previous groups. Default is NULL.}
+\item{sel_group}{Select the group in which to perform the filter. The default is NULL. Can only be used if the flowchart has previously been split. If the flowchart has more than one group, it can either be given the full name as it is stored in the `$fc` component (separated by '\\'), or it can be given as a vector with the names of each group to be selected.}
 
 \item{na.rm}{logical. Should missing values of the grouping variable be removed? Default is FALSE.}
 

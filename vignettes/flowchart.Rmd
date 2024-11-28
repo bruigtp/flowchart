@@ -11,7 +11,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
-  chunk_output_type: inline
+  chunk_output_type: console
 ---
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
@@ -449,7 +449,7 @@ The function `fc_modify` allows the user to customise the created flowchart by m
 For example, let's customize the following flowchart:
 
 ```{r fig.width = 6, fig.height = 4}
- safo_fc <- safo |> 
+safo_fc <- safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) 
 
@@ -640,7 +640,7 @@ safo |>
 
 ## Example 3
 
-In this example, we will create a flowchart without any dataframe, using the `N =` argument to manually specify the numbers to display in the boxes:
+In this example, we will create a flowchart without any dataframe, using the `N` argument to manually specify the numbers to display in the boxes:
 
 ```{r warning=FALSE, fig.width = 7, fig.height = 6}
 as_fc(N = 300) |> 
@@ -649,6 +649,22 @@ as_fc(N = 300) |>
   fc_filter(N = c(80, 75, 50), label = "Finished the study") |> 
   fc_draw()
 ```
+
+## Example 4
+
+The use of `N=` argument can be combined with the use of a dataframe. In this example, we will use the `N=` argument in a flowchart that uses a dataframe:
+
+```{r warning=FALSE, fig.width = 7, fig.height = 6}
+
+safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
+  fc_split(group) |> 
+  fc_split(N = c(50, 55, 10, 100), label = c("Group A", "Group B")) |> 
+  fc_draw()
+
+```
+
 
 ## Customization examples
 
@@ -740,7 +756,7 @@ safo |>
 
 ### Split in one group
 
-We can perform an additional split only in one of the groups using the argument `sel_group`:
+We can perform an additional split only in one of the groups using the argument `sel_group=`:
 
 ```{r fig.width = 6, fig.height = 6}
 safo |> 
@@ -748,5 +764,29 @@ safo |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
   fc_split(group) |> 
   fc_split(N = c(50, 60), sel_group = "cloxacillin alone") |> 
+  fc_draw()
+```
+
+Then, we could also perform a filter in the other group:
+
+```{r fig.width = 6, fig.height = 6}
+safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
+  fc_split(group) |> 
+  fc_split(N = c(50, 60), sel_group = "cloxacillin alone") |> 
+  fc_filter(N = 50, sel_group = "cloxacillin plus fosfomycin") |> 
+  fc_draw()
+```
+
+If we want to select a group in a flowchart with more than two groups we have to supply a vector in `sel_group=` with the desired groups to be selected:
+
+```{r fig.width = 6, fig.height = 6}
+safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
+  fc_split(group) |> 
+  fc_split(N = c(50, 55, 10, 100)) |> 
+  fc_filter(N = 60, sel_group = c("cloxacillin alone", "group 2")) |> 
   fc_draw()
 ```

@@ -51,7 +51,7 @@ fc_stack <- function(fcs, unite = FALSE) {
       fc = do.call(rbind, purrr::map(seq_along(object$fc), ~object$fc[[.x]] |>
                                        dplyr::mutate(fc = .x))) |>
         dplyr::mutate(
-          y = update_y(.data$y, .data$type, .data$x),
+          y = update_y_stack_unite(.data$y, .data$x, .data$type),
           change = dplyr::case_when(
             is.na(dplyr::lag(.data$fc)) ~ FALSE,
             fc != dplyr::lag(.data$fc) ~ TRUE,

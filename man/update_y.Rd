@@ -4,7 +4,7 @@
 \alias{update_y}
 \title{update_y}
 \usage{
-update_y(y, type, x)
+update_y(y, type, x, group)
 }
 \arguments{
 \item{y}{old height of the boxes}

@@ -67,6 +67,8 @@ fc_draw.fc <- function(object, box_corners = "round", arrow_angle = 30, arrow_le
 
   plot_fc <- purrr::map(object$fc, ~.x |>
                           dplyr::mutate(
+                            #Recalculate row number
+                            id = dplyr::row_number(),
                             bg = purrr::pmap(list(.data$x, .data$y, .data$text, .data$type, .data$group, .data$just, .data$text_color, .data$text_fs, .data$text_fface, .data$text_ffamily, .data$text_padding, .data$bg_fill, .data$border_color), function(...) {
                               arg <- list(...)
                               names(arg) <- c("x", "y", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color")
@@ -86,38 +88,35 @@ fc_draw.fc <- function(object, box_corners = "round", arrow_angle = 30, arrow_le
   for(i in 1:length(plot_fc)) {
 
     #Identify each step of the process of connecting the flowchart
-    step <- object$fc[[i]] |>
+    step <- plot_fc[[i]] |>
       dplyr::distinct(.data$y, .data$type)
 
     if(nrow(step) > 1) {
       for(j in 2:nrow(step)) {
-        ids <- object$fc[[i]] |>
-          dplyr::mutate(id = dplyr::row_number()) |>
+        ids <- plot_fc[[i]] |>
           dplyr::filter(.data$y == step$y[j], .data$type == step$type[j]) |>
           dplyr::pull(.data$id)
 
-        type <- unique(object$fc[[i]][["type"]][ids])
+        type <- unique(plot_fc[[i]][["type"]][ids])
 
         if(type == "split") {
 
           for(k in ids) {
 
-            group_par <- unlist(stringr::str_split(object$fc[[i]][["group"]][k], ", "))
-            group_par <- paste(utils::head(group_par, -1), collapse = ", ")
+            group_par <- unlist(stringr::str_split(plot_fc[[i]][["group"]][k], " // "))
+            group_par <- paste(utils::head(group_par, -1), collapse = " // ")
 
             #If there is only one group, the parent box is the right before them
             if(group_par == "") {
 
-              id_par <- object$fc[[i]] |>
-                dplyr::mutate(id = dplyr::row_number()) |>
+              id_par <- plot_fc[[i]] |>
                 dplyr::filter(.data$id < min(ids), .data$type != "exclude") |>
                 dplyr::last() |>
                 dplyr::pull(.data$id)
 
             } else {
 
-              id_par <- object$fc[[i]] |>
-                dplyr::mutate(id = dplyr::row_number()) |>
+              id_par <- plot_fc[[i]] |>
                 dplyr::filter(.data$id < min(ids), .data$group == group_par, .data$type != "exclude") |>
                 dplyr::last() |>
                 dplyr::pull(.data$id)
@@ -136,9 +135,8 @@ fc_draw.fc <- function(object, box_corners = "round", arrow_angle = 30, arrow_le
           for(k in ids) {
 
             #Get the parent box (the last with the same x coordinate)
-            id <- object$fc[[i]] |>
-              dplyr::mutate(id = dplyr::row_number()) |>
-              dplyr::filter(.data$x == object$fc[[i]][["x"]][k], .data$id < min(ids)) |>
+            id <- plot_fc[[i]] |>
+              dplyr::filter(.data$x == plot_fc[[i]][["x"]][k], .data$id < plot_fc[[i]][["id"]][k]) |>
               dplyr::last() |>
               dplyr::pull(.data$id)
 
@@ -160,13 +158,13 @@ fc_draw.fc <- function(object, box_corners = "round", arrow_angle = 30, arrow_le
         } else if(type == "stack") {
 
           #Find the last box (in height) of the previous flow chart (before stack)
-          y_last <- min(object$fc[[i]] |>
+          y_last <- min(plot_fc[[i]] |>
                           dplyr::filter(dplyr::row_number() < ids[1]) |>
                           dplyr::pull(.data$y)
           )
 
           #Find how many boxes are in the last level
-          id_last <- which(object$fc[[i]]$y == y_last)
+          id_last <- which(plot_fc[[i]]$y == y_last)
 
           if(length(ids) > length(id_last)) {
 

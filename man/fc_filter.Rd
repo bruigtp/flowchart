@@ -57,7 +57,7 @@ fc_filter(
 
 \item{text_pattern_exc}{Structure that will have the text in each of the excluded boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".}
 
-\item{sel_group}{Specify if the filtering has to be done only by one of the previous groups. By default is NULL.}
+\item{sel_group}{Select the group in which to perform the filter. The default is NULL. Can only be used if the flowchart has previously been split. If the flowchart has more than one group, it can either be given the full name as it is stored in the `$fc` component (separated by '\\'), or it can be given as a vector with the names of each group to be selected.}
 
 \item{round_digits}{Number of digits to round percentages. It is 2 by default.}
 

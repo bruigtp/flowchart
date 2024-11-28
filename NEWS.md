@@ -85,3 +85,9 @@
 * Bug when specifying `sel_group` and `N` at the same time in `fc_split()`
 
 * Bug when specifying `title` in `fc_split()` with a number of splits different than two
+
+# flowchart 0.6.0.9000 (development)
+
+* Solved `bug` when `sel_group` is used repeatedly in the same flowchart
+
+* Changed y-coordinate distribution of boxes when using `fc_stack()` with `unite = TRUE`

@@ -18,6 +18,6 @@ update_y_stack(y, x, type, i, n)
 \item{n}{number of total flowcharts to merge}
 }
 \description{
-Function to update the vertical position of the previuosly created flow charts, to stack the two flowcharts with fc_stack().
+Function to update the vertical position of the previuosly created flowcharts, to stack the two flowcharts with fc_stack().
 }
 \keyword{internal}

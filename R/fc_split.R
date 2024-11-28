@@ -7,7 +7,7 @@
 #' @param label Vector of characters with the label of each category in order. It has to have as many elements as categories has the column. By default, it will put the labels of the categories.
 #' @param text_pattern Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".
 #' @param perc_total logical. Should percentages be calculated using the total number of rows at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.
-#' @param sel_group Specify if the splitting has to be done only by one of the previous groups. Default is NULL.
+#' @param sel_group Select the group in which to perform the filter. The default is NULL. Can only be used if the flowchart has previously been split. If the flowchart has more than one group, it can either be given the full name as it is stored in the `$fc` component (separated by '\\'), or it can be given as a vector with the names of each group to be selected.
 #' @param na.rm logical. Should missing values of the grouping variable be removed? Default is FALSE.
 #' @param show_zero logical. Should the levels of the grouping variable that don't have data be shown? Default is FALSE.
 #' @param round_digits Number of digits to round percentages. It is 2 by default.
@@ -64,6 +64,26 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
     stop("`var` and `N` arguments cannot be specified simultaneously.")
   }
 
+  if(!is.null(sel_group)) {
+
+    if(!all(is.na(object$fc$group))) {
+
+      if(length(sel_group) > 1) {
+        sel_group <- paste(sel_group, collapse = " // ")
+      }
+
+      if(!any(sel_group %in% object$fc$group)) {
+        stop(stringr::str_glue("The specified `sel_group` does not match any group of the flowchart. Found groups in the flowchart are:\n{paste(object$fc$group[!is.na(object$fc$group)], collapse = '\n')}"))
+      }
+
+    } else {
+
+      stop("The `sel_group' argument cannot be given because no groups are found in the flowchart, as no previous split has been performed.")
+
+    }
+
+  }
+
   if(var == "NULL") {
     num <- length(grep("split\\d+", names(object$data)))
     var <- stringr::str_glue("split{num + 1}")
@@ -72,14 +92,12 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
 
       if(!is.null(sel_group)) {
 
-        nrows <- dplyr::group_rows(object$data)
-        names(nrows) <- object$data |>
-          attr("groups") |>
-          dplyr::pull(1)
-        nrows <- nrows[sel_group]
+        tbl_groups <- attr(object$data, "groups") |>
+          tidyr::unite("groups", -".rows", sep = " // ") |>
+          dplyr::filter(.data$groups == sel_group)
 
+        nrows <- tbl_groups$.rows
         ngroups <- sel_group
-
 
       } else {
 
@@ -229,8 +247,10 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
     ) |>
     dplyr::select(-N_total)
 
-  object$data <- object$data |>
-    dplyr::group_by_at(c(group0, var), .drop = FALSE)
+  if(is.null(sel_group)) {
+    object$data <- object$data |>
+      dplyr::group_by_at(c(group0, var), .drop = FALSE)
+  }
 
   # x coordinate for the created boxes.
   #if there are no groups:
@@ -261,12 +281,22 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
   } else {
 
     new_fc <- new_fc |>
-      tidyr::unite("group", c(tidyselect::all_of(group0)), sep = ", ")
+      tidyr::unite("group", c(tidyselect::all_of(group0)), sep = " // ")
 
     #Filter boxes in some groups if sel_group is specified
     if(!is.null(sel_group)) {
-      new_fc <- new_fc |>
-        dplyr::filter(.data$group %in% sel_group)
+
+      if(any(new_fc$group %in% sel_group)) {
+
+        new_fc <- new_fc |>
+          dplyr::filter(.data$group %in% sel_group)
+
+      } else {
+
+        stop("The specified `sel_group` is not a grouping variable of the data. It has to be one of: {paste(new_fc$group[!is.na(new_fc$group)], collapse = ' ')}")
+
+      }
+
     }
 
     object_center <- object$fc |>
@@ -349,7 +379,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
       is.na(label0) ~ "NA",
       TRUE ~ label0
     )) |>
-    tidyr::unite("group", c("group", "label0"), sep = ", ", na.rm = TRUE) |>
+    tidyr::unite("group", c("group", "label0"), sep = " // ", na.rm = TRUE) |>
     dplyr::ungroup() |>
     dplyr::select("x", "y", "n", "N", "perc", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color")
 
@@ -367,7 +397,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
       dplyr::mutate(old = FALSE)
   ) |>
     dplyr::mutate(
-      y = update_y(.data$y, .data$type, .data$x),
+      y = update_y(.data$y, .data$type, .data$x, .data$group),
       id = dplyr::row_number()
     ) |>
     dplyr::relocate("id")
