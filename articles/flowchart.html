@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flowchart</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -250,507 +250,12 @@ box style for all boxes in the flowchart using an argument in
 <div class="section level3">
 <h3 id="change-function-arguments">Change function arguments<a class="anchor" aria-label="anchor" href="#change-function-arguments"></a>
 </h3>
-<p>Arguments common to <code><a href="../reference/as_fc.html">as_fc()</a></code>, <code><a href="../reference/fc_filter.html">fc_filter()</a></code>
-and <code><a href="../reference/fc_split.html">fc_split()</a></code>, to customise the appearance of the boxes
-created at each step:</p>
-<table class="table">
-<thead><tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-<code>N=</code>
-</td>
-<td style="text-align:left;">
-manually specify the numbers to display in the boxes.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>label=</code>
-</td>
-<td style="text-align:left;">
-modify the label.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>text_pattern=</code>
-</td>
-<td style="text-align:left;">
-modify the pattern of the text.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>just=</code>
-</td>
-<td style="text-align:left;">
-modify the justification for the text.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>text_color=</code>
-</td>
-<td style="text-align:left;">
-modify the color of the text.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>text_fs=</code>
-</td>
-<td style="text-align:left;">
-modify the font size of the text.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>text_fface=</code>
-</td>
-<td style="text-align:left;">
-modify the font face of the text.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>text_ffamily=</code>
-</td>
-<td style="text-align:left;">
-modify the font family of the text.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>text_padding=</code>
-</td>
-<td style="text-align:left;">
-modify the padding of the text inside the box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>bg_fill=</code>
-</td>
-<td style="text-align:left;">
-modify the background color of the box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>border_color=</code>
-</td>
-<td style="text-align:left;">
-modify the border color of the box.
-</td>
-</tr>
-</tbody>
-</table>
-<p><code><a href="../reference/as_fc.html">as_fc()</a></code> arguments:</p>
-<table class="table">
-<thead><tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
-</tr></thead>
-<tbody><tr>
-<td style="text-align:left;">
-<code>hide=</code>
-</td>
-<td style="text-align:left;">
-hide the first initial box created by this function.
-</td>
-</tr></tbody>
-</table>
-<p><code><a href="../reference/fc_filter.html">fc_filter()</a></code> arguments:</p>
-<table class="table">
-<thead><tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-<code>perc_total=</code>
-</td>
-<td style="text-align:left;">
-calculate percentages using the total number of rows at the beginning of
-the flowchart.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>sel_group=</code>
-</td>
-<td style="text-align:left;">
-apply the filter only in the specified groups (if data is grouped).
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>round_digits=</code>
-</td>
-<td style="text-align:left;">
-modify the number of digits to round percentages.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>show_exc=</code>
-</td>
-<td style="text-align:left;">
-show the box with the excluded rows that do not match the filter.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>direction_exc=</code>
-</td>
-<td style="text-align:left;">
-change the direction of the exclusion box (left or right).
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>label_exc=</code>
-</td>
-<td style="text-align:left;">
-modify the label of the exclusion box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>text_pattern_exc=</code>
-</td>
-<td style="text-align:left;">
-modify the pattern of the exclusion box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>just_exc=</code>
-</td>
-<td style="text-align:left;">
-modify the justification for the text of the exclusion box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>text_color_exc=</code>
-</td>
-<td style="text-align:left;">
-modify the color of the text in the exclusion box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>text_fs_exc=</code>
-</td>
-<td style="text-align:left;">
-modify the font size of the text in the exclusion box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>text_fface_exc=</code>
-</td>
-<td style="text-align:left;">
-modify the font face of the text in the exclusion box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>text_ffamily_exc=</code>
-</td>
-<td style="text-align:left;">
-modify the font family of the text in the exclusion box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>text_padding_exc=</code>
-</td>
-<td style="text-align:left;">
-modify the padding of the text inside the exclusion box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>bg_fill_exc=</code>
-</td>
-<td style="text-align:left;">
-modify the background color of the exclusion box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>border_color_exc=</code>
-</td>
-<td style="text-align:left;">
-modify the border color of the exclusion box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>offset_exc=</code>
-</td>
-<td style="text-align:left;">
-add space to the distance between the box and the excluded box (in the
-x-coordinate).
-</td>
-</tr>
-</tbody>
-</table>
-<p><code><a href="../reference/fc_split.html">fc_split()</a></code> arguments:</p>
-<table class="table">
-<thead><tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-<code>perc_total=</code>
-</td>
-<td style="text-align:left;">
-calculate percentages using the total number of rows at the beginning of
-the flowchart.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>sel_group=</code>
-</td>
-<td style="text-align:left;">
-split the flowchart only in the specified groups (if data is grouped).
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>na.rm=</code>
-</td>
-<td style="text-align:left;">
-omit the missing values in the grouping variable.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>show_zero=</code>
-</td>
-<td style="text-align:left;">
-omit the levels of the grouping variable that don’t have data.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>round_digits=</code>
-</td>
-<td style="text-align:left;">
-modify the number of digits to round percentages.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>title=</code>
-</td>
-<td style="text-align:left;">
-add a title box to the split.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>text_color_title=</code>
-</td>
-<td style="text-align:left;">
-modify the color of the text in the title box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>text_fs_title=</code>
-</td>
-<td style="text-align:left;">
-modify the font size of the text in the title box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>text_fface_title=</code>
-</td>
-<td style="text-align:left;">
-modify the font face of the text in the title box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>text_ffamily_title=</code>
-</td>
-<td style="text-align:left;">
-modify the font family of the text in the title box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>text_padding_title=</code>
-</td>
-<td style="text-align:left;">
-modify the padding of the text in the title box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>bg_fill_title=</code>
-</td>
-<td style="text-align:left;">
-modify the background color of the title box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>border_color_title=</code>
-</td>
-<td style="text-align:left;">
-modify the border color of the title box.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>offset=</code>
-</td>
-<td style="text-align:left;">
-add space to the distance between the boxes (in the x-coordinate).
-</td>
-</tr>
-</tbody>
-</table>
-<p><code><a href="../reference/fc_draw.html">fc_draw()</a></code> arguments are heredited from
-<code>arrow</code>:</p>
-<table class="table">
-<thead><tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-<code>box_corners=</code>
-</td>
-<td style="text-align:left;">
-specify corner type for all flowchart boxes.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>arrow_angle=</code>
-</td>
-<td style="text-align:left;">
-angle of the arrow head in degrees.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>arrow_length=</code>
-</td>
-<td style="text-align:left;">
-unit specifying the length of the arrow head.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>arrow_ends=</code>
-</td>
-<td style="text-align:left;">
-specify the ends of the line to draw the arrow head (last/first/both).
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>arrow_type=</code>
-</td>
-<td style="text-align:left;">
-whether the arrow head should be a closed triangle.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>title=</code>
-</td>
-<td style="text-align:left;">
-title of the flowchart.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>title_x=</code>
-</td>
-<td style="text-align:left;">
-x coordinate of the title.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>title_y=</code>
-</td>
-<td style="text-align:left;">
-y coordinate of the title.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>title_color=</code>
-</td>
-<td style="text-align:left;">
-color of the title.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>title_fs=</code>
-</td>
-<td style="text-align:left;">
-font size of the title.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>title_fface=</code>
-</td>
-<td style="text-align:left;">
-font face of the title.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>title_ffamily=</code>
-</td>
-<td style="text-align:left;">
-font family of the title.
-</td>
-</tr>
-</tbody>
-</table>
+<p>There are many different arguments in <code><a href="../reference/as_fc.html">as_fc()</a></code>,
+<code><a href="../reference/fc_filter.html">fc_filter()</a></code>, <code><a href="../reference/fc_split.html">fc_split()</a></code>, and
+<code><a href="../reference/fc_draw.html">fc_draw()</a></code> that allow you to customize the boxes created at
+each step. Examples of how to use these arguments are given at the end
+of the vignette: <a href="#customization-examples">Customization
+examples</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="function-to-customize-the-flowchart">Function to customize the flowchart<a class="anchor" aria-label="anchor" href="#function-to-customize-the-flowchart"></a>
@@ -1093,20 +598,38 @@ in a filter using the argument <code>offset_exc</code>:</p>
 <p><img src="flowchart_files/figure-html/unnamed-chunk-32-1.png" width="576"></p>
 </div>
 <div class="section level4">
+<h4 id="use-expressions">Use expressions<a class="anchor" aria-label="anchor" href="#use-expressions"></a>
+</h4>
+<p>We can use expressions in the label of each box. Expressions allow
+you to use bold or italic text without having to change the font of all
+the box text. For example:</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Patients "</span>, <span class="fu">italic</span><span class="op">(</span><span class="st">"assessed"</span><span class="op">)</span>, <span class="st">" for "</span>, <span class="fu">bold</span><span class="op">(</span><span class="st">"eligibility"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="flowchart_files/figure-html/unnamed-chunk-33-1.png" width="700"></p>
+<p>Expressions even allow the use of formulas. For example:</p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">y</span>, <span class="st">" = "</span>, <span class="va">alpha</span>, <span class="st">" + "</span>, <span class="va">beta</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="flowchart_files/figure-html/unnamed-chunk-34-1.png" width="700"></p>
+</div>
+<div class="section level4">
 <h4 id="split-in-one-group">Split in one group<a class="anchor" aria-label="anchor" href="#split-in-one-group"></a>
 </h4>
 <p>We can perform an additional split only in one of the groups using
 the argument <code>sel_group=</code>:</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">60</span><span class="op">)</span>, sel_group <span class="op">=</span> <span class="st">"cloxacillin alone"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart_files/figure-html/unnamed-chunk-33-1.png" width="576"></p>
+<p><img src="flowchart_files/figure-html/unnamed-chunk-35-1.png" width="576"></p>
 <p>Then, we could also perform a filter in the other group:</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -1114,39 +637,17 @@ the argument <code>sel_group=</code>:</p>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">60</span><span class="op">)</span>, sel_group <span class="op">=</span> <span class="st">"cloxacillin alone"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fl">50</span>, sel_group <span class="op">=</span> <span class="st">"cloxacillin plus fosfomycin"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart_files/figure-html/unnamed-chunk-34-1.png" width="576"></p>
+<p><img src="flowchart_files/figure-html/unnamed-chunk-36-1.png" width="576"></p>
 <p>If we want to select a group in a flowchart with more than two groups
 we have to supply a vector in <code>sel_group=</code> with the desired
 groups to be selected:</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">55</span>, <span class="fl">10</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fl">60</span>, sel_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cloxacillin alone"</span>, <span class="st">"group 2"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart_files/figure-html/unnamed-chunk-35-1.png" width="576"></p>
-</div>
-<div class="section level4">
-<h4 id="allow-expressions">Allow expressions<a class="anchor" aria-label="anchor" href="#allow-expressions"></a>
-</h4>
-<p>We can use expressions in the label of each box. Expressions allow
-you to use bold or italic text without having to change the font of all
-the box text. For example:</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Mixed: "</span>, <span class="fu">italic</span><span class="op">(</span><span class="st">"Italics"</span><span class="op">)</span>, <span class="st">" and "</span>, <span class="fu">bold</span><span class="op">(</span><span class="st">"bold"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart_files/figure-html/unnamed-chunk-36-1.png" width="576"></p>
-<p>Expressions even allow the use of formulas. For example:</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"y = "</span>, <span class="va">beta</span><span class="op">[</span><span class="fl">0</span><span class="op">]</span>, <span class="st">" + "</span>, <span class="va">beta</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">X</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="st">" + "</span>, <span class="va">beta</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">X</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="flowchart_files/figure-html/unnamed-chunk-37-1.png" width="576"></p>
 </div>
