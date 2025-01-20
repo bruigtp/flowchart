@@ -93,3 +93,5 @@
 * Changed y-coordinate distribution of boxes when using `fc_stack()` with `unite = TRUE`
 
 * When performing multiple splits in a flowchart, the group label is stored in `$fc` concatenating the values of the different groups separated by '//'.
+
+* Allow expressions in the label argument to produce bold or italics text, or even formulas. 

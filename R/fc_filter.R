@@ -4,13 +4,13 @@
 #' @param object fc object that we want to filter.
 #' @param filter Expression that returns a logical value and are defined in terms of the variables in the data frame. The data base will be filtered by this expression, and it will create a box showing the number of rows satisfying this condition.
 #' @param N Number of rows after the filter in case `filter` is NULL.
-#' @param label Character that will be the title of the box. By default it will be the evaluated condition.
-#' @param text_pattern Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".
+#' @param label Character or expression that will be the title of the box. By default it will be the evaluated condition.
+#' @param text_pattern Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)". If label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.
 #' @param perc_total logical. Should percentages be calculated using the total number of rows at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.
 #' @param show_exc Logical value. If TRUE a box showing the number of excluded rows will be added to the flow chart.
 #' @param direction_exc One of "left" or "right" indicating if the exclusion box goes into the left direction or in the right direction. By default is "right".
-#' @param label_exc Character that will be the title of the added box showing the excluded patients. By default it will show "Excluded".
-#' @param text_pattern_exc Structure that will have the text in each of the excluded boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".
+#' @param label_exc Character or expression that will be the title of the added box showing the excluded patients. By default it will show "Excluded".
+#' @param text_pattern_exc Structure that will have the text in each of the excluded boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)". If label_exc is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern_exc is placed.
 #' @param sel_group Select the group in which to perform the filter. The default is NULL. Can only be used if the flowchart has previously been split. If the flowchart has more than one group, it can either be given the full name as it is stored in the `$fc` component (separated by '\\'), or it can be given as a vector with the names of each group to be selected.
 #' @param round_digits Number of digits to round percentages. It is 2 by default.
 #' @param just Justification for the text: left, center or right. Default is center.
@@ -212,7 +212,6 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
     dplyr::mutate(
       y = NA,
       perc = round(.data$n*100/.data$N_total, round_digits),
-      text = as.character(stringr::str_glue(text_pattern)),
       type = "filter",
       just = just,
       text_color = text_color,
@@ -225,6 +224,31 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
     ) |>
     dplyr::ungroup() |>
     dplyr::select(-N_total)
+
+  if(is.character(label)) {
+
+    new_fc <- new_fc |>
+      dplyr::mutate(text = as.character(stringr::str_glue(text_pattern)))
+
+  } else {
+
+    if(is.expression(label)) {
+
+      text_pattern_exp <- gsub("\\{label\\}", "", text_pattern)
+
+      new_fc <- new_fc |>
+        dplyr::mutate(text = list(substitute(atop(x, y), list(x = label[[1]], y = stringr::str_glue(text_pattern_exp)))))
+
+    } else {
+
+      stop("The label has to be either a character or an expression.")
+
+    }
+
+  }
+
+  new_fc <- new_fc |>
+    dplyr::relocate("text", .after = "perc")
 
 
   if(is.null(sel_group)) {
@@ -336,7 +360,6 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
     new_fc2 <- new_fc2 |>
       dplyr::mutate(
         perc = purrr::map2_dbl(.data$n, .data$N_total, ~round(.x*100/.y, round_digits)),
-        text = as.character(stringr::str_glue(text_pattern_exc)),
         type = "exclude",
         just = just_exc,
         text_color = text_color_exc,
@@ -348,6 +371,31 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
         border_color = border_color_exc
       ) |>
       dplyr::select(-"parent", -"N_total")
+
+    if(is.character(label_exc)) {
+
+      new_fc2 <- new_fc2 |>
+        dplyr::mutate(text = as.character(stringr::str_glue(text_pattern_exc)))
+
+    } else {
+
+      if(is.expression(label_exc)) {
+
+        text_pattern_exc_exp <- gsub("\\{label\\}", "", text_pattern_exc)
+
+        new_fc2 <- new_fc2 |>
+          dplyr::mutate(text = list(substitute(atop(x, y), list(x = label_exc[[1]], y = stringr::str_glue(text_pattern_exc_exp)))))
+
+      } else {
+
+        stop("The label_exc has to be either a character or an expression.")
+
+      }
+
+    }
+
+    new_fc2 <- new_fc2 |>
+      dplyr::relocate("text", .after = "perc")
 
     new_fc3 <- NULL
     for(i in 1:nrow(new_fc2)) {

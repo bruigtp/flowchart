@@ -3,8 +3,8 @@
 #'
 #' @param .data Data frame to be initialised as a flowchart.
 #' @param N Number of rows of the study in case `.data` is NULL.
-#' @param label Character with the text that will be shown in the box.
-#' @param text_pattern Structure that will have the text in the box. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n\{N\}".
+#' @param label Character or expression with the text that will be shown in the box.
+#' @param text_pattern Structure that will have the text in the box. It recognizes label, n, N and perc within brackets. By default it is "\{label\}\\n\{N\}". If label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.
 #' @param just Justification for the text: left, center or right. Default is center.
 #' @param text_color Color of the text. It is black by default. See the `col` parameter for \code{\link{gpar}}.
 #' @param text_fs Font size of the text. It is 8 by default. See the `fontsize` parameter for \code{\link{gpar}}.
@@ -42,15 +42,19 @@ as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_patt
     stop("Text padding cannot be equal to zero")
   }
 
+  if(text_pattern != "{label}\n{N}") {
+
+  }
+
   if(!hide) {
-    fc_new <- tibble::tibble(
+
+    new_fc <- tibble::tibble(
       id = 1,
       x = 0.5,
       y = 0.5,
       n = N,
       N = N,
       perc = "100",
-      text = as.character(stringr::str_glue(text_pattern)),
       type = "init",
       group = NA,
       just = just,
@@ -62,17 +66,47 @@ as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_patt
       bg_fill = bg_fill,
       border_color = border_color
     )
+
+    if(is.character(label)) {
+
+      new_fc <- new_fc |>
+        dplyr::mutate(text = as.character(stringr::str_glue(text_pattern)))
+
+    } else {
+
+      if(is.expression(label)) {
+
+        text_pattern_exp <- gsub("\\{label\\}", "", text_pattern)
+
+        new_fc <- new_fc |>
+          dplyr::mutate(text = list(substitute(atop(x, y), list(x = label[[1]], y = stringr::str_glue(text_pattern_exp)))))
+
+      } else {
+
+        stop("The label has to be either a character or an expression.")
+
+      }
+    }
+
+    new_fc <- new_fc |>
+      dplyr::relocate("text", .after = "perc")
+
   } else {
+
     warning("Remember that hide = TRUE can only be combined with fc_split()")
-    fc_new <- NULL
+    new_fc <- NULL
+
   }
 
   #Initialize flowchart as x is a dataframe
   object <- list(
     data = .data |>
       dplyr::ungroup(),
-    fc = fc_new
+    fc = new_fc
   )
+
   class(object) <- c("fc")
+
   object
+
 }

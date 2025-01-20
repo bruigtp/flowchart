@@ -4,8 +4,8 @@
 #' @param object fc object that we want to split.
 #' @param var variable column of the database from which it will be splitted.
 #' @param N Number of rows after the split in case `var` is NULL.
-#' @param label Vector of characters with the label of each category in order. It has to have as many elements as categories has the column. By default, it will put the labels of the categories.
-#' @param text_pattern Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)".
+#' @param label Vector of characters or vector of expressions with the label of each category in order. It has to have as many elements as categories has the column. By default, it will put the labels of the categories.
+#' @param text_pattern Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)". If label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.
 #' @param perc_total logical. Should percentages be calculated using the total number of rows at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.
 #' @param sel_group Select the group in which to perform the filter. The default is NULL. Can only be used if the flowchart has previously been split. If the flowchart has more than one group, it can either be given the full name as it is stored in the `$fc` component (separated by '\\'), or it can be given as a vector with the names of each group to be selected.
 #' @param na.rm logical. Should missing values of the grouping variable be removed? Default is FALSE.
@@ -234,7 +234,6 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
       x = NA,
       y = NA,
       perc = round(.data$n*100/.data$N_total, round_digits),
-      text = as.character(stringr::str_glue(text_pattern)),
       type = "split",
       just = just,
       text_color = text_color,
@@ -246,6 +245,32 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
       border_color = border_color
     ) |>
     dplyr::select(-N_total)
+
+  if(is.null(label) | is.character(label)) {
+
+    new_fc <- new_fc |>
+      dplyr::mutate(text = as.character(stringr::str_glue(text_pattern)))
+
+  } else {
+
+    if(is.expression(label)) {
+
+      text_pattern_exp <- gsub("\\{label\\}", "", text_pattern)
+
+      #We have to consider the label in the environment not in the data
+      new_fc <- new_fc |>
+        dplyr::mutate(text = purrr::map(dplyr::row_number(), ~substitute(atop(x, y), list(x = .env$label[[.]], y = stringr::str_glue(text_pattern_exp)[[.]]))))
+
+    } else {
+
+      stop("The label has to be either a character or an expression.")
+
+    }
+
+  }
+
+  new_fc <- new_fc |>
+    dplyr::relocate("text", .after = "perc")
 
   if(is.null(sel_group)) {
     object$data <- object$data |>

@@ -25,9 +25,9 @@ as_fc(
 
 \item{N}{Number of rows of the study in case `.data` is NULL.}
 
-\item{label}{Character with the text that will be shown in the box.}
+\item{label}{Character or expression with the text that will be shown in the box.}
 
-\item{text_pattern}{Structure that will have the text in the box. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n\{N\}".}
+\item{text_pattern}{Structure that will have the text in the box. It recognizes label, n, N and perc within brackets. By default it is "\{label\}\\n\{N\}". If label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.}
 
 \item{just}{Justification for the text: left, center or right. Default is center.}
 

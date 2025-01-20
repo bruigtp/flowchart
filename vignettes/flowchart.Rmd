@@ -616,7 +616,7 @@ Second, let's create and customise the flowchart using the functions in the pack
 
 ```{r warning=FALSE, fig.width = 13, fig.height = 9}
 safo |> 
-  as_fc(label = "patients assessed for eligibility", text_pattern = "{n} {label}") |> 
+  as_fc(label = "patients assessed for eligibility", text_pattern = "{N} {label}") |> 
   fc_filter(!is.na(group), label = "randomized", text_pattern = "{n} {label}", show_exc = TRUE,
             just_exc = "left", text_pattern_exc = "{label}", label_exc = label_exc, text_fs_exc = 7) |>
   fc_split(group, text_pattern = "{n} asssigned\n {label}") |> 
@@ -788,5 +788,27 @@ safo |>
   fc_split(group) |> 
   fc_split(N = c(50, 55, 10, 100)) |> 
   fc_filter(N = 60, sel_group = c("cloxacillin alone", "group 2")) |> 
+  fc_draw()
+```
+
+### Allow expressions
+
+We can use expressions in the label of each box. Expressions allow you to use bold or italic text without having to change the font of all the box text. For example:
+
+```{r fig.width = 6, fig.height = 5}
+safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(!is.na(group), label = expression(paste("Mixed: ", italic("Italics"), " and ", bold("bold"))), show_exc = TRUE) |> 
+  fc_split(group) |> 
+  fc_draw()
+```
+
+Expressions even allow the use of formulas. For example:
+
+```{r fig.width = 6, fig.height = 5}
+safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(!is.na(group), label = expression(paste("y = ", beta[0], " + ", beta[1], X[1], " + ", beta[2], X[2]^2)), show_exc = TRUE) |> 
+  fc_split(group) |> 
   fc_draw()
 ```
