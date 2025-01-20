@@ -160,287 +160,7 @@ We can customize the flowchart either with the arguments provided by each functi
 
 ## Change function arguments
 
-Arguments common to `as_fc()`, `fc_filter()` and `fc_split()`, to customise the appearance of the boxes created at each step:
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Argument </th>
-   <th style="text-align:left;"> Description </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> `N=` </td>
-   <td style="text-align:left;"> manually specify the numbers to display in the boxes.</td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `label=` </td>
-   <td style="text-align:left;"> modify the label. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `text_pattern=` </td>
-   <td style="text-align:left;"> modify the pattern of the text. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `just=` </td>
-   <td style="text-align:left;"> modify the justification for the text. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `text_color=` </td>
-   <td style="text-align:left;"> modify the color of the text. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `text_fs=` </td>
-   <td style="text-align:left;"> modify the font size of the text. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `text_fface=` </td>
-   <td style="text-align:left;"> modify the font face of the text. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `text_ffamily=` </td>
-   <td style="text-align:left;"> modify the font family of the text. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `text_padding=` </td>
-   <td style="text-align:left;"> modify the padding of the text inside the box. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `bg_fill=` </td>
-   <td style="text-align:left;"> modify the background color of the box. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `border_color=` </td>
-   <td style="text-align:left;"> modify the border color of the box. </td>
-  </tr>
-</tbody>
-</table>
-
-`as_fc()` arguments:
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Argument </th>
-   <th style="text-align:left;"> Description </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> `hide=` </td>
-   <td style="text-align:left;"> hide the first initial box created by this function. </td>
-  </tr>
-</tbody>
-</table>
-
-`fc_filter()` arguments:
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Argument </th>
-   <th style="text-align:left;"> Description </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> `perc_total=` </td>
-   <td style="text-align:left;"> calculate percentages using the total number of rows at the beginning of the flowchart. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `sel_group=` </td>
-   <td style="text-align:left;"> apply the filter only in the specified groups (if data is grouped). </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `round_digits=` </td>
-   <td style="text-align:left;"> modify the number of digits to round percentages. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `show_exc=` </td>
-   <td style="text-align:left;"> show the box with the excluded rows that do not match the filter. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `direction_exc=` </td>
-   <td style="text-align:left;"> change the direction of the exclusion box (left or right). </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `label_exc=` </td>
-   <td style="text-align:left;"> modify the label of the exclusion box. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `text_pattern_exc=` </td>
-   <td style="text-align:left;"> modify the pattern of the exclusion box. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `just_exc=` </td>
-   <td style="text-align:left;"> modify the justification for the text of the exclusion box. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `text_color_exc=` </td>
-   <td style="text-align:left;"> modify the color of the text in the exclusion box. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `text_fs_exc=` </td>
-   <td style="text-align:left;"> modify the font size of the text in the exclusion box.     </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `text_fface_exc=` </td>
-   <td style="text-align:left;"> modify the font face of the text in the exclusion box. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `text_ffamily_exc=` </td>
-   <td style="text-align:left;"> modify the font family of the text in the exclusion box. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `text_padding_exc=` </td>
-   <td style="text-align:left;"> modify the padding of the text inside the exclusion box. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `bg_fill_exc=` </td>
-   <td style="text-align:left;"> modify the background color of the exclusion box. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `border_color_exc=` </td>
-   <td style="text-align:left;"> modify the border color of the exclusion box. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `offset_exc=` </td>
-   <td style="text-align:left;"> add space to the distance between the box and the excluded box (in the x-coordinate). </td>
-  </tr>
-</tbody>
-</table>
-
-`fc_split()` arguments:
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Argument </th>
-   <th style="text-align:left;"> Description </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> `perc_total=` </td>
-   <td style="text-align:left;"> calculate percentages using the total number of rows at the beginning of the flowchart. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `sel_group=` </td>
-   <td style="text-align:left;"> split the flowchart only in the specified groups (if data is grouped). </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `na.rm=` </td>
-   <td style="text-align:left;"> omit the missing values in the grouping variable. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `show_zero=` </td>
-   <td style="text-align:left;"> omit the levels of the grouping variable that don't have data. </td>
-  <tr>
-   <td style="text-align:left;"> `round_digits=` </td>
-   <td style="text-align:left;"> modify the number of digits to round percentages. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `title=` </td>
-   <td style="text-align:left;"> add a title box to the split. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `text_color_title=` </td>
-   <td style="text-align:left;"> modify the color of the text in the title box. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `text_fs_title=` </td>
-   <td style="text-align:left;"> modify the font size of the text in the title box. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `text_fface_title=` </td>
-   <td style="text-align:left;"> modify the font face of the text in the title box. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `text_ffamily_title=` </td>
-   <td style="text-align:left;"> modify the font family of the text in the title box. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `text_padding_title=` </td>
-   <td style="text-align:left;"> modify the padding of the text in the title box. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `bg_fill_title=` </td>
-   <td style="text-align:left;"> modify the background color of the title box. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `border_color_title=` </td>
-   <td style="text-align:left;"> modify the border color of the title box. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `offset=` </td>
-   <td style="text-align:left;"> add space to the distance between the boxes (in the x-coordinate). </td>
-  </tr>
-  </tr>
-</tbody>
-</table>
-
-`fc_draw()` arguments are heredited from `arrow`: 
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Argument </th>
-   <th style="text-align:left;"> Description </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> `box_corners=` </td>
-   <td style="text-align:left;"> specify corner type for all flowchart boxes. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `arrow_angle=` </td>
-   <td style="text-align:left;"> angle of the arrow head in degrees. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `arrow_length=` </td>
-   <td style="text-align:left;"> unit specifying the length of the arrow head. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `arrow_ends=` </td>
-   <td style="text-align:left;"> specify the ends of the line to draw the arrow head (last/first/both). </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `arrow_type=` </td>
-   <td style="text-align:left;"> whether the arrow head should be a closed triangle. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `title=` </td>
-   <td style="text-align:left;"> title of the flowchart. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `title_x=` </td>
-   <td style="text-align:left;"> x coordinate of the title. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `title_y=` </td>
-   <td style="text-align:left;"> y coordinate of the title. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `title_color=` </td>
-   <td style="text-align:left;"> color of the title. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `title_fs=` </td>
-   <td style="text-align:left;"> font size of the title. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `title_fface=` </td>
-   <td style="text-align:left;"> font face of the title. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> `title_ffamily=` </td>
-   <td style="text-align:left;"> font family of the title. </td>
-  </tr>
-</tbody>
-</table>
-
+There are many different arguments in `as_fc()`, `fc_filter()`, `fc_split()`, and `fc_draw()` that allow you to customize the boxes created at each step. Examples of how to use these arguments are given at the end of the vignette: [Customization examples].
 
 ## Function to customize the flowchart
 
@@ -754,6 +474,25 @@ safo |>
   fc_draw(box_corners = "sharp")
 ```
 
+
+### Use expressions
+
+We can use expressions in the label of each box. Expressions allow you to use bold or italic text without having to change the font of all the box text. For example:
+
+```{r}
+safo |> 
+  as_fc(label = expression(paste("Patients ", italic("assessed"), " for ", bold("eligibility")))) |>
+  fc_draw()
+```
+
+Expressions even allow the use of formulas. For example:
+
+```{r}
+safo |> 
+  as_fc(label = expression(paste(y, " = ", alpha, " + ", beta, x))) |>
+  fc_draw()
+```
+
 ### Split in one group
 
 We can perform an additional split only in one of the groups using the argument `sel_group=`:
@@ -781,34 +520,12 @@ safo |>
 
 If we want to select a group in a flowchart with more than two groups we have to supply a vector in `sel_group=` with the desired groups to be selected:
 
-```{r fig.width = 6, fig.height = 6}
+```{r fig.width = 6, fig.height = 7}
 safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
   fc_split(group) |> 
   fc_split(N = c(50, 55, 10, 100)) |> 
   fc_filter(N = 60, sel_group = c("cloxacillin alone", "group 2")) |> 
-  fc_draw()
-```
-
-### Allow expressions
-
-We can use expressions in the label of each box. Expressions allow you to use bold or italic text without having to change the font of all the box text. For example:
-
-```{r fig.width = 6, fig.height = 5}
-safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = expression(paste("Mixed: ", italic("Italics"), " and ", bold("bold"))), show_exc = TRUE) |> 
-  fc_split(group) |> 
-  fc_draw()
-```
-
-Expressions even allow the use of formulas. For example:
-
-```{r fig.width = 6, fig.height = 5}
-safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = expression(paste("y = ", beta[0], " + ", beta[1], X[1], " + ", beta[2], X[2]^2)), show_exc = TRUE) |> 
-  fc_split(group) |> 
   fc_draw()
 ```

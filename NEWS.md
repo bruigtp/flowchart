@@ -86,12 +86,12 @@
 
 * Bug when specifying `title` in `fc_split()` with a number of splits different than two
 
-# flowchart 0.6.0.9000 (development)
+# flowchart 0.7.0
 
 * Solved `bug` when `sel_group` is used repeatedly in the same flowchart
 
 * Changed y-coordinate distribution of boxes when using `fc_stack()` with `unite = TRUE`
 
-* When performing multiple splits in a flowchart, the group label is stored in `$fc` concatenating the values of the different groups separated by '//'.
+* When performing multiple splits in a flowchart, the group label is stored in `$fc` concatenating the values of the different groups separated by '//'
 
-* Allow expressions in the label argument to produce bold or italics text, or even formulas. 
+* Allow expressions in the label argument to produce bold or italics text, or even formulas
