@@ -89,11 +89,11 @@
 
 
 <dt id="arg-label">label<a class="anchor" aria-label="anchor" href="#arg-label"></a></dt>
-<dd><p>Character that will be the title of the box. By default it will be the evaluated condition.</p></dd>
+<dd><p>Character or expression that will be the title of the box. By default it will be the evaluated condition.</p></dd>
 
 
 <dt id="arg-text-pattern">text_pattern<a class="anchor" aria-label="anchor" href="#arg-text-pattern"></a></dt>
-<dd><p>Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "{label}\n {n} ({perc}%)".</p></dd>
+<dd><p>Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "{label}\n {n} ({perc}%)". If label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.</p></dd>
 
 
 <dt id="arg-perc-total">perc_total<a class="anchor" aria-label="anchor" href="#arg-perc-total"></a></dt>
@@ -109,11 +109,11 @@
 
 
 <dt id="arg-label-exc">label_exc<a class="anchor" aria-label="anchor" href="#arg-label-exc"></a></dt>
-<dd><p>Character that will be the title of the added box showing the excluded patients. By default it will show "Excluded".</p></dd>
+<dd><p>Character or expression that will be the title of the added box showing the excluded patients. By default it will show "Excluded".</p></dd>
 
 
 <dt id="arg-text-pattern-exc">text_pattern_exc<a class="anchor" aria-label="anchor" href="#arg-text-pattern-exc"></a></dt>
-<dd><p>Structure that will have the text in each of the excluded boxes. It recognizes label, n, N and perc within brackets. For default it is "{label}\n {n} ({perc}%)".</p></dd>
+<dd><p>Structure that will have the text in each of the excluded boxes. It recognizes label, n, N and perc within brackets. For default it is "{label}\n {n} ({perc}%)". If label_exc is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern_exc is placed.</p></dd>
 
 
 <dt id="arg-sel-group">sel_group<a class="anchor" aria-label="anchor" href="#arg-sel-group"></a></dt>
