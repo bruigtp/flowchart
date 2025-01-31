@@ -211,7 +211,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
   if(perc_total) {
     N_total <- unique(
       object$fc |>
-        dplyr::filter(is.na(.data$group)) |>
+        dplyr::filter(.data$y == max(.data$y)) |>
         dplyr::pull("N")
     )
     new_fc <- new_fc |>

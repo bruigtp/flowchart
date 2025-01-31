@@ -95,3 +95,8 @@
 * When performing multiple splits in a flowchart, the group label is stored in `$fc` concatenating the values of the different groups separated by '//'
 
 * Allow expressions in the label argument to produce bold or italics text, or even formulas
+
+# flowchart 0.7.0.9000 (development)
+
+* Solved `bug` when `perc_total = TRUE` is used together with `show_exc = TRUE`.
+

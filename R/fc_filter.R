@@ -190,7 +190,7 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
   if(perc_total) {
     N_total <- unique(
       object$fc |>
-        dplyr::filter(is.na(.data$group)) |>
+        dplyr::filter(.data$y == max(.data$y)) |>
         dplyr::pull("N")
     )
     new_fc <- new_fc |>
@@ -342,7 +342,7 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
     if(perc_total) {
       N_total <- unique(
         object$fc |>
-          dplyr::filter(is.na(.data$group)) |>
+          dplyr::filter(.data$y == max(.data$y)) |>
           dplyr::pull("N")
       )
       new_fc2 <- new_fc2 |>
