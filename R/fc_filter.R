@@ -175,17 +175,29 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
     )
 
   if(is.null(group0)) {
+
     new_fc$group <- NA
-  } else {
+
     new_fc <- new_fc |>
-      tidyr::unite("group", c(tidyselect::all_of(group0)), sep = " // ", na.rm = TRUE)
+      dplyr::left_join(object$fc |> dplyr::filter(.data$type != "exclude") |> dplyr::select("x", "group"), by = "group") |>
+      dplyr::group_by(.data$group) |>
+      dplyr::slice_tail(n = 1) |>
+      dplyr::ungroup()
+
+  } else {
+
+    new_fc <- new_fc |>
+      dplyr::mutate_at(tidyselect::all_of(group0), ~dplyr::case_when(is.na(.) ~ "NA", .default = .))|>
+      tidyr::unite("group", c(tidyselect::all_of(group0)), sep = " // ", na.rm = TRUE) |>
+      dplyr::left_join(object$fc |> dplyr::filter(.data$type != "exclude") |> dplyr::select("x", "group"), by = "group") |>
+      dplyr::mutate(group = factor(.data$group, levels = unique(.data$group))) |>
+      dplyr::group_by(.data$group) |>
+      dplyr::slice_tail(n = 1) |>
+      dplyr::ungroup() |>
+      dplyr::mutate(group = as.character(.data$group))
+
   }
 
-  new_fc <- new_fc |>
-    dplyr::left_join(object$fc |> dplyr::filter(.data$type != "exclude") |> dplyr::select("x", "group"), by = "group") |>
-    dplyr::group_by(.data$group) |>
-    dplyr::slice_tail(n = 1) |>
-    dplyr::ungroup()
 
   if(perc_total) {
     N_total <- unique(
@@ -426,7 +438,6 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
 
   } else {
 
-    #in development
     groups <- names(attr(object$data, "groups"))
     groups <- groups[groups != ".rows"]
 
