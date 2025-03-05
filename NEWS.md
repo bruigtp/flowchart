@@ -101,3 +101,5 @@
 * Solved `bug` when `perc_total = TRUE` is used together with `show_exc = TRUE`.
 
 * Solved `bug` when applying `fc_filter()` in a box with missing values.
+
+* Added `big.mark` argument to `as_fc()`, `fc_filter()`, and `fc_split()` to allow users to insert a thousands separator for values of `n` and `N`; defaults to `","` (e.g., `"1,000"`) (#26; @kenkomodo)
