@@ -6,6 +6,7 @@
 #' @param N Number of rows after the split in case `var` is NULL.
 #' @param label Vector of characters or vector of expressions with the label of each category in order. It has to have as many elements as categories has the column. By default, it will put the labels of the categories.
 #' @param text_pattern Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)". If label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.
+#' @param big.mark character. Used to specify the thousands separator for patient count values. Defaults is `","`; if not empty used as mark between every 3 digits (ex: `1,000` vs `1000`).
 #' @param perc_total logical. Should percentages be calculated using the total number of rows at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.
 #' @param sel_group Select the group in which to perform the filter. The default is NULL. Can only be used if the flowchart has previously been split. If the flowchart has more than one group, it can either be given the full name as it is stored in the `$fc` component (separated by '\\'), or it can be given as a vector with the names of each group to be selected.
 #' @param na.rm logical. Should missing values of the grouping variable be removed? Default is FALSE.
@@ -39,7 +40,7 @@
 #'
 #' @export
 
-fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", title = NULL, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "white", border_color_title = "black", offset = NULL) {
+fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", big.mark = ",", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", title = NULL, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "white", border_color_title = "black", offset = NULL) {
 
   is_class(object, "fc")
   UseMethod("fc_split")
@@ -50,7 +51,7 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
 #' @export
 #' @importFrom rlang .data
 
-fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", title = NULL, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "white", border_color_title = "black", offset = NULL) {
+fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", big.mark = ",", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", title = NULL, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "white", border_color_title = "black", offset = NULL) {
 
   var <- substitute(var)
 
@@ -249,7 +250,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
   if(is.null(label) | is.character(label)) {
 
     new_fc <- new_fc |>
-      dplyr::mutate(text = as.character(stringr::str_glue(text_pattern)))
+      dplyr::mutate(text = as.character(stringr::str_glue(text_pattern, n = prettyNum(n, scientific=FALSE, big.mark = big.mark))))
 
   } else {
 
@@ -259,7 +260,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
 
       #We have to consider the label in the environment not in the data
       new_fc <- new_fc |>
-        dplyr::mutate(text = purrr::map(dplyr::row_number(), ~substitute(atop(x, y), list(x = .env$label[[.]], y = stringr::str_glue(text_pattern_exp)[[.]]))))
+        dplyr::mutate(text = purrr::map(dplyr::row_number(), ~substitute(atop(x, y), list(x = .env$label[[.]], y = stringr::str_glue(text_pattern_exp, n = prettyNum(n, scientific=FALSE, big.mark = big.mark))[[.]]))))
 
     } else {
 

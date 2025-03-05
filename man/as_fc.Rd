@@ -9,6 +9,7 @@ as_fc(
   N = NULL,
   label = "Initial dataframe",
   text_pattern = "{label}\\n{N}",
+  big.mark = ",",
   just = "center",
   text_color = "black",
   text_fs = 8,
@@ -28,6 +29,8 @@ as_fc(
 \item{label}{Character or expression with the text that will be shown in the box.}
 
 \item{text_pattern}{Structure that will have the text in the box. It recognizes label, n, N and perc within brackets. By default it is "\{label\}\\n\{N\}". If label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.}
+
+\item{big.mark}{character. Used to specify the thousands separator for patient count values. Defaults is `","`; if not empty used as mark between every 3 digits (ex: `1,000` vs `1000`).}
 
 \item{just}{Justification for the text: left, center or right. Default is center.}
 
