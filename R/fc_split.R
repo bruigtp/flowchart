@@ -250,7 +250,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
   if(is.null(label) | is.character(label)) {
 
     new_fc <- new_fc |>
-      dplyr::mutate(text = as.character(stringr::str_glue(text_pattern, n = prettyNum(n, scientific=FALSE, big.mark = big.mark))))
+      dplyr::mutate(text = as.character(stringr::str_glue(text_pattern, n = prettyNum(.data$n, scientific=FALSE, big.mark = big.mark))))
 
   } else {
 
@@ -260,7 +260,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
 
       #We have to consider the label in the environment not in the data
       new_fc <- new_fc |>
-        dplyr::mutate(text = purrr::map(dplyr::row_number(), ~substitute(atop(x, y), list(x = .env$label[[.]], y = stringr::str_glue(text_pattern_exp, n = prettyNum(n, scientific=FALSE, big.mark = big.mark))[[.]]))))
+        dplyr::mutate(text = purrr::map(dplyr::row_number(), ~substitute(atop(x, y), list(x = .env$label[[.]], y = stringr::str_glue(text_pattern_exp, n = prettyNum(.data$n, scientific=FALSE, big.mark = big.mark))[[.]]))))
 
     } else {
 

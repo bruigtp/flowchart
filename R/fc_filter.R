@@ -241,7 +241,7 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
   if(is.character(label)) {
 
     new_fc <- new_fc |>
-      dplyr::mutate(text = as.character(stringr::str_glue(text_pattern, n = prettyNum(n, scientific=FALSE, big.mark = big.mark))))
+      dplyr::mutate(text = as.character(stringr::str_glue(text_pattern, n = prettyNum(.data$n, scientific=FALSE, big.mark = big.mark))))
 
   } else {
 
@@ -250,7 +250,7 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
       text_pattern_exp <- gsub("\\{label\\}", "", text_pattern)
 
       new_fc <- new_fc |>
-        dplyr::mutate(text = list(substitute(atop(x, y), list(x = label[[1]], y = stringr::str_glue(text_pattern_exp, n = prettyNum(n, scientific=FALSE, big.mark = big.mark))))))
+        dplyr::mutate(text = list(substitute(atop(x, y), list(x = label[[1]], y = stringr::str_glue(text_pattern_exp, n = prettyNum(.data$n, scientific=FALSE, big.mark = big.mark))))))
 
     } else {
 
@@ -388,7 +388,7 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
     if(is.character(label_exc)) {
 
       new_fc2 <- new_fc2 |>
-        dplyr::mutate(text = as.character(stringr::str_glue(text_pattern_exc, n = prettyNum(n, scientific=FALSE, big.mark = big.mark))))
+        dplyr::mutate(text = as.character(stringr::str_glue(text_pattern_exc, n = prettyNum(.data$n, scientific=FALSE, big.mark = big.mark))))
 
     } else {
 
@@ -397,7 +397,7 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
         text_pattern_exc_exp <- gsub("\\{label\\}", "", text_pattern_exc)
 
         new_fc2 <- new_fc2 |>
-          dplyr::mutate(text = list(substitute(atop(x, y), list(x = label_exc[[1]], y = stringr::str_glue(text_pattern_exc_exp, , n = prettyNum(n, scientific=FALSE, big.mark = big.mark))))))
+          dplyr::mutate(text = list(substitute(atop(x, y), list(x = label_exc[[1]], y = stringr::str_glue(text_pattern_exc_exp, , n = prettyNum(.data$n, scientific=FALSE, big.mark = big.mark))))))
 
       } else {
 
