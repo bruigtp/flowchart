@@ -189,3 +189,128 @@ is_class <- function(x, class) {
       stop(call. = FALSE)
   }
 }
+
+#' @title replace_num_in_expr
+#' @description Helper function for `update_numbers()`.
+#'
+#'@param expr expression in `fc$text`.
+#'@param row A row from the `fc` object containing `n`, `N`, and `perc` values.
+#'@param big.mark character. Used to specify the thousands separator for patient count values.
+#'@keywords internal
+
+replace_num_in_expr <- function(expr, row, big.mark) {
+  if (is.call(expr)) {
+    # Special handling for 'atop' expressions which are common in your output
+    if (identical(expr[[1]], as.name("atop"))) {
+      # Process first part (usually the label)
+      expr[[2]] <- replace_num_in_expr(expr[[2]], row, big.mark)
+
+      # Process second part (usually numbers with percentages)
+      if (length(expr) > 2) {
+        # Handle the second argument which often contains n/N values with percentages
+        second_part <- expr[[3]]
+
+        # If it's a character string with numbers
+        if (is.character(second_part)) {
+          # Format numbers in the string
+          formatted_part <- second_part
+
+          # Look for n value
+          if (!is.na(row$n)) {
+            n_pattern <- paste0("\\b", row$n, "\\b")
+            if (grepl(n_pattern, formatted_part)) {
+              n_formatted <- prettyNum(row$n, scientific = FALSE, big.mark = big.mark)
+              formatted_part <- gsub(n_pattern, n_formatted, formatted_part)
+            }
+          }
+
+          # Look for N value
+          if (!is.na(row$N)) {
+            N_pattern <- paste0("\\b", row$N, "\\b")
+            if (grepl(N_pattern, formatted_part)) {
+              N_formatted <- prettyNum(row$N, scientific = FALSE, big.mark = big.mark)
+              formatted_part <- gsub(N_pattern, N_formatted, formatted_part)
+            }
+          }
+
+          expr[[3]] <- formatted_part
+        }
+        # If it's just a number
+        else if (is.numeric(second_part)) {
+          if (!is.na(row$n) && isTRUE(all.equal(second_part, row$n))) {
+            expr[[3]] <- prettyNum(row$n, scientific = FALSE, big.mark = big.mark)
+          } else if (!is.na(row$N) && isTRUE(all.equal(second_part, row$N))) {
+            expr[[3]] <- prettyNum(row$N, scientific = FALSE, big.mark = big.mark)
+          }
+        }
+        # For complex expressions, process recursively
+        else if (is.call(second_part) || is.language(second_part)) {
+          expr[[3]] <- replace_num_in_expr(second_part, row, big.mark)
+        }
+      }
+
+      return(expr)
+    }
+    # For paste and other function calls
+    else {
+      # Process all arguments of the function call
+      for (i in seq_along(expr)) {
+        expr[[i]] <- replace_num_in_expr(expr[[i]], row, big.mark)
+      }
+      return(expr)
+    }
+  }
+  # For formal expression objects
+  else if (is.expression(expr)) {
+    return(as.expression(lapply(expr, replace_num_in_expr, row = row, big.mark = big.mark)))
+  }
+  # Return as is for other types
+  else {
+    return(expr)
+  }
+}
+
+#' @title update_numbers
+#' @description Updates values of `n` or `N` referenced in the `text` column when user specifies `big.mark` argument in `fc_draw`.
+#'
+#'@param object fc object that we want to draw.
+#'@param big.mark character. Used to specify the thousands separator for patient count values. Defaults is no separator (`""`); if not empty used as mark between every 3 digits (ex: `big.mark = ","` results in `1,000` instead of `1000`).
+#'@keywords internal
+#'
+update_numbers <- function(object, big.mark = "") {
+  if (big.mark == "") return(object)  # Skip processing if no big.mark specified
+
+  object$fc <- lapply(object$fc, function(df) {
+    for(i in 1:nrow(df)) {
+      row <- df[i, ]
+
+      # Process character text (simpler case)
+      if (is.character(row$text)) {
+        # Create formatted versions of n and N
+        updated_text <- row$text
+
+        if (!is.na(row$n)) {
+          n_formatted <- prettyNum(row$n, scientific = FALSE, big.mark = big.mark)
+          # Replace n values, ensuring only whole numbers are replaced
+          updated_text <- gsub(paste0("\\b", row$n, "\\b"), n_formatted, updated_text)
+        }
+
+        if (!is.na(row$N)) {
+          N_formatted <- prettyNum(row$N, scientific = FALSE, big.mark = big.mark)
+          # Replace N values, ensuring only whole numbers are replaced
+          updated_text <- gsub(paste0("\\b", row$N, "\\b"), N_formatted, updated_text)
+        }
+
+        df$text[i] <- updated_text
+      }
+      # Process language expression
+      else if (is.list(row$text) && length(row$text) > 0 && is.language(row$text[[1]])) {
+        # Pass the entire row to allow access to n, N, and perc values
+        df$text[[i]] <- replace_num_in_expr(row$text[[1]], row = row, big.mark = big.mark)
+      }
+    }
+    return(df)
+  })
+
+  return(object)
+}
