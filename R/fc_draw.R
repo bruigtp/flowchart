@@ -66,25 +66,19 @@ fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle
 
   if(tibble::is_tibble(object$fc)) object$fc <- list(object$fc)
 
+  # Incorporate the update_numbers helper to update text values based on big.mark:
+  if(big.mark != "") {
+    object <- update_numbers(object, big.mark = big.mark)
+  }
+
   plot_fc <- purrr::map(object$fc, ~.x |>
                           dplyr::mutate(
                             #Recalculate row number
                             id = dplyr::row_number(),
-                            bg = purrr::pmap(list(.data$x, .data$y, .data$n, .data$N, .data$text, .data$type, .data$group, .data$just, .data$text_color, .data$text_fs, .data$text_fface, .data$text_ffamily, .data$text_padding, .data$bg_fill, .data$border_color), function(...) {
+                            bg = purrr::pmap(list(.data$x, .data$y, .data$text, .data$type, .data$group, .data$just, .data$text_color, .data$text_fs, .data$text_fface, .data$text_ffamily, .data$text_padding, .data$bg_fill, .data$border_color), function(...) {
                               arg <- list(...)
-                              names(arg) <- c("x", "y", "n", "N", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color")
-                              # Format n and/or N with prettyNum() using the provided big.mark
-                              n_formatted <- prettyNum(arg$n, scientific = FALSE, big.mark = big.mark)
-                              N_formatted <- prettyNum(arg$N, scientific = FALSE, big.mark = big.mark)
-                              # Take the already-computed text and ensure it is a single string
-                              text <- as.character(arg$text)
-                              if (length(text) != 1) text <- paste(text, collapse = "\n")
-                              # Replace any occurrence of the raw number (as character) with the formatted version.
-                              # Use fixed=TRUE so the number is treated as a literal string.
-                              text <- gsub(as.character(arg$N), N_formatted, text, fixed = TRUE)
-                              text <- gsub(as.character(arg$n), n_formatted, text, fixed = TRUE)
-                              # Use the formatted text in the boxGrob
-                              Gmisc::boxGrob(text, x = arg$x, y = arg$y, just = arg$just, txt_gp = grid::gpar(col = arg$text_color, fontsize = arg$text_fs/arg$text_padding, fontface = arg$text_fface, fontfamily = arg$text_ffamily, cex = arg$text_padding), box_gp = grid::gpar(fill = arg$bg_fill, col = arg$border_color), box_fn = rect_type)
+                              names(arg) <- c("x", "y", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color")
+                              Gmisc::boxGrob(arg$text, x = arg$x, y = arg$y, just = arg$just, txt_gp = grid::gpar(col = arg$text_color, fontsize = arg$text_fs/arg$text_padding, fontface = arg$text_fface, fontfamily = arg$text_ffamily, cex = arg$text_padding), box_gp = grid::gpar(fill = arg$bg_fill, col = arg$border_color), box_fn = rect_type)
                             })
                           )
   )
