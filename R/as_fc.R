@@ -5,7 +5,6 @@
 #' @param N Number of rows of the study in case `.data` is NULL.
 #' @param label Character or expression with the text that will be shown in the box.
 #' @param text_pattern Structure that will have the text in the box. It recognizes label, n, N and perc within brackets. By default it is "\{label\}\\n\{N\}". If label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.
-#' @param big.mark character. Used to specify the thousands separator for patient count values. Defaults is `","`; if not empty used as mark between every 3 digits (ex: `1,000` vs `1000`).
 #' @param just Justification for the text: left, center or right. Default is center.
 #' @param text_color Color of the text. It is black by default. See the `col` parameter for \code{\link{gpar}}.
 #' @param text_fs Font size of the text. It is 8 by default. See the `fontsize` parameter for \code{\link{gpar}}.
@@ -25,7 +24,7 @@
 #'
 #' @export
 
-as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_pattern = "{label}\n{N}", big.mark = ",", just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", hide = FALSE) {
+as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_pattern = "{label}\n{N}", just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", hide = FALSE) {
 
   if(is.null(.data) & is.null(N)) {
     stop("Either `.data` or `N` arguments have to be specified.")
@@ -71,7 +70,7 @@ as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_patt
     if(is.character(label)) {
 
       new_fc <- new_fc |>
-        dplyr::mutate(text = as.character(stringr::str_glue(text_pattern, N = prettyNum(N, scientific=FALSE, big.mark = big.mark))))
+        dplyr::mutate(text = as.character(stringr::str_glue(text_pattern)))
 
     } else {
 
@@ -80,7 +79,7 @@ as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_patt
         text_pattern_exp <- gsub("\\{label\\}", "", text_pattern)
 
         new_fc <- new_fc |>
-          dplyr::mutate(text = list(substitute(atop(x, y), list(x = label[[1]], y = stringr::str_glue(text_pattern_exp, N = prettyNum(N, scientific=FALSE, big.mark = big.mark))))))
+          dplyr::mutate(text = list(substitute(atop(x, y), list(x = label[[1]], y = stringr::str_glue(text_pattern_exp)))))
 
       } else {
 

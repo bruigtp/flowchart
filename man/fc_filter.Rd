@@ -10,7 +10,6 @@ fc_filter(
   N = NULL,
   label = NULL,
   text_pattern = "{label}\\n {n} ({perc}\%)",
-  big.mark = ",",
   perc_total = FALSE,
   show_exc = FALSE,
   direction_exc = "right",
@@ -47,8 +46,6 @@ fc_filter(
 \item{label}{Character or expression that will be the title of the box. By default it will be the evaluated condition.}
 
 \item{text_pattern}{Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)". If label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.}
-
-\item{big.mark}{character. Used to specify the thousands separator for patient count values. Defaults is `","`; if not empty used as mark between every 3 digits (ex: `1,000` vs `1000`).}
 
 \item{perc_total}{logical. Should percentages be calculated using the total number of rows at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.}
 
