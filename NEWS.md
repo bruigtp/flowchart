@@ -102,4 +102,4 @@
 
 * Solved `bug` when applying `fc_filter()` in a box with missing values.
 
-* Added `big.mark` argument to `as_fc()`, `fc_filter()`, and `fc_split()` to allow users to insert a thousands separator for values of `n` and `N`; defaults to `","` (e.g., `"1,000"`) (#26; @kenkomodo)
+* Added `big.mark` argument to `fc_draw()` to allow users to insert a thousands separator for values of `n` and `N` printed in flowchart boxes (e.g., `big.mark = ","` results in `"1,000"`) (#26; @kenkomodo)

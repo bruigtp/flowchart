@@ -2,6 +2,7 @@
 #' @description This function allows to draw the flowchart from a fc object.
 #'
 #' @param object fc object that we want to draw.
+#' @param big.mark character. Used to specify the thousands separator for patient count values. Defaults is no separator (`""`); if not empty used as mark between every 3 digits (ex: `big.mark = ","` results in `1,000` instead of `1000`).
 #' @param box_corners Indicator of whether to draw boxes with round (`"round"`) vs non-round (`"sharp"`) corners. Default is `"round"`.
 #' @param arrow_angle The angle of the arrow head in degrees, as in `arrow`.
 #' @param arrow_length A unit specifying the length of the arrow head (from tip to base), as in `arrow`.
@@ -28,7 +29,7 @@
 #'
 #' @export
 
-fc_draw <- function(object, box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL) {
+fc_draw <- function(object, big.mark = "", box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL) {
 
   is_class(object, "fc")
   UseMethod("fc_draw")
@@ -38,7 +39,7 @@ fc_draw <- function(object, box_corners = "round", arrow_angle = 30, arrow_lengt
 #' @importFrom rlang .data
 #' @export
 
-fc_draw.fc <- function(object, box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL) {
+fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL) {
 
   # Check for valid corners argument
   if (!box_corners %in% c("round", "sharp")) {
@@ -69,10 +70,21 @@ fc_draw.fc <- function(object, box_corners = "round", arrow_angle = 30, arrow_le
                           dplyr::mutate(
                             #Recalculate row number
                             id = dplyr::row_number(),
-                            bg = purrr::pmap(list(.data$x, .data$y, .data$text, .data$type, .data$group, .data$just, .data$text_color, .data$text_fs, .data$text_fface, .data$text_ffamily, .data$text_padding, .data$bg_fill, .data$border_color), function(...) {
+                            bg = purrr::pmap(list(.data$x, .data$y, .data$n, .data$N, .data$text, .data$type, .data$group, .data$just, .data$text_color, .data$text_fs, .data$text_fface, .data$text_ffamily, .data$text_padding, .data$bg_fill, .data$border_color), function(...) {
                               arg <- list(...)
-                              names(arg) <- c("x", "y", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color")
-                              Gmisc::boxGrob(arg$text, x = arg$x, y = arg$y, just = arg$just, txt_gp = grid::gpar(col = arg$text_color, fontsize = arg$text_fs/arg$text_padding, fontface = arg$text_fface, fontfamily = arg$text_ffamily, cex = arg$text_padding), box_gp = grid::gpar(fill = arg$bg_fill, col = arg$border_color), box_fn = rect_type)
+                              names(arg) <- c("x", "y", "n", "N", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color")
+                              # Format n and/or N with prettyNum() using the provided big.mark
+                              n_formatted <- prettyNum(arg$n, scientific = FALSE, big.mark = big.mark)
+                              N_formatted <- prettyNum(arg$N, scientific = FALSE, big.mark = big.mark)
+                              # Take the already-computed text and ensure it is a single string
+                              text <- as.character(arg$text)
+                              if (length(text) != 1) text <- paste(text, collapse = "\n")
+                              # Replace any occurrence of the raw number (as character) with the formatted version.
+                              # Use fixed=TRUE so the number is treated as a literal string.
+                              text <- gsub(as.character(arg$N), N_formatted, text, fixed = TRUE)
+                              text <- gsub(as.character(arg$n), n_formatted, text, fixed = TRUE)
+                              # Use the formatted text in the boxGrob
+                              Gmisc::boxGrob(text, x = arg$x, y = arg$y, just = arg$just, txt_gp = grid::gpar(col = arg$text_color, fontsize = arg$text_fs/arg$text_padding, fontface = arg$text_fface, fontfamily = arg$text_ffamily, cex = arg$text_padding), box_gp = grid::gpar(fill = arg$bg_fill, col = arg$border_color), box_fn = rect_type)
                             })
                           )
   )
