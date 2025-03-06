@@ -197,10 +197,52 @@ is_class <- function(x, class) {
 #'@param row A row from the `fc` object containing `n`, `N`, and `perc` values.
 #'@param big.mark character. Used to specify the thousands separator for patient count values.
 #'@keywords internal
-
+#'
 replace_num_in_expr <- function(expr, row, big.mark) {
+  if (is.null(expr)) {
+    return(expr)
+  }
+
+  # Handle numeric values directly
+  if (is.numeric(expr)) {
+    if (!is.na(row$n) && identical(as.numeric(expr), as.numeric(row$n))) {
+      return(prettyNum(expr, scientific = FALSE, big.mark = big.mark))
+    } else if (!is.na(row$N) && identical(as.numeric(expr), as.numeric(row$N))) {
+      return(prettyNum(expr, scientific = FALSE, big.mark = big.mark))
+    } else {
+      return(expr)
+    }
+  }
+
+  # Handle character strings
+  if (is.character(expr)) {
+    # Try to extract and format numbers in the string
+    formatted_text <- expr
+
+    # Check for n value
+    if (!is.na(row$n)) {
+      n_pattern <- paste0("\\b", row$n, "\\b")
+      if (grepl(n_pattern, formatted_text)) {
+        n_formatted <- prettyNum(row$n, scientific = FALSE, big.mark = big.mark)
+        formatted_text <- gsub(n_pattern, n_formatted, formatted_text)
+      }
+    }
+
+    # Check for N value
+    if (!is.na(row$N)) {
+      N_pattern <- paste0("\\b", row$N, "\\b")
+      if (grepl(N_pattern, formatted_text)) {
+        N_formatted <- prettyNum(row$N, scientific = FALSE, big.mark = big.mark)
+        formatted_text <- gsub(N_pattern, N_formatted, formatted_text)
+      }
+    }
+
+    return(formatted_text)
+  }
+
+  # Handle language expressions (function calls)
   if (is.call(expr)) {
-    # Special handling for 'atop' expressions which are common in your output
+    # Special handling for 'atop' expressions
     if (identical(expr[[1]], as.name("atop"))) {
       # Process first part (usually the label)
       expr[[2]] <- replace_num_in_expr(expr[[2]], row, big.mark)
@@ -237,9 +279,9 @@ replace_num_in_expr <- function(expr, row, big.mark) {
         }
         # If it's just a number
         else if (is.numeric(second_part)) {
-          if (!is.na(row$n) && isTRUE(all.equal(second_part, row$n))) {
+          if (!is.na(row$n) && identical(as.numeric(second_part), as.numeric(row$n))) {
             expr[[3]] <- prettyNum(row$n, scientific = FALSE, big.mark = big.mark)
-          } else if (!is.na(row$N) && isTRUE(all.equal(second_part, row$N))) {
+          } else if (!is.na(row$N) && identical(as.numeric(second_part), as.numeric(row$N))) {
             expr[[3]] <- prettyNum(row$N, scientific = FALSE, big.mark = big.mark)
           }
         }
@@ -278,39 +320,56 @@ replace_num_in_expr <- function(expr, row, big.mark) {
 #'@keywords internal
 #'
 update_numbers <- function(object, big.mark = "") {
-  if (big.mark == "") return(object)  # Skip processing if no big.mark specified
+  # Handle both tibble and list formats
+  fc_list <- if(tibble::is_tibble(object$fc)) list(object$fc) else object$fc
 
-  object$fc <- lapply(object$fc, function(df) {
+  fc_list <- lapply(fc_list, function(df) {
     for(i in 1:nrow(df)) {
       row <- df[i, ]
 
-      # Process character text (simpler case)
-      if (is.character(row$text)) {
-        # Create formatted versions of n and N
-        updated_text <- row$text
+      # Get the text element
+      text_element <- row$text
 
+      # Handle case where text is a character vector within a list
+      if (is.list(text_element) && length(text_element) == 1 && is.character(text_element[[1]])) {
+        # Format numbers in the text string
         if (!is.na(row$n)) {
           n_formatted <- prettyNum(row$n, scientific = FALSE, big.mark = big.mark)
-          # Replace n values, ensuring only whole numbers are replaced
-          updated_text <- gsub(paste0("\\b", row$n, "\\b"), n_formatted, updated_text)
+          df$text[[i]] <- gsub(paste0("\\b", row$n, "\\b"), n_formatted, df$text[[i]])
         }
 
         if (!is.na(row$N)) {
           N_formatted <- prettyNum(row$N, scientific = FALSE, big.mark = big.mark)
-          # Replace N values, ensuring only whole numbers are replaced
-          updated_text <- gsub(paste0("\\b", row$N, "\\b"), N_formatted, updated_text)
+          df$text[[i]] <- gsub(paste0("\\b", row$N, "\\b"), N_formatted, df$text[[i]])
+        }
+      }
+      # Handle case where text is a plain character string
+      else if (is.character(text_element)) {
+        # Format numbers in the text string
+        if (!is.na(row$n)) {
+          n_formatted <- prettyNum(row$n, scientific = FALSE, big.mark = big.mark)
+          df$text[i] <- gsub(paste0("\\b", row$n, "\\b"), n_formatted, df$text[i])
         }
 
-        df$text[i] <- updated_text
+        if (!is.na(row$N)) {
+          N_formatted <- prettyNum(row$N, scientific = FALSE, big.mark = big.mark)
+          df$text[i] <- gsub(paste0("\\b", row$N, "\\b"), N_formatted, df$text[i])
+        }
       }
-      # Process language expression
-      else if (is.list(row$text) && length(row$text) > 0 && is.language(row$text[[1]])) {
-        # Pass the entire row to allow access to n, N, and perc values
-        df$text[[i]] <- replace_num_in_expr(row$text[[1]], row = row, big.mark = big.mark)
+      # Handle language expression
+      else if (is.list(text_element) && length(text_element) > 0 && is.language(text_element[[1]])) {
+        df$text[[i]] <- replace_num_in_expr(text_element[[1]], row = row, big.mark = big.mark)
       }
     }
     return(df)
   })
+
+  # Update the object with the processed fc_list
+  if(tibble::is_tibble(object$fc)) {
+    object$fc <- fc_list[[1]]
+  } else {
+    object$fc <- fc_list
+  }
 
   return(object)
 }
