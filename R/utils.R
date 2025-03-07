@@ -242,65 +242,11 @@ replace_num_in_expr <- function(expr, row, big.mark) {
 
   # Handle language expressions (function calls)
   if (is.call(expr)) {
-    # Special handling for 'atop' expressions
-    if (identical(expr[[1]], as.name("atop"))) {
-      # Process first part (usually the label)
-      expr[[2]] <- replace_num_in_expr(expr[[2]], row, big.mark)
-
-      # Process second part (usually numbers with percentages)
-      if (length(expr) > 2) {
-        # Handle the second argument which often contains n/N values with percentages
-        second_part <- expr[[3]]
-
-        # If it's a character string with numbers
-        if (is.character(second_part)) {
-          # Format numbers in the string
-          formatted_part <- second_part
-
-          # Look for n value
-          if (!is.na(row$n)) {
-            n_pattern <- paste0("\\b", row$n, "\\b")
-            if (grepl(n_pattern, formatted_part)) {
-              n_formatted <- prettyNum(row$n, scientific = FALSE, big.mark = big.mark)
-              formatted_part <- gsub(n_pattern, n_formatted, formatted_part)
-            }
-          }
-
-          # Look for N value
-          if (!is.na(row$N)) {
-            N_pattern <- paste0("\\b", row$N, "\\b")
-            if (grepl(N_pattern, formatted_part)) {
-              N_formatted <- prettyNum(row$N, scientific = FALSE, big.mark = big.mark)
-              formatted_part <- gsub(N_pattern, N_formatted, formatted_part)
-            }
-          }
-
-          expr[[3]] <- formatted_part
-        }
-        # If it's just a number
-        else if (is.numeric(second_part)) {
-          if (!is.na(row$n) && identical(as.numeric(second_part), as.numeric(row$n))) {
-            expr[[3]] <- prettyNum(row$n, scientific = FALSE, big.mark = big.mark)
-          } else if (!is.na(row$N) && identical(as.numeric(second_part), as.numeric(row$N))) {
-            expr[[3]] <- prettyNum(row$N, scientific = FALSE, big.mark = big.mark)
-          }
-        }
-        # For complex expressions, process recursively
-        else if (is.call(second_part) || is.language(second_part)) {
-          expr[[3]] <- replace_num_in_expr(second_part, row, big.mark)
-        }
-      }
-
-      return(expr)
+    # Process all arguments of function call
+    for (i in seq_along(expr)) {
+      expr[[i]] <- replace_num_in_expr(expr[[i]], row, big.mark)
     }
-    # For paste and other function calls
-    else {
-      # Process all arguments of the function call
-      for (i in seq_along(expr)) {
-        expr[[i]] <- replace_num_in_expr(expr[[i]], row, big.mark)
-      }
-      return(expr)
-    }
+    return(expr)
   }
   # For formal expression objects
   else if (is.expression(expr)) {
