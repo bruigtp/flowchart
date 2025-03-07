@@ -6,6 +6,7 @@
 \usage{
 fc_draw(
   object,
+  big.mark = "",
   box_corners = "round",
   arrow_angle = 30,
   arrow_length = grid::unit(0.1, "inches"),
@@ -22,6 +23,8 @@ fc_draw(
 }
 \arguments{
 \item{object}{fc object that we want to draw.}
+
+\item{big.mark}{character. Used to specify the thousands separator for patient count values. Defaults is no separator (`""`); if not empty used as mark between every 3 digits (ex: `big.mark = ","` results in `1,000` instead of `1000`).}
 
 \item{box_corners}{Indicator of whether to draw boxes with round (`"round"`) vs non-round (`"sharp"`) corners. Default is `"round"`.}
 
