@@ -204,6 +204,8 @@ quiet_prettyNum <- function(x, big.mark) {
   # if user specifies `big.mark = "."` and `dec == "."`, then suppress the warning that will pop up:
   #    "'big.mark' and 'decimal.mark' are both '.', which could be confusing"
   if (big.mark == dec) {
+    warning(sprintf("You have set big.mark equal to your environment's OutDec ('%s') - it can be confusing if your flowchart uses the same mark for both. Consider an alternative decimal mark.\n    To change the decimal mark, run: `options(OutDec = \"<alternative decimal mark>\")`", dec),
+            call. = FALSE)
     suppressWarnings(prettyNum(x, scientific = FALSE, big.mark = big.mark))
   } else {
     prettyNum(x, scientific = FALSE, big.mark = big.mark)
