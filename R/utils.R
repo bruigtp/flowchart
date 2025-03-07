@@ -190,6 +190,26 @@ is_class <- function(x, class) {
   }
 }
 
+#' @title quiet_prettyNum
+#' @description Wrapper for `prettyNum()` that quiets warning message if user sets `big.mark = "."`.
+#'
+#'@param x an atomic numerical or character object, possibly complex, typically a vector of real numbers.
+#'@param big.mark character. Used to specify the thousands separator for patient count values.
+#'@keywords internal
+#'
+quiet_prettyNum <- function(x, big.mark) {
+  # Get the current decimal mark from user environment, if not set then return "."
+  dec <- getOption("OutDec", ".")
+
+  # if user specifies `big.mark = "."` and `dec == "."`, then suppress the warning that will pop up:
+  #    "'big.mark' and 'decimal.mark' are both '.', which could be confusing"
+  if (big.mark == dec) {
+    suppressWarnings(prettyNum(x, scientific = FALSE, big.mark = big.mark))
+  } else {
+    prettyNum(x, scientific = FALSE, big.mark = big.mark)
+  }
+}
+
 #' @title replace_num_in_expr
 #' @description Helper function for `update_numbers()`.
 #'
@@ -206,9 +226,9 @@ replace_num_in_expr <- function(expr, row, big.mark) {
   # Handle numeric values directly
   if (is.numeric(expr)) {
     if (!is.na(row$n) && identical(as.numeric(expr), as.numeric(row$n))) {
-      return(prettyNum(expr, scientific = FALSE, big.mark = big.mark))
+      return(quiet_prettyNum(expr, big.mark = big.mark))
     } else if (!is.na(row$N) && identical(as.numeric(expr), as.numeric(row$N))) {
-      return(prettyNum(expr, scientific = FALSE, big.mark = big.mark))
+      return(quiet_prettyNum(expr, big.mark = big.mark))
     } else {
       return(expr)
     }
@@ -223,7 +243,7 @@ replace_num_in_expr <- function(expr, row, big.mark) {
     if (!is.na(row$n)) {
       n_pattern <- paste0("\\b", row$n, "\\b")
       if (grepl(n_pattern, formatted_text)) {
-        n_formatted <- prettyNum(row$n, scientific = FALSE, big.mark = big.mark)
+        n_formatted <- quiet_prettyNum(row$n, big.mark = big.mark)
         formatted_text <- gsub(n_pattern, n_formatted, formatted_text)
       }
     }
@@ -232,7 +252,7 @@ replace_num_in_expr <- function(expr, row, big.mark) {
     if (!is.na(row$N)) {
       N_pattern <- paste0("\\b", row$N, "\\b")
       if (grepl(N_pattern, formatted_text)) {
-        N_formatted <- prettyNum(row$N, scientific = FALSE, big.mark = big.mark)
+        N_formatted <- quiet_prettyNum(row$N, big.mark = big.mark)
         formatted_text <- gsub(N_pattern, N_formatted, formatted_text)
       }
     }
@@ -280,12 +300,12 @@ update_numbers <- function(object, big.mark = "") {
       if (is.list(text_element) && length(text_element) == 1 && is.character(text_element[[1]])) {
         # Format numbers in the text string
         if (!is.na(row$n)) {
-          n_formatted <- prettyNum(row$n, scientific = FALSE, big.mark = big.mark)
+          n_formatted <- quiet_prettyNum(row$n, big.mark = big.mark)
           df$text[[i]] <- gsub(paste0("\\b", row$n, "\\b"), n_formatted, df$text[[i]])
         }
 
         if (!is.na(row$N)) {
-          N_formatted <- prettyNum(row$N, scientific = FALSE, big.mark = big.mark)
+          N_formatted <- quiet_prettyNum(row$N, big.mark = big.mark)
           df$text[[i]] <- gsub(paste0("\\b", row$N, "\\b"), N_formatted, df$text[[i]])
         }
       }
@@ -293,12 +313,12 @@ update_numbers <- function(object, big.mark = "") {
       else if (is.character(text_element)) {
         # Format numbers in the text string
         if (!is.na(row$n)) {
-          n_formatted <- prettyNum(row$n, scientific = FALSE, big.mark = big.mark)
+          n_formatted <- quiet_prettyNum(row$n, big.mark = big.mark)
           df$text[i] <- gsub(paste0("\\b", row$n, "\\b"), n_formatted, df$text[i])
         }
 
         if (!is.na(row$N)) {
-          N_formatted <- prettyNum(row$N, scientific = FALSE, big.mark = big.mark)
+          N_formatted <- quiet_prettyNum(row$N, big.mark = big.mark)
           df$text[i] <- gsub(paste0("\\b", row$N, "\\b"), N_formatted, df$text[i])
         }
       }
