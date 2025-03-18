@@ -2,6 +2,7 @@
 #' @description This function allows to draw the flowchart from a fc object.
 #'
 #' @param object fc object that we want to draw.
+#' @param big.mark character. Used to specify the thousands separator for patient count values. Defaults is no separator (`""`); if not empty used as mark between every 3 digits (ex: `big.mark = ","` results in `1,000` instead of `1000`).
 #' @param box_corners Indicator of whether to draw boxes with round (`"round"`) vs non-round (`"sharp"`) corners. Default is `"round"`.
 #' @param arrow_angle The angle of the arrow head in degrees, as in `arrow`.
 #' @param arrow_length A unit specifying the length of the arrow head (from tip to base), as in `arrow`.
@@ -28,7 +29,7 @@
 #'
 #' @export
 
-fc_draw <- function(object, box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL) {
+fc_draw <- function(object, big.mark = "", box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL) {
 
   is_class(object, "fc")
   UseMethod("fc_draw")
@@ -38,7 +39,7 @@ fc_draw <- function(object, box_corners = "round", arrow_angle = 30, arrow_lengt
 #' @importFrom rlang .data
 #' @export
 
-fc_draw.fc <- function(object, box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL) {
+fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL) {
 
   # Check for valid corners argument
   if (!box_corners %in% c("round", "sharp")) {
@@ -64,6 +65,11 @@ fc_draw.fc <- function(object, box_corners = "round", arrow_angle = 30, arrow_le
   attr(object0$fc, "draw") <- attr_draw
 
   if(tibble::is_tibble(object$fc)) object$fc <- list(object$fc)
+
+  # Incorporate the update_numbers helper to update text values based on big.mark:
+  if(big.mark != "") {
+    object <- update_numbers(object, big.mark = big.mark)
+  }
 
   plot_fc <- purrr::map(object$fc, ~.x |>
                           dplyr::mutate(
