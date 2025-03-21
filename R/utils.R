@@ -185,8 +185,7 @@ update_y_stack_unite <- function(y, x, type) {
 #'
 is_class <- function(x, class) {
   if (!inherits(x, class)) {
-    stringr::str_glue("Expecting object of class {class}") |>
-      stop(call. = FALSE)
+    cli::cli_abort("Expecting object of class {.cls {class}}", call = FALSE)
   }
 }
 
@@ -292,12 +291,13 @@ update_numbers <- function(object, big.mark = "") {
 
   # if user specifies `big.mark == dec`, then provide informative warning
   if (big.mark == dec) {
-    message <- c(
-      "i" = sprintf("You have set big.mark equal to your environment's OutDec ('%s') - it can be confusing if your flowchart uses the same mark for both. Consider an alternative decimal mark.", dec),
-      ">" = "To change the decimal mark, run: `options(OutDec = \"<alternative decimal mark>\")`"
-    )
-
-    rlang::warn(message)
+    cli::cli_warn(c(
+      "You have set {.code big.mark} equal to your environment's {.code OutDec}
+         ('{dec}') - it can be confusing if your flowchart uses the same mark for both.",
+      "i" = "Consider an alternative decimal mark.",
+      ">" = "To change the decimal mark, run:
+         {.code options(OutDec = \"<alternative decimal mark>\")}"
+    ))
   }
 
   # Handle both tibble and list formats
