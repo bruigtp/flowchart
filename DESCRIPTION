@@ -35,9 +35,12 @@ Imports:
 Suggests: 
     knitr,
     ragg,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0),
+    withr
 VignetteBuilder: knitr
 Depends: 
     R (>= 4.1.0)
 RoxygenNote: 7.3.2
 URL: https://bruigtp.github.io/flowchart/
+Config/testthat/edition: 3
