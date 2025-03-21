@@ -27,9 +27,9 @@
 as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_pattern = "{label}\n{N}", just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", hide = FALSE) {
 
   if(is.null(.data) & is.null(N)) {
-    stop("Either `.data` or `N` arguments have to be specified.")
+    cli::cli_abort("Either {.arg .data} or {.arg N} arguments must be specified.")
   }else if(!is.null(.data) & !is.null(N)) {
-    stop("`.data` and `N` arguments cannot be specified simultaneously.")
+    cli::cli_abort("The {.arg .data} and {.arg N} arguments cannot be specified simultaneously.")
   }
 
   if(!is.null(.data)) {
@@ -39,7 +39,7 @@ as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_patt
   }
 
   if(text_padding == 0) {
-    stop("Text padding cannot be equal to zero")
+    cli::cli_abort("Text padding cannot be equal to zero.")
   }
 
   if(text_pattern != "{label}\n{N}") {
@@ -83,7 +83,7 @@ as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_patt
 
       } else {
 
-        stop("The label has to be either a character or an expression.")
+        cli::cli_abort("The label must be {.cls character} or {.cls expression}.")
 
       }
     }
@@ -93,7 +93,7 @@ as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_patt
 
   } else {
 
-    warning("Remember that hide = TRUE can only be combined with fc_split()")
+    cli::cli_warn("{.code hide = TRUE} can only be combined with {.fn fc_split}")
     new_fc <- NULL
 
   }

@@ -66,7 +66,7 @@ fc_stack <- function(fcs, unite = FALSE) {
           )
         ) |>
         dplyr::ungroup() |>
-        dplyr::select(-.data$change) |>
+        dplyr::select(-"change") |>
         #Recalculate ids
         dplyr::mutate(
           id = dplyr::row_number()
@@ -87,11 +87,16 @@ fc_stack <- function(fcs, unite = FALSE) {
       dplyr::filter(dplyr::row_number() != 1)
 
     if(with(n_fc, any(n_first != n_last & n_first > 1 & n_last > 1))) {
-      stop("Flowcharts can't not be united because both consecutive flowcharts don't have the same number of boxes (>1) in the last and first level respectively. Choose unite = FALSE.")
+      cli::cli_abort(
+        c(
+        "Flowcharts can't be united because they have a different number of boxes in their connecting levels.",
+        "i" = "Set {.code unite = FALSE}."
+        )
+      )
     }
 
     object$fc <- object$fc |>
-      dplyr::select(-.data$fc)
+      dplyr::select(-"fc")
 
   }
 

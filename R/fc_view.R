@@ -33,7 +33,7 @@ fc_view <- function(object, what) {
 fc_view.fc <- function(object, what) {
 
   if(!what %in% c("data", "fc")) {
-    stop('what argument has to be one of "data" or "fc"')
+    cli::cli_abort("{.arg what} argument must be one of {.val data} or {.val fc}.")
   }
 
   object[[what]]

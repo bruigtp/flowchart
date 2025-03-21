@@ -61,14 +61,14 @@ fc_export.fc <- function(object, filename, path = NULL, format = NULL, width = N
   #Get parameters from the previously drawn object
   params <- attr(object$fc, "draw")
   if(is.null(params)) {
-    stop("Expecting object created with fc_draw()")
+    cli::cli_abort("Object must be created with {.fn fc_draw}.")
   }
 
   #Get format from filename if not specified
   if (is.null(format)) {
     format <- tolower(tools::file_ext(filename))
     if (identical(format, "")) {
-      stop("filename has no file extension and format is NULL")
+      cli::cli_abort("File {.arg filename} has no extension and format is {.code NULL}.")
     }
   } else {
     #Put format to filename if format is specified
@@ -77,7 +77,7 @@ fc_export.fc <- function(object, filename, path = NULL, format = NULL, width = N
       filename <- paste0(filename, ".", format)
     } else {
       if(!identical(format_file, format)) {
-        stop("filename extension and the specified format don't match")
+        cli::cli_abort("{.arg filename} extension and the specified {.arg format} don't match.")
       }
     }
   }
@@ -85,7 +85,10 @@ fc_export.fc <- function(object, filename, path = NULL, format = NULL, width = N
   #If format is not one of 'png', 'jpeg', 'tiff', 'bmp', 'svg', or 'pdf':
   valid_formats <- c("png", "jpeg", "tiff", "bmp", "svg", "pdf")
   if(! format %in% valid_formats) {
-    stop(paste("The format has to be one of the following:", paste(valid_formats, collapse = ", ")))
+    cli::cli_abort(
+      c("Invalid {.arg format} specified",
+        "i" = "Valid {.arg format} choices are {.val {valid_formats}}.")
+        )
   }
 
   if (!is.null(path)) {
@@ -106,20 +109,20 @@ fc_export.fc <- function(object, filename, path = NULL, format = NULL, width = N
     # For vector formats, units cannot be 'px'
     units_conv <- c("in", "cm", "mm")
     if (!(units %in% units_conv)) {
-      stop("Invalid units for vector formats. Units must be one of 'in', 'cm', or 'mm'.")
+      cli::cli_abort("Invalid units for vector formats. Units must be {.or {.val in}, {.val cm}, or {.val mm}}.")
     }
     # Set default dimensions if missing width in inches and alert user if they specified different unit type
     if (is.na(width)) {
       width <- 6
       if (units != "in") {
-        warning("If width is missing for vector formats (svg, pdf), default width is 6 inches.")
+        cli::cli_warn("If {.arg width} is missing for vector formats ({.val svg}, {.val pdf}), default {.arg width} is 6 inches.")
       }
     }
     # Set default dimensions if missing height in inches and alert user if they specified different unit type
     if (is.na(height)) {
       height <- 6
       if (units != "in") {
-        warning("If height is missing for vector formats (svg, pdf), default height is 6 inches.")
+        cli::cli_warn("If {.arg height} is missing for vector formats ({.val svg}, {.val pdf}), default {.arg height} is 6 inches.")
       }
     }
     # Convert units to inches if necessary
@@ -146,7 +149,7 @@ fc_export.fc <- function(object, filename, path = NULL, format = NULL, width = N
           height = height_in
         )
       } else {
-        warning("Cairo graphics library is not available. Falling back to `grDevices::pdf()`.")
+        cli::cli_warn("Cairo graphics library is not available. Falling back to {.fn grDevices::pdf}.")
         grDevices::pdf(
           file = filename,
           width = width_in,
@@ -158,19 +161,19 @@ fc_export.fc <- function(object, filename, path = NULL, format = NULL, width = N
     # For bitmap formats, units can be 'in', 'cm', 'mm', or 'px'
     units_conv <- c("in", "cm", "mm", "px")
     if (!(units %in% units_conv)) {
-      stop("Invalid units for bitmap formats. Units must be one of 'in', 'cm', 'mm', or 'px'.")
+      cli::cli_abort("The {.arg units} for bitmap formats must be {.val in}, {.val cm}, {.val mm}, or {.val px}.")
     }
     # Set default dimensions if missing
     if (is.na(width)) {
       width <- 600
       if (units != "px") {
-        warning("If width is missing for bitmap formats, default width is 600 pixels.")
+        cli::cli_warn("If {.arg width} is missing for bitmap formats, default {.arg width} is 600 pixels.")
       }
     }
     if (is.na(height)) {
       height <- 600
       if (units != "px") {
-        warning("If height is missing for bitmap formats, default height is 600 pixels.")
+        cli::cli_warn("If {.arg height} is missing for bitmap formats, default {.arg height} is 600 pixels.")
       }
     }
     #Open the bitmap device, using ragg-based devices when available
@@ -182,7 +185,12 @@ fc_export.fc <- function(object, filename, path = NULL, format = NULL, width = N
                              jpeg = ragg::agg_jpeg,
                              tiff = ragg::agg_tiff)
       } else {
-        warning(" Defaulting to `grDevices` package since `ragg` is not installed.\n   Consider installing the `ragg` package for higher quality png, jpeg, and tiff images.")
+        cli::cli_warn(
+          c(
+            "Defaulting to {.pkg grDevices} package since {.pkg ragg} is not installed.",
+            "i" = "Consider installing the {.pkg ragg} package for higher quality {.val png}, {.val jpeg}, and {.val tiff} images."
+          )
+        )
         device_fun <- switch(format,
                              png = grDevices::png,
                              jpeg = grDevices::jpeg,

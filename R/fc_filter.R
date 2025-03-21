@@ -57,9 +57,9 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
   filter <- gsub("  ", "", filter)
 
   if(filter == "NULL" & is.null(N)) {
-    stop("Either `filter` or `N` arguments have to be specified.")
+    cli::cli_abort("Either {.arg filter} or {.arg N} arguments must be specified.")
   }else if(filter != "NULL" & !is.null(N)) {
-    stop("`filter` and `N` arguments cannot be specified simultaneously.")
+    cli::cli_abort("The {.arg filter} and {.arg N} arguments cannot be specified simultaneously.")
   }
 
   if(!is.null(sel_group)) {
@@ -71,12 +71,17 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
       }
 
       if(!any(sel_group %in% object$fc$group)) {
-        stop(stringr::str_glue("The specified `sel_group` does not match any group of the flowchart. Found groups in the flowchart are:\n{paste(object$fc$group[!is.na(object$fc$group)], collapse = '\n')}"))
+        cli::cli_abort(
+          c(
+            "The specified {.arg sel_group} does not match any group of the flowchart.",
+            "i" = "Found groups in the flowchart: {object$fc$group[!is.na(object$fc$group)]}"
+          )
+        )
       }
 
     } else {
 
-      stop("The `sel_group' argument cannot be given because no groups are found in the flowchart, as no previous split has been performed.")
+      cli::cli_abort("Cannot supply {.arg sel_group} because no groups exist in the flowchart yet, as no previous split has been performed.")
 
     }
 
@@ -88,15 +93,15 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
 
     if(is.null(attr(object$data, "groups"))) {
       if(length(N) > 1) {
-        stop("The length of `N` has to be 1.")
+        cli::cli_abort("The length of {.arg N} has to be 1.")
       }
     } else {
       if(length(N) != nrow(attr(object$data, "groups"))) {
         if(is.null(sel_group)) {
-          stop(stringr::str_glue("The length of `N` has to match the number of groups in the dataset: {nrow(attr(object$data, 'groups'))}"))
+          cli::cli_abort("The length of {.arg N} has to match the number of groups in the dataset: {nrow(attr(object$data, 'groups'))}")
         } else {
           if(length(N) != length(sel_group)) {
-            stop(stringr::str_glue("The length of `N` has to match the number of selected groups in `sel_group`"))
+            cli::cli_abort("The length of {.arg N} has to match the number of selected groups in {.arg sel_group}")
           }
         }
       }
@@ -121,7 +126,7 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
 
         } else {
 
-          stop(stringr::str_glue("The specified `sel_group` is not a grouping variable of the data. It has to be one of: {paste(tbl_groups$groups, collapse = ' ')}"))
+          cli::cli_abort("The specified {.arg sel_group} is not a grouping variable of the data. It has to be one of: {tbl_groups$groups}")
 
         }
 
@@ -129,7 +134,7 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
 
       filt_rows <- unlist(purrr::map(1:nrow(tbl_groups), function (x) {
         if(N[x] > length(tbl_groups$.rows[[x]])) {
-          stop("The number of rows after the filter specified in N can't be greater than the original number of rows")
+          cli::cli_abort("The number of rows after the filter specified in {.arg N} can't be greater than the original number of rows.")
         } else {
           tbl_groups$.rows[[x]][1:N[x]]
         }
@@ -140,7 +145,7 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
       nrows <- 1:nrow(object$data)
 
       if(N > length(nrows)) {
-        stop("The number of rows after the filter specified in N can't be greater than the original number of rows")
+        cli::cli_abort("The number of rows after the filter specified in {.arg N} cannot exceed the original number of rows.")
       }
 
       filt_rows <- nrows[1:N]
@@ -217,7 +222,7 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
   }
 
   if(text_padding == 0 | text_padding_exc == 0) {
-    stop("Text padding cannot be equal to zero")
+    cli::cli_abort("Text padding cannot be equal to zero.")
   }
 
   new_fc <- new_fc |>
@@ -253,7 +258,7 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
 
     } else {
 
-      stop("The label has to be either a character or an expression.")
+      cli::cli_abort("The {.arg label} must be a character or an expression.")
 
     }
 
@@ -347,7 +352,12 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
 
     if(!is.null(offset_exc)) {
       if(!all(new_fc2$x >= 0 & new_fc2$x <= 1)) {
-        stop("The x-coordinate cannot exceed the plot limits 0 and 1. The argument offset_exc has to be set to a smaller number.")
+        cli::cli_abort(
+          c(
+            "The x-coordinate cannot exceed the plot limits 0 and 1.",
+            "i" = "The argument {.arg offset_exc} has to be set to a smaller number."
+          )
+        )
       }
     }
 
@@ -400,7 +410,7 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
 
       } else {
 
-        stop("The label_exc has to be either a character or an expression.")
+        cli::cli_abort("The {.arg label_exc} has to be either a character or an expression.")
 
       }
 

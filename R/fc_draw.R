@@ -43,7 +43,7 @@ fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle
 
   # Check for valid corners argument
   if (!box_corners %in% c("round", "sharp")) {
-    stop("Invalid box_corners argument: must be 'round' or 'sharp'")
+    cli::cli_abort("The {.arg box_corners} argument must be {.val round} or {.val sharp}.")
   }
 
   if (box_corners == "round") {
