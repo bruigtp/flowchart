@@ -66,7 +66,7 @@ fc_stack <- function(fcs, unite = FALSE) {
           )
         ) |>
         dplyr::ungroup() |>
-        dplyr::select(-.data$change) |>
+        dplyr::select(-"change") |>
         #Recalculate ids
         dplyr::mutate(
           id = dplyr::row_number()
@@ -96,7 +96,7 @@ fc_stack <- function(fcs, unite = FALSE) {
     }
 
     object$fc <- object$fc |>
-      dplyr::select(-.data$fc)
+      dplyr::select(-"fc")
 
   }
 
