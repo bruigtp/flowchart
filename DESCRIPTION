@@ -30,7 +30,8 @@ Imports:
     tibble,
     tidyselect,
     rlang,
-    grDevices
+    grDevices,
+    cli
 Suggests: 
     knitr,
     ragg,
