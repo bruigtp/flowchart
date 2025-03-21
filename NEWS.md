@@ -105,3 +105,5 @@
 * Added `big.mark` argument to `fc_draw()` to allow users to insert a thousands separator for values of `n` and `N` printed in flowchart boxes (e.g., `big.mark = ","` results in `"1,000"`) (#26; @kenkomodo)
 
 * Updated package functions to throw warnings using `cli`; added dependency on `cli` (@kenkomodo)
+
+* Added test suite for package functions (@kenkomodo)
