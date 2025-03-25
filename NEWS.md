@@ -103,3 +103,7 @@
 * Solved `bug` when applying `fc_filter()` in a box with missing values.
 
 * Added `big.mark` argument to `fc_draw()` to allow users to insert a thousands separator for values of `n` and `N` printed in flowchart boxes (e.g., `big.mark = ","` results in `"1,000"`) (#26; @kenkomodo)
+
+* Updated `fc_draw()` with `canvas_bg` argument which allows the user to specify the flowchart canvas background color or to set it to `"transparent"` (#30; @kenkomodo)
+
+* Updated `fc_export()` to accept the new `canvas_bg` argument from `fc_draw()` and apply it accordingly to the exported flowchart image (#30; @kenkomodo)
