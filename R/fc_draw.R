@@ -15,6 +15,7 @@
 #' @param title_fs Font size of the title. It is 15 by default. See the `fontsize` parameter for \code{\link{gpar}}.
 #' @param title_fface Font face of the title. It is 2 by default. See the `fontface` parameter for \code{\link{gpar}}.
 #' @param title_ffamily Changes the font family of the title. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}.
+#' @param canvas_bg Background color for the entire canvas (the area behind the flowchart boxes). Default is `"white"`. Set to `"transparent"` or `NULL` for a transparent background (compatible with all `fc_export()` formats except `"jpeg"` and `"bmp"`).
 
 #' @return Invisibly returns the same object that has been given to the function, with the given arguments to draw the flowchart stored in the attributes.
 #'
@@ -29,7 +30,7 @@
 #'
 #' @export
 
-fc_draw <- function(object, big.mark = "", box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL) {
+fc_draw <- function(object, big.mark = "", box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL, canvas_bg = "white") {
 
   is_class(object, "fc")
   UseMethod("fc_draw")
@@ -39,7 +40,7 @@ fc_draw <- function(object, big.mark = "", box_corners = "round", arrow_angle = 
 #' @importFrom rlang .data
 #' @export
 
-fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL) {
+fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL, canvas_bg = "white") {
 
   # Check for valid corners argument
   if (!box_corners %in% c("round", "sharp")) {
@@ -55,10 +56,15 @@ fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle
   #Initialize grid
   grid::grid.newpage()
 
+  # Draw background rectangle covering the entire viewport
+  if (canvas_bg != "transparent" && !is.null(canvas_bg)) {
+    grid::grid.rect(gp = grid::gpar(fill = canvas_bg, col = NA))
+  }
+
   object0 <- object #to return the object unaltered
 
   #We have to return the parameters of the function in the attribute of object$fc
-  params <- c("arrow_angle", "arrow_length", "arrow_ends", "arrow_type")
+  params <- c("arrow_angle", "arrow_length", "arrow_ends", "arrow_type", "canvas_bg")
   attr_draw <- purrr::map(params, ~get(.x))
   names(attr_draw) <- params
 
