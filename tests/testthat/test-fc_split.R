@@ -1,0 +1,68 @@
+
+test_that("errors with neither var nor N", {
+  fc <- as_fc(N = 10)
+  expect_snapshot(fc_split(fc), error = TRUE)
+})
+
+test_that("errors with both var and N", {
+  fc <- as_fc(N = 10)
+  expect_snapshot(fc_split(fc, var = "group", N = 5), error = TRUE)
+})
+
+test_that("errors when text_padding is zero", {
+  fc <- as_fc(N = 10)
+  expect_snapshot(fc_split(fc, N = c(5,5), text_padding = 0), error = TRUE)
+})
+
+test_that("errors with invalid label type", {
+  fc <- as_fc(N = 10)
+  expect_snapshot(fc_split(fc, N = c(5,5), label = 1), error = TRUE)
+})
+
+test_that("errors when sel_group used without previous split", {
+  fc <- as_fc(N = 10)
+  expect_snapshot(fc_split(fc, N = c(5,5), sel_group = "A"), error = TRUE)
+})
+
+test_that("handles numeric splits correctly", {
+  fc <- as_fc(N = 10)
+  result <- fc_split(fc, N = c(5,5))
+  expect_equal(nrow(result$fc), 3)  # Initial box + 2 split boxes
+  expect_equal(unique(result$fc$type[2:3]), "split")
+})
+
+test_that("handles factor splits correctly", {
+  df <- data.frame(group = factor(rep(c("A","B"), each = 5)))
+  fc <- as_fc(df)
+  result <- fc_split(fc, var = group)
+  expect_equal(nrow(result$fc), 3)  # Initial box + 2 split boxes
+  expect_equal(sum(result$fc$n[2:3]), 10)
+})
+
+test_that("handles custom labels", {
+  fc <- as_fc(N = 10)
+  result <- fc_split(fc, N = c(5,5), label = c("Group A", "Group B"))
+  expect_match(result$fc$text[2], "Group A")
+  expect_match(result$fc$text[3], "Group B")
+})
+
+test_that("handles title correctly", {
+  fc <- as_fc(N = 10)
+  result <- fc_split(fc, N = c(5,5), title = "Test Title")
+  expect_equal(sum(result$fc$type == "title_split"), 2)
+  expect_equal(result$fc$text[result$fc$type == "title_split"], c("Test Title", "Test Title"))
+})
+
+test_that("preserves styling parameters", {
+  fc <- as_fc(N = 10)
+  result <- fc_split(fc, N = c(5,5),
+                     text_color = "red",
+                     text_fs = 12,
+                     bg_fill = "yellow",
+                     border_color = "blue")
+  new_boxes <- result$fc |> dplyr::filter(type == "split")
+  expect_equal(unique(new_boxes$text_color), "red")
+  expect_equal(unique(new_boxes$text_fs), 12)
+  expect_equal(unique(new_boxes$bg_fill), "yellow")
+  expect_equal(unique(new_boxes$border_color), "blue")
+})

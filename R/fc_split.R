@@ -59,9 +59,9 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
   }
 
   if(var == "NULL" & is.null(N)) {
-    stop("Either `var` or `N` arguments have to be specified.")
+    cli::cli_abort("A {.arg var} or {.arg N} argument must be specified.")
   }else if(var != "NULL" & !is.null(N)) {
-    stop("`var` and `N` arguments cannot be specified simultaneously.")
+    cli::cli_abort("Arguments {.arg var} and {.arg N} cannot be specified simultaneously.")
   }
 
   if(!is.null(sel_group)) {
@@ -73,12 +73,17 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
       }
 
       if(!any(sel_group %in% object$fc$group)) {
-        stop(stringr::str_glue("The specified `sel_group` does not match any group of the flowchart. Found groups in the flowchart are:\n{paste(object$fc$group[!is.na(object$fc$group)], collapse = '\n')}"))
+        cli::cli_abort(
+          c(
+            "The specified {.arg sel_group} does not match any group of the flowchart.",
+            "i" = "Found groups in the flowchart are:\n{object$fc$group[!is.na(object$fc$group)]}"
+          )
+        )
       }
 
     } else {
 
-      stop("The `sel_group' argument cannot be given because no groups are found in the flowchart, as no previous split has been performed.")
+      cli::cli_abort("The {.arg sel_group} argument can't be used because no groups exist in the flowchart, as no previous split has been performed.")
 
     }
 
@@ -112,7 +117,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
 
       if(length(N) %% length(ngroups) != 0) {
 
-        stop(stringr::str_glue("The length of `N` has to be a multiple to the number of groups in the dataset: {nrow(attr(object$data, 'groups'))}"))
+        cli::cli_abort("The length of {.arg N} has to be a multiple to the number of groups in the dataset: {nrow(attr(object$data, 'groups'))}")
 
       }
 
@@ -136,7 +141,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
     split_rows <- purrr::map_df(seq_along(N_list), function (x) {
 
       if(sum(N_list[[x]]) != length(nrows[[x]])) {
-        stop(paste0("The number of rows after the split specified in N has to be equal to the original number of rows", message_group))
+        cli::cli_abort("The number of rows after the split specified in N has to be equal to the original number of rows{message_group}")
       }
 
       tibble::tibble(group = paste("group", 1:nsplit)) |>
@@ -226,7 +231,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
   }
 
   if(text_padding == 0) {
-    stop("Text padding cannot be equal to zero")
+    cli::cli_abort("Text padding cannot be equal to zero.")
   }
 
   new_fc <- new_fc |>
@@ -263,7 +268,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
 
     } else {
 
-      stop("The label has to be either a character or an expression.")
+      cli::cli_abort("The label must be a character or an expression.")
 
     }
 
@@ -292,7 +297,10 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
       )
 
       if(!all(xval >= 0 & xval <= 1)) {
-        stop("The x-coordinate cannot exceed the plot limits 0 and 1. The argument offset has to be set to a smaller number.")
+        cli::cli_abort(c(
+          "The x-coordinate cannot exceed the plot limits 0 and 1.",
+          "i" = "The argument {.arg offset} has to be set to a smaller number."
+        ))
       }
 
     }
@@ -318,7 +326,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
 
       } else {
 
-        stop("The specified `sel_group` is not a grouping variable of the data. It has to be one of: {paste(new_fc$group[!is.na(new_fc$group)], collapse = ' ')}")
+        cli::cli_abort("The specified {.arg sel_group} is not a grouping variable of the data. It must be one of: {new_fc$group[!is.na(new_fc$group)]}")
 
       }
 
@@ -466,7 +474,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
 
     } else {
 
-      stop("The title argument can only be used when there are only two resulting boxes after the split.")
+      cli::cli_abort("The {.arg title} argument can only be used with exactly two resulting boxes after the split.")
 
     }
 
