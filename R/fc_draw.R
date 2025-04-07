@@ -15,7 +15,7 @@
 #' @param title_fs Font size of the title. It is 15 by default. See the `fontsize` parameter for \code{\link{gpar}}.
 #' @param title_fface Font face of the title. It is 2 by default. See the `fontface` parameter for \code{\link{gpar}}.
 #' @param title_ffamily Changes the font family of the title. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}.
-#' @param canvas_bg Background color for the entire canvas (the area behind the flowchart boxes). Default is `"white"`. Set to `"transparent"` or `NULL` for a transparent background (compatible with all `fc_export()` formats except `"jpeg"` and `"bmp"`).
+#' @param canvas_bg Background color for the entire canvas (the area behind the flowchart boxes). Default is `"white"`. Set to `"transparent"` or `NULL` for a transparent background; `"transparent"` background will only be noticeable when exporting drawn flowcharts via `fc_export()` and is compatible with all `fc_export()` formats except `"jpeg"` and `"bmp"`.
 
 #' @return Invisibly returns the same object that has been given to the function, with the given arguments to draw the flowchart stored in the attributes.
 #'
