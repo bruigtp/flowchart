@@ -111,3 +111,5 @@
 * Updated `fc_draw()` with `canvas_bg` argument which allows the user to specify the flowchart canvas background color or to set it to `"transparent"` (#30; @kenkomodo)
 
 * Updated `fc_export()` to accept the new `canvas_bg` argument from `fc_draw()` and apply it accordingly to the exported flowchart image (#30; @kenkomodo)
+
+* Solved `bug` causing `fc_export()` to drop newer `fc_draw()` arguments when redrawing the flowchart for export (#32; @kenkomodo)

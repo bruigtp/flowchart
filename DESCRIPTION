@@ -11,7 +11,7 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-1462-379X")),
     person("Cristian", "Tebé", role = "aut",
            comment = c(ORCID = "0000-0003-2320-1385")),
-    person("Kenneth", "Taylor", role = "ctb",
+    person("Kenneth", "Taylor", role = "aut",
            comment = c(ORCID = "0000-0002-3205-9280"))
   )
 Maintainer: Pau Satorra <psatorra@igtp.cat>
