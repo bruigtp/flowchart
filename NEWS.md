@@ -107,3 +107,7 @@
 * Updated package functions to throw warnings using `cli`; added dependency on `cli` (@kenkomodo)
 
 * Added test suite for package functions (@kenkomodo)
+
+* Updated `fc_draw()` with `canvas_bg` argument which allows the user to specify the flowchart canvas background color or to set it to `"transparent"` (#30; @kenkomodo)
+
+* Updated `fc_export()` to accept the new `canvas_bg` argument from `fc_draw()` and apply it accordingly to the exported flowchart image (#30; @kenkomodo)

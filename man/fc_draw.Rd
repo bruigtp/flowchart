@@ -18,7 +18,8 @@ fc_draw(
   title_color = "black",
   title_fs = 15,
   title_fface = 2,
-  title_ffamily = NULL
+  title_ffamily = NULL,
+  canvas_bg = "white"
 )
 }
 \arguments{
@@ -49,6 +50,8 @@ fc_draw(
 \item{title_fface}{Font face of the title. It is 2 by default. See the `fontface` parameter for \code{\link{gpar}}.}
 
 \item{title_ffamily}{Changes the font family of the title. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}.}
+
+\item{canvas_bg}{Background color for the entire canvas (the area behind the flowchart boxes). Default is `"white"`. Set to `"transparent"` or `NULL` for a transparent background; `"transparent"` background will only be noticeable when exporting drawn flowcharts via `fc_export()` and is compatible with all `fc_export()` formats except `"jpeg"` and `"bmp"`.}
 }
 \value{
 Invisibly returns the same object that has been given to the function, with the given arguments to draw the flowchart stored in the attributes.

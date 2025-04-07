@@ -139,21 +139,24 @@ fc_export.fc <- function(object, filename, path = NULL, format = NULL, width = N
       grDevices::svg(
         filename = filename,
         width = width_in,
-        height = height_in
+        height = height_in,
+        bg = params$canvas_bg  # Original default for grDevices::svg() is "white"
       )
     } else if (format == "pdf") {
       if (capabilities("cairo")) {
         grDevices::cairo_pdf(
           filename = filename,
           width = width_in,
-          height = height_in
+          height = height_in,
+          bg = params$canvas_bg  # Original default for grDevices::pdf() is "white"
         )
       } else {
         cli::cli_warn("Cairo graphics library is not available. Falling back to {.fn grDevices::pdf}.")
         grDevices::pdf(
           file = filename,
           width = width_in,
-          height = height_in
+          height = height_in,
+          bg = params$canvas_bg    # Original default for grDevices::pdf() is "transparent"
         )
       }
     }
@@ -199,12 +202,26 @@ fc_export.fc <- function(object, filename, path = NULL, format = NULL, width = N
     } else {
       device_fun <- switch(format, bmp = grDevices::bmp)
     }
-    device_fun(filename = filename, width = width, height = height, units = units, res = res)
+
+    # If canvas_bg == "transparent" or NULL and bitmap format supports transparency, set to "transparent"
+    if (params$canvas_bg == "transparent" || is.null(params$canvas_bg)) {
+      # Add transparency support for PNG and TIFF
+      if (format %in% c("png", "tiff")) {
+        device_fun(filename = filename, width = width, height = height, units = units, res = res, bg = "transparent")
+      } else {
+        # JPEG and bmp does not support transparency - warn user and fallback on device default
+        device_fun(filename = filename, width = width, height = height, units = units, res = res)
+        cli::cli_warn("The formats {.val jpeg} and {.val bmp} do not support transparent {.arg canvas_bg}, falling back to {.val white}")
+      }
+    } else {
+      # Normal case with a background color ("white" or otherwise)
+      device_fun(filename = filename, width = width, height = height, units = units, res = res, bg = params$canvas_bg)
+    }
   }
 
   #Redraw the plot
   object |>
-    fc_draw(arrow_angle = params$arrow_angle, arrow_length = params$arrow_length, arrow_ends = params$arrow_ends, arrow_type = params$arrow_type)
+    fc_draw(arrow_angle = params$arrow_angle, arrow_length = params$arrow_length, arrow_ends = params$arrow_ends, arrow_type = params$arrow_type, canvas_bg = params$canvas_bg)
 
   grDevices::dev.off()
 
