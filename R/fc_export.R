@@ -211,7 +211,7 @@ fc_export.fc <- function(object, filename, path = NULL, format = NULL, width = N
       } else {
         # JPEG and bmp does not support transparency - warn user and fallback on device default
         device_fun(filename = filename, width = width, height = height, units = units, res = res)
-        warning(" \"jpeg\" and \"bmp\" formats do not support transparent `canvas_bg`, falling back to \"white\"")
+        cli::cli_warn("The formats {.val jpeg} and {.val bmp} do not support transparent {.arg canvas_bg}, falling back to {.val white}")
       }
     } else {
       # Normal case with a background color ("white" or otherwise)
