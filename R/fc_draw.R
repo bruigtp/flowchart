@@ -64,7 +64,7 @@ fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle
   object0 <- object #to return the object unaltered
 
   #We have to return the parameters of the function in the attribute of object$fc
-  params <- c("arrow_angle", "arrow_length", "arrow_ends", "arrow_type", "canvas_bg")
+  params <- c("big.mark", "box_corners", "arrow_angle", "arrow_length", "arrow_ends", "arrow_type", "title", "title_x", "title_y", "title_color", "title_fs", "title_fface", "title_ffamily", "canvas_bg")
   attr_draw <- purrr::map(params, ~get(.x))
   names(attr_draw) <- params
 
