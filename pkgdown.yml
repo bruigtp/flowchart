@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   flowchart: flowchart.html
-last_built: 2025-04-07T13:46Z
+last_built: 2025-04-07T14:04Z
 urls:
   reference: https://bruigtp.github.io/flowchart/reference
   article: https://bruigtp.github.io/flowchart/articles
