@@ -53,7 +53,8 @@
 <span>  title_color <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>  title_fs <span class="op">=</span> <span class="fl">15</span>,</span>
 <span>  title_fface <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>  title_ffamily <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  title_ffamily <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  canvas_bg <span class="op">=</span> <span class="st">"white"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -115,6 +116,10 @@
 
 <dt id="arg-title-ffamily">title_ffamily<a class="anchor" aria-label="anchor" href="#arg-title-ffamily"></a></dt>
 <dd><p>Changes the font family of the title. Default is NA. See the `fontfamily` parameter for <code>gpar</code>.</p></dd>
+
+
+<dt id="arg-canvas-bg">canvas_bg<a class="anchor" aria-label="anchor" href="#arg-canvas-bg"></a></dt>
+<dd><p>Background color for the entire canvas (the area behind the flowchart boxes). Default is `"white"`. Set to `"transparent"` or `NULL` for a transparent background; `"transparent"` background will only be noticeable when exporting drawn flowcharts via `fc_export()` and is compatible with all `fc_export()` formats except `"jpeg"` and `"bmp"`.</p></dd>
 
 </dl></div>
     <div class="section level2">
