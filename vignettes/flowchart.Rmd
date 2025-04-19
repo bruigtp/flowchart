@@ -402,7 +402,7 @@ safo |>
 
 ```{r fig.width = 6, fig.height = 5}
 safo |> 
-  as_fc(label = "Patients assessed for eligibility", width = 0.4, text_fs = 10, text_fface = 2, text_ffamily = "serif", text_padding = 2, bg_fill = "lightgrey") |>
+  as_fc(label = "Patients assessed for eligibility", width = 0.6, text_fs = 10, text_fface = 2, text_ffamily = "serif", text_padding = 2, bg_fill = "lightgrey") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, text_color = "white", bg_fill = "darkgreen", text_color_exc = "white", bg_fill_exc = "firebrick") |> 
   fc_split(group, bg_fill = c("darkblue", "purple"), text_color = "white") |> 
   fc_modify(

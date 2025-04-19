@@ -234,7 +234,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
       )
   }
 
-  if(text_padding == 0) {
+  if(any(text_padding == 0)) {
     cli::cli_abort("Text padding cannot be equal to zero.")
   }
 
