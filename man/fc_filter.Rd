@@ -25,6 +25,8 @@ fc_filter(
   text_padding = 1,
   bg_fill = "white",
   border_color = "black",
+  width = NA,
+  height = NA,
   just_exc = "center",
   text_color_exc = "black",
   text_fs_exc = 6,
@@ -33,7 +35,9 @@ fc_filter(
   text_padding_exc = 1,
   bg_fill_exc = "white",
   border_color_exc = "black",
-  offset_exc = NULL
+  offset_exc = NULL,
+  width_exc = NA,
+  height_exc = NA
 )
 }
 \arguments{
@@ -77,6 +81,10 @@ fc_filter(
 
 \item{border_color}{Box border color. It is black by default. See the `col` parameter for \code{\link{gpar}}.}
 
+\item{width}{Width of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
+
+\item{height}{Height of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
+
 \item{just_exc}{Justification for the text of the exclude box: left, center or right. Default is center.}
 
 \item{text_color_exc}{Color of the text of the exclude box. It is black by default. See `text_color`.}
@@ -94,6 +102,10 @@ fc_filter(
 \item{border_color_exc}{Box background color of the exclude box. It is black by default. See `border_color`.}
 
 \item{offset_exc}{Amount of space to add to the distance between the box and the excluded box (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. This number has to be at least between 0 and 1 (plot limits) and the resulting x coordinate cannot exceed these plot limits. The default is NULL (no offset).}
+
+\item{width_exc}{Width of the exclude box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
+
+\item{height_exc}{Height of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
 }
 \value{
 List with the filtered dataset and the flowchart parameters with the resulting filtered box.

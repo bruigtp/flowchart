@@ -17,6 +17,8 @@ as_fc(
   text_padding = 1,
   bg_fill = "white",
   border_color = "black",
+  width = NA,
+  height = NA,
   hide = FALSE
 )
 }
@@ -44,6 +46,10 @@ as_fc(
 \item{bg_fill}{Box background color. It is white by default. See the `fill` parameter for \code{\link{gpar}}.}
 
 \item{border_color}{Box border color. It is black by default. See the `col` parameter for \code{\link{gpar}}.}
+
+\item{width}{Width of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
+
+\item{height}{Height of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
 
 \item{hide}{Logical value to hide the initial box or not. Default is FALSE. hide = TRUE can only be combined with fc_split().}
 }

@@ -113,3 +113,5 @@
 * Updated `fc_export()` to accept the new `canvas_bg` argument from `fc_draw()` and apply it accordingly to the exported flowchart image (#30; @kenkomodo)
 
 * Solved `bug` causing `fc_export()` to drop newer `fc_draw()` arguments when redrawing the flowchart for export (#32; @kenkomodo)
+
+* New `width` and `height` arguments for `as_fc()`, `fc_filter()` and `fc_split()` functions to manually set the size of boxes.

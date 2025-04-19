@@ -160,7 +160,7 @@ We can customize the flowchart either with the arguments provided by each functi
 
 ## Change function arguments
 
-There are many different arguments in `as_fc()`, `fc_filter()`, `fc_split()`, and `fc_draw()` that allow you to customize the boxes created at each step. Examples of how to use these arguments are given at the end of the vignette: [Customization examples].
+There are many different arguments in `as_fc()`, `fc_filter()`, `fc_split()`, and `fc_draw()` that allow you to customize the boxes created at each step. See the documentation for these functions for more information. Some examples of how to use these arguments are given at the end of the vignette: [Customization examples].
 
 ## Function to customize the flowchart
 
@@ -395,6 +395,25 @@ safo |>
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
   fc_split(group) |> 
+  fc_draw()
+```
+
+### Change the appearance
+
+```{r fig.width = 6, fig.height = 5}
+safo |> 
+  as_fc(label = "Patients assessed for eligibility", width = 0.4, text_fs = 10, text_fface = 2, text_ffamily = "serif", text_padding = 2, bg_fill = "lightgrey") |>
+  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, text_color = "white", bg_fill = "darkgreen", text_color_exc = "white", bg_fill_exc = "firebrick") |> 
+  fc_split(group, bg_fill = c("darkblue", "purple"), text_color = "white") |> 
+  fc_modify(
+    ~ . |> 
+      mutate(
+        y = case_when(
+          type == "init" ~ 0.8,
+          .default = y
+        )
+      )
+  ) |> 
   fc_draw()
 ```
 

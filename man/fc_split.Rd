@@ -23,6 +23,8 @@ fc_split(
   text_padding = 1,
   bg_fill = "white",
   border_color = "black",
+  width = NA,
+  height = NA,
   title = NULL,
   text_color_title = "black",
   text_fs_title = 10,
@@ -31,6 +33,8 @@ fc_split(
   text_padding_title = 0.6,
   bg_fill_title = "white",
   border_color_title = "black",
+  width_title = NA,
+  height_title = NA,
   offset = NULL
 )
 }
@@ -71,6 +75,10 @@ fc_split(
 
 \item{border_color}{Box border color. It is black by default.}
 
+\item{width}{Width of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
+
+\item{height}{Height of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
+
 \item{title}{Add a title box to the split. Default is NULL. It can only be used when there are only two resulting boxes after the split.}
 
 \item{text_color_title}{Color of the title text. It is black by default.}
@@ -86,6 +94,10 @@ fc_split(
 \item{bg_fill_title}{Title box background color. It is white by default.}
 
 \item{border_color_title}{Title box border color. It is black by default.}
+
+\item{width_title}{Width of the title box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
+
+\item{height_title}{Height of the title box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
 
 \item{offset}{Amount of space to add to the distance between boxes (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. This number has to be at least between 0 and 1 (plot limits) and the resulting x coordinate cannot exceed these plot limits. The default is NULL (no offset).}
 }

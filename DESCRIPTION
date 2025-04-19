@@ -1,7 +1,7 @@
 Package: flowchart
 Type: Package
 Title: Tidy Flowchart Generator
-Version: 0.7.0.9001
+Version: 0.7.0.9002
 Authors@R: c(
     person("Pau", "Satorra", , "psatorra@igtp.cat", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-8144-4089")),
@@ -11,7 +11,7 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-1462-379X")),
     person("Cristian", "Tebé", role = "aut",
            comment = c(ORCID = "0000-0003-2320-1385")),
-    person("Kenneth A.", "Taylor", role = "aut",
+    person("Kenneth", "Taylor", role = "ctb",
            comment = c(ORCID = "0000-0002-3205-9280"))
   )
 Maintainer: Pau Satorra <psatorra@igtp.cat>

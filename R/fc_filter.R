@@ -21,6 +21,8 @@
 #' @param text_padding Changes the text padding inside the box. Default is 1. This number has to be greater than 0.
 #' @param bg_fill Box background color. It is white by default. See the `fill` parameter for \code{\link{gpar}}.
 #' @param border_color Box border color. It is black by default. See the `col` parameter for \code{\link{gpar}}.
+#' @param width Width of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.
+#' @param height Height of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.
 #' @param just_exc Justification for the text of the exclude box: left, center or right. Default is center.
 #' @param text_color_exc Color of the text of the exclude box. It is black by default. See `text_color`.
 #' @param text_fs_exc Font size of the text of the exclude box. It is 6 by default. See `text_fs`.
@@ -30,6 +32,8 @@
 #' @param bg_fill_exc Exclude box background color. It is white by default. See `bg_fill`.
 #' @param border_color_exc Box background color of the exclude box. It is black by default. See `border_color`.
 #' @param offset_exc Amount of space to add to the distance between the box and the excluded box (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. This number has to be at least between 0 and 1 (plot limits) and the resulting x coordinate cannot exceed these plot limits. The default is NULL (no offset).
+#' @param width_exc Width of the exclude box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.
+#' @param height_exc Height of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.
 #' @return List with the filtered dataset and the flowchart parameters with the resulting filtered box.
 #'
 #' @examples
@@ -40,7 +44,7 @@
 #'
 #' @export
 
-fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", just_exc = "center", text_color_exc = "black", text_fs_exc = 6, text_fface_exc = 1, text_ffamily_exc = NA, text_padding_exc = 1, bg_fill_exc = "white", border_color_exc = "black", offset_exc = NULL) {
+fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, just_exc = "center", text_color_exc = "black", text_fs_exc = 6, text_fface_exc = 1, text_ffamily_exc = NA, text_padding_exc = 1, bg_fill_exc = "white", border_color_exc = "black", offset_exc = NULL, width_exc = NA, height_exc = NA) {
 
   is_class(object, "fc")
   UseMethod("fc_filter")
@@ -51,7 +55,7 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
 #' @importFrom rlang .data
 #' @importFrom rlang :=
 
-fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", just_exc = "center", text_color_exc = "black", text_fs_exc = 6, text_fface_exc = 1, text_ffamily_exc = NA, text_padding_exc = 1, bg_fill_exc = "white", border_color_exc = "black", offset_exc = NULL) {
+fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, just_exc = "center", text_color_exc = "black", text_fs_exc = 6, text_fface_exc = 1, text_ffamily_exc = NA, text_padding_exc = 1, bg_fill_exc = "white", border_color_exc = "black", offset_exc = NULL, width_exc = NA, height_exc = NA) {
 
   filter <- paste(deparse(substitute(filter)), collapse = "")
   filter <- gsub("  ", "", filter)
@@ -237,7 +241,9 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
       text_ffamily = text_ffamily,
       text_padding = text_padding,
       bg_fill = bg_fill,
-      border_color = border_color
+      border_color = border_color,
+      width = width,
+      height = height
     ) |>
     dplyr::ungroup() |>
     dplyr::select(-N_total)
@@ -271,13 +277,13 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
   if(is.null(sel_group)) {
 
     new_fc <- new_fc |>
-      dplyr::select("x", "y", "n", "N", "perc", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color")
+      dplyr::select("x", "y", "n", "N", "perc", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color", "width", "height")
 
   } else {
 
     new_fc <- new_fc |>
       dplyr::filter(.data$group %in% sel_group) |>
-      dplyr::select("x", "y", "n", "N", "perc", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color")
+      dplyr::select("x", "y", "n", "N", "perc", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color", "width", "height")
 
   }
 
@@ -390,7 +396,9 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
         text_ffamily = text_ffamily_exc,
         text_padding = text_padding_exc,
         bg_fill = bg_fill_exc,
-        border_color = border_color_exc
+        border_color = border_color_exc,
+        width = width_exc,
+        height = height_exc
       ) |>
       dplyr::select(-"parent", -"N_total")
 

@@ -19,6 +19,8 @@
 #' @param text_padding Changes the text padding inside the box. Default is 1. This number has to be greater than 0.
 #' @param bg_fill Box background color. It is white by default.
 #' @param border_color Box border color. It is black by default.
+#' @param width Width of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.
+#' @param height Height of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.
 #' @param title Add a title box to the split. Default is NULL. It can only be used when there are only two resulting boxes after the split.
 #' @param text_color_title Color of the title text. It is black by default.
 #' @param text_fs_title Font size of the title text. It is 8 by default.
@@ -27,6 +29,8 @@
 #' @param text_padding_title Changes the title text padding inside the box. Default is 1. This number has to be greater than 0.
 #' @param bg_fill_title Title box background color. It is white by default.
 #' @param border_color_title Title box border color. It is black by default.
+#' @param width_title Width of the title box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.
+#' @param height_title Height of the title box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.
 #' @param offset Amount of space to add to the distance between boxes (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. This number has to be at least between 0 and 1 (plot limits) and the resulting x coordinate cannot exceed these plot limits. The default is NULL (no offset).
 #' @return List with the dataset grouped by the splitting variable and the flowchart parameters with the resulting split.
 #'
@@ -39,7 +43,7 @@
 #'
 #' @export
 
-fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", title = NULL, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "white", border_color_title = "black", offset = NULL) {
+fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, title = NULL, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "white", border_color_title = "black", width_title = NA, height_title = NA, offset = NULL) {
 
   is_class(object, "fc")
   UseMethod("fc_split")
@@ -50,7 +54,7 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
 #' @export
 #' @importFrom rlang .data
 
-fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", title = NULL, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "white", border_color_title = "black", offset = NULL) {
+fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, title = NULL, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "white", border_color_title = "black", width_title = NA, height_title = NA, offset = NULL) {
 
   var <- substitute(var)
 
@@ -247,7 +251,9 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
       text_ffamily = text_ffamily,
       text_padding = text_padding,
       bg_fill = bg_fill,
-      border_color = border_color
+      border_color = border_color,
+      width = width,
+      height = height
     ) |>
     dplyr::select(-N_total)
 
@@ -414,7 +420,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
     )) |>
     tidyr::unite("group", c("group", "label0"), sep = " // ", na.rm = TRUE) |>
     dplyr::ungroup() |>
-    dplyr::select("x", "y", "n", "N", "perc", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color")
+    dplyr::select("x", "y", "n", "N", "perc", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color", "width", "height")
 
   #remove the id previous to adding the next one
   if(!is.null(object$fc)) {
@@ -466,7 +472,9 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
           text_ffamily = text_ffamily_title,
           text_padding = text_padding_title,
           bg_fill = bg_fill_title,
-          border_color = border_color_title
+          border_color = border_color_title,
+          width = width_title,
+          height = height_title
         ) |>
         dplyr::select(-"center", -"n_boxes") |>
         dplyr::relocate("y", .after = "x") |>
