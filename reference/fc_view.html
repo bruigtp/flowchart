@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flowchart</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,14 +92,14 @@
 <span class="r-in"><span> <span class="fu"><a href="as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span> <span class="fu">fc_view</span><span class="op">(</span><span class="st">"fc"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 17</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 19</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      id     x     y     n     N perc  text  type  group just  text_color text_fs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1  0.5  0.667   925   925 100   <span style="color: #949494;">"</span>Pat… init  <span style="color: #BB0000;">NA</span>    cent… black            8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2  0.5  0.333   215   925 23.24 <span style="color: #949494;">"</span>Ran… filt… <span style="color: #BB0000;">NA</span>    cent… black            8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3  0.65 0.5     710   925 76.76 <span style="color: #949494;">"</span>Exc… excl… <span style="color: #BB0000;">NA</span>    cent… black            6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 5 more variables: text_fface &lt;dbl&gt;, text_ffamily &lt;lgl&gt;, text_padding &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   bg_fill &lt;chr&gt;, border_color &lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 7 more variables: text_fface &lt;dbl&gt;, text_ffamily &lt;lgl&gt;, text_padding &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   bg_fill &lt;chr&gt;, border_color &lt;chr&gt;, width &lt;lgl&gt;, height &lt;lgl&gt;</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -108,7 +108,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Pau Satorra, João Carmezim, Natàlia Pallarès, Cristian Tebé, Kenneth A. Taylor.</p>
+  <p>Developed by Pau Satorra, João Carmezim, Natàlia Pallarès, Cristian Tebé.</p>
 </div>
 
 <div class="pkgdown-footer-right">

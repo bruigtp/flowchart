@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flowchart</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +52,8 @@
 <span>  text_padding <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  bg_fill <span class="op">=</span> <span class="st">"white"</span>,</span>
 <span>  border_color <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  width <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  height <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  hide <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -108,6 +110,14 @@
 <dd><p>Box border color. It is black by default. See the `col` parameter for <code>gpar</code>.</p></dd>
 
 
+<dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
+<dd><p>Width of the box. If NA, it automatically adjusts to the content (default). Must be an object of class <code>unit</code> or a number between 0 and 1.</p></dd>
+
+
+<dt id="arg-height">height<a class="anchor" aria-label="anchor" href="#arg-height"></a></dt>
+<dd><p>Height of the box. If NA, it automatically adjusts to the content (default). Must be an object of class <code>unit</code> or a number between 0 and 1.</p></dd>
+
+
 <dt id="arg-hide">hide<a class="anchor" aria-label="anchor" href="#arg-hide"></a></dt>
 <dd><p>Logical value to hide the initial box or not. Default is FALSE. hide = TRUE can only be combined with fc_split().</p></dd>
 
@@ -131,7 +141,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Pau Satorra, João Carmezim, Natàlia Pallarès, Cristian Tebé, Kenneth A. Taylor.</p>
+  <p>Developed by Pau Satorra, João Carmezim, Natàlia Pallarès, Cristian Tebé.</p>
 </div>
 
 <div class="pkgdown-footer-right">

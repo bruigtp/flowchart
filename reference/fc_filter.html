@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flowchart</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,6 +60,8 @@
 <span>  text_padding <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  bg_fill <span class="op">=</span> <span class="st">"white"</span>,</span>
 <span>  border_color <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  width <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  height <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  just_exc <span class="op">=</span> <span class="st">"center"</span>,</span>
 <span>  text_color_exc <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>  text_fs_exc <span class="op">=</span> <span class="fl">6</span>,</span>
@@ -68,7 +70,9 @@
 <span>  text_padding_exc <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  bg_fill_exc <span class="op">=</span> <span class="st">"white"</span>,</span>
 <span>  border_color_exc <span class="op">=</span> <span class="st">"black"</span>,</span>
-<span>  offset_exc <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  offset_exc <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  width_exc <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  height_exc <span class="op">=</span> <span class="cn">NA</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -156,6 +160,14 @@
 <dd><p>Box border color. It is black by default. See the `col` parameter for <code>gpar</code>.</p></dd>
 
 
+<dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
+<dd><p>Width of the box. If NA, it automatically adjusts to the content (default). Must be an object of class <code>unit</code> or a number between 0 and 1.</p></dd>
+
+
+<dt id="arg-height">height<a class="anchor" aria-label="anchor" href="#arg-height"></a></dt>
+<dd><p>Height of the box. If NA, it automatically adjusts to the content (default). Must be an object of class <code>unit</code> or a number between 0 and 1.</p></dd>
+
+
 <dt id="arg-just-exc">just_exc<a class="anchor" aria-label="anchor" href="#arg-just-exc"></a></dt>
 <dd><p>Justification for the text of the exclude box: left, center or right. Default is center.</p></dd>
 
@@ -191,6 +203,14 @@
 <dt id="arg-offset-exc">offset_exc<a class="anchor" aria-label="anchor" href="#arg-offset-exc"></a></dt>
 <dd><p>Amount of space to add to the distance between the box and the excluded box (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. This number has to be at least between 0 and 1 (plot limits) and the resulting x coordinate cannot exceed these plot limits. The default is NULL (no offset).</p></dd>
 
+
+<dt id="arg-width-exc">width_exc<a class="anchor" aria-label="anchor" href="#arg-width-exc"></a></dt>
+<dd><p>Width of the exclude box. If NA, it automatically adjusts to the content (default). Must be an object of class <code>unit</code> or a number between 0 and 1.</p></dd>
+
+
+<dt id="arg-height-exc">height_exc<a class="anchor" aria-label="anchor" href="#arg-height-exc"></a></dt>
+<dd><p>Height of the box. If NA, it automatically adjusts to the content (default). Must be an object of class <code>unit</code> or a number between 0 and 1.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -212,7 +232,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Pau Satorra, João Carmezim, Natàlia Pallarès, Cristian Tebé, Kenneth A. Taylor.</p>
+  <p>Developed by Pau Satorra, João Carmezim, Natàlia Pallarès, Cristian Tebé.</p>
 </div>
 
 <div class="pkgdown-footer-right">
