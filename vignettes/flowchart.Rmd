@@ -335,7 +335,7 @@ label_exc2 <- str_replace_all(label_exc2, c("resistant" = "resistant\n", "blood"
 
 Second, let's create and customise the flowchart using the functions in the package:
 
-```{r warning=FALSE, fig.width = 13, fig.height = 9}
+```{r warning=FALSE, fig.width = 13, fig.height = 10}
 safo |> 
   as_fc(label = "patients assessed for eligibility", text_pattern = "{N} {label}") |> 
   fc_filter(!is.na(group), label = "randomized", text_pattern = "{n} {label}", show_exc = TRUE, just_exc = "left", text_pattern_exc = "{label}", label_exc = label_exc, text_fs_exc = 7, offset_exc = 0.15) |>

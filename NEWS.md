@@ -96,7 +96,7 @@
 
 * Allow expressions in the label argument to produce bold or italics text, or even formulas
 
-# flowchart 0.7.0.9001 (development)
+# flowchart 0.8.0
 
 * Solved `bug` when `perc_total = TRUE` is used together with `show_exc = TRUE`.
 
