@@ -1,6 +1,8 @@
 url: https://bruigtp.github.io/flowchart/
 template:
   bootstrap: 5
+development:
+  mode: auto
 reference:
 - title: Creating flowchart
   desc: Functions to create a flowchart design
