@@ -115,3 +115,7 @@
 * Solved `bug` causing `fc_export()` to drop newer `fc_draw()` arguments when redrawing the flowchart for export (#32; @kenkomodo)
 
 * New `width` and `height` arguments for `as_fc()`, `fc_filter()` and `fc_split()` functions to manually set the size of boxes.
+
+# flowchart (development version)
+
+* Split up `flowchart` vignette into multiple different articles and updated `_pkgdown.yml` to build `dev` version of site separately while defaulting to currently released CRAN version (#37)
