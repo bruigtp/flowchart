@@ -25,23 +25,23 @@ library(tibble)
 
 # Overview 
 
-`flowchart` is a package for drawing participant flow diagrams directly from a dataframe using tidyverse. It provides a set of functions that can be combined with `|>` to create all kinds of flowcharts from a dataframe in an easy way:
+`flowchart` is a package for drawing participant flow diagrams directly from a `data.frame` using tidyverse. It provides a set of functions that can be combined with `|>` to create all kinds of `flowchart`s from a `data.frame` in an easy way:
 
-- `as_fc()` transforms a dataframe into a `fc` object that can be manipulated by the package.
+- `as_fc()` transforms a `data.frame` into a `fc` object that can be manipulated by the package
 
-- `fc_split()` splits a flowchart according to the different values of a column in the dataframe.
+- `fc_split()` splits a `flowchart` according to the different values of a column in the `data.frame`
 
-- `fc_filter()` creates a filtered box from the flowchart, based on the evaluation of an expression in the dataframe.
+- `fc_filter()` creates a filtered box from the `flowchart`, based on the evaluation of an expression in the `data.frame`
 
-- `fc_merge()` combines horizontally two different flowcharts.
+- `fc_merge()` combines horizontally two different `flowchart`s
 
-- `fc_stack()` combines vertically two different flowcharts.
+- `fc_stack()` combines vertically two different `flowchart`s
 
-- `fc_modify()` allows to modify the parameters of the flowchart which are stored in `.$fc`.
+- `fc_modify()` allows to modify the parameters of the `flowchart` which are stored in `.$fc`
 
-- `fc_draw()` draws the flowchart created by the previous functions.
+- `fc_draw()` draws the `flowchart` created by the previous functions
 
-- `fc_export()` allows to export the flowchart drawn to the desired format.
+- `fc_export()` allows to export the `flowchart` drawn to the desired format
 
 # Installation
 
@@ -58,7 +58,7 @@ Or the development version from GitHub:
 remotes::install_github('bruigtp/flowchart')
 ```
 
-# safo dataset
+# `safo` dataset
 
 We will use the built-in dataset `safo`, which is a randomly generated dataset from the SAFO trial[^1]. SAFO is an open-label, multicentre, phase III–IV superiority randomised clinical trial designed to assess whether cloxacillin plus fosfomycin administered during the first 7 days of therapy achieves better treatment outcomes than cloxacillin alone in hospitalised patients with meticillin-sensitive Staphylococcus aureus bacteraemia.
 
@@ -74,11 +74,11 @@ head(safo)
 
 # Basic operations
 
-The first step is to initialise the flowchart with `as_fc`. The last step, if we want to visualise the created flowchart, is to draw the flowchart with `fc_draw`. In between we can combine the functions `fc_split`., `fc_filter`, `fc_merge`, `fc_stack` with the operator pipe (`|>` or `%>$`) to create complex flowchart structures.
+The first step is to initialise the `flowchart` with `as_fc`. The last step, if we want to visualise the created `flowchart`, is to draw the `flowchart` with `fc_draw`. In between we can combine the functions `fc_split`., `fc_filter`, `fc_merge`, `fc_stack` with the operator pipe (`|>` or `%>$`) to create complex `flowchart` structures.
 
 ## Initialize
 
-To initialize a flowchart from a dataset we have to use the `as_fc()` function:
+To initialize a `flowchart` from a dataset we have to use the `as_fc()` function:
 
 ```{r}
 safo_fc <- safo |> 
@@ -87,13 +87,13 @@ safo_fc <- safo |>
 str(safo_fc, max.level = 1)
 ```
 
-The `safo_fc` object created is a `fc` object, which consists of a list containing the tibble of the dataframe associated with the flowchart and the tibble that stores the flowchart parameters. In this example, `safo_fc$data` corresponds to the `safo` dataset while `safo_fc$fc` contains the parameters of the initial flowchart:
+The `safo_fc` object created is a `fc` object, which consists of a list containing the tibble of the `data.frame` associated with the `flowchart` and the tibble that stores the `flowchart` parameters. In this example, `safo_fc$data` corresponds to the `safo` dataset while `safo_fc$fc` contains the parameters of the initial `flowchart`:
 
 ```{r}
 safo_fc$fc
 ```
 
-Alternatively, if a dataframe is not available, we can initialize a flowchart using the `N =` argument manually specifying the number of rows:
+Alternatively, if a `data.frame` is not available, we can initialize a `flowchart` using the `N =` argument manually specifying the number of rows:
 
 ```{r include=FALSE}
 as_fc(N = 230)
@@ -101,7 +101,7 @@ as_fc(N = 230)
 
 ## Draw
 
-The function `fc_draw()` allows to draw the flowchart associated to any `fc` object. Following the last example, we can draw the initial flowchart that has been previously created:
+The function `fc_draw()` allows to draw the `flowchart` associated to any `fc` object. Following the last example, we can draw the initial `flowchart` that has been previously created:
 
 ```{r}
 safo_fc |> 
@@ -110,7 +110,7 @@ safo_fc |>
 
 ## Filter 
 
-We can filter the flowchart using `fc_filter()` specifying the logic in which the filter is to be applied. For example, we can show the number of patients that were randomized in the study:
+We can filter the `flowchart` using `fc_filter()` specifying the logic in which the filter is to be applied. For example, we can show the number of patients that were randomized in the study:
 
 ```{r fig.width = 6, fig.height = 5}
 safo |> 
@@ -132,7 +132,7 @@ safo |>
 
 ## Split
 
-We can split the flowchart into groups using `fc_split()` specifying the grouping variable. The function will split the flowchart into as many categories as the specified variable has. For example, we can split the previous flowchart showing the patients allocated in the two study treatments:
+We can split the `flowchart` into groups using `fc_split()` specifying the grouping variable. The function will split the `flowchart` into as many categories as the specified variable has. For example, we can split the previous `flowchart` showing the patients allocated in the two study treatments:
 
 ```{r fig.width = 6, fig.height = 5}
 safo |>
@@ -154,110 +154,9 @@ safo |>
   fc_draw()
 ```
 
-# Customize output
+## Export
 
-We can customize the flowchart either with the arguments provided by each function in the process of creating it, or directly in the final output using the function `fc_modify`. We can also change the box style for all boxes in the flowchart using an argument in `fc_draw`.
-
-## Change function arguments
-
-There are many different arguments in `as_fc()`, `fc_filter()`, `fc_split()`, and `fc_draw()` that allow you to customize the boxes created at each step. See the documentation for these functions for more information. Some examples of how to use these arguments are given at the end of the vignette: [Customization examples].
-
-## Function to customize the flowchart
-
-The function `fc_modify` allows the user to customise the created flowchart by modifying its parameters, which are stored in `.$fc`. 
-
-For example, let's customize the following flowchart:
-
-```{r fig.width = 6, fig.height = 4}
-safo_fc <- safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) 
-
-safo_fc |> 
-  fc_draw()
-```
-
-Previous to modifying it, we can use the function `fc_view()` to inspect the element `$fc` that we want to change:
-
-```{r}
-safo_fc |> 
-  fc_view("fc")
-```
-
-Let's customise the text in the exclusion box (`id = 3`) to specify different reasons for exclusion, and change the _x_ and _y_ coordinate:
- 
-```{r fig.width = 7, fig.height = 5}
-safo_fc |> 
-  fc_modify(
-    ~ . |> 
-      mutate(
-        text = ifelse(id == 3, str_glue("- {sum(safo$inclusion_crit == 'Yes')} not met the inclusion criteria\n- {sum(safo$exclusion_crit == 'Yes')} met the exclusion criteria"), text),
-        x = case_when(
-          id == 3 ~ 0.75,
-          TRUE ~ x
-        ),
-        y = case_when(
-          id == 1 ~ 0.8,
-          id == 2 ~ 0.2,
-          TRUE ~ y
-        )
-      )
-  ) |> 
-  fc_draw()
-```
-
-# Combine
-
-`fc_merge()` and `fc_stack()` allow you to combine different flowcharts horizontally or vertically. This is very useful when you need to combine flowcharts generated from different dataframes, as shown here. 
-
-## Merge
-
-We can combine different flowcharts horizontally using `fc_merge()`. For example, we might want to represent the flow of patients included in the ITT population with the flow of patients included in the PP population.
-
-```{r fig.width = 8}
-# Create first flowchart for ITT
-fc1 <- safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(itt == "Yes", label = "Intention to treat (ITT)")
-
-fc_draw(fc1)
-
-# Create second flowchart for visits
-fc2 <- safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(pp == "Yes", label = "Per protocol (PP)")
-
-fc_draw(fc2)
-
-list(fc1, fc2) |> 
-  fc_merge() |> 
-  fc_draw()
-```
-
-## Stack
-
-We can combine different flowcharts vertically using `fc_stack()`. For example, we can combine the same two flowcharts vertically instead of horizontally.
-
-```{r warning = FALSE, fig.width = 6, fig.height = 5}
-list(fc1, fc2) |> 
-  fc_stack() |> 
-  fc_draw()
-```
-
-We can use the argument `unite = TRUE` to connect two stacked flowcharts. For example:
-
-```{r warning=FALSE, fig.width = 6, fig.height = 5}
-fc1 <- fc1 |> 
-  fc_split(group)
-
-list(fc1, fc2) |> 
-  fc_stack(unite = TRUE) |> 
-  fc_draw()
-```
-
-# Export
-
-Once the flowchart has been drawn we can export it to the most popular image formats, including both bitmap (png, jpeg, tiff, bmp) and vector (svg, pdf) formats, using `fc_export()`:
+Once the `flowchart` has been drawn we can export it to the most popular image formats, including both bitmap (png, jpeg, tiff, bmp) and vector (svg, pdf) formats, using `fc_export()`:
 
 ```{r eval = FALSE}
 safo |> 
@@ -277,268 +176,3 @@ safo |>
   fc_export("flowchart.png", width = 3000, height = 4000, res = 700)
 ```
 
-# Examples
-
-## Example 1
-
-In this example, we will try to create a flowchart for the complete flow of patients in the SAFO study:
-
-```{r warning = FALSE, fig.width = 7, fig.height = 7}
-safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
-  fc_split(group) |> 
-  fc_filter(itt == "Yes", label = "Included in ITT") |> 
-  fc_filter(pp == "Yes", label = "Included in PP") |> 
-  fc_draw()
-```
-
-## Example 2
-
-In this example, we will try to exactly reproduce the original flowchart of the SAFO study published in Nature Medicine: [SAFO flowchart](https://www.nature.com/articles/s41591-023-02569-0/figures/1).
-
-First, we need to do some pre-processing to reproduce the text in the larger boxes:
-
-```{r warning=FALSE, fig.width = 12, fig.height = 8}
-# Create labels for exclusion box:
-label_exc <- paste(
-  c(str_glue("{sum(safo$inclusion_crit == 'Yes' | safo$exclusion_crit == 'Yes' | safo$decline_part == 'Yes', na.rm = T)} excluded:"),
-    map_chr(c("inclusion_crit", "decline_part", "exclusion_crit"), ~str_glue("{sum(safo[[.x]] == 'Yes', na.rm = TRUE)} {attr(safo[[.x]], 'label')}")),
-    map_chr(4:15, ~str_glue(" -  {sum(safo[[.x]] == 'Yes')} {attr(safo[[.x]], 'label')}"))),
-  collapse = "\n")
-
-label_exc <- gsub("exclusion criteria", "exclusion criteria:", label_exc)
-
-safo1 <- safo |> 
-  filter(group == "cloxacillin plus fosfomycin", !is.na(reason_pp)) |> 
-  mutate(reason_pp = droplevels(reason_pp))
-
-label_exc1 <- paste(
-  c(str_glue("{nrow(safo1)} excluded:"),
-    map_chr(levels(safo1$reason_pp), ~str_glue(" -  {sum(safo1$reason_pp == .x)} {.x}"))),
-  collapse = "\n")
-
-label_exc1 <- str_replace_all(label_exc1, c("nosocomial" = "nosocomial\n", "treatment" = "treatment\n"))
-
-safo2 <- safo |> 
-  filter(group == "cloxacillin alone", !is.na(reason_pp)) |> 
-  mutate(reason_pp = droplevels(reason_pp))
-
-label_exc2 <- paste(
-  c(str_glue("{nrow(safo2)} excluded:"),
-    map_chr(levels(safo2$reason_pp), ~str_glue(" -  {sum(safo2$reason_pp == .x)} {.x}"))),
-  collapse = "\n")
-
-label_exc2 <- str_replace_all(label_exc2, c("resistant" = "resistant\n", "blood" = "blood\n"))
-
-```
-
-Second, let's create and customise the flowchart using the functions in the package:
-
-```{r warning=FALSE, fig.width = 13, fig.height = 10}
-safo |> 
-  as_fc(label = "patients assessed for eligibility", text_pattern = "{N} {label}") |> 
-  fc_filter(!is.na(group), label = "randomized", text_pattern = "{n} {label}", show_exc = TRUE, just_exc = "left", text_pattern_exc = "{label}", label_exc = label_exc, text_fs_exc = 7, offset_exc = 0.15) |>
-  fc_split(group, text_pattern = "{n} asssigned\n {label}") |> 
-  fc_filter(itt == "Yes", label = "included in intention-to-treat\n population", show_exc = TRUE, text_pattern = "{n} {label}", label_exc = "patient did not receive allocated\n treatment (withdrew consent)", text_pattern_exc = "{n} {label}", text_fs_exc = 7) |>
-  fc_filter(pp == "Yes", label = "included in per-protocol\n population", show_exc = TRUE, just_exc = "left", text_pattern = "{n} {label}", text_fs_exc = 7) |> 
-  fc_modify(
-    ~.x |> 
-      filter(n != 0) |> 
-      mutate(
-        text = case_when(id == 11 ~ label_exc1, id == 13 ~ label_exc2, TRUE ~ text)
-      )
-  ) |> 
-  fc_draw()
-```
-
-## Example 3
-
-In this example, we will create a flowchart without any dataframe, using the `N` argument to manually specify the numbers to display in the boxes:
-
-```{r warning=FALSE, fig.width = 7, fig.height = 6}
-as_fc(N = 300) |> 
-  fc_filter(N = 240, label = "Randomized patients", show_exc = TRUE) |> 
-  fc_split(N = c(100, 80, 60), label = c("Group A", "Group B", "Group C")) |>
-  fc_filter(N = c(80, 75, 50), label = "Finished the study") |> 
-  fc_draw()
-```
-
-## Example 4
-
-The use of `N=` argument can be combined with the use of a dataframe. In this example, we will use the `N=` argument in a flowchart that uses a dataframe:
-
-```{r warning=FALSE, fig.width = 7, fig.height = 6}
-
-safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
-  fc_split(group) |> 
-  fc_split(N = c(50, 55, 10, 100), label = c("Group A", "Group B")) |> 
-  fc_draw()
-
-```
-
-
-## Customization examples
-
-In this examples, we will explore some of the arguments to customize the following flowchart:
-
-```{r fig.width = 6, fig.height = 5}
-safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
-  fc_split(group) |> 
-  fc_draw()
-```
-
-### Change the appearance
-
-```{r fig.width = 6, fig.height = 5}
-safo |> 
-  as_fc(label = "Patients assessed for eligibility", width = 0.6, text_fs = 10, text_fface = 2, text_ffamily = "serif", text_padding = 2, bg_fill = "lightgrey") |>
-  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, text_color = "white", bg_fill = "darkgreen", text_color_exc = "white", bg_fill_exc = "firebrick") |> 
-  fc_split(group, bg_fill = c("darkblue", "purple"), text_color = "white") |> 
-  fc_modify(
-    ~ . |> 
-      mutate(
-        y = case_when(
-          type == "init" ~ 0.8,
-          .default = y
-        )
-      )
-  ) |> 
-  fc_draw()
-```
-
-### Add a title to the flowchart
-
-We can add a title to the flowchart using the argument `title=` in the `fc_draw()` function:
-
-```{r fig.width = 6, fig.height = 5}
-safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
-  fc_split(group) |> 
-  fc_draw(title = "SAFO flowchart")
-```
-
-### Add a title to the split
-
-We can also add a title to a split in the flowchart, using the argument `title` in the `fc_split()` function:
-
-```{r fig.width = 6, fig.height = 5}
-safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, perc_total = TRUE) |> 
-  fc_split(group, perc_total = TRUE, title = "Treatment", bg_fill_title = "skyblue") |> 
-  fc_draw()
-```
-
-### Percentage with respect to the total rows
-
-We can change the calculation of all percentages in a flowchart. By default, percentages are calculated with respect to the box in the previous level. With the argument `perc_total=` we can change it, to calculate it with respect to the initial box with the total number of rows:
-
-```{r fig.width = 6, fig.height = 5}
-safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, perc_total = TRUE) |> 
-  fc_split(group, perc_total = TRUE) |> 
-  fc_draw()
-```
-
-### Offset
-
-We can add/remove space to the distance between boxes in a split using the argument `offset`:
-
-```{r fig.width = 6, fig.height = 5}
-safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, perc_total = TRUE) |> 
-  fc_split(group, offset = 0.1) |> 
-  fc_draw()
-
-safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, perc_total = TRUE) |> 
-  fc_split(group, offset = -0.1) |> 
-  fc_draw()
-```
-
-We can also add/remove space to the distance between the excluded box in a filter using the argument `offset_exc`:
-
-```{r fig.width = 6, fig.height = 5}
-safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, offset_exc = 0.1) |> 
-  fc_split(group) |> 
-  fc_draw()
-```
-
-### Change Box Corner Style
-
-We can change the corner style of the flowchart boxes using the `box_corners` argument with `fc_draw`:
-
-```{r fig.width = 6, fig.height = 5}
-safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
-  fc_split(group) |> 
-  fc_draw(box_corners = "sharp")
-```
-
-
-### Use expressions
-
-We can use expressions in the label of each box. Expressions allow you to use bold or italic text without having to change the font of all the box text. For example:
-
-```{r}
-safo |> 
-  as_fc(label = expression(paste("Patients ", italic("assessed"), " for ", bold("eligibility")))) |>
-  fc_draw()
-```
-
-Expressions even allow the use of formulas. For example:
-
-```{r}
-safo |> 
-  as_fc(label = expression(paste(y, " = ", alpha, " + ", beta, x))) |>
-  fc_draw()
-```
-
-### Split in one group
-
-We can perform an additional split only in one of the groups using the argument `sel_group=`:
-
-```{r fig.width = 6, fig.height = 6}
-safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
-  fc_split(group) |> 
-  fc_split(N = c(50, 60), sel_group = "cloxacillin alone") |> 
-  fc_draw()
-```
-
-Then, we could also perform a filter in the other group:
-
-```{r fig.width = 6, fig.height = 6}
-safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
-  fc_split(group) |> 
-  fc_split(N = c(50, 60), sel_group = "cloxacillin alone") |> 
-  fc_filter(N = 50, sel_group = "cloxacillin plus fosfomycin") |> 
-  fc_draw()
-```
-
-If we want to select a group in a flowchart with more than two groups we have to supply a vector in `sel_group=` with the desired groups to be selected:
-
-```{r fig.width = 6, fig.height = 7}
-safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
-  fc_split(group) |> 
-  fc_split(N = c(50, 55, 10, 100)) |> 
-  fc_filter(N = 60, sel_group = c("cloxacillin alone", "group 2")) |> 
-  fc_draw()
-```
