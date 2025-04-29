@@ -3,6 +3,27 @@ template:
   bootstrap: 5
 development:
   mode: auto
+
+navbar:
+  structure:
+    left:  [intro, reference, articles, tutorials, news]
+    right: [search, github]
+  left:
+    - text: Get started
+      href: articles/flowchart.html
+    - text: Reference
+      href: reference/index.html
+    - text: Articles
+      menu:
+      - text: Combine Flowcharts
+        href: articles/combine-flowcharts.html
+      - text: Customization
+        href: articles/flowchart-customization.html
+      - text: Example Gallery
+        href: articles/example-gallery.html
+    - text: News
+      href: news/index.html
+
 reference:
 - title: Creating flowchart
   desc: Functions to create a flowchart design
