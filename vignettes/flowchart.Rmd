@@ -154,6 +154,8 @@ safo |>
   fc_draw()
 ```
 
+The idea is to combine the `fc_filter()` and `fc_split()` functions in the way we want to create different `flowchart` structures, however complex the may be. In some cases, we may want to create two different `flowcharts` then [merge or stack](combine-flowcharts.html) them into the same image.
+
 ## Export
 
 Once the `flowchart` has been drawn we can export it to the most popular image formats, including both bitmap (png, jpeg, tiff, bmp) and vector (svg, pdf) formats, using `fc_export()`:
@@ -176,3 +178,6 @@ safo |>
   fc_export("flowchart.png", width = 3000, height = 4000, res = 700)
 ```
 
+# Additional Details
+
+This vignette only covers the basic functionality of `flowchart`. Users may also be interested in more advanced functionality covered in the available articles, such as how to [customize a `flowchart`](flowchart-customization.html), or examples in the [Example Gallery](example-gallery.html).
