@@ -1,7 +1,7 @@
 Package: flowchart
 Type: Package
 Title: Tidy Flowchart Generator
-Version: 0.8.0
+Version: 0.8.0.9000
 Authors@R: c(
     person("Pau", "Satorra", , "psatorra@igtp.cat", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-8144-4089")),
@@ -44,3 +44,4 @@ Depends:
 RoxygenNote: 7.3.2
 URL: https://bruigtp.github.io/flowchart/
 Config/testthat/edition: 3
+Config/Needs/website: rmarkdown

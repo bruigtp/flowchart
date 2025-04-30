@@ -1,0 +1,70 @@
+---
+title: "Combine Flowcharts"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 5
+    number_sections: true
+vignette: >
+  %\VignetteIndexEntry{Combine Flowcharts}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options:
+  chunk_output_type: console
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(flowchart)
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(stringr)
+library(tibble)
+```
+
+`fc_merge()` and `fc_stack()` allow you to combine different `flowchart`s horizontally or vertically. This is very useful when you need to combine `flowchart`s generated from different `data.frame`s, as shown here. 
+
+# Merge
+
+We can combine different `flowchart`s horizontally using `fc_merge()`. For example, we might want to represent the flow of patients included in the ITT population with the flow of patients included in the PP population.
+
+```{r fig.width = 8}
+# Create first flowchart for ITT
+fc1 <- safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(itt == "Yes", label = "Intention to treat (ITT)")
+
+fc_draw(fc1)
+
+# Create second flowchart for visits
+fc2 <- safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(pp == "Yes", label = "Per protocol (PP)")
+
+fc_draw(fc2)
+
+list(fc1, fc2) |> 
+  fc_merge() |> 
+  fc_draw()
+```
+
+# Stack
+
+We can combine different `flowchart`s vertically using `fc_stack()`. For example, we can combine the same two `flowchart`s vertically instead of horizontally.
+
+```{r warning = FALSE, fig.width = 6, fig.height = 5}
+list(fc1, fc2) |> 
+  fc_stack() |> 
+  fc_draw()
+```
+
+We can use the argument `unite = TRUE` to connect two stacked `flowchart`s. For example:
+
+```{r warning=FALSE, fig.width = 6, fig.height = 5}
+fc1 <- fc1 |> 
+  fc_split(group)
+
+list(fc1, fc2) |> 
+  fc_stack(unite = TRUE) |> 
+  fc_draw()
+```
