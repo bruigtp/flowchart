@@ -186,16 +186,14 @@ fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle
 
         } else if(type == "stack") {
 
-          #Find the last box (in height) of the previous flow chart (before stack)
-          y_last <- min(plot_fc[[i]] |>
-                          dplyr::filter(dplyr::row_number() < ids[1]) |>
-                          dplyr::pull(.data$y)
-          )
+          #Find the ending boxes of the previous flow chart (before stack)
+          id_last <- plot_fc[[i]] |>
+                    dplyr::filter(dplyr::row_number() < ids[1], .data$end) |>
+                    #Arrange in function of the order they appear in the x-coordinate
+                    dplyr::arrange(.data$x) |>
+                    dplyr::pull(.data$id)
 
-          #Find how many boxes are in the last level
-          id_last <- which(plot_fc[[i]]$y == y_last)
-
-          if(length(ids) > length(id_last)) {
+          if(length(id_last) == 1 & length(ids) > 1) {
 
             for(k in ids) {
 
@@ -203,22 +201,25 @@ fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle
 
             }
 
-          } else if (length(ids) < length(id_last)) {
+          } else if (length(ids) == 1 & length(id_last) > 1) {
 
             for(k in id_last) {
 
-              print(Gmisc::connectGrob(plot_fc[[i]]$bg[[k]], plot_fc[[i]]$bg[[ids]], type = "N", arrow_obj = getOption("connectGrobArrow", default = grid::arrow(angle = arrow_angle, length = arrow_length, ends = arrow_ends, type = arrow_type))))
+              print(Gmisc::connectGrob(plot_fc[[i]]$bg[[k]], plot_fc[[i]]$bg[[ids]], type = "L", arrow_obj = getOption("connectGrobArrow", default = grid::arrow(angle = arrow_angle, length = arrow_length, ends = arrow_ends, type = arrow_type))))
 
             }
 
 
-          } else {
+          } else if (length(ids) == length(id_last)) {
             #They have the same number of boxes
             for(k in 1:length(ids)) {
               #vertical connection
               print(Gmisc::connectGrob(plot_fc[[i]]$bg[[id_last[k]]], plot_fc[[i]]$bg[[ids[k]]], type = "vertical", arrow_obj = getOption("connectGrobArrow", default = grid::arrow(angle = arrow_angle, length = arrow_length, ends = arrow_ends, type = arrow_type))))
             }
 
+          } else {
+            #It should never enter here because of fc_stack()
+            cli::cli_abort("Flowcharts can't be united because they have a different number of boxes in their connecting levels.")
           }
 
         }

@@ -290,16 +290,37 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
 
   #remove the id previous to adding the next one
   if(!is.null(object$fc)) {
+
     object$fc <- object$fc |>
-      dplyr::select(-"id")
+      dplyr::select(-"id") |>
+      dplyr::mutate(old = TRUE)
+
+    #If we select a group, it only updates the box in the group so the other group remains being the end of the flowchart
+    if(is.null(sel_group)) {
+
+      object$fc <- object$fc |>
+        dplyr::mutate(end = FALSE)
+
+    } else {
+
+      object$fc <- object$fc |>
+        dplyr::mutate(
+          end = dplyr::case_when(
+            .data$group %in% sel_group ~ FALSE,
+            .default = .data$end
+          )
+        )
+
+    }
+
+
   }
 
-
   object$fc <- rbind(
-    object$fc |>
-      dplyr::mutate(old = TRUE),
+    object$fc,
     new_fc |>
-      dplyr::mutate(old = FALSE)
+      dplyr::mutate(end = TRUE,
+                    old = FALSE)
   ) |>
     dplyr::mutate(
       y = update_y(.data$y, .data$type, .data$x, .data$group)
@@ -435,7 +456,11 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
     object$fc <- rbind(
       object$fc |> dplyr::filter(.data$old),
       new_fc3 |>
-        tibble::as_tibble()
+        tibble::as_tibble() |>
+        dplyr::mutate(
+          end = FALSE,
+          .before = "old"
+        )
     )
 
   }

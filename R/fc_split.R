@@ -427,13 +427,33 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
     object$fc <- object$fc |>
       dplyr::select(-"id") |>
       dplyr::mutate(old = TRUE)
+
+    #If we select a group, it only updates the box in the group so the other group remains being the end of the flowchart
+    if(is.null(sel_group)) {
+
+      object$fc <- object$fc |>
+        dplyr::mutate(end = FALSE)
+
+    } else {
+
+      object$fc <- object$fc |>
+        dplyr::mutate(
+          end = dplyr::case_when(
+            .data$group %in% sel_group ~ FALSE,
+            .default = .data$end
+          )
+        )
+
+    }
+
   }
 
   object$fc <- rbind(
     object$fc,
     new_fc |>
       tibble::as_tibble() |>
-      dplyr::mutate(old = FALSE)
+      dplyr::mutate(end = TRUE,
+                    old = FALSE)
   ) |>
     dplyr::mutate(
       y = update_y(.data$y, .data$type, .data$x, .data$group),
@@ -491,7 +511,8 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
       object$fc,
       new_fc2 |>
         tibble::as_tibble() |>
-        dplyr::mutate(old = FALSE)
+        dplyr::mutate(end = FALSE,
+                      old = FALSE)
     ) |>
       dplyr::mutate(id = dplyr::row_number()) |>
       dplyr::relocate("id")

@@ -19,7 +19,8 @@ as_fc(
   border_color = "black",
   width = NA,
   height = NA,
-  hide = FALSE
+  hide = FALSE,
+  bold_n = FALSE
 )
 }
 \arguments{
@@ -29,7 +30,7 @@ as_fc(
 
 \item{label}{Character or expression with the text that will be shown in the box.}
 
-\item{text_pattern}{Structure that will have the text in the box. It recognizes label, n, N and perc within brackets. By default it is "\{label\}\\n\{N\}". If label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.}
+\item{text_pattern}{Structure that will have the text in the box. It recognizes label, n, N and perc within brackets. By default it is "\{label\}\\n\{N\}". If label is an expression or bold_n is TRUE, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.}
 
 \item{just}{Justification for the text: left, center or right. Default is center.}
 
@@ -52,6 +53,8 @@ as_fc(
 \item{height}{Height of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
 
 \item{hide}{Logical value to hide the initial box or not. Default is FALSE. hide = TRUE can only be combined with fc_split().}
+
+\item{bold_n}{Logical value to format the number in bold.}
 }
 \value{
 List with the dataset and the initialized flowchart parameters.

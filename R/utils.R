@@ -48,7 +48,11 @@ update_y <- function(y, type, x, group) {
       group_split = purrr::map(.data$group, ~unlist(stringr::str_split(., " // "))),
       all_groups = purrr::map(.data$group_split, function (x) purrr::map_chr(rev(1:length(x)), ~paste(x[1:.], collapse = " // "))),
       id_same_group = purrr::map2(.data$id_pre, .data$all_groups, function (x, y) {
+        if(!all(is.na(x))) {
           x[purrr::map_lgl(x, ~is.na(tbl_y$group[.]) | any(y %in% tbl_y$group[.]))]
+        } else {
+          NA
+        }
       })
     )
 
