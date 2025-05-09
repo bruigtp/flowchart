@@ -5,12 +5,12 @@
 #' @param filter Expression that returns a logical value and are defined in terms of the variables in the data frame. The data base will be filtered by this expression, and it will create a box showing the number of rows satisfying this condition.
 #' @param N Number of rows after the filter in case `filter` is NULL.
 #' @param label Character or expression that will be the title of the box. By default it will be the evaluated condition.
-#' @param text_pattern Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)". If label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.
+#' @param text_pattern Character or expression defining the structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)". If text_pattern or label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.
 #' @param perc_total logical. Should percentages be calculated using the total number of rows at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.
 #' @param show_exc Logical value. If TRUE a box showing the number of excluded rows will be added to the flow chart.
 #' @param direction_exc One of "left" or "right" indicating if the exclusion box goes into the left direction or in the right direction. By default is "right".
 #' @param label_exc Character or expression that will be the title of the added box showing the excluded patients. By default it will show "Excluded".
-#' @param text_pattern_exc Structure that will have the text in each of the excluded boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)". If label_exc is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern_exc is placed.
+#' @param text_pattern_exc Character or expression defining the structure that will have the text in the exclude box. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)". If text_pattern or label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern_exc is placed.
 #' @param sel_group Select the group in which to perform the filter. The default is NULL. Can only be used if the flowchart has previously been split. If the flowchart has more than one group, it can either be given the full name as it is stored in the `$fc` component (separated by '\\'), or it can be given as a vector with the names of each group to be selected.
 #' @param round_digits Number of digits to round percentages. It is 2 by default.
 #' @param just Justification for the text: left, center or right. Default is center.
@@ -248,25 +248,39 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
     dplyr::ungroup() |>
     dplyr::select(-N_total)
 
-  if(is.character(label)) {
+  if(is.expression(label) | is.expression(text_pattern)) {
 
-    new_fc <- new_fc |>
-      dplyr::mutate(text = as.character(stringr::str_glue(text_pattern)))
+    if(is.expression(text_pattern)) {
 
-  } else {
+      text_pattern_exp <- gsub("\\{label\\}", "", as.character(text_pattern)) |>
+        stringr::str_glue(.envir = rlang::as_environment(new_fc))
 
-    if(is.expression(label)) {
+      text_pattern_exp <- tryCatch(
+        parse(text = text_pattern_exp),
+        error = \(e) {
+          list(as.character(text_pattern_exp))
+        })
+
+      new_fc <- new_fc |>
+        dplyr::mutate(text = list(substitute(atop(x, y), list(x = label[[1]], y = text_pattern_exp[[1]]))))
+
+    } else {
 
       text_pattern_exp <- gsub("\\{label\\}", "", text_pattern)
 
       new_fc <- new_fc |>
         dplyr::mutate(text = list(substitute(atop(x, y), list(x = label[[1]], y = stringr::str_glue(text_pattern_exp)))))
 
-    } else {
-
-      cli::cli_abort("The {.arg label} must be a character or an expression.")
-
     }
+
+  } else if(is.character(label) & is.character(text_pattern)) {
+
+    new_fc <- new_fc |>
+      dplyr::mutate(text = as.character(stringr::str_glue(text_pattern)))
+
+  } else {
+
+    cli::cli_abort("The {.arg label} and {.arg text_pattern} must be either characters or expressions.")
 
   }
 
@@ -423,25 +437,39 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
       ) |>
       dplyr::select(-"parent", -"N_total")
 
-    if(is.character(label_exc)) {
+    if(is.expression(label_exc) | is.expression(text_pattern_exc)) {
 
-      new_fc2 <- new_fc2 |>
-        dplyr::mutate(text = as.character(stringr::str_glue(text_pattern_exc)))
+      if(is.expression(text_pattern_exc)) {
 
-    } else {
+        text_pattern_exc_exp <- gsub("\\{label\\}", "", as.character(text_pattern_exc)) |>
+          stringr::str_glue(.envir = rlang::as_environment(new_fc2))
 
-      if(is.expression(label_exc)) {
+        text_pattern_exc_exp <- tryCatch(
+          parse(text = text_pattern_exc_exp),
+          error = \(e) {
+            list(as.character(text_pattern_exc_exp))
+          })
+
+        new_fc2 <- new_fc2 |>
+          dplyr::mutate(text = list(substitute(atop(x, y), list(x = label_exc[[1]], y = text_pattern_exc_exp[[1]]))))
+
+      } else {
 
         text_pattern_exc_exp <- gsub("\\{label\\}", "", text_pattern_exc)
 
         new_fc2 <- new_fc2 |>
           dplyr::mutate(text = list(substitute(atop(x, y), list(x = label_exc[[1]], y = stringr::str_glue(text_pattern_exc_exp)))))
 
-      } else {
-
-        cli::cli_abort("The {.arg label_exc} has to be either a character or an expression.")
-
       }
+
+    } else if(is.character(label_exc) & is.character(text_pattern_exc)) {
+
+      new_fc2 <- new_fc2 |>
+        dplyr::mutate(text = as.character(stringr::str_glue(text_pattern_exc)))
+
+    } else {
+
+      cli::cli_abort("The {.arg label_exc} and {.arg text_pattern_exc} must be either characters or expressions.")
 
     }
 

@@ -119,6 +119,8 @@
 
 # flowchart (development version)
 
-* Split up `flowchart` vignette into multiple different articles and updated `_pkgdown.yml` to build `dev` version of site separately while defaulting to currently released CRAN version (#37)
+* Split up `flowchart` vignette into multiple different articles and updated `_pkgdown.yml` to build `dev` version of site separately while defaulting to currently released CRAN version (#37).
 
 * Stack flowcharts with `unite=TRUE` if there are more boxes in the last level of the first flowchart than in the first level of the second flowchart.
+
+* The `text_pattern` argument now allows expressions, so users can now format text other than the label in bold.
