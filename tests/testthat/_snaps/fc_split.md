@@ -28,7 +28,7 @@
       fc_split(fc, N = c(5, 5), label = 1)
     Condition
       Error in `fc_split()`:
-      ! The label must be a character or an expression.
+      ! The `label` and `text_pattern` must be either characters or expressions.
 
 # errors when sel_group used without previous split
 

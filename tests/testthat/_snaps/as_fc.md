@@ -28,7 +28,7 @@
       as_fc(N = 10, label = 1)
     Condition
       Error in `as_fc()`:
-      ! The label must be <character> or <expression>.
+      ! The `label` and `text_pattern` must be either characters or expressions.
 
 # warns and returns NULL fc when hide = TRUE
 

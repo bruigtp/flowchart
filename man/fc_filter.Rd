@@ -49,7 +49,7 @@ fc_filter(
 
 \item{label}{Character or expression that will be the title of the box. By default it will be the evaluated condition.}
 
-\item{text_pattern}{Structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)". If label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.}
+\item{text_pattern}{Character or expression defining the structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)". If text_pattern or label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.}
 
 \item{perc_total}{logical. Should percentages be calculated using the total number of rows at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.}
 
@@ -59,7 +59,7 @@ fc_filter(
 
 \item{label_exc}{Character or expression that will be the title of the added box showing the excluded patients. By default it will show "Excluded".}
 
-\item{text_pattern_exc}{Structure that will have the text in each of the excluded boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)". If label_exc is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern_exc is placed.}
+\item{text_pattern_exc}{Character or expression defining the structure that will have the text in the exclude box. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)". If text_pattern or label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern_exc is placed.}
 
 \item{sel_group}{Select the group in which to perform the filter. The default is NULL. Can only be used if the flowchart has previously been split. If the flowchart has more than one group, it can either be given the full name as it is stored in the `$fc` component (separated by '\\'), or it can be given as a vector with the names of each group to be selected.}
 

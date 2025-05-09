@@ -44,7 +44,7 @@
       fc_filter(fc, filter = TRUE, label = 1)
     Condition
       Error in `fc_filter()`:
-      ! The `label` must be a character or an expression.
+      ! The `label` and `text_pattern` must be either characters or expressions.
 
 # errors with invalid label_exc type
 
@@ -52,7 +52,7 @@
       fc_filter(fc, filter = TRUE, show_exc = TRUE, label_exc = 1)
     Condition
       Error in `fc_filter()`:
-      ! The `label_exc` has to be either a character or an expression.
+      ! The `label_exc` and `text_pattern_exc` must be either characters or expressions.
 
 # errors when sel_group used without groups
 
