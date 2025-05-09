@@ -60,8 +60,7 @@
 <span>  border_color <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  height <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  hide <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  bold_n <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  hide <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -82,7 +81,7 @@
 
 
 <dt id="arg-text-pattern">text_pattern<a class="anchor" aria-label="anchor" href="#arg-text-pattern"></a></dt>
-<dd><p>Structure that will have the text in the box. It recognizes label, n, N and perc within brackets. By default it is "{label}\n{N}". If label is an expression or bold_n is TRUE, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.</p></dd>
+<dd><p>Character or expression defining the structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "{label}\n {n}". If text_pattern or label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.</p></dd>
 
 
 <dt id="arg-just">just<a class="anchor" aria-label="anchor" href="#arg-just"></a></dt>
@@ -127,10 +126,6 @@
 
 <dt id="arg-hide">hide<a class="anchor" aria-label="anchor" href="#arg-hide"></a></dt>
 <dd><p>Logical value to hide the initial box or not. Default is FALSE. hide = TRUE can only be combined with fc_split().</p></dd>
-
-
-<dt id="arg-bold-n">bold_n<a class="anchor" aria-label="anchor" href="#arg-bold-n"></a></dt>
-<dd><p>Logical value to format the number in bold.</p></dd>
 
 </dl></div>
     <div class="section level2">
