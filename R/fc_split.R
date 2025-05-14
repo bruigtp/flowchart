@@ -495,6 +495,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
       new_fc2 <- new_fc2 |>
         dplyr::filter(.data$n_boxes == 2) |>
         dplyr::left_join(object_center, by = "group") |>
+        dplyr::first() |>
         dplyr::mutate(
           id = NA,
           x = .data$center,

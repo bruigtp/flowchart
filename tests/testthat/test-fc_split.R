@@ -49,8 +49,8 @@ test_that("handles custom labels", {
 test_that("handles title correctly", {
   fc <- as_fc(N = 10)
   result <- fc_split(fc, N = c(5,5), title = "Test Title")
-  expect_equal(sum(result$fc$type == "title_split"), 2)
-  expect_equal(result$fc$text[result$fc$type == "title_split"], c("Test Title", "Test Title"))
+  expect_equal(sum(result$fc$type == "title_split"), 1)
+  expect_equal(result$fc$text[result$fc$type == "title_split"], "Test Title")
 })
 
 test_that("preserves styling parameters", {

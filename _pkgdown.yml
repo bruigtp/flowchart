@@ -34,7 +34,9 @@ reference:
   - fc_split
 - title: Customizing flowchart
   desc: Function to customize a flowchart
-  contents: fc_modify
+  contents:
+  - fc_theme
+  - fc_modify
 - title: Combining flowcharts
   desc: Functions to combine different flowcharts
   contents:

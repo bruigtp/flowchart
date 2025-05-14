@@ -36,8 +36,11 @@
 #'
 #' @examples
 #' safo |>
-#' as_fc(label = "Patients assessed for eligibility") |>
-#' fc_draw()
+#'   dplyr::filter(!is.na(group)) |>
+#'   as_fc(label = "Randomized patients") |>
+#'   fc_split(group) |>
+#'   fc_theme(text_fs = 11, text_color = "#324C54", text_fface = 2, bg_fill = "#ADD8E6") |>
+#'   fc_draw()
 #'
 #' @export
 

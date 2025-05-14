@@ -22,13 +22,38 @@ library(stringr)
 library(tibble)
 ```
 
-We can customize the `flowchart` either with the arguments provided by each function in the process of creating it, or directly in the final output using the function `fc_modify`. We can also change the box style for all boxes in the `flowchart` using an argument in `fc_draw`.
+We can customize the `flowchart` either with the arguments provided by each function in the process of creating it, or directly in the final output using the `fc_theme()` or `fc_modify()` functions.
 
 # Change function arguments
 
 There are many different arguments in `as_fc()`, `fc_filter()`, `fc_split()`, and `fc_draw()` that allow you to customize the boxes created at each step. See the documentation for these functions for more information. Some examples of how to use these arguments are given at the end of the vignette: [Customization examples].
 
-# Function to customize the `flowchart`
+# Functions to customize the `flowchart`
+
+## `fc_theme()`
+
+We can use `fc_theme()` to set all parameters for all boxes in a flowchart at once. This is useful if we want to apply the same style to all the boxes. For example, let's customize the following `flowchart`:
+
+```{r}
+safo |> 
+  dplyr::filter(!is.na(group)) |> 
+  as_fc(label = "Randomized patients") |>
+  fc_split(group) |> 
+  fc_draw()
+```
+
+Let's change the style of all the boxes:
+
+```{r}
+safo |> 
+  dplyr::filter(!is.na(group)) |> 
+  as_fc(label = "Randomized patients") |>
+  fc_split(group) |>
+  fc_theme(text_fs = 11, text_color = "#324C54", text_fface = 2, bg_fill = "#ADD8E6") |> 
+  fc_draw()
+```
+
+## `fc_modify()`
 
 The function `fc_modify` allows the user to customise the created `flowchart` by modifying its parameters, which are stored in `.$fc`. 
 
@@ -40,6 +65,35 @@ safo_fc <- safo |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) 
 
 safo_fc |> 
+  fc_draw()
+```
+
+Previous to modifying it, we can use the function fc_view() to inspect the element $fc that we want to change:
+
+```{r}
+safo_fc |> 
+  fc_view("fc")
+```
+
+Let’s customise the text in the exclusion box (id = 3) to specify different reasons for exclusion, and change the x and y coordinate:
+
+```{r}
+safo_fc |> 
+  fc_modify(
+    ~ . |> 
+      mutate(
+        text = ifelse(id == 3, str_glue("- {sum(safo$inclusion_crit == 'Yes')} not met the inclusion criteria\n- {sum(safo$exclusion_crit == 'Yes')} met the exclusion criteria"), text),
+        x = case_when(
+          id == 3 ~ 0.75,
+          TRUE ~ x
+        ),
+        y = case_when(
+          id == 1 ~ 0.8,
+          id == 2 ~ 0.2,
+          TRUE ~ y
+        )
+      )
+  ) |> 
   fc_draw()
 ```
 
@@ -174,7 +228,9 @@ safo |>
 
 ## Use expressions
 
-We can use expressions in the label of each box. Expressions allow you to use bold or italic text without having to change the font of all the box text. For example:
+We can use expressions in the label or the text pattern of each box. Expressions allow you to use bold or italic text without having to change the font of all the box text. 
+
+For example, let's put and expression in the label:
 
 ```{r}
 safo |> 
@@ -182,11 +238,24 @@ safo |>
   fc_draw()
 ```
 
+Now, let's use it also in the text pattern of the box:
+
+```{r}
+safo |>
+  as_fc(label = expression(paste("Patients ", italic("assessed"), " for ", bold("eligibility"))), text_pattern = expression(paste("{label}", bold("{n}")))) |>
+  fc_filter(filter = chronic_heart_failure == "No",
+            label = expression(paste(italic("No chronic"), bold(" heart failure"))),
+            label_exc = expression(paste(bold("Chronic"), " heart failure")),
+            text_pattern = expression(paste("{label}", N, " = ", bold("{n}"), "/{N}: ", italic("{perc}"), "%")),
+            text_pattern_exc = expression(paste("{label}", bold("{n}"), "({perc})%")),
+            show_exc = TRUE) |>
+  fc_draw()
+```
+
 Expressions even allow the use of formulas. For example:
 
 ```{r}
-safo |> 
-  as_fc(label = expression(paste(y, " = ", alpha, " + ", beta, x))) |>
+as_fc(N = 500, label = expression(paste(y, " = ", alpha, " + ", beta, x)), text_pattern = expression(paste("{label}", bold("{n}")))) |>
   fc_draw()
 ```
 

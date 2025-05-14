@@ -58,11 +58,48 @@ list(fc1, fc2) |>
   fc_draw()
 ```
 
-We can use the argument `unite = TRUE` to connect two stacked `flowchart`s. For example:
+We can use the argument `unite = TRUE` to connect two stacked `flowchart`s. Two flowcharts can be merged only if they have the same boxes at the beginning and at the end, or if one of the flowcharts has one box at the beginning or at the end. For example:
 
 ```{r warning=FALSE, fig.width = 6, fig.height = 5}
-fc1 <- fc1 |> 
+fc1 <- safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(itt == "Yes", label = "Intention to treat (ITT)")  |> 
   fc_split(group)
+
+fc2 <-  safo |> 
+  dplyr::filter(pp == "Yes") |> 
+  as_fc(label = "Per protocol (PP)")
+
+list(fc1, fc2) |> 
+  fc_stack(unite = TRUE) |> 
+  fc_draw()
+```
+
+```{r warning=FALSE, fig.width = 6, fig.height = 5}
+fc1 <- safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(itt == "Yes", label = "Intention to treat (ITT)") 
+
+fc2 <-  safo |> 
+  dplyr::filter(pp == "Yes") |> 
+  as_fc(hide = TRUE) |> 
+  fc_split(group, label = c("cloxacillin plus fosfomycin (PP)", "cloxacillin alone (PP)"), text_pattern = "{label}\n{n}") 
+
+list(fc1, fc2) |> 
+  fc_stack(unite = TRUE) |> 
+  fc_draw()
+```
+
+```{r warning=FALSE, fig.width = 6, fig.height = 5}
+fc1 <- safo |> 
+  as_fc(label = "Patients assessed for eligibility") |>
+  fc_filter(itt == "Yes", label = "Intention to treat (ITT)") |> 
+  fc_split(group, label = c("cloxacillin plus fosfomycin (ITT)", "cloxacillin alone (ITT)"))
+
+fc2 <-  safo |> 
+  dplyr::filter(pp == "Yes") |> 
+  as_fc(hide = TRUE) |> 
+  fc_split(group, label = c("cloxacillin plus fosfomycin (PP)", "cloxacillin alone (PP)"), text_pattern = "{label}\n{n}") 
 
 list(fc1, fc2) |> 
   fc_stack(unite = TRUE) |> 

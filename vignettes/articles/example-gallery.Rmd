@@ -22,7 +22,6 @@ library(stringr)
 library(tibble)
 ```
 
-
 # Example 1
 
 In this example, we will try to create a `flowchart` for the complete flow of patients in the SAFO study:
