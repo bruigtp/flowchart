@@ -12,7 +12,8 @@ fc_export(
   width = NA,
   height = NA,
   units = NULL,
-  res = 100
+  res = 100,
+  ...
 )
 }
 \arguments{
@@ -29,6 +30,8 @@ fc_export(
 \item{units}{One of the following units in which the width and height arguments are expressed: "in", "cm", "mm" for vector formats and "in", "cm", "mm" or "px" for bitmap formats. If left `NULL` (default), the function will automatically use "px" for bitmap formats and "in" for vector formats.}
 
 \item{res}{The nominal resolution in ppi which will be recorded in the bitmap file, if a positive integer. Also used for units other than the default, and to convert points to pixels. Default is 100 if exporting in bitmap format. This argument is unused if exporting to a vector format.}
+
+\item{...}{Arguments to be passed to the device function used to save the flowchart. The available parameters will differ depending on the format (e.g., \code{\link{png}}).}
 }
 \value{
 Invisibly returns the same object that has been given to the function.

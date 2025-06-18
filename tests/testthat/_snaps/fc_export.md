@@ -56,6 +56,8 @@
       If `width` is missing for vector formats ("svg", "pdf"), default `width` is 6 inches.
       Warning:
       If `height` is missing for vector formats ("svg", "pdf"), default `height` is 6 inches.
+    Message
+      The function `grDevices::cairo_pdf()` is used to export the flowchart.
 
 # warns about default dimensions for bitmap formats
 

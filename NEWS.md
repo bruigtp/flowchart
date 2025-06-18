@@ -126,3 +126,5 @@
 * The `text_pattern` argument now allows expressions, so users can now format text other than the label in bold.
 
 * New `fc_theme()` function to set all parameters for all boxes in a flowchart at once.
+
+* Now all arguments available in the graphic device function are also available in the `fc_export()` function.
