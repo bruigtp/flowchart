@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flowchart</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.8.0.9003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.8.0.9004</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,6 +47,9 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fc_theme</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
+<span>  text_pattern <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  text_pattern_init <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  text_pattern_exc <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  just <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  text_color <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  text_fs <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -85,6 +88,18 @@
 
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
 <dd><p>fc object.</p></dd>
+
+
+<dt id="arg-text-pattern">text_pattern<a class="anchor" aria-label="anchor" href="#arg-text-pattern"></a></dt>
+<dd><p>Text pattern for all the boxes, except the initial and exclusion ones.</p></dd>
+
+
+<dt id="arg-text-pattern-init">text_pattern_init<a class="anchor" aria-label="anchor" href="#arg-text-pattern-init"></a></dt>
+<dd><p>Text pattern for the initial box.</p></dd>
+
+
+<dt id="arg-text-pattern-exc">text_pattern_exc<a class="anchor" aria-label="anchor" href="#arg-text-pattern-exc"></a></dt>
+<dd><p>Text pattern for the exclusion box.</p></dd>
 
 
 <dt id="arg-just">just<a class="anchor" aria-label="anchor" href="#arg-just"></a></dt>
