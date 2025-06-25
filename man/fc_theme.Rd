@@ -6,6 +6,9 @@
 \usage{
 fc_theme(
   object,
+  text_pattern = NULL,
+  text_pattern_init = NULL,
+  text_pattern_exc = NULL,
   just = NULL,
   text_color = NULL,
   text_fs = NULL,
@@ -39,6 +42,12 @@ fc_theme(
 }
 \arguments{
 \item{object}{fc object.}
+
+\item{text_pattern}{Text pattern for all the boxes, except the initial and exclusion ones.}
+
+\item{text_pattern_init}{Text pattern for the initial box.}
+
+\item{text_pattern_exc}{Text pattern for the exclusion box.}
 
 \item{just}{Justification for the text: left, center or right.}
 

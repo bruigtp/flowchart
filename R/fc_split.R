@@ -299,9 +299,12 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
 
   }
 
+  new_fc <- if(is.expression(label)) new_fc |> dplyr::mutate(label = list(label)) else new_fc |> dplyr::mutate(label = label)
+
+  new_fc <- if(is.expression(text_pattern)) new_fc |> dplyr::mutate(text_pattern = list(text_pattern)) else new_fc |> dplyr::mutate(text_pattern = text_pattern)
 
   new_fc <- new_fc |>
-    dplyr::relocate("text", .after = "perc")
+    dplyr::relocate(c("label", "text_pattern", "text"), .after = "perc")
 
   if(is.null(sel_group)) {
     object$data <- object$data |>
@@ -440,7 +443,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
     )) |>
     tidyr::unite("group", c("group", "label0"), sep = " // ", na.rm = TRUE) |>
     dplyr::ungroup() |>
-    dplyr::select("x", "y", "n", "N", "perc", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color", "width", "height")
+    dplyr::select("x", "y", "n", "N", "perc", "label", "text_pattern", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color", "width", "height")
 
   #remove the id previous to adding the next one
   if(!is.null(object$fc)) {
@@ -504,6 +507,8 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
           n = NA,
           N = NA,
           perc = NA,
+          label = NA,
+          text_pattern = NA,
           text = title,
           type = "title_split",
           just = "center",

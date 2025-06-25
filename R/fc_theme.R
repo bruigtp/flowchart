@@ -2,6 +2,9 @@
 #' @description This function allows you to change the appearance of all boxes of a flowchart at once.
 #'
 #' @param object fc object.
+#' @param text_pattern Text pattern for all the boxes, except the initial and exclusion ones.
+#' @param text_pattern_init Text pattern for the initial box.
+#' @param text_pattern_exc Text pattern for the exclusion box.
 #' @param just Justification for the text: left, center or right.
 #' @param text_color Color of the text. See the `col` parameter for \code{\link{gpar}}.
 #' @param text_fs Font size of the text. See the `fontsize` parameter for \code{\link{gpar}}.
@@ -44,14 +47,181 @@
 #'
 #' @export
 
-fc_theme <- function(object, just = NULL, text_color = NULL, text_fs = NULL, text_fface = NULL, text_ffamily = NULL, text_padding = NULL, bg_fill = NULL, border_color = NULL, width = NULL, height = NULL, just_exc = NULL, text_color_exc = NULL, text_fs_exc = NULL, text_fface_exc = NULL, text_ffamily_exc = NULL, text_padding_exc = NULL, bg_fill_exc = NULL, border_color_exc = NULL, width_exc = NULL, height_exc = NULL, text_color_title = NULL, text_fs_title = NULL, text_fface_title = NULL, text_ffamily_title = NULL, text_padding_title = NULL, bg_fill_title = NULL, border_color_title = NULL, width_title = NULL, height_title = NULL) {
+fc_theme <- function(object, text_pattern = NULL, text_pattern_init = NULL, text_pattern_exc = NULL, just = NULL, text_color = NULL, text_fs = NULL, text_fface = NULL, text_ffamily = NULL, text_padding = NULL, bg_fill = NULL, border_color = NULL, width = NULL, height = NULL, just_exc = NULL, text_color_exc = NULL, text_fs_exc = NULL, text_fface_exc = NULL, text_ffamily_exc = NULL, text_padding_exc = NULL, bg_fill_exc = NULL, border_color_exc = NULL, width_exc = NULL, height_exc = NULL, text_color_title = NULL, text_fs_title = NULL, text_fface_title = NULL, text_ffamily_title = NULL, text_padding_title = NULL, bg_fill_title = NULL, border_color_title = NULL, width_title = NULL, height_title = NULL) {
 
   is_class(object, "fc")
   UseMethod("fc_theme")
 
 }
 
-fc_theme <- function(object, just = NULL, text_color = NULL, text_fs = NULL, text_fface = NULL, text_ffamily = NULL, text_padding = NULL, bg_fill = NULL, border_color = NULL, width = NULL, height = NULL, just_exc = NULL, text_color_exc = NULL, text_fs_exc = NULL, text_fface_exc = NULL, text_ffamily_exc = NULL, text_padding_exc = NULL, bg_fill_exc = NULL, border_color_exc = NULL, width_exc = NULL, height_exc = NULL, text_color_title = NULL, text_fs_title = NULL, text_fface_title = NULL, text_ffamily_title = NULL, text_padding_title = NULL, bg_fill_title = NULL, border_color_title = NULL, width_title = NULL, height_title = NULL) {
+fc_theme <- function(object, text_pattern = NULL, text_pattern_init = NULL, text_pattern_exc = NULL, just = NULL, text_color = NULL, text_fs = NULL, text_fface = NULL, text_ffamily = NULL, text_padding = NULL, bg_fill = NULL, border_color = NULL, width = NULL, height = NULL, just_exc = NULL, text_color_exc = NULL, text_fs_exc = NULL, text_fface_exc = NULL, text_ffamily_exc = NULL, text_padding_exc = NULL, bg_fill_exc = NULL, border_color_exc = NULL, width_exc = NULL, height_exc = NULL, text_color_title = NULL, text_fs_title = NULL, text_fface_title = NULL, text_ffamily_title = NULL, text_padding_title = NULL, bg_fill_title = NULL, border_color_title = NULL, width_title = NULL, height_title = NULL) {
+
+  #Change text patterns:
+
+  #In all boxes (except init, exc and title_split)
+  if(!is.null(text_pattern)) {
+
+    id_all <- which(!object$fc$type %in% c("init", "exclude", "title_split"))
+
+    object$fc$text_pattern[id_all] <- if(is.expression(text_pattern)) list(text_pattern) else text_pattern
+
+    for(i in id_all) {
+
+      label_all <- object$fc$label[[i]]
+
+      if(is.expression(label_all) | is.expression(text_pattern)) {
+
+        if(is.expression(text_pattern)) {
+
+          text_pattern_exp <- gsub("\\{label\\}", "", as.character(text_pattern)) |>
+            stringr::str_glue(.envir = rlang::as_environment(object$fc[i, ]))
+
+          text_pattern_exp <- tryCatch(
+            parse(text = text_pattern_exp),
+            error = \(e) {
+              list(as.character(text_pattern_exp))
+            })
+
+          if(is.character(object$fc$text)) {
+            object$fc$text <- list(object$fc$text)
+          }
+
+          object$fc[i, ] <- object$fc[i, ] |>
+            dplyr::mutate(text = list(substitute(atop(x, y), list(x = label_all[[1]], y = text_pattern_exp[[1]]))))
+
+        } else {
+
+          text_pattern_exp <- gsub("\\{label\\}", "", text_pattern)
+
+          object$fc[i, ] <- object$fc[i, ] |>
+            dplyr::mutate(text = list(substitute(atop(x, y), list(x = label_all[[1]], y = stringr::str_glue(text_pattern_exp)))))
+
+        }
+
+      } else if(is.character(label_all) & is.character(text_pattern)) {
+
+        object$fc[i, ] <- object$fc[i, ] |>
+          dplyr::mutate(text = as.character(stringr::str_glue(text_pattern)))
+
+      } else {
+
+        cli::cli_abort("The {.arg text_pattern} must be either a character or expression.")
+
+      }
+
+    }
+
+  }
+
+  #Initial box
+  if(!is.null(text_pattern_init)) {
+
+    id_init <- which(object$fc$type == "init")
+
+    object$fc$text_pattern[id_init] <- if(is.expression(text_pattern_init)) list(text_pattern_init) else text_pattern_init
+
+    for(i in id_init) {
+
+      label_init <- object$fc$label[[i]]
+
+      if(is.expression(label_init) | is.expression(text_pattern_init)) {
+
+        if(is.expression(text_pattern_init)) {
+
+          text_pattern_exp <- gsub("\\{label\\}", "", as.character(text_pattern_init)) |>
+            stringr::str_glue(.envir = rlang::as_environment(object$fc[i, ]))
+
+          text_pattern_exp <- tryCatch(
+            parse(text = text_pattern_exp),
+            error = \(e) {
+              list(as.character(text_pattern_exp))
+            })
+
+          if(is.character(object$fc$text)) {
+            object$fc$text <- list(object$fc$text)
+          }
+
+          object$fc[i, ] <- object$fc[i, ] |>
+            dplyr::mutate(text = list(substitute(atop(x, y), list(x = label_init[[1]], y = text_pattern_exp[[1]]))))
+
+        } else {
+
+          text_pattern_exp <- gsub("\\{label\\}", "", text_pattern_init)
+
+          object$fc[i, ] <- object$fc[i, ] |>
+            dplyr::mutate(text = list(substitute(atop(x, y), list(x = label_init[[1]], y = stringr::str_glue(text_pattern_exp)))))
+
+        }
+
+      } else if(is.character(label_init) & is.character(text_pattern_init)) {
+
+        object$fc[i, ] <- object$fc[i, ] |>
+          dplyr::mutate(text = as.character(stringr::str_glue(text_pattern_init)))
+
+      } else {
+
+        cli::cli_abort("The {.arg text_pattern_init} must be either a character or expression.")
+
+      }
+
+    }
+
+  }
+
+  #Exclude:
+  if(!is.null(text_pattern_exc)) {
+
+    id_exc <- which(object$fc$type == "exclude")
+
+    object$fc$text_pattern[id_exc] <- if(is.expression(text_pattern_exc)) list(text_pattern_exc) else text_pattern_exc
+
+    for(i in id_exc) {
+
+      label_exc <- object$fc$label[[i]]
+
+      if(is.expression(label_exc) | is.expression(text_pattern_exc)) {
+
+        if(is.expression(text_pattern_exc)) {
+
+          text_pattern_exp <- gsub("\\{label\\}", "", as.character(text_pattern_exc)) |>
+            stringr::str_glue(.envir = rlang::as_environment(object$fc[i, ]))
+
+          text_pattern_exp <- tryCatch(
+            parse(text = text_pattern_exp),
+            error = \(e) {
+              list(as.character(text_pattern_exp))
+            })
+
+          if(is.character(object$fc$text)) {
+            object$fc$text <- list(object$fc$text)
+          }
+
+          object$fc[i, ] <- object$fc[i, ] |>
+            dplyr::mutate(text = list(substitute(atop(x, y), list(x = label_exc[[1]], y = text_pattern_exp[[1]]))))
+
+        } else {
+
+          text_pattern_exp <- gsub("\\{label\\}", "", text_pattern_exc)
+
+          object$fc[i, ] <- object$fc[i, ] |>
+            dplyr::mutate(text = list(substitute(atop(x, y), list(x = label_exc[[1]], y = stringr::str_glue(text_pattern_exp)))))
+
+        }
+
+      } else if(is.character(label_exc) & is.character(text_pattern_exc)) {
+
+        object$fc[i, ] <- object$fc[i, ] |>
+          dplyr::mutate(text = as.character(stringr::str_glue(text_pattern_exc)))
+
+      } else {
+
+        cli::cli_abort("The {.arg text_pattern_exc} must be either a character or expression.")
+
+      }
+
+    }
+
+  }
 
   #Get the arguments different from NULL in a parameterizated way
   arg <- rlang::fn_fmls_names()
@@ -63,7 +233,7 @@ fc_theme <- function(object, just = NULL, text_color = NULL, text_fs = NULL, tex
       dplyr::mutate(
         is_null = purrr::map_lgl(.data$arg, ~is.null(get(.)))
       ) |>
-      dplyr::filter(!.data$is_null) |>
+      dplyr::filter(!.data$is_null & !grepl("^text_pattern", .data$arg)) |>
       dplyr::mutate(
         value = purrr::map(.data$arg, ~get(.))
       )
@@ -121,7 +291,7 @@ fc_theme <- function(object, just = NULL, text_color = NULL, text_fs = NULL, tex
 
   } else {
 
-    cli::cli_warn("No parameter will be modified as all arguments are set to {.val NULL}.")
+    if(is.null(text_pattern) & is.null(text_pattern_init) & is.null(text_pattern_exc)) cli::cli_warn("No parameter will be modified as all arguments are set to {.val NULL}.")
 
   }
 

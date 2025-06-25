@@ -104,9 +104,12 @@ as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_patt
 
     }
 
+    new_fc <- if(is.expression(label)) new_fc |> dplyr::mutate(label = list(label)) else new_fc |> dplyr::mutate(label = label)
+
+    new_fc <- if(is.expression(text_pattern)) new_fc |> dplyr::mutate(text_pattern = list(text_pattern)) else new_fc |> dplyr::mutate(text_pattern = text_pattern)
 
     new_fc <- new_fc |>
-      dplyr::relocate("text", .after = "perc")
+      dplyr::relocate(c("label", "text_pattern", "text"), .after = "perc")
 
   } else {
 

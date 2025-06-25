@@ -196,8 +196,8 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
   } else {
 
     new_fc <- new_fc |>
-      dplyr::mutate_at(tidyselect::all_of(group0), ~dplyr::case_when(is.na(.) ~ "NA", .default = .))|>
-      tidyr::unite("group", c(tidyselect::all_of(group0)), sep = " // ", na.rm = TRUE) |>
+      dplyr::mutate_at(group0, ~dplyr::case_when(is.na(.) ~ "NA", .default = .))|>
+      tidyr::unite("group", group0, sep = " // ", na.rm = TRUE) |>
       dplyr::left_join(object$fc |> dplyr::filter(.data$type != "exclude") |> dplyr::select("x", "group"), by = "group") |>
       dplyr::mutate(group = factor(.data$group, levels = unique(.data$group))) |>
       dplyr::group_by(.data$group) |>
@@ -284,20 +284,23 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
 
   }
 
-  new_fc <- new_fc |>
-    dplyr::relocate("text", .after = "perc")
+  new_fc <- if(is.expression(label)) new_fc |> dplyr::mutate(label = list(label)) else new_fc |> dplyr::mutate(label = label)
 
+  new_fc <- if(is.expression(text_pattern)) new_fc |> dplyr::mutate(text_pattern = list(text_pattern)) else new_fc |> dplyr::mutate(text_pattern = text_pattern)
+
+  new_fc <- new_fc |>
+    dplyr::relocate(c("label", "text_pattern", "text"), .after = "perc")
 
   if(is.null(sel_group)) {
 
     new_fc <- new_fc |>
-      dplyr::select("x", "y", "n", "N", "perc", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color", "width", "height")
+      dplyr::select("x", "y", "n", "N", "perc", "label", "text_pattern", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color", "width", "height")
 
   } else {
 
     new_fc <- new_fc |>
       dplyr::filter(.data$group %in% sel_group) |>
-      dplyr::select("x", "y", "n", "N", "perc", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color", "width", "height")
+      dplyr::select("x", "y", "n", "N", "perc", "label", "text_pattern", "text", "type", "group", "just", "text_color", "text_fs", "text_fface", "text_ffamily", "text_padding", "bg_fill", "border_color", "width", "height")
 
   }
 
@@ -473,8 +476,12 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
 
     }
 
+    new_fc2 <- if(is.expression(label_exc)) new_fc2 |> dplyr::mutate(label = list(label_exc)) else new_fc2 |> dplyr::mutate(label = label_exc)
+
+    new_fc2 <- if(is.expression(text_pattern_exc)) new_fc2 |> dplyr::mutate(text_pattern = list(text_pattern_exc)) else new_fc2 |> dplyr::mutate(text_pattern = text_pattern_exc)
+
     new_fc2 <- new_fc2 |>
-      dplyr::relocate("text", .after = "perc")
+      dplyr::relocate(c("label", "text_pattern", "text"), .after = "perc")
 
     new_fc3 <- NULL
     for(i in 1:nrow(new_fc2)) {
@@ -514,12 +521,11 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
 
     filter_to_parse <- stringr::str_glue("{filter_to_parse} | temp_var_PauSatorra_12345 != '{sel_group}'")
     object$data <- object$data |>
-      tidyr::unite("temp_var_PauSatorra_12345", c(tidyselect::all_of(groups)), sep = " // ", na.rm = TRUE, remove = FALSE) |>
+      tidyr::unite("temp_var_PauSatorra_12345", groups, sep = " // ", na.rm = TRUE, remove = FALSE) |>
       dplyr::filter(rlang::eval_tidy(rlang::parse_expr(filter_to_parse))) |>
       dplyr::select(-"temp_var_PauSatorra_12345")
   }
 
   object
-
 
 }
