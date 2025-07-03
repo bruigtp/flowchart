@@ -310,6 +310,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
     object$data <- object$data |>
       dplyr::group_by_at(c(group0, var), .drop = FALSE)
   }
+  #Aqui hem de ficar una opció else per agrupar-ho si hi ha un sel_group per una nova variable que tingui NA en el reject. Es pot dir [nom_variable]_sel_group
 
   # x coordinate for the created boxes.
   #if there are no groups:

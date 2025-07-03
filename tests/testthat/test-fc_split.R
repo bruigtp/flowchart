@@ -53,6 +53,13 @@ test_that("handles title correctly", {
   expect_equal(result$fc$text[result$fc$type == "title_split"], "Test Title")
 })
 
+test_that("handles hide=TRUE correctly", {
+  fc <- suppressWarnings(as_fc(N = 10, hide = TRUE))
+  result <- fc_split(fc, N = c(6,4))
+  expect_equal(nrow(result$fc), 2)
+  expect_equal(unique(result$fc$type), "split")
+})
+
 test_that("preserves styling parameters", {
   fc <- as_fc(N = 10)
   result <- fc_split(fc, N = c(5,5),

@@ -382,6 +382,7 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
     label <- label_exc
 
     new_fc2 <- new_fc |>
+      dplyr::select(-"label") |>
       dplyr::mutate(
         parent = purrr::map(.data$x, ~object$fc |>
                               dplyr::filter(.data$x == .x, .data$old) |>

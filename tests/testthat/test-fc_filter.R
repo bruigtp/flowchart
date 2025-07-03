@@ -78,3 +78,14 @@ test_that("errors informatively with nonexistent group", {
     error = TRUE
   )
 })
+
+test_that("change label of the excluded box", {
+  fc <- as_fc(N = 10) |>
+    fc_filter(N = 2, show_exc = TRUE, label_exc = "A")
+
+  label_exc <- fc$fc$label[fc$fc$type == "exclude"]
+  expect_equal(
+    label_exc,
+    "A"
+  )
+})
