@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flowchart</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.8.0.9005</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.8.0.9006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -351,9 +351,11 @@ the argument <code>sel_group=</code>:</p>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">60</span><span class="op">)</span>, sel_group <span class="op">=</span> <span class="st">"cloxacillin alone"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: `object$data` has been grouped by a new variable called `split1_sel_group`,</span></span>
+<span><span class="co">## because `sel_group` has been used in the split.</span></span></code></pre>
 <p><img src="flowchart-customization_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
 <p>Then, we could also perform a filter in the other group:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -361,11 +363,13 @@ the argument <code>sel_group=</code>:</p>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">60</span><span class="op">)</span>, sel_group <span class="op">=</span> <span class="st">"cloxacillin alone"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fl">50</span>, sel_group <span class="op">=</span> <span class="st">"cloxacillin plus fosfomycin"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: `object$data` has been grouped by a new variable called `split1_sel_group`,</span></span>
+<span><span class="co">## because `sel_group` has been used in the split.</span></span></code></pre>
 <p><img src="flowchart-customization_files/figure-html/unnamed-chunk-20-1.png" width="576"></p>
 <p>If we want to select a group in a <code>flowchart</code> with more
 than two groups we have to supply a vector in <code>sel_group=</code>
 with the desired groups to be selected:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -377,7 +381,7 @@ with the desired groups to be selected:</p>
 <p>Previous to modifying it, we can use the function
 <code><a href="../reference/fc_view.html">fc_view()</a></code> to inspect the element <code>$fc</code> that we
 want to change:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo_fc</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_view.html">fc_view</a></span><span class="op">(</span><span class="st">"fc"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 3 × 22</span></span></span>
@@ -392,7 +396,7 @@ want to change:</p>
 <p>Let’s customise the text in the exclusion box (<code>id = 3</code>)
 to specify different reasons for exclusion, and change the <em>x</em>
 and <em>y</em> coordinate:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo_fc</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_modify.html">fc_modify</a></span><span class="op">(</span></span>
 <span>    <span class="op">~</span> <span class="va">.</span> <span class="op">|&gt;</span> </span>
