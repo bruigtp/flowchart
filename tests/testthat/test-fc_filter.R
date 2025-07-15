@@ -35,6 +35,20 @@ test_that("errors when sel_group used without groups", {
   expect_snapshot(fc_filter(fc, filter = TRUE, sel_group = "A"), error = TRUE)
 })
 
+test_that("handles filter after a sel_group", {
+  expect_warning(
+    fc <- as_fc(N = 100) |>
+      fc_split(N = c(60, 40)) |>
+      fc_split(N = c(30, 10), sel_group = "group 2") |>
+      fc_filter(N = 5, sel_group = "group 1")
+  )
+
+  expect_no_error(fc |> fc_draw())
+  expect_equal(nrow(fc$fc), 6)
+  expect_equal(fc$fc$text[6], "filter1\n5 (8.33%)")
+
+})
+
 test_that("accepts valid filter expression", {
   df <- data.frame(x = 1:10, y = c(rep(TRUE, 5), rep(FALSE, 5)))
   fc <- as_fc(df)

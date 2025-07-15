@@ -118,15 +118,21 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
 
     if(!is.null(tbl_groups)) {
 
+      #Exclude zeros (when sel_group is used in a split previously)
+      tbl_groups <- tbl_groups |>
+        dplyr::filter(lengths(.data$.rows) != 0)
+
       if(!is.null(sel_group)) {
 
         tbl_groups <- tbl_groups |>
-          tidyr::unite("groups", -".rows", sep = " // ")
+          #Deal with missings from sel_group variables
+          dplyr::mutate(dplyr::across(!".rows", ~dplyr::case_when(is.na(.) & !grepl("sel_group$", dplyr::cur_column()) ~ "NA", .default = .))) |>
+          tidyr::unite("groups", -".rows", sep = " // ", na.rm = TRUE)
 
         if(sel_group %in% tbl_groups$groups) {
 
           tbl_groups <- tbl_groups |>
-            dplyr::filter(groups == sel_group)
+            dplyr::filter(.data$groups == sel_group)
 
         } else {
 
@@ -181,7 +187,9 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
     dplyr::summarise(
       n = sum(rlang::eval_tidy(rlang::parse_expr(filter_to_parse)), na.rm = TRUE),
       N = dplyr::n()
-    )
+    ) |>
+    #Exclude zeros (when sel_group is used in a split previously)
+    dplyr::filter(N != 0)
 
   if(is.null(group0)) {
 
@@ -196,8 +204,10 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
   } else {
 
     new_fc <- new_fc |>
-      dplyr::mutate_at(group0, ~dplyr::case_when(is.na(.) ~ "NA", .default = .))|>
-      tidyr::unite("group", group0, sep = " // ", na.rm = TRUE) |>
+      dplyr::ungroup() |>
+      #Deal with missings from sel_group variables
+      dplyr::mutate(dplyr::across(dplyr::all_of(group0), ~dplyr::case_when(is.na(.) & !grepl("sel_group$", dplyr::cur_column()) ~ "NA", .default = .))) |>
+      tidyr::unite("group", dplyr::all_of(group0), sep = " // ", na.rm = TRUE) |>
       dplyr::left_join(object$fc |> dplyr::filter(.data$type != "exclude") |> dplyr::select("x", "group"), by = "group") |>
       dplyr::mutate(group = factor(.data$group, levels = unique(.data$group))) |>
       dplyr::group_by(.data$group) |>
@@ -522,7 +532,11 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
 
     filter_to_parse <- stringr::str_glue("{filter_to_parse} | temp_var_PauSatorra_12345 != '{sel_group}'")
     object$data <- object$data |>
-      tidyr::unite("temp_var_PauSatorra_12345", groups, sep = " // ", na.rm = TRUE, remove = FALSE) |>
+      dplyr::ungroup() |>
+      #Deal with missings from sel_group variables
+      dplyr::mutate(dplyr::across(dplyr::all_of(groups), ~dplyr::case_when(is.na(.) & !grepl("sel_group$", dplyr::cur_column()) ~ "NA", .default = .))) |>
+      dplyr::group_by(dplyr::across(dplyr::all_of(groups))) |>
+      tidyr::unite("temp_var_PauSatorra_12345", dplyr::all_of(groups), sep = " // ", na.rm = TRUE, remove = FALSE) |>
       dplyr::filter(rlang::eval_tidy(rlang::parse_expr(filter_to_parse))) |>
       dplyr::select(-"temp_var_PauSatorra_12345")
   }

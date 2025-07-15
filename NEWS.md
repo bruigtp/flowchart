@@ -128,3 +128,5 @@
 * New `fc_theme()` function to set all parameters for all boxes in a flowchart at once.
 
 * Now all arguments available in the graphic device function are also available in the `fc_export()` function.
+
+* Fixed bug when `sel_group` is used in a split (#40). 

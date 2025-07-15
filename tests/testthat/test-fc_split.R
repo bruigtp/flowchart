@@ -24,6 +24,34 @@ test_that("errors when sel_group used without previous split", {
   expect_snapshot(fc_split(fc, N = c(5,5), sel_group = "A"), error = TRUE)
 })
 
+test_that("handles sel_group in a split", {
+  expect_warning(
+    fc <- as_fc(N = 100) |>
+      fc_split(N = c(60, 40)) |>
+      fc_split(N = c(30, 10), sel_group = "group 2")
+  )
+  expect_no_error(fc |> fc_draw())
+  expect_equal(nrow(fc$fc), 5)
+  expect_equal(fc$fc$text[5], "group 2\n10 (25%)")
+})
+
+test_that("handles split after a sel_group", {
+  expect_warning(
+    fc <- as_fc(N = 100) |>
+      fc_split(N = c(60, 40)) |>
+      fc_split(N = c(30, 10), sel_group = "group 2")
+  )
+
+  expect_warning(
+    fc2 <- fc |>
+      fc_split(N = c(50, 10), sel_group = "group 1")
+  )
+
+  expect_no_error(fc2 |> fc_draw())
+  expect_equal(nrow(fc2$fc), 7)
+  expect_equal(fc2$fc$text[7], "group 2\n10 (16.67%)")
+})
+
 test_that("handles numeric splits correctly", {
   fc <- as_fc(N = 10)
   result <- fc_split(fc, N = c(5,5))

@@ -102,8 +102,20 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
       if(!is.null(sel_group)) {
 
         tbl_groups <- attr(object$data, "groups") |>
-          tidyr::unite("groups", -".rows", sep = " // ") |>
-          dplyr::filter(.data$groups == sel_group)
+          #Deal with missings from sel_group variables
+          dplyr::mutate(dplyr::across(!".rows", ~dplyr::case_when(is.na(.) & !grepl("sel_group$", dplyr::cur_column()) ~ "NA", .default = .))) |>
+          tidyr::unite("groups", -".rows", sep = " // ", na.rm = TRUE)
+
+        if(sel_group %in% tbl_groups$groups) {
+
+          tbl_groups <- tbl_groups |>
+            dplyr::filter(.data$groups == sel_group)
+
+        } else {
+
+          cli::cli_abort("The specified {.arg sel_group} is not a grouping variable of the data. It has to be one of: {tbl_groups$groups}")
+
+        }
 
         nrows <- tbl_groups$.rows
         ngroups <- sel_group
@@ -309,8 +321,21 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
   if(is.null(sel_group)) {
     object$data <- object$data |>
       dplyr::group_by_at(c(group0, var), .drop = FALSE)
-  }
-  #Aqui hem de ficar una opció else per agrupar-ho si hi ha un sel_group per una nova variable que tingui NA en el reject. Es pot dir [nom_variable]_sel_group
+  } else {
+    object$data <- object$data |>
+      dplyr::ungroup() |>
+      #Deal with missings from sel_group variables
+      dplyr::mutate(dplyr::across(dplyr::all_of(group0), ~dplyr::case_when(is.na(.) & !grepl("sel_group$", dplyr::cur_column()) ~ "NA", .default = .))) |>
+      tidyr::unite("temp_var_PauSatorra_12345", dplyr::all_of(group0), sep = "//", remove = FALSE, na.rm = TRUE) |>
+      dplyr::mutate("{var}_sel_group" := dplyr::case_when(
+        .data$temp_var_PauSatorra_12345 == sel_group ~ get(var),
+        .default = NA
+      )) |>
+      dplyr::select(-"temp_var_PauSatorra_12345") |>
+      dplyr::group_by_at(c(group0, paste0(var, '_sel_group')), .drop = FALSE)
+
+    cli::cli_warn("{.code object$data} has been grouped by a new variable called {.var {paste0(var, '_sel_group')}}, because {.arg sel_group} has been used in the split.")
+    }
 
   # x coordinate for the created boxes.
   #if there are no groups:
@@ -344,7 +369,10 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
   } else {
 
     new_fc <- new_fc |>
-      tidyr::unite("group", c(tidyselect::all_of(group0)), sep = " // ")
+      dplyr::ungroup() |>
+      #Deal with missings from sel_group variables
+      dplyr::mutate(dplyr::across(dplyr::all_of(group0), ~dplyr::case_when(is.na(.) & !grepl("sel_group$", dplyr::cur_column()) ~ "NA", .default = .))) |>
+      tidyr::unite("group", c(dplyr::all_of(group0)), sep = " // ", na.rm = TRUE)
 
     #Filter boxes in some groups if sel_group is specified
     if(!is.null(sel_group)) {
