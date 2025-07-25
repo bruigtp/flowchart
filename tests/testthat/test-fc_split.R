@@ -32,7 +32,7 @@ test_that("handles sel_group in a split", {
   )
   expect_no_error(fc |> fc_draw())
   expect_equal(nrow(fc$fc), 5)
-  expect_equal(fc$fc$text[5], "group 2\n10 (25%)")
+  expect_equal(fc$fc$text[5], "group 2\n10 (25.00%)")
 })
 
 test_that("handles split after a sel_group", {
