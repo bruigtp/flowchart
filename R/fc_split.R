@@ -254,7 +254,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
     dplyr::mutate(
       x = NA,
       y = NA,
-      perc = round(.data$n*100/.data$N_total, round_digits),
+      perc = prettyNum(round(.data$n*100/.data$N_total, round_digits), nsmall = round_digits),
       type = "split",
       just = just,
       text_color = text_color,

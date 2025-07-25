@@ -242,7 +242,7 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
   new_fc <- new_fc |>
     dplyr::mutate(
       y = NA,
-      perc = round(.data$n*100/.data$N_total, round_digits),
+      perc = prettyNum(round(.data$n*100/.data$N_total, round_digits), nsmall = round_digits),
       type = "filter",
       just = just,
       text_color = text_color,

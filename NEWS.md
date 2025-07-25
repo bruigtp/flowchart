@@ -130,3 +130,5 @@
 * Now all arguments available in the graphic device function are also available in the `fc_export()` function.
 
 * Fixed bug when `sel_group` is used in a split (#40). 
+
+* Fixed `bug` allowing trailing zeros to be trimmed regardless of `round_digits` argument in `fc_filter()` and `fc_split()` (@kenkomodo)
