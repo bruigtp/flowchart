@@ -25,23 +25,23 @@ library(tibble)
 
 # Overview 
 
-`flowchart` is a package for drawing participant flow diagrams directly from a `data.frame` using tidyverse. It provides a set of functions that can be combined with `|>` to create all kinds of `flowchart`s from a `data.frame` in an easy way:
+`flowchart` is a package for drawing participant flow diagrams directly from a `data.frame` using tidyverse. It provides a set of functions that can be combined with `|>` to create all kinds of flowcharts from a `data.frame` in an easy way:
 
 - `as_fc()` transforms a `data.frame` into a `fc` object that can be manipulated by the package
 
-- `fc_split()` splits a `flowchart` according to the different values of a column in the `data.frame`
+- `fc_split()` splits a flowchart according to the different values of a column in the `data.frame`
 
-- `fc_filter()` creates a filtered box from the `flowchart`, based on the evaluation of an expression in the `data.frame`
+- `fc_filter()` creates a filtered box from the flowchart, based on the evaluation of an expression in the `data.frame`
 
-- `fc_merge()` combines horizontally two different `flowchart`s
+- `fc_merge()` combines horizontally two different flowcharts
 
-- `fc_stack()` combines vertically two different `flowchart`s
+- `fc_stack()` combines vertically two different flowcharts
 
-- `fc_modify()` allows to modify the parameters of the `flowchart` which are stored in `.$fc`
+- `fc_modify()` allows to modify the parameters of the flowchart which are stored in `.$fc`
 
-- `fc_draw()` draws the `flowchart` created by the previous functions
+- `fc_draw()` draws the flowchart created by the previous functions
 
-- `fc_export()` allows to export the `flowchart` drawn to the desired format
+- `fc_export()` allows to export the flowchart drawn to the desired format
 
 # Installation
 
@@ -74,11 +74,11 @@ head(safo)
 
 # Basic operations
 
-The first step is to initialise the `flowchart` with `as_fc`. The last step, if we want to visualise the created `flowchart`, is to draw the `flowchart` with `fc_draw`. In between we can combine the functions `fc_split`., `fc_filter`, `fc_merge`, `fc_stack` with the operator pipe (`|>` or `%>$`) to create complex `flowchart` structures.
+The first step is to initialise the flowchart with `as_fc`. The last step, if we want to visualise the created flowchart, is to draw the flowchart with `fc_draw`. In between we can combine the functions `fc_split`., `fc_filter`, `fc_merge`, `fc_stack` with the operator pipe (`|>` or `%>$`) to create complex flowchart structures.
 
 ## Initialize
 
-To initialize a `flowchart` from a dataset we have to use the `as_fc()` function:
+To initialize a flowchart from a dataset we have to use the `as_fc()` function:
 
 ```{r}
 safo_fc <- safo |> 
@@ -87,13 +87,13 @@ safo_fc <- safo |>
 str(safo_fc, max.level = 1)
 ```
 
-The `safo_fc` object created is a `fc` object, which consists of a list containing the tibble of the `data.frame` associated with the `flowchart` and the tibble that stores the `flowchart` parameters. In this example, `safo_fc$data` corresponds to the `safo` dataset while `safo_fc$fc` contains the parameters of the initial `flowchart`:
+The `safo_fc` object created is a `fc` object, which consists of a list containing the tibble of the `data.frame` associated with the flowchart and the tibble that stores the flowchart parameters. In this example, `safo_fc$data` corresponds to the `safo` dataset while `safo_fc$fc` contains the parameters of the initial flowchart:
 
 ```{r}
 safo_fc$fc
 ```
 
-Alternatively, if a `data.frame` is not available, we can initialize a `flowchart` using the `N =` argument manually specifying the number of rows:
+Alternatively, if a `data.frame` is not available, we can initialize a flowchart using the `N =` argument manually specifying the number of rows:
 
 ```{r include=FALSE}
 as_fc(N = 230)
@@ -101,7 +101,7 @@ as_fc(N = 230)
 
 ## Draw
 
-The function `fc_draw()` allows to draw the `flowchart` associated to any `fc` object. Following the last example, we can draw the initial `flowchart` that has been previously created:
+The function `fc_draw()` allows to draw the flowchart associated to any `fc` object. Following the last example, we can draw the initial flowchart that has been previously created:
 
 ```{r}
 safo_fc |> 
@@ -110,7 +110,7 @@ safo_fc |>
 
 ## Filter 
 
-We can filter the `flowchart` using `fc_filter()` specifying the logic in which the filter is to be applied. For example, we can show the number of patients that were randomized in the study:
+We can filter the flowchart using `fc_filter()` specifying the logic in which the filter is to be applied. For example, we can show the number of patients that were randomized in the study:
 
 ```{r fig.width = 6, fig.height = 5}
 safo |> 
@@ -132,7 +132,7 @@ safo |>
 
 ## Split
 
-We can split the `flowchart` into groups using `fc_split()` specifying the grouping variable. The function will split the `flowchart` into as many categories as the specified variable has. For example, we can split the previous `flowchart` showing the patients allocated in the two study treatments:
+We can split the flowchart into groups using `fc_split()` specifying the grouping variable. The function will split the flowchart into as many categories as the specified variable has. For example, we can split the previous flowchart showing the patients allocated in the two study treatments:
 
 ```{r fig.width = 6, fig.height = 5}
 safo |>
@@ -154,11 +154,11 @@ safo |>
   fc_draw()
 ```
 
-The idea is to combine the `fc_filter()` and `fc_split()` functions in the way we want to create different `flowchart` structures, however complex the may be. In some cases, we may want to create two different `flowcharts` then [merge or stack](combine-flowcharts.html) them into the same image.
+The idea is to combine the `fc_filter()` and `fc_split()` functions in the way we want to create different flowchart structures, however complex the may be. In some cases, we may want to create two different flowcharts then [merge or stack](combine-flowcharts.html) them into the same image.
 
 ## Export
 
-Once the `flowchart` has been drawn we can export it to the most popular image formats, including both bitmap (png, jpeg, tiff, bmp) and vector (svg, pdf) formats, using `fc_export()`:
+Once the flowchart has been drawn we can export it to the most popular image formats, including both bitmap (png, jpeg, tiff, bmp) and vector (svg, pdf) formats, using `fc_export()`:
 
 ```{r eval = FALSE}
 safo |> 

@@ -22,17 +22,17 @@ library(stringr)
 library(tibble)
 ```
 
-We can customize the `flowchart` either with the arguments provided by each function in the process of creating it, or directly in the final output using the `fc_theme()` or `fc_modify()` functions.
+We can customize the flowchart either with the arguments provided by each function in the process of creating it, or directly in the final output using the `fc_theme()` or `fc_modify()` functions.
 
 # Change function arguments
 
 There are many different arguments in `as_fc()`, `fc_filter()`, `fc_split()`, and `fc_draw()` that allow you to customize the boxes created at each step. See the documentation for these functions for more information. Some examples of how to use these arguments are given at the end of the vignette: [Customization examples].
 
-# Functions to customize the `flowchart`
+# Functions to customize the flowchart
 
 ## `fc_theme()`
 
-We can use `fc_theme()` to set all parameters for all boxes in a flowchart at once. This is useful if we want to apply the same style to all the boxes. For example, let's customize the following `flowchart`:
+We can use `fc_theme()` to set all parameters for all boxes in a flowchart at once. This is useful if we want to apply the same style to all the boxes. For example, let's customize the following flowchart:
 
 ```{r}
 safo |> 
@@ -55,9 +55,9 @@ safo |>
 
 ## `fc_modify()`
 
-The function `fc_modify` allows the user to customise the created `flowchart` by modifying its parameters, which are stored in `.$fc`. 
+The function `fc_modify` allows the user to customise the created flowchart by modifying its parameters, which are stored in `.$fc`. 
 
-For example, let's customize the following `flowchart`:
+For example, let's customize the following flowchart:
 
 ```{r fig.width = 6, fig.height = 4}
 safo_fc <- safo |> 
@@ -99,7 +99,7 @@ safo_fc |>
 
 # Customization examples
 
-In these examples, we will explore some of the arguments to customize the following `flowchart`:
+In these examples, we will explore some of the arguments to customize the following flowchart:
 
 ```{r fig.width = 6, fig.height = 5}
 safo |> 
@@ -109,7 +109,7 @@ safo |>
   fc_draw()
 ```
 
-## Change the `flowchart` appearance
+## Change the flowchart appearance
 
 You can set the background color of each box using `bg_fill=`:
 
@@ -130,7 +130,7 @@ safo |>
   fc_draw()
 ```
 
-You can also alter the background of the canvas behind the `flowchart` boxes using the `bg_canvas=` argument in `fc_draw`:
+You can also alter the background of the canvas behind the flowchart boxes using the `bg_canvas=` argument in `fc_draw`:
 
 ```{r fig.width = 6, fig.height = 5}
 safo |> 
@@ -149,9 +149,9 @@ safo |>
   fc_draw(canvas_bg = "darkgrey")
 ```
 
-## Add a title to the `flowchart`
+## Add a title to the flowchart
 
-We can add a title to the `flowchart` using the argument `title=` in the `fc_draw()` function:
+We can add a title to the flowchart using the argument `title=` in the `fc_draw()` function:
 
 ```{r fig.width = 6, fig.height = 5}
 safo |> 
@@ -163,7 +163,7 @@ safo |>
 
 ### Add a title to the split
 
-We can also add a title to a split in the `flowchart`, using the argument `title` in the `fc_split()` function:
+We can also add a title to a split in the flowchart, using the argument `title` in the `fc_split()` function:
 
 ```{r fig.width = 6, fig.height = 5}
 safo |> 
@@ -215,7 +215,7 @@ safo |>
 
 ## Change Box Corner Style
 
-We can change the corner style of the `flowchart` boxes using the `box_corners` argument with `fc_draw`:
+We can change the corner style of the flowchart boxes using the `box_corners` argument with `fc_draw`:
 
 ```{r fig.width = 6, fig.height = 5}
 safo |> 
@@ -284,7 +284,7 @@ safo |>
   fc_draw()
 ```
 
-If we want to select a group in a `flowchart` with more than two groups we have to supply a vector in `sel_group=` with the desired groups to be selected:
+If we want to select a group in a flowchart with more than two groups we have to supply a vector in `sel_group=` with the desired groups to be selected:
 
 ```{r fig.width = 6, fig.height = 7}
 safo |> 

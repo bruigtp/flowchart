@@ -22,11 +22,11 @@ library(stringr)
 library(tibble)
 ```
 
-`fc_merge()` and `fc_stack()` allow you to combine different `flowchart`s horizontally or vertically. This is very useful when you need to combine `flowchart`s generated from different `data.frame`s, as shown here. 
+`fc_merge()` and `fc_stack()` allow you to combine different flowcharts horizontally or vertically. This is very useful when you need to combine flowcharts generated from different `data.frame`s, as shown here. 
 
 # Merge
 
-We can combine different `flowchart`s horizontally using `fc_merge()`. For example, we might want to represent the flow of patients included in the ITT population with the flow of patients included in the PP population.
+We can combine different flowcharts horizontally using `fc_merge()`. For example, we might want to represent the flow of patients included in the ITT population with the flow of patients included in the PP population.
 
 ```{r fig.width = 8}
 # Create first flowchart for ITT
@@ -50,7 +50,7 @@ list(fc1, fc2) |>
 
 # Stack
 
-We can combine different `flowchart`s vertically using `fc_stack()`. For example, we can combine the same two `flowchart`s vertically instead of horizontally.
+We can combine different flowcharts vertically using `fc_stack()`. For example, we can combine the same two flowcharts vertically instead of horizontally.
 
 ```{r warning = FALSE, fig.width = 6, fig.height = 5}
 list(fc1, fc2) |> 
@@ -58,7 +58,7 @@ list(fc1, fc2) |>
   fc_draw()
 ```
 
-We can use the argument `unite = TRUE` to connect two stacked `flowchart`s. Two flowcharts can be merged only if they have the same boxes at the beginning and at the end, or if one of the flowcharts has one box at the beginning or at the end. For example:
+We can use the argument `unite = TRUE` to connect two stacked flowcharts. Two flowcharts can be merged only if they have the same boxes at the beginning and at the end, or if one of the flowcharts has one box at the beginning or at the end. For example:
 
 ```{r warning=FALSE, fig.width = 6, fig.height = 5}
 fc1 <- safo |> 
