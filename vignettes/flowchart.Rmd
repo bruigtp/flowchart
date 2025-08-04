@@ -177,7 +177,3 @@ safo |>
   fc_draw() |> 
   fc_export("flowchart.png", width = 3000, height = 4000, res = 700)
 ```
-
-# Additional Details
-
-This vignette only covers the basic functionality of `flowchart`. Users may also be interested in more advanced functionality covered in the available articles, such as how to [customize a `flowchart`](flowchart-customization.html), or examples in the [Example Gallery](example-gallery.html).
