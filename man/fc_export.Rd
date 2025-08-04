@@ -37,13 +37,13 @@ fc_export(
 Invisibly returns the same object that has been given to the function.
 }
 \description{
-This function allows you to export the drawn flowchart to the most popular graphic formats, including bitmap formats (png, jpeg, tiff, bmp) and vector formats (svg, pdf). For bitmap formats, it uses the \link{ragg} package devices when available for higher performance and higher quality output than standard raster devices provide by \link{grDevices}.
+This function allows you to export the drawn flowchart to the most popular graphic formats, including bitmap formats (png, jpeg, tiff, bmp) and vector formats (svg, pdf). For bitmap formats, it uses the \href{https://ragg.r-lib.org/}{ragg} package devices when available for higher performance and higher quality output than standard raster devices provide by \link{grDevices}.
 }
 \details{
 \itemize{
 \item \strong{Vector Formats (\code{'svg'}, \code{'pdf'}):} These formats are ideal for graphics that need to be scaled without loss of quality. The default units for width and height are inches. If user specifies \code{units} other than inches (\code{"mm"} or\code{ "cm"}), the function will convert the dimensions to inches using standard conversion formulas.
-\item \strong{Bitmap Formats (\code{'png'}, \code{'jpeg'}, \code{'tiff'}, \code{'bmp'}):} For these formats (with the exception of \code{"bmp"}), the function uses the \link{ragg} package devices when available, providing higher performance and higher quality output. The default \code{units} for \code{width} and \code{height} are pixels.
-\item \strong{Suggested Dependencies:} For superior performance and quality bitmap outputs, it is recommended to install the \link{ragg} package. For exporting to \code{"pdf"} format with enhanced features, the Cairo graphics library will be used if it is available.
+\item \strong{Bitmap Formats (\code{'png'}, \code{'jpeg'}, \code{'tiff'}, \code{'bmp'}):} For these formats (with the exception of \code{"bmp"}), the function uses the \href{https://ragg.r-lib.org/}{ragg} package devices when available, providing higher performance and higher quality output. The default \code{units} for \code{width} and \code{height} are pixels.
+\item \strong{Suggested Dependencies:} For superior performance and quality bitmap outputs, it is recommended to install the \href{https://ragg.r-lib.org/}{ragg} package. For exporting to \code{"pdf"} format with enhanced features, the Cairo graphics library will be used if it is available.
 }
 }
 \examples{
