@@ -6,28 +6,28 @@
 \title{Random generated dataset from the SAFO study}
 \format{
 A data frame with 925 rows and 21 columns
- \describe{
-  \item{id:}{Identifier of each patient. This information does not match the real data.}
-  \item{inclusion_crit:}{The patient not met the inclusion criteria?}
-  \item{exclusion_crit:}{The patient met the exclusion criteria?}
-  \item{chronic_heart_failure:}{Exc1: Chronic heart failure?}
-  \item{expected_death_24h:}{Exc2: Clinical status with expected death in <24h?}
-  \item{polymicrobial_bacteremia:}{Exc3: Polymicrobial bacteremia?}
-  \item{conditions_affect_adhrence:}{Exc4: Conditions expected to affect adhrence to the protocol?}
-  \item{susp_prosthetic_valve_endocard:}{Exc5: Suspicion of prosthetic valve endocarditis?}
-  \item{severe_liver_cirrhosis:}{Exc6: Severe liver cirrhosis?}
-  \item{acute_sars_cov2:}{Exc7: Acute SARS-CoV-2 infection?}
-  \item{blactam_fosfomycin_hypersens:}{Exc8: Beta-lactam or fosfomycin hypersensitivity?}
-  \item{other_clinical_trial:}{Exc9: Participation in another clinical trial?}
-  \item{pregnancy_or_breastfeeding:}{Exc10: Pregnancy or breastfeeding?}
-  \item{previous_participation:}{Exc11: Previous participation in the SAFO trial?}
-  \item{myasthenia_gravis:}{Exc12: Myasthenia gravis?}
-  \item{decline_part:}{The patient declined to participate?}
-  \item{group:}{Randomized treatment received: cloxacilin alone / cloxacilin plus fosfomycin}
-  \item{itt:}{The patient belongs to the intention to treat (ITT) group?}
-  \item{reason_itt:}{Reason for exclusion from the ITT group.}
-  \item{pp:}{The patient belongs to the per protocol (PP) group?}
-  \item{reason_pp:}{Reason for exclusion from the PP group.}
+\describe{
+\item{id:}{Identifier of each patient. This information does not match the real data.}
+\item{inclusion_crit:}{The patient not met the inclusion criteria?}
+\item{exclusion_crit:}{The patient met the exclusion criteria?}
+\item{chronic_heart_failure:}{Exc1: Chronic heart failure?}
+\item{expected_death_24h:}{Exc2: Clinical status with expected death in <24h?}
+\item{polymicrobial_bacteremia:}{Exc3: Polymicrobial bacteremia?}
+\item{conditions_affect_adhrence:}{Exc4: Conditions expected to affect adhrence to the protocol?}
+\item{susp_prosthetic_valve_endocard:}{Exc5: Suspicion of prosthetic valve endocarditis?}
+\item{severe_liver_cirrhosis:}{Exc6: Severe liver cirrhosis?}
+\item{acute_sars_cov2:}{Exc7: Acute SARS-CoV-2 infection?}
+\item{blactam_fosfomycin_hypersens:}{Exc8: Beta-lactam or fosfomycin hypersensitivity?}
+\item{other_clinical_trial:}{Exc9: Participation in another clinical trial?}
+\item{pregnancy_or_breastfeeding:}{Exc10: Pregnancy or breastfeeding?}
+\item{previous_participation:}{Exc11: Previous participation in the SAFO trial?}
+\item{myasthenia_gravis:}{Exc12: Myasthenia gravis?}
+\item{decline_part:}{The patient declined to participate?}
+\item{group:}{Randomized treatment received: cloxacilin alone / cloxacilin plus fosfomycin}
+\item{itt:}{The patient belongs to the intention to treat (ITT) group?}
+\item{reason_itt:}{Reason for exclusion from the ITT group.}
+\item{pp:}{The patient belongs to the per protocol (PP) group?}
+\item{reason_pp:}{Reason for exclusion from the PP group.}
 }
 }
 \usage{

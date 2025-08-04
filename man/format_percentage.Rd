@@ -14,6 +14,6 @@ format_percentage(value, round_digits, trim_trailing_zeros)
 \item{trim_trailing_zeros}{logical; trim trailing zeros or not in returned value.}
 }
 \description{
-rounds percentage values while allowing the option to `trim_trailing_zeros`
+rounds percentage values while allowing the option to \code{trim_trailing_zeros}
 }
 \keyword{internal}

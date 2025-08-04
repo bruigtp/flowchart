@@ -25,17 +25,17 @@ fc_draw(
 \arguments{
 \item{object}{fc object that we want to draw.}
 
-\item{big.mark}{character. Used to specify the thousands separator for patient count values. Defaults is no separator (`""`); if not empty used as mark between every 3 digits (ex: `big.mark = ","` results in `1,000` instead of `1000`).}
+\item{big.mark}{character. Used to specify the thousands separator for patient count values. Defaults is no separator (\code{""}); if not empty used as mark between every 3 digits (ex: \code{big.mark = ","} results in \verb{1,000} instead of \code{1000}).}
 
-\item{box_corners}{Indicator of whether to draw boxes with round (`"round"`) vs non-round (`"sharp"`) corners. Default is `"round"`.}
+\item{box_corners}{Indicator of whether to draw boxes with round (\code{"round"}) vs non-round (\code{"sharp"}) corners. Default is \code{"round"}.}
 
-\item{arrow_angle}{The angle of the arrow head in degrees, as in `arrow`.}
+\item{arrow_angle}{The angle of the arrow head in degrees, as in \code{arrow}.}
 
-\item{arrow_length}{A unit specifying the length of the arrow head (from tip to base), as in `arrow`.}
+\item{arrow_length}{A unit specifying the length of the arrow head (from tip to base), as in \code{arrow}.}
 
-\item{arrow_ends}{One of "last", "first", or "both", indicating which ends of the line to draw arrow heads, as in `arrow`.}
+\item{arrow_ends}{One of "last", "first", or "both", indicating which ends of the line to draw arrow heads, as in \code{arrow}.}
 
-\item{arrow_type}{One of "open" or "closed" indicating whether the arrow head should be a closed triangle, as in `arrow`.}
+\item{arrow_type}{One of "open" or "closed" indicating whether the arrow head should be a closed triangle, as in \code{arrow}.}
 
 \item{title}{The title of the flowchart. Default is NULL (no title).}
 
@@ -43,15 +43,15 @@ fc_draw(
 
 \item{title_y}{y coordinate for the title. Default is 0.9.}
 
-\item{title_color}{Color of the title. It is black by default. See the `col` parameter for \code{\link{gpar}}.}
+\item{title_color}{Color of the title. It is black by default. See the \code{col} parameter for \code{\link{gpar}}.}
 
-\item{title_fs}{Font size of the title. It is 15 by default. See the `fontsize` parameter for \code{\link{gpar}}.}
+\item{title_fs}{Font size of the title. It is 15 by default. See the \code{fontsize} parameter for \code{\link{gpar}}.}
 
-\item{title_fface}{Font face of the title. It is 2 by default. See the `fontface` parameter for \code{\link{gpar}}.}
+\item{title_fface}{Font face of the title. It is 2 by default. See the \code{fontface} parameter for \code{\link{gpar}}.}
 
-\item{title_ffamily}{Changes the font family of the title. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}.}
+\item{title_ffamily}{Changes the font family of the title. Default is NA. See the \code{fontfamily} parameter for \code{\link{gpar}}.}
 
-\item{canvas_bg}{Background color for the entire canvas (the area behind the flowchart boxes). Default is `"white"`. Set to `"transparent"` or `NULL` for a transparent background; `"transparent"` background will only be noticeable when exporting drawn flowcharts via `fc_export()` and is compatible with all `fc_export()` formats except `"jpeg"` and `"bmp"`.}
+\item{canvas_bg}{Background color for the entire canvas (the area behind the flowchart boxes). Default is \code{"white"}. Set to \code{"transparent"} or \code{NULL} for a transparent background; \code{"transparent"} background will only be noticeable when exporting drawn flowcharts via \code{fc_export()} and is compatible with all \code{fc_export()} formats except \code{"jpeg"} and \code{"bmp"}.}
 }
 \value{
 Invisibly returns the same object that has been given to the function, with the given arguments to draw the flowchart stored in the attributes.

@@ -7,13 +7,13 @@
 replace_num_in_expr(expr, row, big.mark)
 }
 \arguments{
-\item{expr}{expression in `fc$text`.}
+\item{expr}{expression in \code{fc$text}.}
 
-\item{row}{A row from the `fc` object containing `n`, `N`, and `perc` values.}
+\item{row}{A row from the \code{fc} object containing \code{n}, \code{N}, and \code{perc} values.}
 
 \item{big.mark}{character. Used to specify the thousands separator for patient count values.}
 }
 \description{
-Helper function for `update_numbers()`.
+Helper function for \code{update_numbers()}.
 }
 \keyword{internal}

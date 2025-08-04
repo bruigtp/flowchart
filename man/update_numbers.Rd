@@ -9,9 +9,9 @@ update_numbers(object, big.mark = "")
 \arguments{
 \item{object}{fc object that we want to draw.}
 
-\item{big.mark}{character. Used to specify the thousands separator for patient count values. Defaults is no separator (`""`); if not empty used as mark between every 3 digits (ex: `big.mark = ","` results in `1,000` instead of `1000`).}
+\item{big.mark}{character. Used to specify the thousands separator for patient count values. Defaults is no separator (\code{""}); if not empty used as mark between every 3 digits (ex: \code{big.mark = ","} results in \verb{1,000} instead of \code{1000}).}
 }
 \description{
-Updates values of `n` or `N` referenced in the `text` column when user specifies `big.mark` argument in `fc_draw`.
+Updates values of \code{n} or \code{N} referenced in the \code{text} column when user specifies \code{big.mark} argument in \code{fc_draw}.
 }
 \keyword{internal}

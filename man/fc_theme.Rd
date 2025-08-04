@@ -49,53 +49,53 @@ fc_theme(
 
 \item{text_pattern_exc}{Text pattern for the exclusion box.}
 
-\item{just}{Justification for the text: left, center or right.}
+\item{just}{Justification for the text: \code{"left"}, \code{"center"} or \code{"right"}.}
 
-\item{text_color}{Color of the text. See the `col` parameter for \code{\link{gpar}}.}
+\item{text_color}{Color of the text. See the \code{col} parameter for \link{gpar}.}
 
-\item{text_fs}{Font size of the text. See the `fontsize` parameter for \code{\link{gpar}}.}
+\item{text_fs}{Font size of the text. See the \code{fontsize} parameter for \link{gpar}.}
 
-\item{text_fface}{Font face of the text. See the `fontface` parameter for \code{\link{gpar}}.}
+\item{text_fface}{Font face of the text. See the \code{fontface} parameter for \link{gpar}.}
 
-\item{text_ffamily}{Changes the font family of the text. See the `fontfamily` parameter for \code{\link{gpar}}.}
+\item{text_ffamily}{Changes the font family of the text. See the \code{fontfamily} parameter for \link{gpar}.}
 
 \item{text_padding}{Changes the text padding inside the box. This number has to be greater than 0.}
 
-\item{bg_fill}{Box background color. See the `fill` parameter for \code{\link{gpar}}.}
+\item{bg_fill}{Box background color. See the \code{fill} parameter for \link{gpar}.}
 
-\item{border_color}{Box border color. See the `col` parameter for \code{\link{gpar}}.}
+\item{border_color}{Box border color. See the \code{col} parameter for \link{gpar}.}
 
-\item{width}{Width of the box. Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
+\item{width}{Width of the box. Must be an object of class \link{unit} or a number between 0 and 1.}
 
-\item{height}{Height of the box. Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
+\item{height}{Height of the box. Must be an object of class \link{unit} or a number between 0 and 1.}
 
-\item{just_exc}{Justification for the text of the exclude box: left, center or right.}
+\item{just_exc}{Justification for the text of the exclude box: \code{"left"}, \code{"center"} or \code{"right"}.}
 
-\item{text_color_exc}{Color of the text of the exclude box. See `text_color`.}
+\item{text_color_exc}{Color of the text of the exclude box. See \code{text_color}.}
 
-\item{text_fs_exc}{Font size of the text of the exclude box. See `text_fs`.}
+\item{text_fs_exc}{Font size of the text of the exclude box. See \code{text_fs}.}
 
-\item{text_fface_exc}{Font face of the text of the exclude box. See the `fontface` parameter for \code{\link{gpar}}. See `text_fface`.}
+\item{text_fface_exc}{Font face of the text of the exclude box. See the \code{fontface} parameter for \link{gpar}. See \code{text_fface}.}
 
-\item{text_ffamily_exc}{Changes the font family of the text of the exclude box. See the `fontfamily` parameter for \code{\link{gpar}}. See `text_ffamily`.}
+\item{text_ffamily_exc}{Changes the font family of the text of the exclude box. See the \code{fontfamily} parameter for \link{gpar}. See \code{text_ffamily}.}
 
 \item{text_padding_exc}{Changes the text padding inside the exclude box. This number has to be greater than 0.}
 
-\item{bg_fill_exc}{Exclude box background color. See `bg_fill`.}
+\item{bg_fill_exc}{Exclude box background color. See \code{bg_fill}.}
 
-\item{border_color_exc}{Box background color of the exclude box. See `border_color`.}
+\item{border_color_exc}{Box background color of the exclude box. See \code{border_color}.}
 
-\item{width_exc}{Width of the exclude box. Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
+\item{width_exc}{Width of the exclude box. Must be an object of class \link{unit} or a number between 0 and 1.}
 
-\item{height_exc}{Height of the box. Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
+\item{height_exc}{Height of the box. Must be an object of class \link{unit} or a number between 0 and 1.}
 
 \item{text_color_title}{Color of the title text.}
 
 \item{text_fs_title}{Font size of the title text.}
 
-\item{text_fface_title}{Font face of the title text. See the `fontface` parameter for \code{\link{gpar}}.}
+\item{text_fface_title}{Font face of the title text. See the \code{fontface} parameter for \link{gpar}.}
 
-\item{text_ffamily_title}{Changes the font family of the title text. See the `fontfamily` parameter for \code{\link{gpar}}.}
+\item{text_ffamily_title}{Changes the font family of the title text. See the \code{fontfamily} parameter for \link{gpar}.}
 
 \item{text_padding_title}{Changes the title text padding inside the box. This number has to be greater than 0.}
 
@@ -103,9 +103,9 @@ fc_theme(
 
 \item{border_color_title}{Title box border color.}
 
-\item{width_title}{Width of the title box. Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
+\item{width_title}{Width of the title box. Must be an object of class \link{unit} or a number between 0 and 1.}
 
-\item{height_title}{Height of the title box. Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
+\item{height_title}{Height of the title box. Must be an object of class \link{unit} or a number between 0 and 1.}
 }
 \value{
 List with the dataset and the flowchart parameters with their modifications.

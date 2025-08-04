@@ -2,7 +2,7 @@
 #' @description This function allows to combine vertically two different flowcharts.
 #'
 #' @param fcs list with all the flowcharts that we want to merge
-#' @param unite logical value if the boxes have to be united or not. Default is FALSE.
+#' @param unite logical value if the boxes have to be united or not. Default is `FALSE`.
 #' @return List containing a list with the datasets belonging to each flowchart and the flowchart parameters combining all the flowcharts.
 #'
 #' @examples

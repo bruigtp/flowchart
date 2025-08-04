@@ -5,35 +5,35 @@
 #' @param text_pattern Text pattern for all the boxes, except the initial and exclusion ones.
 #' @param text_pattern_init Text pattern for the initial box.
 #' @param text_pattern_exc Text pattern for the exclusion box.
-#' @param just Justification for the text: left, center or right.
-#' @param text_color Color of the text. See the `col` parameter for \code{\link{gpar}}.
-#' @param text_fs Font size of the text. See the `fontsize` parameter for \code{\link{gpar}}.
-#' @param text_fface Font face of the text. See the `fontface` parameter for \code{\link{gpar}}.
-#' @param text_ffamily Changes the font family of the text. See the `fontfamily` parameter for \code{\link{gpar}}.
+#' @param just Justification for the text: `"left"`, `"center"` or `"right"`.
+#' @param text_color Color of the text. See the `col` parameter for [gpar].
+#' @param text_fs Font size of the text. See the `fontsize` parameter for [gpar].
+#' @param text_fface Font face of the text. See the `fontface` parameter for [gpar].
+#' @param text_ffamily Changes the font family of the text. See the `fontfamily` parameter for [gpar].
 #' @param text_padding Changes the text padding inside the box. This number has to be greater than 0.
-#' @param bg_fill Box background color. See the `fill` parameter for \code{\link{gpar}}.
-#' @param border_color Box border color. See the `col` parameter for \code{\link{gpar}}.
-#' @param width Width of the box. Must be an object of class \code{\link{unit}} or a number between 0 and 1.
-#' @param height Height of the box. Must be an object of class \code{\link{unit}} or a number between 0 and 1.
-#' @param just_exc Justification for the text of the exclude box: left, center or right.
+#' @param bg_fill Box background color. See the `fill` parameter for [gpar].
+#' @param border_color Box border color. See the `col` parameter for [gpar].
+#' @param width Width of the box. Must be an object of class [unit] or a number between 0 and 1.
+#' @param height Height of the box. Must be an object of class [unit] or a number between 0 and 1.
+#' @param just_exc Justification for the text of the exclude box: `"left"`, `"center"` or `"right"`.
 #' @param text_color_exc Color of the text of the exclude box. See `text_color`.
 #' @param text_fs_exc Font size of the text of the exclude box. See `text_fs`.
-#' @param text_fface_exc Font face of the text of the exclude box. See the `fontface` parameter for \code{\link{gpar}}. See `text_fface`.
-#' @param text_ffamily_exc Changes the font family of the text of the exclude box. See the `fontfamily` parameter for \code{\link{gpar}}. See `text_ffamily`.
+#' @param text_fface_exc Font face of the text of the exclude box. See the `fontface` parameter for [gpar]. See `text_fface`.
+#' @param text_ffamily_exc Changes the font family of the text of the exclude box. See the `fontfamily` parameter for [gpar]. See `text_ffamily`.
 #' @param text_padding_exc Changes the text padding inside the exclude box. This number has to be greater than 0.
 #' @param bg_fill_exc Exclude box background color. See `bg_fill`.
 #' @param border_color_exc Box background color of the exclude box. See `border_color`.
-#' @param width_exc Width of the exclude box. Must be an object of class \code{\link{unit}} or a number between 0 and 1.
-#' @param height_exc Height of the box. Must be an object of class \code{\link{unit}} or a number between 0 and 1.
+#' @param width_exc Width of the exclude box. Must be an object of class [unit] or a number between 0 and 1.
+#' @param height_exc Height of the box. Must be an object of class [unit] or a number between 0 and 1.
 #' @param text_color_title Color of the title text.
 #' @param text_fs_title Font size of the title text.
-#' @param text_fface_title Font face of the title text. See the `fontface` parameter for \code{\link{gpar}}.
-#' @param text_ffamily_title Changes the font family of the title text. See the `fontfamily` parameter for \code{\link{gpar}}.
+#' @param text_fface_title Font face of the title text. See the `fontface` parameter for [gpar].
+#' @param text_ffamily_title Changes the font family of the title text. See the `fontfamily` parameter for [gpar].
 #' @param text_padding_title Changes the title text padding inside the box. This number has to be greater than 0.
 #' @param bg_fill_title Title box background color.
 #' @param border_color_title Title box border color.
-#' @param width_title Width of the title box. Must be an object of class \code{\link{unit}} or a number between 0 and 1.
-#' @param height_title Height of the title box. Must be an object of class \code{\link{unit}} or a number between 0 and 1.
+#' @param width_title Width of the title box. Must be an object of class [unit] or a number between 0 and 1.
+#' @param height_title Height of the title box. Must be an object of class [unit] or a number between 0 and 1.
 #'
 #' @return List with the dataset and the flowchart parameters with their modifications.
 #'

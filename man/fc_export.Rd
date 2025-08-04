@@ -23,11 +23,11 @@ fc_export(
 
 \item{path}{Path of the directory to save plot to: path and filename are combined to create the fully qualified file name. Defaults to the working directory.}
 
-\item{format}{Name of the graphic device. One of 'png', 'jpeg', 'tiff', 'bmp', 'svg', or 'pdf'. If `NULL` (default), the format is guessed based on the filename extension.}
+\item{format}{Name of the graphic device. One of 'png', 'jpeg', 'tiff', 'bmp', 'svg', or 'pdf'. If \code{NULL} (default), the format is guessed based on the filename extension.}
 
-\item{width, height}{Plot size in units expressed by the `units` argument. Default is 600px for bitmap formats and 6 inches for vector formats.}
+\item{width, height}{Plot size in units expressed by the \code{units} argument. Default is 600px for bitmap formats and 6 inches for vector formats.}
 
-\item{units}{One of the following units in which the width and height arguments are expressed: "in", "cm", "mm" for vector formats and "in", "cm", "mm" or "px" for bitmap formats. If left `NULL` (default), the function will automatically use "px" for bitmap formats and "in" for vector formats.}
+\item{units}{One of the following units in which the width and height arguments are expressed: "in", "cm", "mm" for vector formats and "in", "cm", "mm" or "px" for bitmap formats. If left \code{NULL} (default), the function will automatically use "px" for bitmap formats and "in" for vector formats.}
 
 \item{res}{The nominal resolution in ppi which will be recorded in the bitmap file, if a positive integer. Also used for units other than the default, and to convert points to pixels. Default is 100 if exporting in bitmap format. This argument is unused if exporting to a vector format.}
 
@@ -37,12 +37,14 @@ fc_export(
 Invisibly returns the same object that has been given to the function.
 }
 \description{
-This function allows you to export the drawn flowchart to the most popular graphic formats, including bitmap formats (png, jpeg, tiff, bmp) and vector formats (svg, pdf). For bitmap formats, it uses the `ragg` package devices when available for higher performance and higher quality output than standard raster devices provide by `grDevices`.
+This function allows you to export the drawn flowchart to the most popular graphic formats, including bitmap formats (png, jpeg, tiff, bmp) and vector formats (svg, pdf). For bitmap formats, it uses the \code{ragg} package devices when available for higher performance and higher quality output than standard raster devices provide by \code{grDevices}.
 }
 \details{
-- **Vector Formats ('svg', 'pdf'):** These formats are ideal for graphics that need to be scaled without loss of quality. The default units for width and height are inches. If user specifies `units` other than inches ("mm" or "cm"), the function will convert the dimensions to inches using standard conversion formulas.
-- **Bitmap Formats ('png', 'jpeg', 'tiff', 'bmp'):** For these formats (with the exception of 'bmp'), the function uses the `ragg` package devices when available, providing higher performance and higher quality output. The default units for width and height are pixels.
-- **Suggested Dependencies:** For superior performance and quality bitmap outputs, it is recommended to install the `ragg` package. For exporting to 'pdf' format with enhanced features, the Cairo graphics library will be used if it is available.
+\itemize{
+\item \strong{Vector Formats ('svg', 'pdf'):} These formats are ideal for graphics that need to be scaled without loss of quality. The default units for width and height are inches. If user specifies \code{units} other than inches ("mm" or "cm"), the function will convert the dimensions to inches using standard conversion formulas.
+\item \strong{Bitmap Formats ('png', 'jpeg', 'tiff', 'bmp'):} For these formats (with the exception of 'bmp'), the function uses the \code{ragg} package devices when available, providing higher performance and higher quality output. The default units for width and height are pixels.
+\item \strong{Suggested Dependencies:} For superior performance and quality bitmap outputs, it is recommended to install the \code{ragg} package. For exporting to 'pdf' format with enhanced features, the Cairo graphics library will be used if it is available.
+}
 }
 \examples{
 \dontrun{

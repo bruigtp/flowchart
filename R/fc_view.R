@@ -2,7 +2,7 @@
 #' @description This function allows you to return either the data stored in `$data` or the flowchart information stored in `$fc`.
 #'
 #' @param object fc object that we want to access.
-#' @param what Choose "data" to return the data associated to the flowchart stored in `$data` or "fc" to return the flowchart information stored in `$fc`.
+#' @param what Choose `"data"` to return the data associated to the flowchart stored in `$data` or `"fc"` to return the flowchart information stored in `$fc`.
 #' @return Returns a tibble. Either `$data` or `$fc`.
 #'
 #' @examples

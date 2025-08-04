@@ -42,6 +42,7 @@ VignetteBuilder: knitr
 Depends: 
     R (>= 4.1.0)
 RoxygenNote: 7.3.2
+Roxygen: list(markdown = TRUE)
 URL: https://bruigtp.github.io/flowchart/
 Config/testthat/edition: 3
 Config/Needs/website: rmarkdown
