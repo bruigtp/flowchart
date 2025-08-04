@@ -73,10 +73,10 @@
 
     
     
-<p>We can customize the <code>flowchart</code> either with the arguments
-provided by each function in the process of creating it, or directly in
-the final output using the <code><a href="../reference/fc_theme.html">fc_theme()</a></code> or
-<code><a href="../reference/fc_modify.html">fc_modify()</a></code> functions.</p>
+<p>We can customize the flowchart either with the arguments provided by
+each function in the process of creating it, or directly in the final
+output using the <code><a href="../reference/fc_theme.html">fc_theme()</a></code> or <code><a href="../reference/fc_modify.html">fc_modify()</a></code>
+functions.</p>
 <div class="section level2">
 <h2 id="change-function-arguments">Change function arguments<a class="anchor" aria-label="anchor" href="#change-function-arguments"></a>
 </h2>
@@ -89,7 +89,7 @@ the end of the vignette: <a href="#customization-examples">Customization
 examples</a>.</p>
 </div>
 <div class="section level2">
-<h2 id="functions-to-customize-the-flowchart">Functions to customize the <code>flowchart</code><a class="anchor" aria-label="anchor" href="#functions-to-customize-the-flowchart"></a>
+<h2 id="functions-to-customize-the-flowchart">Functions to customize the flowchart<a class="anchor" aria-label="anchor" href="#functions-to-customize-the-flowchart"></a>
 </h2>
 <div class="section level3">
 <h3 id="fc_theme">
@@ -98,7 +98,7 @@ examples</a>.</p>
 <p>We can use <code><a href="../reference/fc_theme.html">fc_theme()</a></code> to set all parameters for all
 boxes in a flowchart at once. This is useful if we want to apply the
 same style to all the boxes. For example, let’s customize the following
-<code>flowchart</code>:</p>
+flowchart:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -121,10 +121,9 @@ same style to all the boxes. For example, let’s customize the following
 <code>fc_modify()</code><a class="anchor" aria-label="anchor" href="#fc_modify"></a>
 </h3>
 <p>The function <code>fc_modify</code> allows the user to customise the
-created <code>flowchart</code> by modifying its parameters, which are
-stored in <code>.$fc</code>.</p>
-<p>For example, let’s customize the following
-<code>flowchart</code>:</p>
+created flowchart by modifying its parameters, which are stored in
+<code>.$fc</code>.</p>
+<p>For example, let’s customize the following flowchart:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo_fc</span> <span class="op">&lt;-</span> <span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -174,7 +173,7 @@ different reasons for exclusion, and change the x and y coordinate:</p>
 <h2 id="customization-examples">Customization examples<a class="anchor" aria-label="anchor" href="#customization-examples"></a>
 </h2>
 <p>In these examples, we will explore some of the arguments to customize
-the following <code>flowchart</code>:</p>
+the following flowchart:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -183,7 +182,7 @@ the following <code>flowchart</code>:</p>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="flowchart-customization_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 <div class="section level3">
-<h3 id="change-the-flowchart-appearance">Change the <code>flowchart</code> appearance<a class="anchor" aria-label="anchor" href="#change-the-flowchart-appearance"></a>
+<h3 id="change-the-flowchart-appearance">Change the flowchart appearance<a class="anchor" aria-label="anchor" href="#change-the-flowchart-appearance"></a>
 </h3>
 <p>You can set the background color of each box using
 <code>bg_fill=</code>:</p>
@@ -203,9 +202,9 @@ the following <code>flowchart</code>:</p>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="flowchart-customization_files/figure-html/unnamed-chunk-8-1.png" width="576"></p>
-<p>You can also alter the background of the canvas behind the
-<code>flowchart</code> boxes using the <code>bg_canvas=</code> argument
-in <code>fc_draw</code>:</p>
+<p>You can also alter the background of the canvas behind the flowchart
+boxes using the <code>bg_canvas=</code> argument in
+<code>fc_draw</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span>, width <span class="op">=</span> <span class="fl">0.6</span>, text_fs <span class="op">=</span> <span class="fl">10</span>, text_fface <span class="op">=</span> <span class="fl">2</span>, text_ffamily <span class="op">=</span> <span class="st">"serif"</span>, text_padding <span class="op">=</span> <span class="fl">2</span>, bg_fill <span class="op">=</span> <span class="st">"lightgrey"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -224,9 +223,9 @@ in <code>fc_draw</code>:</p>
 <p><img src="flowchart-customization_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
 </div>
 <div class="section level3">
-<h3 id="add-a-title-to-the-flowchart">Add a title to the <code>flowchart</code><a class="anchor" aria-label="anchor" href="#add-a-title-to-the-flowchart"></a>
+<h3 id="add-a-title-to-the-flowchart">Add a title to the flowchart<a class="anchor" aria-label="anchor" href="#add-a-title-to-the-flowchart"></a>
 </h3>
-<p>We can add a title to the <code>flowchart</code> using the argument
+<p>We can add a title to the flowchart using the argument
 <code>title=</code> in the <code><a href="../reference/fc_draw.html">fc_draw()</a></code> function:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
@@ -238,9 +237,8 @@ in <code>fc_draw</code>:</p>
 <div class="section level4">
 <h4 id="add-a-title-to-the-split">Add a title to the split<a class="anchor" aria-label="anchor" href="#add-a-title-to-the-split"></a>
 </h4>
-<p>We can also add a title to a split in the <code>flowchart</code>,
-using the argument <code>title</code> in the <code><a href="../reference/fc_split.html">fc_split()</a></code>
-function:</p>
+<p>We can also add a title to a split in the flowchart, using the
+argument <code>title</code> in the <code><a href="../reference/fc_split.html">fc_split()</a></code> function:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -298,9 +296,8 @@ in a filter using the argument <code>offset_exc</code>:</p>
 <div class="section level3">
 <h3 id="change-box-corner-style">Change Box Corner Style<a class="anchor" aria-label="anchor" href="#change-box-corner-style"></a>
 </h3>
-<p>We can change the corner style of the <code>flowchart</code> boxes
-using the <code>box_corners</code> argument with
-<code>fc_draw</code>:</p>
+<p>We can change the corner style of the flowchart boxes using the
+<code>box_corners</code> argument with <code>fc_draw</code>:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -366,9 +363,9 @@ the argument <code>sel_group=</code>:</p>
 <pre><code><span><span class="co">## Warning: `object$data` has been grouped by a new variable called `split1_sel_group`,</span></span>
 <span><span class="co">## because `sel_group` has been used in the split.</span></span></code></pre>
 <p><img src="flowchart-customization_files/figure-html/unnamed-chunk-20-1.png" width="576"></p>
-<p>If we want to select a group in a <code>flowchart</code> with more
-than two groups we have to supply a vector in <code>sel_group=</code>
-with the desired groups to be selected:</p>
+<p>If we want to select a group in a flowchart with more than two groups
+we have to supply a vector in <code>sel_group=</code> with the desired
+groups to be selected:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>

@@ -79,27 +79,26 @@
 <p><code>flowchart</code> is a package for drawing participant flow
 diagrams directly from a <code>data.frame</code> using tidyverse. It
 provides a set of functions that can be combined with <code>|&gt;</code>
-to create all kinds of <code>flowchart</code>s from a
-<code>data.frame</code> in an easy way:</p>
+to create all kinds of flowcharts from a <code>data.frame</code> in an
+easy way:</p>
 <ul>
 <li><p><code><a href="../reference/as_fc.html">as_fc()</a></code> transforms a <code>data.frame</code> into a
 <code>fc</code> object that can be manipulated by the package</p></li>
-<li><p><code><a href="../reference/fc_split.html">fc_split()</a></code> splits a <code>flowchart</code> according
-to the different values of a column in the
-<code>data.frame</code></p></li>
+<li><p><code><a href="../reference/fc_split.html">fc_split()</a></code> splits a flowchart according to the
+different values of a column in the <code>data.frame</code></p></li>
 <li><p><code><a href="../reference/fc_filter.html">fc_filter()</a></code> creates a filtered box from the
-<code>flowchart</code>, based on the evaluation of an expression in the
+flowchart, based on the evaluation of an expression in the
 <code>data.frame</code></p></li>
 <li><p><code><a href="../reference/fc_merge.html">fc_merge()</a></code> combines horizontally two different
-<code>flowchart</code>s</p></li>
+flowcharts</p></li>
 <li><p><code><a href="../reference/fc_stack.html">fc_stack()</a></code> combines vertically two different
-<code>flowchart</code>s</p></li>
+flowcharts</p></li>
 <li><p><code><a href="../reference/fc_modify.html">fc_modify()</a></code> allows to modify the parameters of the
-<code>flowchart</code> which are stored in <code>.$fc</code></p></li>
-<li><p><code><a href="../reference/fc_draw.html">fc_draw()</a></code> draws the <code>flowchart</code> created
-by the previous functions</p></li>
-<li><p><code><a href="../reference/fc_export.html">fc_export()</a></code> allows to export the
-<code>flowchart</code> drawn to the desired format</p></li>
+flowchart which are stored in <code>.$fc</code></p></li>
+<li><p><code><a href="../reference/fc_draw.html">fc_draw()</a></code> draws the flowchart created by the
+previous functions</p></li>
+<li><p><code><a href="../reference/fc_export.html">fc_export()</a></code> allows to export the flowchart drawn to
+the desired format</p></li>
 </ul>
 </div>
 <div class="section level2">
@@ -153,19 +152,18 @@ meticillin-sensitive Staphylococcus aureus bacteraemia.</p>
 <div class="section level2">
 <h2 id="basic-operations">Basic operations<a class="anchor" aria-label="anchor" href="#basic-operations"></a>
 </h2>
-<p>The first step is to initialise the <code>flowchart</code> with
+<p>The first step is to initialise the flowchart with
 <code>as_fc</code>. The last step, if we want to visualise the created
-<code>flowchart</code>, is to draw the <code>flowchart</code> with
-<code>fc_draw</code>. In between we can combine the functions
-<code>fc_split</code>., <code>fc_filter</code>, <code>fc_merge</code>,
-<code>fc_stack</code> with the operator pipe (<code>|&gt;</code> or
-<code>%&gt;$</code>) to create complex <code>flowchart</code>
-structures.</p>
+flowchart, is to draw the flowchart with <code>fc_draw</code>. In
+between we can combine the functions <code>fc_split</code>.,
+<code>fc_filter</code>, <code>fc_merge</code>, <code>fc_stack</code>
+with the operator pipe (<code>|&gt;</code> or <code>%&gt;$</code>) to
+create complex flowchart structures.</p>
 <div class="section level3">
 <h3 id="initialize">Initialize<a class="anchor" aria-label="anchor" href="#initialize"></a>
 </h3>
-<p>To initialize a <code>flowchart</code> from a dataset we have to use
-the <code><a href="../reference/as_fc.html">as_fc()</a></code> function:</p>
+<p>To initialize a flowchart from a dataset we have to use the
+<code><a href="../reference/as_fc.html">as_fc()</a></code> function:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo_fc</span> <span class="op">&lt;-</span> <span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -177,11 +175,11 @@ the <code><a href="../reference/as_fc.html">as_fc()</a></code> function:</p>
 <span><span class="co">##  - attr(*, "class")= chr "fc"</span></span></code></pre>
 <p>The <code>safo_fc</code> object created is a <code>fc</code> object,
 which consists of a list containing the tibble of the
-<code>data.frame</code> associated with the <code>flowchart</code> and
-the tibble that stores the <code>flowchart</code> parameters. In this
-example, <code>safo_fc$data</code> corresponds to the <code>safo</code>
-dataset while <code>safo_fc$fc</code> contains the parameters of the
-initial <code>flowchart</code>:</p>
+<code>data.frame</code> associated with the flowchart and the tibble
+that stores the flowchart parameters. In this example,
+<code>safo_fc$data</code> corresponds to the <code>safo</code> dataset
+while <code>safo_fc$fc</code> contains the parameters of the initial
+flowchart:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo_fc</span><span class="op">$</span><span class="va">fc</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 22</span></span></span>
@@ -192,16 +190,15 @@ initial <code>flowchart</code>:</p>
 <span><span class="co">## <span style="color: #949494;">#   text_ffamily &lt;lgl&gt;, text_padding &lt;dbl&gt;, bg_fill &lt;chr&gt;, border_color &lt;chr&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   width &lt;lgl&gt;, height &lt;lgl&gt;, end &lt;lgl&gt;</span></span></span></code></pre>
 <p>Alternatively, if a <code>data.frame</code> is not available, we can
-initialize a <code>flowchart</code> using the <code>N =</code> argument
-manually specifying the number of rows:</p>
+initialize a flowchart using the <code>N =</code> argument manually
+specifying the number of rows:</p>
 </div>
 <div class="section level3">
 <h3 id="draw">Draw<a class="anchor" aria-label="anchor" href="#draw"></a>
 </h3>
-<p>The function <code><a href="../reference/fc_draw.html">fc_draw()</a></code> allows to draw the
-<code>flowchart</code> associated to any <code>fc</code> object.
-Following the last example, we can draw the initial
-<code>flowchart</code> that has been previously created:</p>
+<p>The function <code><a href="../reference/fc_draw.html">fc_draw()</a></code> allows to draw the flowchart
+associated to any <code>fc</code> object. Following the last example, we
+can draw the initial flowchart that has been previously created:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo_fc</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -210,10 +207,9 @@ Following the last example, we can draw the initial
 <div class="section level3">
 <h3 id="filter">Filter<a class="anchor" aria-label="anchor" href="#filter"></a>
 </h3>
-<p>We can filter the <code>flowchart</code> using
-<code><a href="../reference/fc_filter.html">fc_filter()</a></code> specifying the logic in which the filter is to
-be applied. For example, we can show the number of patients that were
-randomized in the study:</p>
+<p>We can filter the flowchart using <code><a href="../reference/fc_filter.html">fc_filter()</a></code> specifying
+the logic in which the filter is to be applied. For example, we can show
+the number of patients that were randomized in the study:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -236,12 +232,11 @@ the resulting filter:</p>
 <div class="section level3">
 <h3 id="split">Split<a class="anchor" aria-label="anchor" href="#split"></a>
 </h3>
-<p>We can split the <code>flowchart</code> into groups using
-<code><a href="../reference/fc_split.html">fc_split()</a></code> specifying the grouping variable. The function
-will split the <code>flowchart</code> into as many categories as the
-specified variable has. For example, we can split the previous
-<code>flowchart</code> showing the patients allocated in the two study
-treatments:</p>
+<p>We can split the flowchart into groups using <code><a href="../reference/fc_split.html">fc_split()</a></code>
+specifying the grouping variable. The function will split the flowchart
+into as many categories as the specified variable has. For example, we
+can split the previous flowchart showing the patients allocated in the
+two study treatments:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -262,17 +257,16 @@ each group of the resulting split:</p>
 <p><img src="flowchart_files/figure-html/unnamed-chunk-12-1.png" width="576"></p>
 <p>The idea is to combine the <code><a href="../reference/fc_filter.html">fc_filter()</a></code> and
 <code><a href="../reference/fc_split.html">fc_split()</a></code> functions in the way we want to create different
-<code>flowchart</code> structures, however complex the may be. In some
-cases, we may want to create two different <code>flowcharts</code> then
-<a href="combine-flowcharts.html">merge or stack</a> them into the same
+flowchart structures, however complex the may be. In some cases, we may
+want to create two different flowcharts then <a href="combine-flowcharts.html">merge or stack</a> them into the same
 image.</p>
 </div>
 <div class="section level3">
 <h3 id="export">Export<a class="anchor" aria-label="anchor" href="#export"></a>
 </h3>
-<p>Once the <code>flowchart</code> has been drawn we can export it to
-the most popular image formats, including both bitmap (png, jpeg, tiff,
-bmp) and vector (svg, pdf) formats, using <code><a href="../reference/fc_export.html">fc_export()</a></code>:</p>
+<p>Once the flowchart has been drawn we can export it to the most
+popular image formats, including both bitmap (png, jpeg, tiff, bmp) and
+vector (svg, pdf) formats, using <code><a href="../reference/fc_export.html">fc_export()</a></code>:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>

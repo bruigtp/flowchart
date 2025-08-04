@@ -76,8 +76,8 @@
 <div class="section level2">
 <h2 id="example-1">Example 1<a class="anchor" aria-label="anchor" href="#example-1"></a>
 </h2>
-<p>In this example, we will try to create a <code>flowchart</code> for
-the complete flow of patients in the SAFO study:</p>
+<p>In this example, we will try to create a flowchart for the complete
+flow of patients in the SAFO study:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -92,9 +92,8 @@ the complete flow of patients in the SAFO study:</p>
 <h2 id="example-2">Example 2<a class="anchor" aria-label="anchor" href="#example-2"></a>
 </h2>
 <p>In this example, we will try to exactly reproduce the original
-<code>flowchart</code> of the SAFO study published in Nature Medicine:
-<a href="https://www.nature.com/articles/s41591-023-02569-0/figures/1" class="external-link">SAFO
-<code>flowchart</code></a>.</p>
+flowchart of the SAFO study published in Nature Medicine: <a href="https://www.nature.com/articles/s41591-023-02569-0/figures/1" class="external-link">SAFO
+flowchart</a>.</p>
 <p>First, we need to do some pre-processing to reproduce the text in the
 larger boxes:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -128,8 +127,8 @@ larger boxes:</p>
 <span>  collapse <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">label_exc2</span> <span class="op">&lt;-</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">label_exc2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"resistant"</span> <span class="op">=</span> <span class="st">"resistant\n"</span>, <span class="st">"blood"</span> <span class="op">=</span> <span class="st">"blood\n"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Second, let’s create and customise the <code>flowchart</code> using
-the functions in the package:</p>
+<p>Second, let’s create and customize the flowchart using the functions
+in the package:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"patients assessed for eligibility"</span>, text_pattern <span class="op">=</span> <span class="st">"{N} {label}"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -150,7 +149,7 @@ the functions in the package:</p>
 <div class="section level2">
 <h2 id="example-3">Example 3<a class="anchor" aria-label="anchor" href="#example-3"></a>
 </h2>
-<p>In this example, we will create a <code>flowchart</code> without any
+<p>In this example, we will create a flowchart without any
 <code>data.frame</code>, using the <code>N</code> argument to manually
 specify the numbers to display in the boxes:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -166,7 +165,7 @@ specify the numbers to display in the boxes:</p>
 </h2>
 <p>The use of <code>N=</code> argument can be combined with the use of a
 <code>data.frame</code>. In this example, we will use the
-<code>N=</code> argument in a <code>flowchart</code> that uses a
+<code>N=</code> argument in a flowchart that uses a
 <code>data.frame</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>

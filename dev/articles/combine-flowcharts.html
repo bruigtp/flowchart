@@ -74,13 +74,13 @@
     
     
 <p><code><a href="../reference/fc_merge.html">fc_merge()</a></code> and <code><a href="../reference/fc_stack.html">fc_stack()</a></code> allow you to
-combine different <code>flowchart</code>s horizontally or vertically.
-This is very useful when you need to combine <code>flowchart</code>s
-generated from different <code>data.frame</code>s, as shown here.</p>
+combine different flowcharts horizontally or vertically. This is very
+useful when you need to combine flowcharts generated from different
+<code>data.frame</code>s, as shown here.</p>
 <div class="section level2">
 <h2 id="merge">Merge<a class="anchor" aria-label="anchor" href="#merge"></a>
 </h2>
-<p>We can combine different <code>flowchart</code>s horizontally using
+<p>We can combine different flowcharts horizontally using
 <code><a href="../reference/fc_merge.html">fc_merge()</a></code>. For example, we might want to represent the
 flow of patients included in the ITT population with the flow of
 patients included in the PP population.</p>
@@ -109,19 +109,18 @@ patients included in the PP population.</p>
 <div class="section level2">
 <h2 id="stack">Stack<a class="anchor" aria-label="anchor" href="#stack"></a>
 </h2>
-<p>We can combine different <code>flowchart</code>s vertically using
+<p>We can combine different flowcharts vertically using
 <code><a href="../reference/fc_stack.html">fc_stack()</a></code>. For example, we can combine the same two
-<code>flowchart</code>s vertically instead of horizontally.</p>
+flowcharts vertically instead of horizontally.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">fc1</span>, <span class="va">fc2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_stack.html">fc_stack</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="combine-flowcharts_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
 <p>We can use the argument <code>unite = TRUE</code> to connect two
-stacked <code>flowchart</code>s. Two flowcharts can be merged only if
-they have the same boxes at the beginning and at the end, or if one of
-the flowcharts has one box at the beginning or at the end. For
-example:</p>
+stacked flowcharts. Two flowcharts can be merged only if they have the
+same boxes at the beginning and at the end, or if one of the flowcharts
+has one box at the beginning or at the end. For example:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fc1</span> <span class="op">&lt;-</span> <span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
