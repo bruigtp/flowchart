@@ -11,6 +11,7 @@
 #' @param na.rm logical. Should missing values of the grouping variable be removed? Default is FALSE.
 #' @param show_zero logical. Should the levels of the grouping variable that don't have data be shown? Default is FALSE.
 #' @param round_digits Number of digits to round percentages. It is 2 by default.
+#' @param trim_trailing_zeros Logical value. If `TRUE`, allows trailing zeros after the decimal to be trimmed (default is `FALSE`).
 #' @param just Justification for the text: left, center or right. Default is center.
 #' @param text_color Color of the text. It is black by default.
 #' @param text_fs Font size of the text. It is 8 by default.
@@ -43,7 +44,7 @@
 #'
 #' @export
 
-fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, title = NULL, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "white", border_color_title = "black", width_title = NA, height_title = NA, offset = NULL) {
+fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, trim_trailing_zeros = FALSE, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, title = NULL, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "white", border_color_title = "black", width_title = NA, height_title = NA, offset = NULL) {
 
   is_class(object, "fc")
   UseMethod("fc_split")
@@ -54,7 +55,7 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
 #' @export
 #' @importFrom rlang .data
 
-fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, title = NULL, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "white", border_color_title = "black", width_title = NA, height_title = NA, offset = NULL) {
+fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, trim_trailing_zeros = FALSE, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, title = NULL, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "white", border_color_title = "black", width_title = NA, height_title = NA, offset = NULL) {
 
   var <- substitute(var)
 
@@ -254,7 +255,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
     dplyr::mutate(
       x = NA,
       y = NA,
-      perc = prettyNum(round(.data$n*100/.data$N_total, round_digits), nsmall = round_digits),
+      perc = format_percentage(.data$n*100/.data$N_total, round_digits, trim_trailing_zeros),
       type = "split",
       just = just,
       text_color = text_color,

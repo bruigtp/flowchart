@@ -13,6 +13,7 @@
 #' @param text_pattern_exc Character or expression defining the structure that will have the text in the exclude box. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)". If text_pattern or label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern_exc is placed.
 #' @param sel_group Select the group in which to perform the filter. The default is NULL. Can only be used if the flowchart has previously been split. If the flowchart has more than one group, it can either be given the full name as it is stored in the `$fc` component (separated by '\\'), or it can be given as a vector with the names of each group to be selected.
 #' @param round_digits Number of digits to round percentages. It is 2 by default.
+#' @param trim_trailing_zeros Logical value. If `TRUE`, allows trailing zeros after the decimal to be trimmed (default is `FALSE`).
 #' @param just Justification for the text: left, center or right. Default is center.
 #' @param text_color Color of the text. It is black by default. See the `col` parameter for \code{\link{gpar}}.
 #' @param text_fs Font size of the text. It is 8 by default. See the `fontsize` parameter for \code{\link{gpar}}.
@@ -44,7 +45,7 @@
 #'
 #' @export
 
-fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, just_exc = "center", text_color_exc = "black", text_fs_exc = 6, text_fface_exc = 1, text_ffamily_exc = NA, text_padding_exc = 1, bg_fill_exc = "white", border_color_exc = "black", offset_exc = NULL, width_exc = NA, height_exc = NA) {
+fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, trim_trailing_zeros = FALSE, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, just_exc = "center", text_color_exc = "black", text_fs_exc = 6, text_fface_exc = 1, text_ffamily_exc = NA, text_padding_exc = 1, bg_fill_exc = "white", border_color_exc = "black", offset_exc = NULL, width_exc = NA, height_exc = NA) {
 
   is_class(object, "fc")
   UseMethod("fc_filter")
@@ -55,7 +56,7 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
 #' @importFrom rlang .data
 #' @importFrom rlang :=
 
-fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, just_exc = "center", text_color_exc = "black", text_fs_exc = 6, text_fface_exc = 1, text_ffamily_exc = NA, text_padding_exc = 1, bg_fill_exc = "white", border_color_exc = "black", offset_exc = NULL, width_exc = NA, height_exc = NA) {
+fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, trim_trailing_zeros = FALSE, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, just_exc = "center", text_color_exc = "black", text_fs_exc = 6, text_fface_exc = 1, text_ffamily_exc = NA, text_padding_exc = 1, bg_fill_exc = "white", border_color_exc = "black", offset_exc = NULL, width_exc = NA, height_exc = NA) {
 
   filter <- paste(deparse(substitute(filter)), collapse = "")
   filter <- gsub("  ", "", filter)
@@ -242,7 +243,7 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
   new_fc <- new_fc |>
     dplyr::mutate(
       y = NA,
-      perc = prettyNum(round(.data$n*100/.data$N_total, round_digits), nsmall = round_digits),
+      perc = format_percentage(.data$n*100/.data$N_total, round_digits, trim_trailing_zeros),
       type = "filter",
       just = just,
       text_color = text_color,

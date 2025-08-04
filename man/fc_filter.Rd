@@ -17,6 +17,7 @@ fc_filter(
   text_pattern_exc = "{label}\\n {n} ({perc}\%)",
   sel_group = NULL,
   round_digits = 2,
+  trim_trailing_zeros = FALSE,
   just = "center",
   text_color = "black",
   text_fs = 8,
@@ -64,6 +65,8 @@ fc_filter(
 \item{sel_group}{Select the group in which to perform the filter. The default is NULL. Can only be used if the flowchart has previously been split. If the flowchart has more than one group, it can either be given the full name as it is stored in the `$fc` component (separated by '\\'), or it can be given as a vector with the names of each group to be selected.}
 
 \item{round_digits}{Number of digits to round percentages. It is 2 by default.}
+
+\item{trim_trailing_zeros}{Logical value. If `TRUE`, allows trailing zeros after the decimal to be trimmed (default is `FALSE`).}
 
 \item{just}{Justification for the text: left, center or right. Default is center.}
 

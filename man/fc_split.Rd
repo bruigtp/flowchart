@@ -15,6 +15,7 @@ fc_split(
   na.rm = FALSE,
   show_zero = FALSE,
   round_digits = 2,
+  trim_trailing_zeros = FALSE,
   just = "center",
   text_color = "black",
   text_fs = 8,
@@ -58,6 +59,8 @@ fc_split(
 \item{show_zero}{logical. Should the levels of the grouping variable that don't have data be shown? Default is FALSE.}
 
 \item{round_digits}{Number of digits to round percentages. It is 2 by default.}
+
+\item{trim_trailing_zeros}{Logical value. If `TRUE`, allows trailing zeros after the decimal to be trimmed (default is `FALSE`).}
 
 \item{just}{Justification for the text: left, center or right. Default is center.}
 
