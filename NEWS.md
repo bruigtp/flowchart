@@ -116,19 +116,18 @@
 
 * New `width` and `height` arguments for `as_fc()`, `fc_filter()` and `fc_split()` functions to manually set the size of boxes.
 
-
-# flowchart (development version)
-
-* Split up `flowchart` vignette into multiple different articles and updated `_pkgdown.yml` to build `dev` version of site separately while defaulting to currently released CRAN version (#37).
-
-* Stack flowcharts with `unite=TRUE` if there are more boxes in the last level of the first flowchart than in the first level of the second flowchart.
-
-* The `text_pattern` argument now allows expressions, so users can now format text other than the label in bold.
+# flowchart (development)
 
 * New `fc_theme()` function to set all parameters for all boxes in a flowchart at once.
 
-* Now all arguments available in the graphic device function are also available in the `fc_export()` function.
+* Split up `flowchart` vignette into multiple different articles and updated `_pkgdown.yml` to build `dev` version of site separately while defaulting to currently released CRAN version (#37).
+
+* The `text_pattern` argument now allows expressions, so users can now format text other than the label in bold.
+
+* Now all arguments available in the graphic device function are also available in the `fc_export()` function. 
 
 * Fixed bug when `sel_group` is used in a split (#40). 
+
+* Stack flowcharts with `unite=TRUE` if there are more boxes in the last level of the first flowchart than in the first level of the second flowchart.
 
 * Fixed `bug` allowing trailing zeros to be trimmed regardless of `round_digits` argument in `fc_filter()` and `fc_split()` (@kenkomodo)

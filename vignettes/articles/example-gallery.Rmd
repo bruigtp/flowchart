@@ -24,7 +24,7 @@ library(tibble)
 
 # Example 1
 
-In this example, we will try to create a `flowchart` for the complete flow of patients in the SAFO study:
+In this example, we will try to create a flowchart for the complete flow of patients in the SAFO study:
 
 ```{r warning = FALSE, fig.width = 7, fig.height = 7}
 safo |> 
@@ -38,7 +38,7 @@ safo |>
 
 # Example 2
 
-In this example, we will try to exactly reproduce the original `flowchart` of the SAFO study published in Nature Medicine: [SAFO `flowchart`](https://www.nature.com/articles/s41591-023-02569-0/figures/1).
+In this example, we will try to exactly reproduce the original flowchart of the SAFO study published in Nature Medicine: [SAFO flowchart](https://www.nature.com/articles/s41591-023-02569-0/figures/1).
 
 First, we need to do some pre-processing to reproduce the text in the larger boxes:
 
@@ -76,7 +76,7 @@ label_exc2 <- str_replace_all(label_exc2, c("resistant" = "resistant\n", "blood"
 
 ```
 
-Second, let's create and customise the `flowchart` using the functions in the package:
+Second, let's create and customize the flowchart using the functions in the package:
 
 ```{r warning=FALSE, fig.width = 13, fig.height = 10}
 safo |> 
@@ -97,7 +97,7 @@ safo |>
 
 # Example 3
 
-In this example, we will create a `flowchart` without any `data.frame`, using the `N` argument to manually specify the numbers to display in the boxes:
+In this example, we will create a flowchart without any `data.frame`, using the `N` argument to manually specify the numbers to display in the boxes:
 
 ```{r warning=FALSE, fig.width = 7, fig.height = 6}
 as_fc(N = 300) |> 
@@ -109,7 +109,7 @@ as_fc(N = 300) |>
 
 # Example 4
 
-The use of `N=` argument can be combined with the use of a `data.frame`. In this example, we will use the `N=` argument in a `flowchart` that uses a `data.frame`:
+The use of `N=` argument can be combined with the use of a `data.frame`. In this example, we will use the `N=` argument in a flowchart that uses a `data.frame`:
 
 ```{r warning=FALSE, fig.width = 7, fig.height = 6}
 
