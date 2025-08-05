@@ -357,3 +357,21 @@ update_numbers <- function(object, big.mark = "") {
 
   return(object)
 }
+
+
+#' @title format_percentage
+#' @description rounds percentage values while allowing the option to `trim_trailing_zeros`
+#'
+#'@param value numeric; percentage value to be rounded
+#'@param round_digits integer; number of digits past the decimal to round to
+#'@param trim_trailing_zeros logical; trim trailing zeros or not in returned value.
+#'@keywords internal
+#'
+format_percentage <- function(value, round_digits, trim_trailing_zeros) {
+  rounded_perc <- round(value, round_digits)
+  if (trim_trailing_zeros) {
+    return(rounded_perc)
+  } else {
+    return(prettyNum(rounded_perc, nsmall = round_digits))
+  }
+}

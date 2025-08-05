@@ -129,3 +129,5 @@
 * Fixed bug when `sel_group` is used in a split (#40). 
 
 * Stack flowcharts with `unite=TRUE` if there are more boxes in the last level of the first flowchart than in the first level of the second flowchart.
+
+* Fixed `bug` allowing trailing zeros to be trimmed regardless of `round_digits` argument in `fc_filter()` and `fc_split()` (@kenkomodo)
