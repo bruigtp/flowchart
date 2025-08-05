@@ -103,3 +103,17 @@ test_that("change label of the excluded box", {
     "A"
   )
 })
+
+test_that("trimming trailing zeros", {
+
+  fc1 <- as_fc(N = 100) |>
+    fc_filter(N = 50, show_exc = TRUE, trim_trailing_zeros = FALSE)
+  perc1 <- unique(fc1$fc$perc[fc1$fc$type != "init"])
+  expect_equal(perc1, "50.00")
+
+  fc2 <- as_fc(N = 100) |>
+    fc_filter(N = 50, show_exc = TRUE, trim_trailing_zeros = TRUE)
+  perc2 <- unique(fc2$fc$perc[fc2$fc$type != "init"])
+  expect_equal(perc2, "50")
+
+})

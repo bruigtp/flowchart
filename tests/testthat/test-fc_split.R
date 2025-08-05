@@ -101,3 +101,21 @@ test_that("preserves styling parameters", {
   expect_equal(unique(new_boxes$bg_fill), "yellow")
   expect_equal(unique(new_boxes$border_color), "blue")
 })
+
+
+test_that("trimming trailing zeros", {
+
+  fc1 <- as_fc(N = 100) |>
+    fc_split(N = c(25, 75), trim_trailing_zeros = FALSE)
+
+  perc1 <- unique(fc1$fc$perc[fc1$fc$type != "init"])
+  expect_equal(perc1, c("25.00", "75.00"))
+
+  fc2 <- as_fc(N = 100) |>
+    fc_split(N = c(25, 75), trim_trailing_zeros = TRUE)
+
+  perc2 <- unique(fc2$fc$perc[fc2$fc$type != "init"])
+  expect_equal(perc2, c("25", "75"))
+
+})
+

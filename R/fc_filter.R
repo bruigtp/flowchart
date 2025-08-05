@@ -434,10 +434,9 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
         )
     }
 
-
     new_fc2 <- new_fc2 |>
       dplyr::mutate(
-        perc = purrr::map2_dbl(.data$n, .data$N_total, ~round(.x*100/.y, round_digits)),
+        perc = purrr::map2_chr(.data$n, .data$N_total, ~format_percentage(.x*100/.y, round_digits, trim_trailing_zeros)),
         type = "exclude",
         just = just_exc,
         text_color = text_color_exc,

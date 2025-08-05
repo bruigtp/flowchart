@@ -370,7 +370,7 @@ update_numbers <- function(object, big.mark = "") {
 format_percentage <- function(value, round_digits, trim_trailing_zeros) {
   rounded_perc <- round(value, round_digits)
   if (trim_trailing_zeros) {
-    return(rounded_perc)
+    return(as.character(rounded_perc))
   } else {
     return(prettyNum(rounded_perc, nsmall = round_digits))
   }
