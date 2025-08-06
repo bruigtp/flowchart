@@ -13,6 +13,7 @@ fc_draw(
   arrow_ends = "last",
   arrow_type = "closed",
   arrow_color = "black",
+  arrow_fill = "black",
   arrow_lwd = 1,
   arrow_lineend = "round",
   arrow_linejoin = "round",
@@ -42,6 +43,8 @@ fc_draw(
 \item{arrow_type}{One of \code{"open"} or \code{"closed"} indicating whether the arrow head should be a closed triangle, as in \link{arrow}.}
 
 \item{arrow_color}{Color of the arrows. Default is \code{"black"}. See the \code{col} parameter for \link{gpar}.}
+
+\item{arrow_fill}{Color for filling the arrow head. Default is \code{"black"}. See the \code{fill} parameter for \link{gpar}.}
 
 \item{arrow_lwd}{Line width of the arrows. Default is 1. See the \code{lwd} parameter for \link{gpar}.}
 
