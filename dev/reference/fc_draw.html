@@ -53,6 +53,10 @@
 <span>  arrow_length <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="st">"inches"</span><span class="op">)</span>,</span>
 <span>  arrow_ends <span class="op">=</span> <span class="st">"last"</span>,</span>
 <span>  arrow_type <span class="op">=</span> <span class="st">"closed"</span>,</span>
+<span>  arrow_color <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  arrow_lwd <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  arrow_lineend <span class="op">=</span> <span class="st">"round"</span>,</span>
+<span>  arrow_linejoin <span class="op">=</span> <span class="st">"round"</span>,</span>
 <span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  title_x <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  title_y <span class="op">=</span> <span class="fl">0.9</span>,</span>
@@ -73,31 +77,47 @@
 
 
 <dt id="arg-big-mark">big.mark<a class="anchor" aria-label="anchor" href="#arg-big-mark"></a></dt>
-<dd><p>character. Used to specify the thousands separator for patient count values. Defaults is no separator (`""`); if not empty used as mark between every 3 digits (ex: `big.mark = ","` results in `1,000` instead of `1000`).</p></dd>
+<dd><p>character. Used to specify the thousands separator for patient count values. Defaults is no separator (<code>""</code>); if not empty used as mark between every 3 digits (ex: <code>big.mark = ","</code> results in <code>1,000</code> instead of <code>1000</code>).</p></dd>
 
 
 <dt id="arg-box-corners">box_corners<a class="anchor" aria-label="anchor" href="#arg-box-corners"></a></dt>
-<dd><p>Indicator of whether to draw boxes with round (`"round"`) vs non-round (`"sharp"`) corners. Default is `"round"`.</p></dd>
+<dd><p>Indicator of whether to draw boxes with round (<code>"round"</code>) vs non-round (<code>"sharp"</code>) corners. Default is <code>"round"</code>.</p></dd>
 
 
 <dt id="arg-arrow-angle">arrow_angle<a class="anchor" aria-label="anchor" href="#arg-arrow-angle"></a></dt>
-<dd><p>The angle of the arrow head in degrees, as in `arrow`.</p></dd>
+<dd><p>The angle of the arrow head in degrees, as in <code>arrow</code>.</p></dd>
 
 
 <dt id="arg-arrow-length">arrow_length<a class="anchor" aria-label="anchor" href="#arg-arrow-length"></a></dt>
-<dd><p>A unit specifying the length of the arrow head (from tip to base), as in `arrow`.</p></dd>
+<dd><p>A unit specifying the length of the arrow head (from tip to base), as in <code>arrow</code>.</p></dd>
 
 
 <dt id="arg-arrow-ends">arrow_ends<a class="anchor" aria-label="anchor" href="#arg-arrow-ends"></a></dt>
-<dd><p>One of "last", "first", or "both", indicating which ends of the line to draw arrow heads, as in `arrow`.</p></dd>
+<dd><p>One of <code>"last"</code>, <code>"first"</code>, or <code>"both"</code>, indicating which ends of the line to draw arrow heads, as in arrow.</p></dd>
 
 
 <dt id="arg-arrow-type">arrow_type<a class="anchor" aria-label="anchor" href="#arg-arrow-type"></a></dt>
-<dd><p>One of "open" or "closed" indicating whether the arrow head should be a closed triangle, as in `arrow`.</p></dd>
+<dd><p>One of <code>"open"</code> or <code>"closed"</code> indicating whether the arrow head should be a closed triangle, as in arrow.</p></dd>
+
+
+<dt id="arg-arrow-color">arrow_color<a class="anchor" aria-label="anchor" href="#arg-arrow-color"></a></dt>
+<dd><p>Color of the arrows. Default is <code>"black"</code>. See the <code>col</code> parameter for gpar.</p></dd>
+
+
+<dt id="arg-arrow-lwd">arrow_lwd<a class="anchor" aria-label="anchor" href="#arg-arrow-lwd"></a></dt>
+<dd><p>Line width of the arrows. Default is 1. See the <code>lwd</code> parameter for gpar.</p></dd>
+
+
+<dt id="arg-arrow-lineend">arrow_lineend<a class="anchor" aria-label="anchor" href="#arg-arrow-lineend"></a></dt>
+<dd><p>Line end style for arrows. One of <code>"round"</code>, <code>"butt"</code>, or <code>"square"</code>. Default is <code>"round"</code>. See the <code>lineend</code> parameter for gpar.</p></dd>
+
+
+<dt id="arg-arrow-linejoin">arrow_linejoin<a class="anchor" aria-label="anchor" href="#arg-arrow-linejoin"></a></dt>
+<dd><p>Line join style for arrow heads (i.e., shape of arrow head corners). One of <code>"round"</code>, <code>"mitre"</code>, or <code>"bevel"</code>. Default is <code>"round"</code>. See the <code>linejoin</code> parameter for gpar.</p></dd>
 
 
 <dt id="arg-title">title<a class="anchor" aria-label="anchor" href="#arg-title"></a></dt>
-<dd><p>The title of the flowchart. Default is NULL (no title).</p></dd>
+<dd><p>The title of the flowchart. Default is <code>NULL</code> (no title).</p></dd>
 
 
 <dt id="arg-title-x">title_x<a class="anchor" aria-label="anchor" href="#arg-title-x"></a></dt>
@@ -109,23 +129,23 @@
 
 
 <dt id="arg-title-color">title_color<a class="anchor" aria-label="anchor" href="#arg-title-color"></a></dt>
-<dd><p>Color of the title. It is black by default. See the `col` parameter for <code>gpar</code>.</p></dd>
+<dd><p>Color of the title. It is <code>"black"</code> by default. See the <code>col</code> parameter for gpar.</p></dd>
 
 
 <dt id="arg-title-fs">title_fs<a class="anchor" aria-label="anchor" href="#arg-title-fs"></a></dt>
-<dd><p>Font size of the title. It is 15 by default. See the `fontsize` parameter for <code>gpar</code>.</p></dd>
+<dd><p>Font size of the title. It is 15 by default. See the <code>fontsize</code> parameter for gpar.</p></dd>
 
 
 <dt id="arg-title-fface">title_fface<a class="anchor" aria-label="anchor" href="#arg-title-fface"></a></dt>
-<dd><p>Font face of the title. It is 2 by default. See the `fontface` parameter for <code>gpar</code>.</p></dd>
+<dd><p>Font face of the title. It is 2 by default. See the <code>fontface</code> parameter for gpar.</p></dd>
 
 
 <dt id="arg-title-ffamily">title_ffamily<a class="anchor" aria-label="anchor" href="#arg-title-ffamily"></a></dt>
-<dd><p>Changes the font family of the title. Default is NA. See the `fontfamily` parameter for <code>gpar</code>.</p></dd>
+<dd><p>Changes the font family of the title. Default is <code>NA</code>. See the <code>fontfamily</code> parameter for gpar.</p></dd>
 
 
 <dt id="arg-canvas-bg">canvas_bg<a class="anchor" aria-label="anchor" href="#arg-canvas-bg"></a></dt>
-<dd><p>Background color for the entire canvas (the area behind the flowchart boxes). Default is `"white"`. Set to `"transparent"` or `NULL` for a transparent background; `"transparent"` background will only be noticeable when exporting drawn flowcharts via `fc_export()` and is compatible with all `fc_export()` formats except `"jpeg"` and `"bmp"`.</p></dd>
+<dd><p>Background color for the entire canvas (the area behind the flowchart boxes). Default is <code>"white"</code>. Set to <code>"transparent"</code> or <code>NULL</code> for a transparent background; <code>"transparent"</code> background will only be noticeable when exporting drawn flowcharts via <code><a href="fc_export.html">fc_export()</a></code> and is compatible with all <code><a href="fc_export.html">fc_export()</a></code> formats except <code>"jpeg"</code> and <code>"bmp"</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
