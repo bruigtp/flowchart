@@ -9,6 +9,7 @@
 #' @param arrow_ends One of `"last"`, `"first"`, or `"both"`, indicating which ends of the line to draw arrow heads, as in [arrow].
 #' @param arrow_type One of `"open"` or `"closed"` indicating whether the arrow head should be a closed triangle, as in [arrow].
 #' @param arrow_color Color of the arrows. Default is `"black"`. See the `col` parameter for [gpar].
+#' @param arrow_fill Color for filling the arrow head. Default is `"black"`. See the `fill` parameter for [gpar].
 #' @param arrow_lwd Line width of the arrows. Default is 1. See the `lwd` parameter for [gpar].
 #' @param arrow_lineend Line end style for arrows. One of `"round"`, `"butt"`, or `"square"`. Default is `"round"`. See the `lineend` parameter for [gpar].
 #' @param arrow_linejoin Line join style for arrow heads (i.e., shape of arrow head corners). One of `"round"`, `"mitre"`, or `"bevel"`. Default is `"round"`. See the `linejoin` parameter for [gpar].
@@ -34,7 +35,7 @@
 #'
 #' @export
 
-fc_draw <- function(object, big.mark = "", box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", arrow_color = "black", arrow_lwd = 1, arrow_lineend = "round", arrow_linejoin = "round", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL, canvas_bg = "white") {
+fc_draw <- function(object, big.mark = "", box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", arrow_color = "black", arrow_fill = "black", arrow_lwd = 1, arrow_lineend = "round", arrow_linejoin = "round", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL, canvas_bg = "white") {
 
   is_class(object, "fc")
   UseMethod("fc_draw")
@@ -44,7 +45,7 @@ fc_draw <- function(object, big.mark = "", box_corners = "round", arrow_angle = 
 #' @importFrom rlang .data
 #' @export
 
-fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", arrow_color = "black", arrow_lwd = 1, arrow_lineend = "round", arrow_linejoin = "round", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL, canvas_bg = "white") {
+fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle = 30, arrow_length = grid::unit(0.1, "inches"), arrow_ends = "last", arrow_type = "closed", arrow_color = "black", arrow_fill = "black", arrow_lwd = 1, arrow_lineend = "round", arrow_linejoin = "round", title = NULL, title_x = 0.5, title_y = 0.9, title_color = "black", title_fs = 15, title_fface = 2, title_ffamily = NULL, canvas_bg = "white") {
 
   # Check for valid corners argument
   if (!box_corners %in% c("round", "sharp")) {
@@ -76,7 +77,7 @@ fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle
   object0 <- object #to return the object unaltered
 
   #We have to return the parameters of the function in the attribute of object$fc
-  params <- c("big.mark", "box_corners", "arrow_angle", "arrow_length", "arrow_ends", "arrow_type", "arrow_color", "arrow_lwd", "arrow_lineend", "arrow_linejoin", "title", "title_x", "title_y", "title_color", "title_fs", "title_fface", "title_ffamily", "canvas_bg")
+  params <- c("big.mark", "box_corners", "arrow_angle", "arrow_length", "arrow_ends", "arrow_type", "arrow_color", "arrow_fill", "arrow_lwd", "arrow_lineend", "arrow_linejoin", "title", "title_x", "title_y", "title_color", "title_fs", "title_fface", "title_ffamily", "canvas_bg")
   attr_draw <- purrr::map(params, ~get(.x))
   names(attr_draw) <- params
 
@@ -166,7 +167,7 @@ fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle
 
             #If it exists because now the initial box can be hided
             if(length(id_par) > 0) {
-              print(Gmisc::connectGrob(plot_fc[[i]]$bg[[id_par]], plot_fc[[i]]$bg[[k]], type = "N", lty_gp = getOption("connectGrob", default = grid::gpar(col = arrow_color, fill = arrow_color, lwd = arrow_lwd, lineend = arrow_lineend, linejoin = arrow_linejoin)), arrow_obj = getOption("connectGrobArrow", default = grid::arrow(angle = arrow_angle, length = arrow_length, ends = arrow_ends, type = arrow_type))))
+              print(Gmisc::connectGrob(plot_fc[[i]]$bg[[id_par]], plot_fc[[i]]$bg[[k]], type = "N", lty_gp = getOption("connectGrob", default = grid::gpar(col = arrow_color, fill = arrow_fill, lwd = arrow_lwd, lineend = arrow_lineend, linejoin = arrow_linejoin)), arrow_obj = getOption("connectGrobArrow", default = grid::arrow(angle = arrow_angle, length = arrow_length, ends = arrow_ends, type = arrow_type))))
             }
 
           }
@@ -183,7 +184,7 @@ fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle
 
             #If it exists because now the initial box can be hided
             if(length(id) > 0) {
-              print(Gmisc::connectGrob(plot_fc[[i]]$bg[[id]], plot_fc[[i]]$bg[[k]], type = "vertical", lty_gp = getOption("connectGrob", default = grid::gpar(col = arrow_color, fill = arrow_color, lwd = arrow_lwd, lineend = arrow_lineend, linejoin = arrow_linejoin)), arrow_obj = getOption("connectGrobArrow", default = grid::arrow(angle = arrow_angle, length = arrow_length, ends = arrow_ends, type = arrow_type))))
+              print(Gmisc::connectGrob(plot_fc[[i]]$bg[[id]], plot_fc[[i]]$bg[[k]], type = "vertical", lty_gp = getOption("connectGrob", default = grid::gpar(col = arrow_color, fill = arrow_fill, lwd = arrow_lwd, lineend = arrow_lineend, linejoin = arrow_linejoin)), arrow_obj = getOption("connectGrobArrow", default = grid::arrow(angle = arrow_angle, length = arrow_length, ends = arrow_ends, type = arrow_type))))
             }
 
           }
@@ -192,7 +193,7 @@ fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle
 
           for(k in ids) {
 
-            print(Gmisc::connectGrob(plot_fc[[i]]$bg[[k - 1]], plot_fc[[i]]$bg[[k]], type = "-", lty_gp = getOption("connectGrob", default = grid::gpar(col = arrow_color, fill = arrow_color, lwd = arrow_lwd, lineend = arrow_lineend, linejoin = arrow_linejoin)), arrow_obj = getOption("connectGrobArrow", default = grid::arrow(angle = arrow_angle, length = arrow_length, ends = arrow_ends, type = arrow_type))))
+            print(Gmisc::connectGrob(plot_fc[[i]]$bg[[k - 1]], plot_fc[[i]]$bg[[k]], type = "-", lty_gp = getOption("connectGrob", default = grid::gpar(col = arrow_color, fill = arrow_fill, lwd = arrow_lwd, lineend = arrow_lineend, linejoin = arrow_linejoin)), arrow_obj = getOption("connectGrobArrow", default = grid::arrow(angle = arrow_angle, length = arrow_length, ends = arrow_ends, type = arrow_type))))
 
           }
 
@@ -209,7 +210,7 @@ fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle
 
             for(k in ids) {
 
-              print(Gmisc::connectGrob(plot_fc[[i]]$bg[[id_last]], plot_fc[[i]]$bg[[k]], type = "N", lty_gp = getOption("connectGrob", default = grid::gpar(col = arrow_color, fill = arrow_color, lwd = arrow_lwd, lineend = arrow_lineend, linejoin = arrow_linejoin)), arrow_obj = getOption("connectGrobArrow", default = grid::arrow(angle = arrow_angle, length = arrow_length, ends = arrow_ends, type = arrow_type))))
+              print(Gmisc::connectGrob(plot_fc[[i]]$bg[[id_last]], plot_fc[[i]]$bg[[k]], type = "N", lty_gp = getOption("connectGrob", default = grid::gpar(col = arrow_color, fill = arrow_fill, lwd = arrow_lwd, lineend = arrow_lineend, linejoin = arrow_linejoin)), arrow_obj = getOption("connectGrobArrow", default = grid::arrow(angle = arrow_angle, length = arrow_length, ends = arrow_ends, type = arrow_type))))
 
             }
 
@@ -217,7 +218,7 @@ fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle
 
             for(k in id_last) {
 
-              print(Gmisc::connectGrob(plot_fc[[i]]$bg[[k]], plot_fc[[i]]$bg[[ids]], type = "L", lty_gp = getOption("connectGrob", default = grid::gpar(col = arrow_color, fill = arrow_color, lwd = arrow_lwd, lineend = arrow_lineend, linejoin = arrow_linejoin)), arrow_obj = getOption("connectGrobArrow", default = grid::arrow(angle = arrow_angle, length = arrow_length, ends = arrow_ends, type = arrow_type))))
+              print(Gmisc::connectGrob(plot_fc[[i]]$bg[[k]], plot_fc[[i]]$bg[[ids]], type = "L", lty_gp = getOption("connectGrob", default = grid::gpar(col = arrow_color, fill = arrow_fill, lwd = arrow_lwd, lineend = arrow_lineend, linejoin = arrow_linejoin)), arrow_obj = getOption("connectGrobArrow", default = grid::arrow(angle = arrow_angle, length = arrow_length, ends = arrow_ends, type = arrow_type))))
 
             }
 
@@ -226,7 +227,7 @@ fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle
             #They have the same number of boxes
             for(k in 1:length(ids)) {
               #vertical connection
-              print(Gmisc::connectGrob(plot_fc[[i]]$bg[[id_last[k]]], plot_fc[[i]]$bg[[ids[k]]], type = "vertical", lty_gp = getOption("connectGrob", default = grid::gpar(col = arrow_color, fill = arrow_color, lwd = arrow_lwd, lineend = arrow_lineend, linejoin = arrow_linejoin)), arrow_obj = getOption("connectGrobArrow", default = grid::arrow(angle = arrow_angle, length = arrow_length, ends = arrow_ends, type = arrow_type))))
+              print(Gmisc::connectGrob(plot_fc[[i]]$bg[[id_last[k]]], plot_fc[[i]]$bg[[ids[k]]], type = "vertical", lty_gp = getOption("connectGrob", default = grid::gpar(col = arrow_color, fill = arrow_fill, lwd = arrow_lwd, lineend = arrow_lineend, linejoin = arrow_linejoin)), arrow_obj = getOption("connectGrobArrow", default = grid::arrow(angle = arrow_angle, length = arrow_length, ends = arrow_ends, type = arrow_type))))
             }
 
           } else {

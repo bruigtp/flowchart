@@ -245,7 +245,7 @@ fc_export.fc <- function(object, filename, path = NULL, format = NULL, width = N
 
   #Redraw the plot
   object |>
-    fc_draw(big.mark = params$big.mark, box_corners = params$box_corners, arrow_angle = params$arrow_angle, arrow_length = params$arrow_length, arrow_ends = params$arrow_ends, arrow_type = params$arrow_type, arrow_color = params$arrow_color, arrow_lwd = params$arrow_lwd, arrow_lineend = params$arrow_lineend, arrow_linejoin = params$arrow_linejoin, title = params$title, title_x = params$title_x, title_y = params$title_y, title_color = params$title_color, title_fs = params$title_fs, title_fface = params$title_fface, title_ffamily = params$title_ffamily, canvas_bg = params$canvas_bg)
+    fc_draw(big.mark = params$big.mark, box_corners = params$box_corners, arrow_angle = params$arrow_angle, arrow_length = params$arrow_length, arrow_ends = params$arrow_ends, arrow_type = params$arrow_type, arrow_color = params$arrow_color, arrow_fill = params$arrow_fill, arrow_lwd = params$arrow_lwd, arrow_lineend = params$arrow_lineend, arrow_linejoin = params$arrow_linejoin, title = params$title, title_x = params$title_x, title_y = params$title_y, title_color = params$title_color, title_fs = params$title_fs, title_fface = params$title_fface, title_ffamily = params$title_ffamily, canvas_bg = params$canvas_bg)
 
   grDevices::dev.off()
 
