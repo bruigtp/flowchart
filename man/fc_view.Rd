@@ -9,13 +9,13 @@ fc_view(object, what)
 \arguments{
 \item{object}{fc object that we want to access.}
 
-\item{what}{Choose "data" to return the data associated to the flowchart stored in `$data` or "fc" to return the flowchart information stored in `$fc`.}
+\item{what}{Choose \code{"data"} to return the data associated to the flowchart stored in \verb{$data} or \code{"fc"} to return the flowchart information stored in \verb{$fc}.}
 }
 \value{
-Returns a tibble. Either `$data` or `$fc`.
+Returns a tibble. Either \verb{$data} or \verb{$fc}.
 }
 \description{
-This function allows you to return either the data stored in `$data` or the flowchart information stored in `$fc`.
+This function allows you to return either the data stored in \verb{$data} or the flowchart information stored in \verb{$fc}.
 }
 \examples{
 #Return the data associated to the flowchart

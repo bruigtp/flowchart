@@ -14,6 +14,6 @@ update_y_stack_unite(y, x, type)
 \item{type}{type of the boxes}
 }
 \description{
-Function to update the vertical position of the previuosly created flowcharts, to stack the two flowcharts with fc_stack(), when `unite` is TRUE.
+Function to update the vertical position of the previuosly created flowcharts, to stack the two flowcharts with fc_stack(), when \code{unite} is TRUE.
 }
 \keyword{internal}

@@ -3,38 +3,38 @@
 #'
 #' @param object fc object that we want to filter.
 #' @param filter Expression that returns a logical value and are defined in terms of the variables in the data frame. The data base will be filtered by this expression, and it will create a box showing the number of rows satisfying this condition.
-#' @param N Number of rows after the filter in case `filter` is NULL.
+#' @param N Number of rows after the filter in case `filter` is `NULL`.
 #' @param label Character or expression that will be the title of the box. By default it will be the evaluated condition.
-#' @param text_pattern Character or expression defining the structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)". If text_pattern or label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.
-#' @param perc_total logical. Should percentages be calculated using the total number of rows at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.
-#' @param show_exc Logical value. If TRUE a box showing the number of excluded rows will be added to the flow chart.
-#' @param direction_exc One of "left" or "right" indicating if the exclusion box goes into the left direction or in the right direction. By default is "right".
+#' @param text_pattern Character or expression defining the structure that will have the text in each of the boxes. It recognizes `label`, `n`, `N` and `perc` within brackets. For default it is `"{label}\n {n} ({perc}%)"`. If `text_pattern` or `label` is an expression, the `label` is always placed at the beginning of the pattern, followed by a line break where the structure specified by `text_pattern` is placed.
+#' @param perc_total logical. Should percentages be calculated using the total number of rows at the beginning of the flowchart? Default is `FALSE`, meaning that they will be calculated using the number at the parent leaf.
+#' @param show_exc Logical value. If `TRUE` a box showing the number of excluded rows will be added to the flow chart.
+#' @param direction_exc One of `"left"` or `"right"` indicating if the exclusion box goes into the left direction or in the right direction. By default is `"right"`.
 #' @param label_exc Character or expression that will be the title of the added box showing the excluded patients. By default it will show "Excluded".
-#' @param text_pattern_exc Character or expression defining the structure that will have the text in the exclude box. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)". If text_pattern or label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern_exc is placed.
-#' @param sel_group Select the group in which to perform the filter. The default is NULL. Can only be used if the flowchart has previously been split. If the flowchart has more than one group, it can either be given the full name as it is stored in the `$fc` component (separated by '\\'), or it can be given as a vector with the names of each group to be selected.
+#' @param text_pattern_exc Character or expression defining the structure that will have the text in the exclude box. It recognizes `label`, `n`, `N` and `perc` within brackets. For default it is `"{label}\n {n} ({perc}%)"`. If text_pattern or label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by `text_pattern_exc` is placed.
+#' @param sel_group Select the group in which to perform the filter. The default is `NULL`. Can only be used if the flowchart has previously been split. If the flowchart has more than one group, it can either be given the full name as it is stored in the `$fc` component (separated by '\\'), or it can be given as a vector with the names of each group to be selected.
 #' @param round_digits Number of digits to round percentages. It is 2 by default.
 #' @param trim_trailing_zeros Logical value. If `TRUE`, allows trailing zeros after the decimal to be trimmed (default is `FALSE`).
-#' @param just Justification for the text: left, center or right. Default is center.
-#' @param text_color Color of the text. It is black by default. See the `col` parameter for \code{\link{gpar}}.
-#' @param text_fs Font size of the text. It is 8 by default. See the `fontsize` parameter for \code{\link{gpar}}.
-#' @param text_fface Font face of the text. It is 1 by default. See the `fontface` parameter for \code{\link{gpar}}.
-#' @param text_ffamily Changes the font family of the text. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}.
+#' @param just Justification for the text: `"left"`, `"center"` or `"right"`. Default is `"center"`.
+#' @param text_color Color of the text. It is `"black"` by default. See the `col` parameter for [gpar].
+#' @param text_fs Font size of the text. It is 8 by default. See the `fontsize` parameter for [gpar].
+#' @param text_fface Font face of the text. It is 1 by default. See the `fontface` parameter for [gpar].
+#' @param text_ffamily Changes the font family of the text. Default is `NA`. See the `fontfamily` parameter for [gpar].
 #' @param text_padding Changes the text padding inside the box. Default is 1. This number has to be greater than 0.
-#' @param bg_fill Box background color. It is white by default. See the `fill` parameter for \code{\link{gpar}}.
-#' @param border_color Box border color. It is black by default. See the `col` parameter for \code{\link{gpar}}.
-#' @param width Width of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.
-#' @param height Height of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.
-#' @param just_exc Justification for the text of the exclude box: left, center or right. Default is center.
-#' @param text_color_exc Color of the text of the exclude box. It is black by default. See `text_color`.
+#' @param bg_fill Box background color. It is `"white"` by default. See the `fill` parameter for [gpar].
+#' @param border_color Box border color. It is `"black"` by default. See the `col` parameter for [gpar].
+#' @param width Width of the box. If `NA`, it automatically adjusts to the content (default). Must be an object of class [unit] or a number between 0 and 1.
+#' @param height Height of the box. If `NA`, it automatically adjusts to the content (default). Must be an object of class [unit] or a number between 0 and 1.
+#' @param just_exc Justification for the text of the exclude box: `"left"`, `"center"` or `"right"`. Default is `"center"`.
+#' @param text_color_exc Color of the text of the exclude box. It is `"black"` by default. See `text_color`.
 #' @param text_fs_exc Font size of the text of the exclude box. It is 6 by default. See `text_fs`.
-#' @param text_fface_exc Font face of the text of the exclude box. It is 1 by default. See the `fontface` parameter for \code{\link{gpar}}. See `text_fface`.
-#' @param text_ffamily_exc Changes the font family of the text of the exclude box. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}. See `text_ffamily`.
+#' @param text_fface_exc Font face of the text of the exclude box. It is 1 by default. See the `fontface` parameter for [gpar]. See `text_fface`.
+#' @param text_ffamily_exc Changes the font family of the text of the exclude box. Default is `NA`. See the `fontfamily` parameter for [gpar]. See `text_ffamily`.
 #' @param text_padding_exc Changes the text padding inside the exclude box. Default is 1. This number has to be greater than 0.
-#' @param bg_fill_exc Exclude box background color. It is white by default. See `bg_fill`.
-#' @param border_color_exc Box background color of the exclude box. It is black by default. See `border_color`.
-#' @param offset_exc Amount of space to add to the distance between the box and the excluded box (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. This number has to be at least between 0 and 1 (plot limits) and the resulting x coordinate cannot exceed these plot limits. The default is NULL (no offset).
-#' @param width_exc Width of the exclude box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.
-#' @param height_exc Height of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.
+#' @param bg_fill_exc Exclude box background color. It is `"white"` by default. See `bg_fill`.
+#' @param border_color_exc Box background color of the exclude box. It is `"black"` by default. See `border_color`.
+#' @param offset_exc Amount of space to add to the distance between the box and the excluded box (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. This number has to be at least between 0 and 1 (plot limits) and the resulting x coordinate cannot exceed these plot limits. The default is `NULL` (no offset).
+#' @param width_exc Width of the exclude box. If `NA`, it automatically adjusts to the content (default). Must be an object of class [unit] or a number between 0 and 1.
+#' @param height_exc Height of the box. If `NA`, it automatically adjusts to the content (default). Must be an object of class [unit] or a number between 0 and 1.
 #' @return List with the filtered dataset and the flowchart parameters with the resulting filtered box.
 #'
 #' @examples

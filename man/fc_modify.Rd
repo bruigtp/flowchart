@@ -9,7 +9,7 @@ fc_modify(object, fun, ...)
 \arguments{
 \item{object}{flowchart created as a fc object.}
 
-\item{fun}{A function or formula that will be applied to `.$fc`. If a _function_, it is used as is. If a _formula_, e.g. `fun = ~.x |> mutate(x = x + 0.2)`, it is converted to a function.}
+\item{fun}{A function or formula that will be applied to \code{.$fc}. If a \emph{function}, it is used as is. If a \emph{formula}, e.g. \code{fun = ~.x |> mutate(x = x + 0.2)}, it is converted to a function.}
 
 \item{...}{Additional arguments passed on to the mapped function.}
 }
@@ -17,7 +17,7 @@ fc_modify(object, fun, ...)
 List with the dataset and the modified flowchart parameters.
 }
 \description{
-This function allows to modify the `.$fc` tibble included in each fc object that contains all the parameters of the flowchart.
+This function allows to modify the \code{.$fc} tibble included in each fc object that contains all the parameters of the flowchart.
 }
 \examples{
 #Example: let's modify the excluded box

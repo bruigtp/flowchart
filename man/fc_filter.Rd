@@ -46,69 +46,69 @@ fc_filter(
 
 \item{filter}{Expression that returns a logical value and are defined in terms of the variables in the data frame. The data base will be filtered by this expression, and it will create a box showing the number of rows satisfying this condition.}
 
-\item{N}{Number of rows after the filter in case `filter` is NULL.}
+\item{N}{Number of rows after the filter in case \code{filter} is \code{NULL}.}
 
 \item{label}{Character or expression that will be the title of the box. By default it will be the evaluated condition.}
 
-\item{text_pattern}{Character or expression defining the structure that will have the text in each of the boxes. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)". If text_pattern or label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern is placed.}
+\item{text_pattern}{Character or expression defining the structure that will have the text in each of the boxes. It recognizes \code{label}, \code{n}, \code{N} and \code{perc} within brackets. For default it is \code{"{label}\\n {n} ({perc}\%)"}. If \code{text_pattern} or \code{label} is an expression, the \code{label} is always placed at the beginning of the pattern, followed by a line break where the structure specified by \code{text_pattern} is placed.}
 
-\item{perc_total}{logical. Should percentages be calculated using the total number of rows at the beginning of the flowchart? Default is FALSE, meaning that they will be calculated using the number at the parent leaf.}
+\item{perc_total}{logical. Should percentages be calculated using the total number of rows at the beginning of the flowchart? Default is \code{FALSE}, meaning that they will be calculated using the number at the parent leaf.}
 
-\item{show_exc}{Logical value. If TRUE a box showing the number of excluded rows will be added to the flow chart.}
+\item{show_exc}{Logical value. If \code{TRUE} a box showing the number of excluded rows will be added to the flow chart.}
 
-\item{direction_exc}{One of "left" or "right" indicating if the exclusion box goes into the left direction or in the right direction. By default is "right".}
+\item{direction_exc}{One of \code{"left"} or \code{"right"} indicating if the exclusion box goes into the left direction or in the right direction. By default is \code{"right"}.}
 
 \item{label_exc}{Character or expression that will be the title of the added box showing the excluded patients. By default it will show "Excluded".}
 
-\item{text_pattern_exc}{Character or expression defining the structure that will have the text in the exclude box. It recognizes label, n, N and perc within brackets. For default it is "\{label\}\\n \{n\} (\{perc\}\%)". If text_pattern or label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by text_pattern_exc is placed.}
+\item{text_pattern_exc}{Character or expression defining the structure that will have the text in the exclude box. It recognizes \code{label}, \code{n}, \code{N} and \code{perc} within brackets. For default it is \code{"{label}\\n {n} ({perc}\%)"}. If text_pattern or label is an expression, the label is always placed at the beginning of the pattern, followed by a line break where the structure specified by \code{text_pattern_exc} is placed.}
 
-\item{sel_group}{Select the group in which to perform the filter. The default is NULL. Can only be used if the flowchart has previously been split. If the flowchart has more than one group, it can either be given the full name as it is stored in the `$fc` component (separated by '\\'), or it can be given as a vector with the names of each group to be selected.}
+\item{sel_group}{Select the group in which to perform the filter. The default is \code{NULL}. Can only be used if the flowchart has previously been split. If the flowchart has more than one group, it can either be given the full name as it is stored in the \verb{$fc} component (separated by '\\'), or it can be given as a vector with the names of each group to be selected.}
 
 \item{round_digits}{Number of digits to round percentages. It is 2 by default.}
 
-\item{trim_trailing_zeros}{Logical value. If `TRUE`, allows trailing zeros after the decimal to be trimmed (default is `FALSE`).}
+\item{trim_trailing_zeros}{Logical value. If \code{TRUE}, allows trailing zeros after the decimal to be trimmed (default is \code{FALSE}).}
 
-\item{just}{Justification for the text: left, center or right. Default is center.}
+\item{just}{Justification for the text: \code{"left"}, \code{"center"} or \code{"right"}. Default is \code{"center"}.}
 
-\item{text_color}{Color of the text. It is black by default. See the `col` parameter for \code{\link{gpar}}.}
+\item{text_color}{Color of the text. It is \code{"black"} by default. See the \code{col} parameter for \link{gpar}.}
 
-\item{text_fs}{Font size of the text. It is 8 by default. See the `fontsize` parameter for \code{\link{gpar}}.}
+\item{text_fs}{Font size of the text. It is 8 by default. See the \code{fontsize} parameter for \link{gpar}.}
 
-\item{text_fface}{Font face of the text. It is 1 by default. See the `fontface` parameter for \code{\link{gpar}}.}
+\item{text_fface}{Font face of the text. It is 1 by default. See the \code{fontface} parameter for \link{gpar}.}
 
-\item{text_ffamily}{Changes the font family of the text. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}.}
+\item{text_ffamily}{Changes the font family of the text. Default is \code{NA}. See the \code{fontfamily} parameter for \link{gpar}.}
 
 \item{text_padding}{Changes the text padding inside the box. Default is 1. This number has to be greater than 0.}
 
-\item{bg_fill}{Box background color. It is white by default. See the `fill` parameter for \code{\link{gpar}}.}
+\item{bg_fill}{Box background color. It is \code{"white"} by default. See the \code{fill} parameter for \link{gpar}.}
 
-\item{border_color}{Box border color. It is black by default. See the `col` parameter for \code{\link{gpar}}.}
+\item{border_color}{Box border color. It is \code{"black"} by default. See the \code{col} parameter for \link{gpar}.}
 
-\item{width}{Width of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
+\item{width}{Width of the box. If \code{NA}, it automatically adjusts to the content (default). Must be an object of class \link{unit} or a number between 0 and 1.}
 
-\item{height}{Height of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
+\item{height}{Height of the box. If \code{NA}, it automatically adjusts to the content (default). Must be an object of class \link{unit} or a number between 0 and 1.}
 
-\item{just_exc}{Justification for the text of the exclude box: left, center or right. Default is center.}
+\item{just_exc}{Justification for the text of the exclude box: \code{"left"}, \code{"center"} or \code{"right"}. Default is \code{"center"}.}
 
-\item{text_color_exc}{Color of the text of the exclude box. It is black by default. See `text_color`.}
+\item{text_color_exc}{Color of the text of the exclude box. It is \code{"black"} by default. See \code{text_color}.}
 
-\item{text_fs_exc}{Font size of the text of the exclude box. It is 6 by default. See `text_fs`.}
+\item{text_fs_exc}{Font size of the text of the exclude box. It is 6 by default. See \code{text_fs}.}
 
-\item{text_fface_exc}{Font face of the text of the exclude box. It is 1 by default. See the `fontface` parameter for \code{\link{gpar}}. See `text_fface`.}
+\item{text_fface_exc}{Font face of the text of the exclude box. It is 1 by default. See the \code{fontface} parameter for \link{gpar}. See \code{text_fface}.}
 
-\item{text_ffamily_exc}{Changes the font family of the text of the exclude box. Default is NA. See the `fontfamily` parameter for \code{\link{gpar}}. See `text_ffamily`.}
+\item{text_ffamily_exc}{Changes the font family of the text of the exclude box. Default is \code{NA}. See the \code{fontfamily} parameter for \link{gpar}. See \code{text_ffamily}.}
 
 \item{text_padding_exc}{Changes the text padding inside the exclude box. Default is 1. This number has to be greater than 0.}
 
-\item{bg_fill_exc}{Exclude box background color. It is white by default. See `bg_fill`.}
+\item{bg_fill_exc}{Exclude box background color. It is \code{"white"} by default. See \code{bg_fill}.}
 
-\item{border_color_exc}{Box background color of the exclude box. It is black by default. See `border_color`.}
+\item{border_color_exc}{Box background color of the exclude box. It is \code{"black"} by default. See \code{border_color}.}
 
-\item{offset_exc}{Amount of space to add to the distance between the box and the excluded box (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. This number has to be at least between 0 and 1 (plot limits) and the resulting x coordinate cannot exceed these plot limits. The default is NULL (no offset).}
+\item{offset_exc}{Amount of space to add to the distance between the box and the excluded box (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. This number has to be at least between 0 and 1 (plot limits) and the resulting x coordinate cannot exceed these plot limits. The default is \code{NULL} (no offset).}
 
-\item{width_exc}{Width of the exclude box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
+\item{width_exc}{Width of the exclude box. If \code{NA}, it automatically adjusts to the content (default). Must be an object of class \link{unit} or a number between 0 and 1.}
 
-\item{height_exc}{Height of the box. If NA, it automatically adjusts to the content (default). Must be an object of class \code{\link{unit}} or a number between 0 and 1.}
+\item{height_exc}{Height of the box. If \code{NA}, it automatically adjusts to the content (default). Must be an object of class \link{unit} or a number between 0 and 1.}
 }
 \value{
 List with the filtered dataset and the flowchart parameters with the resulting filtered box.

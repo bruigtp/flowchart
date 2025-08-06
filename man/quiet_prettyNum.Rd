@@ -12,6 +12,6 @@ quiet_prettyNum(x, big.mark)
 \item{big.mark}{character. Used to specify the thousands separator for patient count values.}
 }
 \description{
-Wrapper for `prettyNum()` that suppresses the original warning message if user `big.mark` equal to the character defined in the R environment `OutDec` option.
+Wrapper for \code{prettyNum()} that suppresses the original warning message if user \code{big.mark} equal to the character defined in the R environment \code{OutDec} option.
 }
 \keyword{internal}

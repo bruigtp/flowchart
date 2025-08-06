@@ -9,7 +9,7 @@ fc_stack(fcs, unite = FALSE)
 \arguments{
 \item{fcs}{list with all the flowcharts that we want to merge}
 
-\item{unite}{logical value if the boxes have to be united or not. Default is FALSE.}
+\item{unite}{logical value if the boxes have to be united or not. Default is \code{FALSE}.}
 }
 \value{
 List containing a list with the datasets belonging to each flowchart and the flowchart parameters combining all the flowcharts.
