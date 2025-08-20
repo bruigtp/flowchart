@@ -16,6 +16,17 @@
 #' @param width Width of the box. If `NA`, it automatically adjusts to the content (default). Must be an object of class [unit] or a number between 0 and 1.
 #' @param height Height of the box. If `NA`, it automatically adjusts to the content (default). Must be an object of class [unit] or a number between 0 and 1.
 #' @param hide Logical value to hide the initial box or not. Default is FALSE. hide = TRUE can only be combined with [fc_split()].
+#' @param title Add a title box to the initial box. Default is `NULL`.
+#' @param x_title x-coordinate of the title box. Default is `0.1` (placed in the left).
+#' @param text_color_title Color of the title text. It is `"black"` by default.
+#' @param text_fs_title Font size of the title text. It is 8 by default.
+#' @param text_fface_title Font face of the title text. It is 1 by default. See the `fontface` parameter for [gpar].
+#' @param text_ffamily_title Changes the font family of the title text. Default is `NA`. See the `fontfamily` parameter for [gpar].
+#' @param text_padding_title Changes the title text padding inside the box. Default is 1. This number has to be greater than 0.
+#' @param bg_fill_title Title box background color. It is `"white"` by default.
+#' @param border_color_title Title box border color. It is `"black"` by default.
+#' @param width_title Width of the title box. If `NA`, it automatically adjusts to the content (default). Must be an object of class [unit] or a number between 0 and 1.
+#' @param height_title Height of the title box. If `NA`, it automatically adjusts to the content (default). Must be an object of class [unit] or a number between 0 and 1.
 #'
 #' @return List with the dataset and the initialized flowchart parameters.
 #'
@@ -26,7 +37,7 @@
 #'
 #' @export
 
-as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_pattern = "{label}\n{N}", just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, hide = FALSE) {
+as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_pattern = "{label}\n{N}", just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, hide = FALSE, title = NULL, x_title = 0.1, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "#B3D1FF", border_color_title = "black", width_title = NA, height_title = NA) {
 
   if(is.null(.data) & is.null(N)) {
     cli::cli_abort("Either {.arg .data} or {.arg N} arguments must be specified.")
@@ -115,6 +126,42 @@ as_fc <- function(.data = NULL, N = NULL, label = "Initial dataframe", text_patt
 
     cli::cli_warn("{.code hide = TRUE} can only be combined with {.fn fc_split}")
     new_fc <- NULL
+
+  }
+
+  #If we have to add a title
+  if(!is.null(title)) {
+
+    new_fc2 <- new_fc |>
+      dplyr::mutate(
+        x = x_title,
+        n = NA,
+        N = NA,
+        n = NA,
+        N = NA,
+        perc = NA,
+        label = NA,
+        text_pattern = NA,
+        text = title,
+        type = "title_init",
+        group = NA,
+        just = "center",
+        text_color = text_color_title,
+        text_fs = text_fs_title,
+        text_fface = text_fface_title,
+        text_ffamily = text_ffamily_title,
+        text_padding = text_padding_title,
+        bg_fill = bg_fill_title,
+        border_color = border_color_title,
+        width = width_title,
+        height = height_title,
+        end = FALSE
+      )
+
+    new_fc <- rbind(
+      new_fc,
+      new_fc2
+    )
 
   }
 

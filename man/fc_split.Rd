@@ -27,12 +27,13 @@ fc_split(
   width = NA,
   height = NA,
   title = NULL,
+  x_title = 0.1,
   text_color_title = "black",
   text_fs_title = 10,
   text_fface_title = 1,
   text_ffamily_title = NA,
   text_padding_title = 0.6,
-  bg_fill_title = "white",
+  bg_fill_title = "#B3D1FF",
   border_color_title = "black",
   width_title = NA,
   height_title = NA,
@@ -83,6 +84,8 @@ fc_split(
 \item{height}{Height of the box. If \code{NA}, it automatically adjusts to the content (default). Must be an object of class \link{unit} or a number between 0 and 1.}
 
 \item{title}{Add a title box to the split. Default is \code{NULL}. It can only be used when there are only two resulting boxes after the split.}
+
+\item{x_title}{x-coordinate of the title box. Default is \code{0.1} (placed in the left).}
 
 \item{text_color_title}{Color of the title text. It is \code{"black"} by default.}
 

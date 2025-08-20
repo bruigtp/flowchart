@@ -23,6 +23,7 @@
 #' @param width Width of the box. If `NA`, it automatically adjusts to the content (default). Must be an object of class [unit] or a number between 0 and 1.
 #' @param height Height of the box. If `NA`, it automatically adjusts to the content (default). Must be an object of class [unit] or a number between 0 and 1.
 #' @param title Add a title box to the split. Default is `NULL`. It can only be used when there are only two resulting boxes after the split.
+#' @param x_title x-coordinate of the title box. Default is `0.1` (placed in the left).
 #' @param text_color_title Color of the title text. It is `"black"` by default.
 #' @param text_fs_title Font size of the title text. It is 8 by default.
 #' @param text_fface_title Font face of the title text. It is 1 by default. See the `fontface` parameter for [gpar].
@@ -44,7 +45,7 @@
 #'
 #' @export
 
-fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, trim_trailing_zeros = FALSE, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, title = NULL, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "white", border_color_title = "black", width_title = NA, height_title = NA, offset = NULL) {
+fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, trim_trailing_zeros = FALSE, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, title = NULL, x_title = 0.1, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "#B3D1FF", border_color_title = "black", width_title = NA, height_title = NA, offset = NULL) {
 
   is_class(object, "fc")
   UseMethod("fc_split")
@@ -55,7 +56,7 @@ fc_split <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = 
 #' @export
 #' @importFrom rlang .data
 
-fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, trim_trailing_zeros = FALSE, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, title = NULL, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "white", border_color_title = "black", width_title = NA, height_title = NA, offset = NULL) {
+fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, sel_group = NULL, na.rm = FALSE, show_zero = FALSE, round_digits = 2, trim_trailing_zeros = FALSE, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, title = NULL, x_title = 0.1, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "#B3D1FF", border_color_title = "black", width_title = NA, height_title = NA, offset = NULL) {
 
   var <- substitute(var)
 
@@ -392,7 +393,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
     }
 
     object_center <- object$fc |>
-      dplyr::filter(.data$type != "exclude") |>
+      dplyr::filter(.data$type != "exclude", !grepl("title", .data$type)) |>
       dplyr::group_by(.data$group) |>
       dplyr::summarise(
         center = unique(.data$x)
@@ -516,59 +517,39 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
 
   #If we have to add a title
   if(!is.null(title)) {
+
     new_fc2 <- object$fc |>
-      dplyr::filter(!.data$old) |>
-      dplyr::mutate(group = group_old) |>
-      dplyr::group_by(.data$group) |>
-      dplyr::summarise(n_boxes = dplyr::n(),
-                       y = unique(.data$y))
-
-    if(any(new_fc2$n_boxes == 2)) {
-
-      new_fc2 <- new_fc2 |>
-        dplyr::filter(.data$n_boxes == 2) |>
-        dplyr::left_join(object_center, by = "group") |>
-        dplyr::first() |>
-        dplyr::mutate(
-          id = NA,
-          x = .data$center,
-          n = NA,
-          N = NA,
-          n = NA,
-          N = NA,
-          perc = NA,
-          label = NA,
-          text_pattern = NA,
-          text = title,
-          type = "title_split",
-          just = "center",
-          text_color = text_color_title,
-          text_fs = text_fs_title,
-          text_fface = text_fface_title,
-          text_ffamily = text_ffamily_title,
-          text_padding = text_padding_title,
-          bg_fill = bg_fill_title,
-          border_color = border_color_title,
-          width = width_title,
-          height = height_title
-        ) |>
-        dplyr::select(-"center", -"n_boxes") |>
-        dplyr::relocate("y", .after = "x") |>
-        dplyr::relocate("group", .after = "type")
-
-    } else {
-
-      cli::cli_abort("The {.arg title} argument can only be used with exactly two resulting boxes after the split.")
-
-    }
-
+      dplyr::filter(!.data$old, .data$type == "split") |>
+      dplyr::first() |>
+      dplyr::mutate(
+        id = NA,
+        x = x_title,
+        n = NA,
+        N = NA,
+        n = NA,
+        N = NA,
+        perc = NA,
+        label = NA,
+        text_pattern = NA,
+        text = title,
+        type = "title_split",
+        group = NA,
+        just = "center",
+        text_color = text_color_title,
+        text_fs = text_fs_title,
+        text_fface = text_fface_title,
+        text_ffamily = text_ffamily_title,
+        text_padding = text_padding_title,
+        bg_fill = bg_fill_title,
+        border_color = border_color_title,
+        width = width_title,
+        height = height_title,
+        end = FALSE
+      )
 
     object$fc <- rbind(
       object$fc,
-      new_fc2 |>
-        tibble::as_tibble() |>
-        dplyr::mutate(end = FALSE,
-                      old = FALSE)
+      new_fc2
     ) |>
       dplyr::mutate(id = dplyr::row_number()) |>
       dplyr::relocate("id")

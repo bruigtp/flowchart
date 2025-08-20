@@ -152,14 +152,14 @@ fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle
             if(group_par == "") {
 
               id_par <- plot_fc[[i]] |>
-                dplyr::filter(.data$id < min(ids), .data$type != "exclude") |>
+                dplyr::filter(.data$id < min(ids), .data$type != "exclude", !grepl("title", .data$type)) |>
                 dplyr::last() |>
                 dplyr::pull(.data$id)
 
             } else {
 
               id_par <- plot_fc[[i]] |>
-                dplyr::filter(.data$id < min(ids), .data$group == group_par, .data$type != "exclude") |>
+                dplyr::filter(.data$id < min(ids), .data$group == group_par, .data$type != "exclude", !grepl("title", .data$type)) |>
                 dplyr::last() |>
                 dplyr::pull(.data$id)
 
@@ -178,7 +178,7 @@ fc_draw.fc <- function(object, big.mark = "", box_corners = "round", arrow_angle
 
             #Get the parent box (the last with the same x coordinate)
             id <- plot_fc[[i]] |>
-              dplyr::filter(.data$x == plot_fc[[i]][["x"]][k], .data$id < plot_fc[[i]][["id"]][k]) |>
+              dplyr::filter(.data$x == plot_fc[[i]][["x"]][k], .data$id < plot_fc[[i]][["id"]][k], .data$type != "exclude", !grepl("title", .data$type)) |>
               dplyr::last() |>
               dplyr::pull(.data$id)
 

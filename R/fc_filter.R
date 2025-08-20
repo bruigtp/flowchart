@@ -35,6 +35,17 @@
 #' @param offset_exc Amount of space to add to the distance between the box and the excluded box (in the x coordinate). If positive, this distance will be larger. If negative, it will be smaller. This number has to be at least between 0 and 1 (plot limits) and the resulting x coordinate cannot exceed these plot limits. The default is `NULL` (no offset).
 #' @param width_exc Width of the exclude box. If `NA`, it automatically adjusts to the content (default). Must be an object of class [unit] or a number between 0 and 1.
 #' @param height_exc Height of the box. If `NA`, it automatically adjusts to the content (default). Must be an object of class [unit] or a number between 0 and 1.
+#' @param title Add a title box to the filter. Default is `NULL`.
+#' @param x_title x-coordinate of the title box. Default is `0.1` (placed in the left).
+#' @param text_color_title Color of the title text. It is `"black"` by default.
+#' @param text_fs_title Font size of the title text. It is 8 by default.
+#' @param text_fface_title Font face of the title text. It is 1 by default. See the `fontface` parameter for [gpar].
+#' @param text_ffamily_title Changes the font family of the title text. Default is `NA`. See the `fontfamily` parameter for [gpar].
+#' @param text_padding_title Changes the title text padding inside the box. Default is 1. This number has to be greater than 0.
+#' @param bg_fill_title Title box background color. It is `"white"` by default.
+#' @param border_color_title Title box border color. It is `"black"` by default.
+#' @param width_title Width of the title box. If `NA`, it automatically adjusts to the content (default). Must be an object of class [unit] or a number between 0 and 1.
+#' @param height_title Height of the title box. If `NA`, it automatically adjusts to the content (default). Must be an object of class [unit] or a number between 0 and 1.
 #' @return List with the filtered dataset and the flowchart parameters with the resulting filtered box.
 #'
 #' @examples
@@ -45,7 +56,7 @@
 #'
 #' @export
 
-fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, trim_trailing_zeros = FALSE, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, just_exc = "center", text_color_exc = "black", text_fs_exc = 6, text_fface_exc = 1, text_ffamily_exc = NA, text_padding_exc = 1, bg_fill_exc = "white", border_color_exc = "black", offset_exc = NULL, width_exc = NA, height_exc = NA) {
+fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, trim_trailing_zeros = FALSE, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, just_exc = "center", text_color_exc = "black", text_fs_exc = 6, text_fface_exc = 1, text_ffamily_exc = NA, text_padding_exc = 1, bg_fill_exc = "white", border_color_exc = "black", offset_exc = NULL, width_exc = NA, height_exc = NA, title = NULL, x_title = 0.1, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "#B3D1FF", border_color_title = "black", width_title = NA, height_title = NA) {
 
   is_class(object, "fc")
   UseMethod("fc_filter")
@@ -56,7 +67,7 @@ fc_filter <- function(object, filter = NULL, N = NULL, label = NULL, text_patter
 #' @importFrom rlang .data
 #' @importFrom rlang :=
 
-fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, trim_trailing_zeros = FALSE, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, just_exc = "center", text_color_exc = "black", text_fs_exc = 6, text_fface_exc = 1, text_ffamily_exc = NA, text_padding_exc = 1, bg_fill_exc = "white", border_color_exc = "black", offset_exc = NULL, width_exc = NA, height_exc = NA) {
+fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pattern = "{label}\n {n} ({perc}%)", perc_total = FALSE, show_exc = FALSE, direction_exc = "right", label_exc = "Excluded", text_pattern_exc = "{label}\n {n} ({perc}%)", sel_group = NULL, round_digits = 2, trim_trailing_zeros = FALSE, just = "center", text_color = "black", text_fs = 8, text_fface = 1, text_ffamily = NA, text_padding = 1, bg_fill = "white", border_color = "black", width = NA, height = NA, just_exc = "center", text_color_exc = "black", text_fs_exc = 6, text_fface_exc = 1, text_ffamily_exc = NA, text_padding_exc = 1, bg_fill_exc = "white", border_color_exc = "black", offset_exc = NULL, width_exc = NA, height_exc = NA, title = NULL, x_title = 0.1, text_color_title = "black", text_fs_title = 10, text_fface_title = 1, text_ffamily_title = NA, text_padding_title = 0.6, bg_fill_title = "#B3D1FF", border_color_title = "black", width_title = NA, height_title = NA) {
 
   filter <- paste(deparse(substitute(filter)), collapse = "")
   filter <- gsub("  ", "", filter)
@@ -197,7 +208,7 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
     new_fc$group <- NA
 
     new_fc <- new_fc |>
-      dplyr::left_join(object$fc |> dplyr::filter(.data$type != "exclude") |> dplyr::select("x", "group"), by = "group") |>
+      dplyr::left_join(object$fc |> dplyr::filter(.data$type != "exclude", !grepl("title", .data$type)) |> dplyr::select("x", "group"), by = "group") |>
       dplyr::group_by(.data$group) |>
       dplyr::slice_tail(n = 1) |>
       dplyr::ungroup()
@@ -209,7 +220,7 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
       #Deal with missings from sel_group variables
       dplyr::mutate(dplyr::across(dplyr::all_of(group0), ~dplyr::case_when(is.na(.) & !grepl("sel_group$", dplyr::cur_column()) ~ "NA", .default = .))) |>
       tidyr::unite("group", dplyr::all_of(group0), sep = " // ", na.rm = TRUE) |>
-      dplyr::left_join(object$fc |> dplyr::filter(.data$type != "exclude") |> dplyr::select("x", "group"), by = "group") |>
+      dplyr::left_join(object$fc |> dplyr::filter(.data$type != "exclude", !grepl("title", .data$type)) |> dplyr::select("x", "group"), by = "group") |>
       dplyr::mutate(group = factor(.data$group, levels = unique(.data$group))) |>
       dplyr::group_by(.data$group) |>
       dplyr::slice_tail(n = 1) |>
@@ -218,11 +229,10 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
 
   }
 
-
   if(perc_total) {
     N_total <- unique(
       object$fc |>
-        dplyr::filter(.data$y == max(.data$y)) |>
+        dplyr::filter(.data$y == max(.data$y), !grepl("title", .data$type)) |>
         dplyr::pull("N")
     )
     new_fc <- new_fc |>
@@ -420,7 +430,7 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
     if(perc_total) {
       N_total <- unique(
         object$fc |>
-          dplyr::filter(.data$y == max(.data$y)) |>
+          dplyr::filter(.data$y == max(.data$y), !grepl("title", .data$type)) |>
           dplyr::pull("N")
       )
       new_fc2 <- new_fc2 |>
@@ -511,13 +521,50 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
 
   }
 
+  #If we have to add a title
+  if(!is.null(title)) {
+
+    new_fc2 <- object$fc |>
+      dplyr::filter(!.data$old, .data$type == "filter") |>
+      dplyr::first() |>
+      dplyr::mutate(
+        x = x_title,
+        n = NA,
+        N = NA,
+        n = NA,
+        N = NA,
+        perc = NA,
+        label = NA,
+        text_pattern = NA,
+        text = title,
+        type = "title_filter",
+        group = NA,
+        just = "center",
+        text_color = text_color_title,
+        text_fs = text_fs_title,
+        text_fface = text_fface_title,
+        text_ffamily = text_ffamily_title,
+        text_padding = text_padding_title,
+        bg_fill = bg_fill_title,
+        border_color = border_color_title,
+        width = width_title,
+        height = height_title,
+        end = FALSE
+      )
+
+    object$fc <- rbind(
+      object$fc,
+      new_fc2
+    )
+
+  }
+
   object$fc <- object$fc |>
     dplyr::select(-"old") |>
     dplyr::mutate(
       id = dplyr::row_number()
     ) |>
     dplyr::relocate("id")
-
 
   #Filter the database
   if(is.null(sel_group)) {

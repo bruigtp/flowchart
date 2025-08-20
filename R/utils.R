@@ -30,7 +30,7 @@ update_x <- function(x, i, n) {
 update_y <- function(y, type, x, group) {
 
   tbl_y <- tibble::tibble("y" = y, "type" = type, "x" = x, "group" = group) |>
-    dplyr::filter(.data$type != "exclude") |>
+    dplyr::filter(.data$type != "exclude", !grepl("title", .data$type)) |>
     dplyr::mutate(id = dplyr::row_number()) |>
     dplyr::mutate(
       id_pre = purrr::map(dplyr::row_number(), function (rn) {
@@ -80,15 +80,17 @@ update_y <- function(y, type, x, group) {
       nmax = as.numeric(which.max(dplyr::across(tidyselect::starts_with("nboxes"), ~ .)))
     )
 
-  id_exc <- which(type == "exclude")
+  #Update those which are not of type exclude and title
+  id_no_update <- which(type == "exclude" | grepl("title", type))
 
-  if(length(id_exc) > 0) {
-    y[-id_exc] <- purrr::map_dbl(1:nrow(tbl_y), ~tbl_y[[paste0("y", tbl_y$nmax[.])]][.])
+  if(length(id_no_update) > 0) {
+    y[-id_no_update] <- purrr::map_dbl(1:nrow(tbl_y), ~tbl_y[[paste0("y", tbl_y$nmax[.])]][.])
   } else {
     y <- purrr::map_dbl(1:nrow(tbl_y), ~tbl_y[[paste0("y", tbl_y$nmax[.])]][.])
   }
 
   #Update those of type exclude (they have to be in-between the two boxes)
+  id_exc <- which(type == "exclude")
   if(length(id_exc) > 0) {
     for(i in 1:length(id_exc)) {
 
@@ -100,6 +102,15 @@ update_y <- function(y, type, x, group) {
 
     }
   }
+
+  #Update those of type title
+  id_title <- grep("title", type)
+
+  if(length(id_title) > 0) {
+    #Put the y-coordinate of the last filter/split box before it
+    y[id_title] <- purrr::map_dbl(id_title, ~tail(y[which(type[1:.] == gsub("title_", "", type[.]))], 1))
+  }
+
 
   y
 

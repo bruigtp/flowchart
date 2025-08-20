@@ -19,7 +19,18 @@ as_fc(
   border_color = "black",
   width = NA,
   height = NA,
-  hide = FALSE
+  hide = FALSE,
+  title = NULL,
+  x_title = 0.1,
+  text_color_title = "black",
+  text_fs_title = 10,
+  text_fface_title = 1,
+  text_ffamily_title = NA,
+  text_padding_title = 0.6,
+  bg_fill_title = "#B3D1FF",
+  border_color_title = "black",
+  width_title = NA,
+  height_title = NA
 )
 }
 \arguments{
@@ -52,6 +63,28 @@ as_fc(
 \item{height}{Height of the box. If \code{NA}, it automatically adjusts to the content (default). Must be an object of class \link{unit} or a number between 0 and 1.}
 
 \item{hide}{Logical value to hide the initial box or not. Default is FALSE. hide = TRUE can only be combined with \code{\link[=fc_split]{fc_split()}}.}
+
+\item{title}{Add a title box to the initial box. Default is \code{NULL}.}
+
+\item{x_title}{x-coordinate of the title box. Default is \code{0.1} (placed in the left).}
+
+\item{text_color_title}{Color of the title text. It is \code{"black"} by default.}
+
+\item{text_fs_title}{Font size of the title text. It is 8 by default.}
+
+\item{text_fface_title}{Font face of the title text. It is 1 by default. See the \code{fontface} parameter for \link{gpar}.}
+
+\item{text_ffamily_title}{Changes the font family of the title text. Default is \code{NA}. See the \code{fontfamily} parameter for \link{gpar}.}
+
+\item{text_padding_title}{Changes the title text padding inside the box. Default is 1. This number has to be greater than 0.}
+
+\item{bg_fill_title}{Title box background color. It is \code{"white"} by default.}
+
+\item{border_color_title}{Title box border color. It is \code{"black"} by default.}
+
+\item{width_title}{Width of the title box. If \code{NA}, it automatically adjusts to the content (default). Must be an object of class \link{unit} or a number between 0 and 1.}
+
+\item{height_title}{Height of the title box. If \code{NA}, it automatically adjusts to the content (default). Must be an object of class \link{unit} or a number between 0 and 1.}
 }
 \value{
 List with the dataset and the initialized flowchart parameters.

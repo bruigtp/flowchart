@@ -133,3 +133,5 @@
 * Fixed `bug` allowing trailing zeros to be trimmed regardless of `round_digits` argument in `fc_filter()` and `fc_split()` (@kenkomodo)
 
 * Updated `fc_draw()` with arguments to control arrow shape and color: `arrow_color`,`arrow_fill`, `arrow_lwd`, `arrow_lineend`, and `arrow_linejoin`. Updated `fc_export()` to use new arguments for flowchart image export. (#43; @kenkomodo)
+
+* New argument `title` in the functions `as_fc()` and `fc_filter()` to add titles in each step of the flowchart. Also, the existing `title` argument in `fc_split()` has been updated for consistency.

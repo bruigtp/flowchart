@@ -161,15 +161,16 @@ safo |>
   fc_draw(title = "SAFO flowchart")
 ```
 
-### Add a title to the split
+### Add titles in each step
 
-We can also add a title to a split in the flowchart, using the argument `title` in the `fc_split()` function:
+We can also add titles to each step of a flowchart to create [CONSORT](https://www.equator-network.org/reporting-guidelines/consort/)-style flow diagrams. The argument `title` must be used in the `as_fc()`, `fc_filter()` or `fc_split()` functions: 
 
-```{r fig.width = 6, fig.height = 5}
-safo |> 
-  as_fc(label = "Patients assessed for eligibility") |>
-  fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, perc_total = TRUE) |> 
-  fc_split(group, perc_total = TRUE, title = "Treatment", bg_fill_title = "skyblue") |> 
+```{r fig.width = 8, fig.height = 5}
+as_fc(N = 100, label = "Assessed for eligibility", title = "Enrollment") |> 
+  fc_filter(N = 80, label = "Randomized") |> 
+  fc_split(N = c(40, 40), label = c("Allocated to control", "Allocated to intervention"), title = "Allocation") |> 
+  fc_filter(N = c(31, 34), label = "Lost to follow-up", title = "Follow-up") |> 
+  fc_filter(N = c(30, 32), label = "Analyzed", title = "Analysis") |> 
   fc_draw()
 ```
 
