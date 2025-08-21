@@ -73,7 +73,6 @@ label_exc2 <- paste(
   collapse = "\n")
 
 label_exc2 <- str_replace_all(label_exc2, c("resistant" = "resistant\n", "blood" = "blood\n"))
-
 ```
 
 Second, let's create and customize the flowchart using the functions in the package:
@@ -121,3 +120,31 @@ safo |>
   fc_draw()
 
 ```
+
+# Example 5
+
+In this example we will reproducte the flowchart proposed by the [CONSORT](https://www.equator-network.org/reporting-guidelines/consort/) guideline:
+
+```{r fig.width = 8, fig.height = 7}
+as_fc(N = 200, label = "Assessed for eligibility", title = "Enrollment") |> 
+  fc_filter(N = 150, label = "Randomized", show_exc = TRUE, just_exc = "left") |> 
+  fc_split(N = c(70, 80), label = c("Allocated to control", "Allocated to intervention"), title = "Allocation", x_title = 0.5) |> 
+  fc_filter(N = c(50, 65), label = "Completed follow-up", title = "Follow-Up", just = "left", x_title = 0.5) |> 
+  fc_filter(N = c(48, 63), label = "Analysed", title = "Analysis", just = "left", x_title = 0.5) |> 
+  fc_theme(text_pattern = "{label} (n = {n})", text_pattern_init = "{label} (n = {n})", text_pattern_exc = "{label} (n = {n}):") |> 
+  fc_modify(
+    ~ . |> 
+      mutate(
+        text = case_when(
+          id == 4 ~ paste0(text, "\n  - Not meeting inclusion criteria (n = 20)\n - Declined to participate (n = 25)\n - Other reasons (n = 5)"),
+          id == 8 ~ paste0(text, "\nLost to follow-up (n = 15):\n  -Could not be contacted (n = 10)\n  -Died from other causes (n = 5)\nDiscontinued intervention (n = 5):\n  -Adverse events from intervention (n = 4)\n  -Protocol violation (n = 1)"),
+          id == 9 ~ paste0(text, "\nLost to follow-up (n = 18):\n  -Could not be contacted (n = 13)\n  -Died from other causes (n = 5)\nDiscontinued intervention (n = 7):\n -Adverse events from intervention (n = 3)\n  -Protocol violation (n = 4)"),
+          id == 11 ~ paste0(text, "\nExcluded from analysis (n = 2):\n -Missing primary outcome (n = 2)"),
+          id == 12 ~ paste0(text, "\nExcluded from analysis (n = 2):\n -Missing primary outcome (n = 2)"),
+          .default = text
+        )
+      )
+  ) |> 
+  fc_draw()
+```
+

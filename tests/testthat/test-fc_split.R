@@ -119,3 +119,14 @@ test_that("trimming trailing zeros", {
 
 })
 
+test_that("add title", {
+
+  fc <- as_fc(N = 100, label = "Assessed for eligibility", title = "Enrollment") |>
+    fc_split(N = c(60, 40), label = c("Allocated to control", "Allocated to intervention"), title = "Allocation")
+
+  expect_equal(tail(fc$fc$type, 1), "title_split")
+  expect_equal(tail(fc$fc$x, 1), 0.1)
+  expect_equal(round(tail(fc$fc$y, 1), 3), 0.333)
+  expect_equal(tail(fc$fc$text, 1), "Allocation")
+
+})

@@ -161,7 +161,7 @@ safo |>
   fc_draw(title = "SAFO flowchart")
 ```
 
-### Add titles in each step
+## Add titles in each step
 
 We can also add titles to each step of a flowchart to create [CONSORT](https://www.equator-network.org/reporting-guidelines/consort/)-style flow diagrams. The argument `title` must be used in the `as_fc()`, `fc_filter()` or `fc_split()` functions: 
 
@@ -174,7 +174,7 @@ as_fc(N = 100, label = "Assessed for eligibility", title = "Enrollment") |>
   fc_draw()
 ```
 
-### Percentage with respect to the total rows
+## Percentage with respect to the total rows
 
 We can change the calculation of all percentages in a `flowchart.` By default, percentages are calculated with respect to the box in the previous level. With the argument `perc_total=` we can change it, to calculate it with respect to the initial box with the total number of rows:
 
@@ -186,7 +186,7 @@ safo |>
   fc_draw()
 ```
 
-### Offset
+## Offset
 
 We can add/remove space to the distance between boxes in a split using the argument `offset`:
 

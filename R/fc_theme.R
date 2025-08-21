@@ -58,10 +58,10 @@ fc_theme <- function(object, text_pattern = NULL, text_pattern_init = NULL, text
 
   #Change text patterns:
 
-  #In all boxes (except init, exc and title_split)
+  #In all boxes (except init, exc and titles)
   if(!is.null(text_pattern)) {
 
-    id_all <- which(!object$fc$type %in% c("init", "exclude", "title_split"))
+    id_all <- which(!object$fc$type %in% c("init", "exclude") & !grepl("title", object$fc$type))
 
     object$fc$text_pattern[id_all] <- if(is.expression(text_pattern)) list(text_pattern) else text_pattern
 
@@ -258,7 +258,7 @@ fc_theme <- function(object, text_pattern = NULL, text_pattern_init = NULL, text
     #Change it
     if(nrow(nmodify_rest) > 0) {
       object$fc <- object$fc |>
-        dplyr::mutate(dplyr::across(nmodify_rest$arg, ~dplyr::case_when(! .data$type %in% c("exclude", "title_split") ~ nmodify_rest$value[[which(nmodify_rest$arg == dplyr::cur_column())]], .default = .)))
+        dplyr::mutate(dplyr::across(nmodify_rest$arg, ~dplyr::case_when(.data$type != "exclude" & !grepl("title", .data$type) ~ nmodify_rest$value[[which(nmodify_rest$arg == dplyr::cur_column())]], .default = .)))
     }
 
     if(nrow(nmodify_exc) > 0) {
@@ -277,7 +277,7 @@ fc_theme <- function(object, text_pattern = NULL, text_pattern_init = NULL, text
 
     if(nrow(nmodify_title) > 0) {
 
-      if(sum(object$fc$type == "title_split") == 0) {
+      if(sum(grepl("title", object$fc$type)) == 0) {
 
         cli::cli_warn("The arguments for the title box parameters were not applied because no title boxes were found in the flowchart. Therefore, no change was applied for these boxes.")
 
@@ -285,7 +285,7 @@ fc_theme <- function(object, text_pattern = NULL, text_pattern_init = NULL, text
 
       #Change the title boxes
       object$fc <- object$fc |>
-        dplyr::mutate(dplyr::across(nmodify_title$arg, ~dplyr::case_when(.data$type == "title_split" ~ nmodify_title$value[[which(nmodify_title$arg == dplyr::cur_column())]], .default = .)))
+        dplyr::mutate(dplyr::across(nmodify_title$arg, ~dplyr::case_when(grepl("title", .data$type) ~ nmodify_title$value[[which(nmodify_title$arg == dplyr::cur_column())]], .default = .)))
 
     }
 

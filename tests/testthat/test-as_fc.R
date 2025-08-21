@@ -65,3 +65,15 @@ test_that("preserves styling parameters", {
   expect_equal(fc$fc$bg_fill, "yellow")
   expect_equal(fc$fc$border_color, "blue")
 })
+
+
+test_that("add title", {
+
+  fc <- as_fc(N = 100, label = "Assessed for eligibility", title = "Enrollment")
+
+  expect_equal(tail(fc$fc$type, 1), "title_init")
+  expect_equal(tail(fc$fc$x, 1), 0.1)
+  expect_equal(tail(fc$fc$y, 1), 0.5)
+  expect_equal(tail(fc$fc$text, 1), "Enrollment")
+
+})

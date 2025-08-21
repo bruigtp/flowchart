@@ -117,3 +117,18 @@ test_that("trimming trailing zeros", {
   expect_equal(perc2, "50")
 
 })
+
+test_that("add title", {
+
+  fc <- as_fc(N = 100, label = "Assessed for eligibility", title = "Enrollment") |>
+    fc_filter(N = 80, label = "Randomized") |>
+    fc_split(N = c(40, 40), label = c("Allocated to control", "Allocated to intervention"), title = "Allocation") |>
+    fc_filter(N = c(31, 34), label = "Lost to follow-up", title = "Follow-up") |>
+    fc_filter(N = c(30, 32), label = "Analyzed", title = "Analysis")
+
+  expect_equal(unique(fc$fc$type[c(9, 12)]), "title_filter")
+  expect_equal(unique(fc$fc$x[c(9, 12)]), 0.1)
+  expect_equal(round(fc$fc$y[c(9, 12)], 3), c(0.333, 0.167))
+  expect_equal(fc$fc$text[c(9, 12)], c("Follow-up", "Analysis"))
+
+})
