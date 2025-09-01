@@ -154,7 +154,7 @@ safo |>
   fc_draw()
 ```
 
-The idea is to combine the `fc_filter()` and `fc_split()` functions in the way we want to create different flowchart structures, however complex the may be. In some cases, we may want to create two different flowcharts then [merge or stack](combine-flowcharts.html) them into the same image.
+The idea is to combine the `fc_filter()` and `fc_split()` functions in the way we want to create different flowchart structures, however complex the may be.
 
 ## Export
 

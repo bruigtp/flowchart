@@ -123,9 +123,9 @@ safo |>
 
 # Example 5
 
-In this example we will reproducte the flowchart proposed by the [CONSORT](https://www.equator-network.org/reporting-guidelines/consort/) guideline:
+In this example, we will attempt to recreate the flowchart suggested by the [CONSORT](https://www.equator-network.org/reporting-guidelines/consort/) guideline:
 
-```{r fig.width = 8, fig.height = 7}
+```{r fig.width = 8, fig.height = 8}
 as_fc(N = 200, label = "Assessed for eligibility", title = "Enrollment") |> 
   fc_filter(N = 150, label = "Randomized", show_exc = TRUE, just_exc = "left") |> 
   fc_split(N = c(70, 80), label = c("Allocated to control", "Allocated to intervention"), title = "Allocation", x_title = 0.5) |> 

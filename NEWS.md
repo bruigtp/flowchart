@@ -116,7 +116,7 @@
 
 * New `width` and `height` arguments for `as_fc()`, `fc_filter()` and `fc_split()` functions to manually set the size of boxes.
 
-# flowchart (development)
+# flowchart 0.9.0
 
 * New `fc_theme()` function to set all parameters for all boxes in a flowchart at once.
 
@@ -134,4 +134,4 @@
 
 * Updated `fc_draw()` with arguments to control arrow shape and color: `arrow_color`,`arrow_fill`, `arrow_lwd`, `arrow_lineend`, and `arrow_linejoin`. Updated `fc_export()` to use new arguments for flowchart image export. (#43; @kenkomodo)
 
-* New argument `title` in the functions `as_fc()` and `fc_filter()` to add titles in each step of the flowchart. Also, the existing `title` argument in `fc_split()` has been updated for consistency.
+* A new argument, `title`, has been added to the `as_fc()` and `fc_filter()` functions to allow for the addition of titles at each step of the flowchart. The existing `title` argument in `fc_split()` has also been updated for consistency.
