@@ -135,3 +135,7 @@
 * Updated `fc_draw()` with arguments to control arrow shape and color: `arrow_color`,`arrow_fill`, `arrow_lwd`, `arrow_lineend`, and `arrow_linejoin`. Updated `fc_export()` to use new arguments for flowchart image export. (#43; @kenkomodo)
 
 * A new argument, `title`, has been added to the `as_fc()` and `fc_filter()` functions to allow for the addition of titles at each step of the flowchart. The existing `title` argument in `fc_split()` has also been updated for consistency.
+
+# flowchart (development version)
+
+* Fixed `bug` when drawing with two stacked flowcharts with `unite = TRUE`.

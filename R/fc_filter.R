@@ -514,7 +514,10 @@ fc_filter.fc <- function(object, filter = NULL, N = NULL, label = NULL, text_pat
       new_fc3 |>
         tibble::as_tibble() |>
         dplyr::mutate(
-          end = FALSE,
+          end = dplyr::case_when(
+            type == "exclude" ~ FALSE,
+            .default = TRUE
+          ),
           .before = "old"
         )
     )

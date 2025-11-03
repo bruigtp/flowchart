@@ -26,3 +26,10 @@ test_that("coerces tibble fc to list", {
   result <- fc_draw(fc)
   expect_type(result$fc, "list")
 })
+
+test_that("works with stack and unite=TRUE", {
+  fc1 <- as_fc(N = 10) |> fc_filter(N = 5, show_exc = TRUE)
+  fc2 <- as_fc(N = 100) |> fc_filter(N = 80, show_exc = TRUE)
+  fc <- fc_stack(list(fc1, fc2), unite = TRUE)
+  expect_no_error(fc_draw(fc))
+})

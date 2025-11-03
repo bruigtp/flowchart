@@ -28,7 +28,7 @@ test_that("handles unite = TRUE with compatible charts", {
   expect_equal(result$fc$type[2], "stack")
 })
 
-test_that("successfully handles stacking when unite = TRUE", {
+test_that("successfully handles stacking when unite = TRUE, in a split", {
   fc1 <- as_fc(N = 10) |> fc_split(N = c(5, 5))
   fc2 <- as_fc(N = 10) |> fc_split(N = c(3, 3, 4))
 
@@ -36,6 +36,16 @@ test_that("successfully handles stacking when unite = TRUE", {
 
   expect_s3_class(result, "fc")
 })
+
+test_that("successfully handles stacking when unite = TRUE, in a filter", {
+  fc1 <- as_fc(N = 10) |> fc_filter(N = 5, show_exc = TRUE)
+  fc2 <- as_fc(N = 100) |> fc_filter(N = 80, show_exc = TRUE)
+
+  result <- fc_stack(list(fc1, fc2), unite = TRUE)
+
+  expect_s3_class(result, "fc")
+})
+
 
 test_that("preserves original data in stacked charts", {
   fc1 <- as_fc(N = 10)
