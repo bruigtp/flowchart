@@ -48,6 +48,12 @@ reference:
 - title: View flowchart elements
   desc: Function to return $data or $fc
   contents: fc_view
+- title: S3 methods for class 'fc'
+  desc: Implemented S3 methods (print, summary, plot) for objects of class 'fc'
+  contents:
+  - print.fc
+  - summary.fc
+  - plot.fc
 - title: Built-in datasets
   desc: Datasets that are included in the package for testing
   contents:
