@@ -43,6 +43,8 @@ fc_merge <- function(fcs) {
       })
     )
 
+  attr(object, "combine") <- "Merged"
+
   class(object) <- "fc"
 
   object

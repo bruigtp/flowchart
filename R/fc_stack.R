@@ -100,6 +100,8 @@ fc_stack <- function(fcs, unite = FALSE) {
 
   }
 
+  attr(object, "combine") <- "Stacked"
+
   class(object) <- "fc"
 
   object

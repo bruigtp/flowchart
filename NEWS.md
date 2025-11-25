@@ -139,3 +139,5 @@
 # flowchart (development version)
 
 * Fixed `bug` when drawing with two stacked flowcharts with `unite = TRUE`.
+
+* Created `print`, `summary` and `plot` S3 methods.

@@ -48,7 +48,7 @@ test_that("handles NA values in row", {
 test_that("warns when big.mark equals OutDec", {
   fc <- as_fc(N = 1000)
   withr::local_options(OutDec = ".")
-  expect_snapshot(update_numbers(fc, big.mark = "."))
+  expect_snapshot(res <- update_numbers(fc, big.mark = "."))
 })
 
 test_that("formats numbers in tibble fc", {
