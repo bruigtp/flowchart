@@ -1,0 +1,140 @@
+# flowchart
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/flowchart)](https://cran.r-project.org/package=flowchart)
+  
+[![R-CMD-check](https://github.com/bruigtp/flowchart/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bruigtp/flowchart/actions/workflows/R-CMD-check.yaml)
+   [![Codecov test
+coverage](https://codecov.io/gh/bruigtp/flowchart/branch/main/graph/badge.svg)](https://app.codecov.io/gh/bruigtp/flowchart?branch=main)
+[![](https://cranlogs.r-pkg.org/badges/flowchart)](https://cran.r-project.org/package=flowchart)
+  
+[![](https://cranlogs.r-pkg.org/badges/grand-total/flowchart)](https://cran.r-project.org/package=flowchart)
+
+## Tidy Flowchart Generator
+
+`flowchart` is an R package for drawing participant flow diagrams
+directly from a dataframe using tidyverse. It provides a set of
+functions that can be combined with a pipe operator to create all kinds
+of flowcharts from a dataframe in an easy way.
+
+You can see the package in action in:
+<https://bruigtp.github.io/flowchart/>
+
+## How to install it?
+
+The package is available on CRAN:
+<https://cran.r-project.org/web/packages/flowchart/index.html>.
+
+``` r
+install.packages("flowchart")
+```
+
+We can download the development version from the github repository:
+
+``` r
+# install.packages("remotes")
+remotes::install_github('bruigtp/flowchart')
+```
+
+## How it works?
+
+The following GIF provides an example of the tidy process of drawing a
+flowchart for a clinical trial:
+
+![animated](https://github.com/bruigtp/flowchart/raw/main/data-raw/flowchart_example.gif)
+
+## About
+
+Package: flowchart
+
+Type: Package
+
+Version: 1.0.0 (CRAN)
+
+Authors: Pau Satorra, João Carmezim, Natàlia Pallarès, Cristian Tebé,
+Kenneth A. Taylor.
+
+Maintainer: Pau Satorra
+
+License: GPL (\>= 3)
+
+Encoding: UTF-8
+
+Depends: R (\>= 4.1.0)
+
+# Package index
+
+## Creating flowchart
+
+Functions to create a flowchart design
+
+- [`as_fc()`](https://bruigtp.github.io/flowchart/reference/as_fc.md) :
+  as_fc
+- [`fc_draw()`](https://bruigtp.github.io/flowchart/reference/fc_draw.md)
+  : fc_draw
+- [`fc_filter()`](https://bruigtp.github.io/flowchart/reference/fc_filter.md)
+  : fc_filter
+- [`fc_split()`](https://bruigtp.github.io/flowchart/reference/fc_split.md)
+  : fc_split
+
+## Customizing flowchart
+
+Function to customize a flowchart
+
+- [`fc_theme()`](https://bruigtp.github.io/flowchart/reference/fc_theme.md)
+  : fc_theme
+- [`fc_modify()`](https://bruigtp.github.io/flowchart/reference/fc_modify.md)
+  : fc_modify
+
+## Combining flowcharts
+
+Functions to combine different flowcharts
+
+- [`fc_merge()`](https://bruigtp.github.io/flowchart/reference/fc_merge.md)
+  : fc_merge
+- [`fc_stack()`](https://bruigtp.github.io/flowchart/reference/fc_stack.md)
+  : fc_stack
+
+## Exporting flowchart
+
+Function to export a flowchart
+
+- [`fc_export()`](https://bruigtp.github.io/flowchart/reference/fc_export.md)
+  : fc_export
+
+## View flowchart elements
+
+Function to return \$data or \$fc
+
+- [`fc_view()`](https://bruigtp.github.io/flowchart/reference/fc_view.md)
+  : fc_view
+
+## S3 methods for class ‘fc’
+
+Implemented S3 methods (print, summary, plot) for objects of class ‘fc’
+
+- [`print(`*`<fc>`*`)`](https://bruigtp.github.io/flowchart/reference/print.fc.md)
+  : print.fc
+- [`summary(`*`<fc>`*`)`](https://bruigtp.github.io/flowchart/reference/summary.fc.md)
+  : summary.fc
+- [`plot(`*`<fc>`*`)`](https://bruigtp.github.io/flowchart/reference/plot.fc.md)
+  : plot.fc
+
+## Built-in datasets
+
+Datasets that are included in the package for testing
+
+- [`safo`](https://bruigtp.github.io/flowchart/reference/safo.md) :
+  Random generated dataset from the SAFO study
+
+# Articles
+
+### All vignettes
+
+- [Combine
+  Flowcharts](https://bruigtp.github.io/flowchart/articles/combine-flowcharts.md):
+- [Flowchart Example
+  Gallery](https://bruigtp.github.io/flowchart/articles/example-gallery.md):
+- [Flowchart
+  Customization](https://bruigtp.github.io/flowchart/articles/flowchart-customization.md):
+- [flowchart](https://bruigtp.github.io/flowchart/articles/flowchart.md):

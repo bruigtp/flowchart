@@ -1,0 +1,297 @@
+# Changelog
+
+## flowchart 0.1.0
+
+CRAN release: 2024-02-06
+
+- Initial CRAN submission.
+
+## flowchart 0.2.0
+
+CRAN release: 2024-04-09
+
+### Major changes
+
+- Added new `N=` argument in functions
+  [`as_fc()`](https://bruigtp.github.io/flowchart/reference/as_fc.md),
+  [`fc_filter()`](https://bruigtp.github.io/flowchart/reference/fc_filter.md)
+  and
+  [`fc_split()`](https://bruigtp.github.io/flowchart/reference/fc_split.md)
+  to enter the number of rows manually in case that a dataframe is not
+  available.
+
+- New
+  [`fc_export()`](https://bruigtp.github.io/flowchart/reference/fc_export.md)
+  function to export a flowchart in the desired format.
+
+- Solved bug when performing a split. Now the x-coordinates of the
+  resulting boxes are placed symmetrically around the parent box, not
+  homogeneously distributed across all the space.
+
+### Minor changes
+
+- Added `round_digits=` argument to
+  [`fc_filter()`](https://bruigtp.github.io/flowchart/reference/fc_filter.md)
+  and
+  [`fc_split()`](https://bruigtp.github.io/flowchart/reference/fc_split.md)
+  functions, which allows to change the number of decimals to round
+  percentages.
+
+- Added `show_zero=` argument to
+  [`fc_split()`](https://bruigtp.github.io/flowchart/reference/fc_split.md),
+  which allows to control whether the groups with zero events should be
+  shown in a box or not.
+
+- Updated description with minimum R version (\>= 4.1.0).
+
+## flowchart 0.3.0
+
+CRAN release: 2024-05-10
+
+### Major changes
+
+- Bug in the
+  [`fc_split()`](https://bruigtp.github.io/flowchart/reference/fc_split.md)
+  function when splitting by a factor with levels that are not arranged
+  in alphabetical order.
+
+- Bug in the
+  [`fc_split()`](https://bruigtp.github.io/flowchart/reference/fc_split.md)
+  function when performing multiple splits and showing percentages.
+  These percentages were calculated based on the total number of rows,
+  not the total number of rows in each of the groups defined by the
+  previous splits.
+
+## flowchart 0.4.0
+
+CRAN release: 2024-05-29
+
+### Major changes
+
+- Removed `clinic_patient` and `clinic_visit` built-in datasets
+
+### Minor changes
+
+- Changed `safo` built-in dataset
+
+- Now `unite=FALSE` is the default in the
+  [`fc_stack()`](https://bruigtp.github.io/flowchart/reference/fc_stack.md)
+  function
+
+- Added `bmp` format to the
+  [`fc_export()`](https://bruigtp.github.io/flowchart/reference/fc_export.md)
+  function
+
+## flowchart 0.5.0
+
+CRAN release: 2024-09-26
+
+### Major changes
+
+- New arguments `text_fface`, `text_ffamily` and `text_padding` to
+  change the font face, font family and padding of the text inside the
+  box
+
+- New argument `perc_total` to calculate percentages with respect to the
+  total number of rows
+
+- New argument `offset` to add space to the distance between boxes in a
+  split, and `offset_exc` to add space to the distance from the exclude
+  box in a filter
+
+- New function
+  [`fc_view()`](https://bruigtp.github.io/flowchart/reference/fc_view.md)
+  to view the `$fc` element or the `$data` element, associated to a
+  flowchart
+
+- New argument `title` in the
+  [`fc_draw()`](https://bruigtp.github.io/flowchart/reference/fc_draw.md)
+  function to add a title to a flowchart, along with some additional
+  arguments to customize it
+
+- New argument `title` in the
+  [`fc_split()`](https://bruigtp.github.io/flowchart/reference/fc_split.md)
+  function to add a title box in a split, together with some additional
+  arguments to customize it
+
+- Bug in the exclusion box out of margins
+
+### Minor changes
+
+- Added minimum version for dplyr (\>= 1.1.0)
+
+- Bug in the
+  [`fc_export()`](https://bruigtp.github.io/flowchart/reference/fc_export.md)
+  function when using the `format` argument
+
+- Replaced evaluations to tidy evaluations using
+  [`rlang::eval_tidy()`](https://rlang.r-lib.org/reference/eval_tidy.html)
+
+## flowchart 0.5.1
+
+CRAN release: 2024-09-27
+
+- Changed license to GPL (\>= 3) license
+
+## flowchart 0.6.0
+
+CRAN release: 2024-11-08
+
+- Added `box_corners` argument to
+  [`fc_draw()`](https://bruigtp.github.io/flowchart/reference/fc_draw.md)
+  to allow drawing boxes with or without round corners; default set to
+  `"round"` to avoid breaking changes
+  ([\#2](https://github.com/bruigtp/flowchart/issues/2);
+  [@kenkomodo](https://github.com/kenkomodo))
+
+- Updated
+  [`fc_export()`](https://bruigtp.github.io/flowchart/reference/fc_export.md)
+  to include vector formats (svg, pdf) and to use `ragg` in place of
+  `grDevices` for relevant bitmap formats (png, jpeg, tiff) for improved
+  performance and image quality when `ragg` is installed
+  ([\#16](https://github.com/bruigtp/flowchart/issues/16);
+  [@kenkomodo](https://github.com/kenkomodo))
+
+- Methods for S3 class `fc` correctly defined
+
+- Bug in the `hide = TRUE` option in
+  [`as_fc()`](https://bruigtp.github.io/flowchart/reference/as_fc.md)
+
+- Bug when specifying `sel_group` and `N` at the same time in
+  [`fc_split()`](https://bruigtp.github.io/flowchart/reference/fc_split.md)
+
+- Bug when specifying `title` in
+  [`fc_split()`](https://bruigtp.github.io/flowchart/reference/fc_split.md)
+  with a number of splits different than two
+
+## flowchart 0.7.0
+
+CRAN release: 2025-01-20
+
+- Solved `bug` when `sel_group` is used repeatedly in the same flowchart
+
+- Changed y-coordinate distribution of boxes when using
+  [`fc_stack()`](https://bruigtp.github.io/flowchart/reference/fc_stack.md)
+  with `unite = TRUE`
+
+- When performing multiple splits in a flowchart, the group label is
+  stored in `$fc` concatenating the values of the different groups
+  separated by ‘//’
+
+- Allow expressions in the label argument to produce bold or italics
+  text, or even formulas
+
+## flowchart 0.8.0
+
+CRAN release: 2025-04-23
+
+- Solved `bug` when `perc_total = TRUE` is used together with
+  `show_exc = TRUE`.
+
+- Solved `bug` when applying
+  [`fc_filter()`](https://bruigtp.github.io/flowchart/reference/fc_filter.md)
+  in a box with missing values.
+
+- Added `big.mark` argument to
+  [`fc_draw()`](https://bruigtp.github.io/flowchart/reference/fc_draw.md)
+  to allow users to insert a thousands separator for values of `n` and
+  `N` printed in flowchart boxes (e.g., `big.mark = ","` results in
+  `"1,000"`) ([\#26](https://github.com/bruigtp/flowchart/issues/26);
+  [@kenkomodo](https://github.com/kenkomodo))
+
+- Updated package functions to throw warnings using `cli`; added
+  dependency on `cli` ([@kenkomodo](https://github.com/kenkomodo))
+
+- Added test suite for package functions
+  ([@kenkomodo](https://github.com/kenkomodo))
+
+- Updated
+  [`fc_draw()`](https://bruigtp.github.io/flowchart/reference/fc_draw.md)
+  with `canvas_bg` argument which allows the user to specify the
+  flowchart canvas background color or to set it to `"transparent"`
+  ([\#30](https://github.com/bruigtp/flowchart/issues/30);
+  [@kenkomodo](https://github.com/kenkomodo))
+
+- Updated
+  [`fc_export()`](https://bruigtp.github.io/flowchart/reference/fc_export.md)
+  to accept the new `canvas_bg` argument from
+  [`fc_draw()`](https://bruigtp.github.io/flowchart/reference/fc_draw.md)
+  and apply it accordingly to the exported flowchart image
+  ([\#30](https://github.com/bruigtp/flowchart/issues/30);
+  [@kenkomodo](https://github.com/kenkomodo))
+
+- Solved `bug` causing
+  [`fc_export()`](https://bruigtp.github.io/flowchart/reference/fc_export.md)
+  to drop newer
+  [`fc_draw()`](https://bruigtp.github.io/flowchart/reference/fc_draw.md)
+  arguments when redrawing the flowchart for export
+  ([\#32](https://github.com/bruigtp/flowchart/issues/32);
+  [@kenkomodo](https://github.com/kenkomodo))
+
+- New `width` and `height` arguments for
+  [`as_fc()`](https://bruigtp.github.io/flowchart/reference/as_fc.md),
+  [`fc_filter()`](https://bruigtp.github.io/flowchart/reference/fc_filter.md)
+  and
+  [`fc_split()`](https://bruigtp.github.io/flowchart/reference/fc_split.md)
+  functions to manually set the size of boxes.
+
+## flowchart 0.9.0
+
+CRAN release: 2025-08-22
+
+- New
+  [`fc_theme()`](https://bruigtp.github.io/flowchart/reference/fc_theme.md)
+  function to set all parameters for all boxes in a flowchart at once.
+
+- Split up `flowchart` vignette into multiple different articles and
+  updated `_pkgdown.yml` to build `dev` version of site separately while
+  defaulting to currently released CRAN version
+  ([\#37](https://github.com/bruigtp/flowchart/issues/37)).
+
+- The `text_pattern` argument now allows expressions, so users can now
+  format text other than the label in bold.
+
+- Now all arguments available in the graphic device function are also
+  available in the
+  [`fc_export()`](https://bruigtp.github.io/flowchart/reference/fc_export.md)
+  function.
+
+- Fixed bug when `sel_group` is used in a split
+  ([\#40](https://github.com/bruigtp/flowchart/issues/40)).
+
+- Stack flowcharts with `unite=TRUE` if there are more boxes in the last
+  level of the first flowchart than in the first level of the second
+  flowchart.
+
+- Fixed `bug` allowing trailing zeros to be trimmed regardless of
+  `round_digits` argument in
+  [`fc_filter()`](https://bruigtp.github.io/flowchart/reference/fc_filter.md)
+  and
+  [`fc_split()`](https://bruigtp.github.io/flowchart/reference/fc_split.md)
+  ([@kenkomodo](https://github.com/kenkomodo))
+
+- Updated
+  [`fc_draw()`](https://bruigtp.github.io/flowchart/reference/fc_draw.md)
+  with arguments to control arrow shape and color:
+  `arrow_color`,`arrow_fill`, `arrow_lwd`, `arrow_lineend`, and
+  `arrow_linejoin`. Updated
+  [`fc_export()`](https://bruigtp.github.io/flowchart/reference/fc_export.md)
+  to use new arguments for flowchart image export.
+  ([\#43](https://github.com/bruigtp/flowchart/issues/43);
+  [@kenkomodo](https://github.com/kenkomodo))
+
+- A new argument, `title`, has been added to the
+  [`as_fc()`](https://bruigtp.github.io/flowchart/reference/as_fc.md)
+  and
+  [`fc_filter()`](https://bruigtp.github.io/flowchart/reference/fc_filter.md)
+  functions to allow for the addition of titles at each step of the
+  flowchart. The existing `title` argument in
+  [`fc_split()`](https://bruigtp.github.io/flowchart/reference/fc_split.md)
+  has also been updated for consistency.
+
+## flowchart 1.0.0
+
+- Fixed `bug` when drawing with two stacked flowcharts with
+  `unite = TRUE`.
+
+- Created `print`, `summary` and `plot` S3 methods.

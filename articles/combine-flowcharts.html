@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flowchart</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,7 +90,7 @@ patients included in the PP population.</p>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="va">itt</span> <span class="op">==</span> <span class="st">"Yes"</span>, label <span class="op">=</span> <span class="st">"Intention to treat (ITT)"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="va">fc1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combine-flowcharts_files/figure-html/unnamed-chunk-2-1.png" width="768"></p>
+<p><img src="combine-flowcharts_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" width="768"></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create second flowchart for visits</span></span>
 <span><span class="va">fc2</span> <span class="op">&lt;-</span> <span class="va">safo</span> <span class="op">|&gt;</span> </span>
@@ -98,12 +98,12 @@ patients included in the PP population.</p>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="va">pp</span> <span class="op">==</span> <span class="st">"Yes"</span>, label <span class="op">=</span> <span class="st">"Per protocol (PP)"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="va">fc2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combine-flowcharts_files/figure-html/unnamed-chunk-2-2.png" width="768"></p>
+<p><img src="combine-flowcharts_files/figure-html/unnamed-chunk-2-2.png" class="r-plt" width="768"></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">fc1</span>, <span class="va">fc2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_merge.html">fc_merge</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combine-flowcharts_files/figure-html/unnamed-chunk-2-3.png" width="768"></p>
+<p><img src="combine-flowcharts_files/figure-html/unnamed-chunk-2-3.png" class="r-plt" width="768"></p>
 </div>
 <div class="section level2">
 <h2 id="stack">Stack<a class="anchor" aria-label="anchor" href="#stack"></a>
@@ -115,7 +115,7 @@ flowcharts vertically instead of horizontally.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">fc1</span>, <span class="va">fc2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_stack.html">fc_stack</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combine-flowcharts_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
+<p><img src="combine-flowcharts_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" width="576"></p>
 <p>We can use the argument <code>unite = TRUE</code> to connect two
 stacked flowcharts. Two flowcharts can be merged only if they have the
 same boxes at the beginning and at the end, or if one of the flowcharts
@@ -133,7 +133,7 @@ has one box at the beginning or at the end. For example:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">fc1</span>, <span class="va">fc2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_stack.html">fc_stack</a></span><span class="op">(</span>unite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combine-flowcharts_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
+<p><img src="combine-flowcharts_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" width="576"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fc1</span> <span class="op">&lt;-</span> <span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -147,7 +147,7 @@ has one box at the beginning or at the end. For example:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">fc1</span>, <span class="va">fc2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_stack.html">fc_stack</a></span><span class="op">(</span>unite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combine-flowcharts_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
+<p><img src="combine-flowcharts_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" width="576"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fc1</span> <span class="op">&lt;-</span> <span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -162,7 +162,7 @@ has one box at the beginning or at the end. For example:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">fc1</span>, <span class="va">fc2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_stack.html">fc_stack</a></span><span class="op">(</span>unite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combine-flowcharts_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
+<p><img src="combine-flowcharts_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" width="576"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -175,7 +175,7 @@ has one box at the beginning or at the end. For example:</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

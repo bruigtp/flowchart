@@ -1,0 +1,131 @@
+# fc_export
+
+This function allows you to export the drawn flowchart to the most
+popular graphic formats, including bitmap formats (png, jpeg, tiff, bmp)
+and vector formats (svg, pdf). For bitmap formats, it uses the
+[ragg](https://ragg.r-lib.org/) package devices when available for
+higher performance and higher quality output than standard raster
+devices provide by
+[grDevices](https://rdrr.io/r/grDevices/grDevices-package.html).
+
+## Usage
+
+``` r
+fc_export(
+  object,
+  filename,
+  path = NULL,
+  format = NULL,
+  width = NA,
+  height = NA,
+  units = NULL,
+  res = 100,
+  ...
+)
+```
+
+## Arguments
+
+- object:
+
+  fc object that we want to export.
+
+- filename:
+
+  File name to create on disk.
+
+- path:
+
+  Path of the directory to save plot to: path and filename are combined
+  to create the fully qualified file name. Defaults to the working
+  directory.
+
+- format:
+
+  Name of the graphic device. One of `"png"`, `"jpeg"`, `"tiff"`,
+  `"bmp"`, `"svg"`, or `"pdf"`. If `NULL` (default), the format is
+  guessed based on the filename extension.
+
+- width, height:
+
+  Plot size in units expressed by the `units` argument. Default is 600px
+  for bitmap formats and 6 inches for vector formats.
+
+- units:
+
+  One of the following units in which the width and height arguments are
+  expressed: `"in"`, `"cm"`, `"mm"` for vector formats and `"in"`,
+  `"cm"`, `"mm"` or `"px"` for bitmap formats. If left `NULL` (default),
+  the function will automatically use `"px"` for bitmap formats and
+  `"in"` for vector formats.
+
+- res:
+
+  The nominal resolution in ppi which will be recorded in the bitmap
+  file, if a positive integer. Also used for units other than the
+  default, and to convert points to pixels. Default is 100 if exporting
+  in bitmap format. This argument is unused if exporting to a vector
+  format.
+
+- ...:
+
+  Arguments to be passed to the device function used to save the
+  flowchart. The available parameters will differ depending on the
+  format (e.g., [png](https://rdrr.io/r/grDevices/png.html)).
+
+## Value
+
+Invisibly returns the same object that has been given to the function.
+
+## Details
+
+- **Vector Formats (`'svg'`, `'pdf'`):** These formats are ideal for
+  graphics that need to be scaled without loss of quality. The default
+  units for width and height are inches. If user specifies `units` other
+  than inches (`"mm"` or` "cm"`), the function will convert the
+  dimensions to inches using standard conversion formulas.
+
+- **Bitmap Formats (`'png'`, `'jpeg'`, `'tiff'`, `'bmp'`):** For these
+  formats (with the exception of `"bmp"`), the function uses the
+  [ragg](https://ragg.r-lib.org/) package devices when available,
+  providing higher performance and higher quality output. The default
+  `units` for `width` and `height` are pixels.
+
+- **Suggested Dependencies:** For superior performance and quality
+  bitmap outputs, it is recommended to install the
+  [ragg](https://ragg.r-lib.org/) package. For exporting to `"pdf"`
+  format with enhanced features, the Cairo graphics library will be used
+  if it is available.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+safo |>
+ as_fc(label = "Patients assessed for eligibility") |>
+ fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |>
+ fc_draw() |>
+ fc_export("flowchart.png")
+
+#Specifying size and resolution
+safo |>
+ as_fc(label = "Patients assessed for eligibility") |>
+ fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |>
+ fc_draw() |>
+ fc_export("flowchart.png", width = 3000, height = 4000, res = 700)
+
+#Exporting to an SVG file
+safo |>
+ as_fc(label = "Patients assessed for eligibility") |>
+ fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |>
+ fc_draw() |>
+ fc_export("flowchart.svg")
+
+#Exporting to a PDF file
+safo |>
+ as_fc(label = "Patients assessed for eligibility") |>
+ fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |>
+ fc_draw() |>
+ fc_export("flowchart.pdf")
+} # }
+```
