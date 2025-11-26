@@ -136,7 +136,7 @@
 
 * A new argument, `title`, has been added to the `as_fc()` and `fc_filter()` functions to allow for the addition of titles at each step of the flowchart. The existing `title` argument in `fc_split()` has also been updated for consistency.
 
-# flowchart (development version)
+# flowchart 1.0.0
 
 * Fixed `bug` when drawing with two stacked flowcharts with `unite = TRUE`.
 
