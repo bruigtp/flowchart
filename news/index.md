@@ -291,6 +291,8 @@ CRAN release: 2025-08-22
 
 ## flowchart 1.0.0
 
+CRAN release: 2025-11-26
+
 - Fixed `bug` when drawing with two stacked flowcharts with
   `unite = TRUE`.
 

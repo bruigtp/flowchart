@@ -9,6 +9,8 @@ coverage](https://codecov.io/gh/bruigtp/flowchart/branch/main/graph/badge.svg)](
 [![](https://cranlogs.r-pkg.org/badges/flowchart)](https://cran.r-project.org/package=flowchart)
   
 [![](https://cranlogs.r-pkg.org/badges/grand-total/flowchart)](https://cran.r-project.org/package=flowchart)
+[![DOI:
+10.5334/jors.649](https://img.shields.io/badge/DOI-10.5334%2Fjors.649-blue)](https://doi.org/10.5334/jors.649)
 
 ## Tidy Flowchart Generator
 

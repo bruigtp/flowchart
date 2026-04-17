@@ -19,14 +19,14 @@
 Source:
 [`DESCRIPTION`](https://github.com/bruigtp/flowchart/blob/main/DESCRIPTION)
 
-Satorra P, Carmezim J, Pallarès N, Tebé C, Taylor K (2025). *flowchart:
+Satorra P, Carmezim J, Pallarès N, Tebé C, Taylor K (2026). *flowchart:
 Tidy Flowchart Generator*. R package version 1.0.0,
 <https://bruigtp.github.io/flowchart/>.
 
     @Manual{,
       title = {flowchart: Tidy Flowchart Generator},
       author = {Pau Satorra and João Carmezim and Natàlia Pallarès and Cristian Tebé and Kenneth Taylor},
-      year = {2025},
+      year = {2026},
       note = {R package version 1.0.0},
       url = {https://bruigtp.github.io/flowchart/},
     }

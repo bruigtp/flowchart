@@ -104,7 +104,7 @@ flowchart:</p>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Randomized patients"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" width="700"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" alt="" width="700"></p>
 <p>Let’s change the style of all the boxes:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
@@ -113,7 +113,7 @@ flowchart:</p>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_theme.html">fc_theme</a></span><span class="op">(</span>text_pattern_init <span class="op">=</span> <span class="st">"{label}, {n}"</span>, text_pattern <span class="op">=</span> <span class="st">"{label}, {n}/{N}"</span>, text_fs <span class="op">=</span> <span class="fl">11</span>, text_color <span class="op">=</span> <span class="st">"#324C54"</span>, text_fface <span class="op">=</span> <span class="fl">2</span>, bg_fill <span class="op">=</span> <span class="st">"#ADD8E6"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" width="700"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="fc_modify">
@@ -130,7 +130,7 @@ created flowchart by modifying its parameters, which are stored in
 <span></span>
 <span><span class="va">safo_fc</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" width="576"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="576"></p>
 <p>Previous to modifying it, we can use the function fc_view() to
 inspect the element $fc that we want to change:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -165,7 +165,7 @@ different reasons for exclusion, and change the x and y coordinate:</p>
 <span>      <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" width="700"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 </div>
 <div class="section level2">
@@ -179,7 +179,7 @@ the following flowchart:</p>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" width="576"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="576"></p>
 <div class="section level3">
 <h3 id="change-the-flowchart-appearance">Change the flowchart appearance<a class="anchor" aria-label="anchor" href="#change-the-flowchart-appearance"></a>
 </h3>
@@ -200,7 +200,7 @@ the following flowchart:</p>
 <span>      <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" width="576"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="576"></p>
 <p>You can also alter the background of the canvas behind the flowchart
 boxes using the <code>bg_canvas=</code> argument in
 <code>fc_draw</code>:</p>
@@ -219,7 +219,7 @@ boxes using the <code>bg_canvas=</code> argument in
 <span>      <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span>canvas_bg <span class="op">=</span> <span class="st">"darkgrey"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" width="576"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="576"></p>
 </div>
 <div class="section level3">
 <h3 id="add-a-title-to-the-flowchart">Add a title to the flowchart<a class="anchor" aria-label="anchor" href="#add-a-title-to-the-flowchart"></a>
@@ -232,7 +232,7 @@ boxes using the <code>bg_canvas=</code> argument in
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"SAFO flowchart"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" width="576"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="576"></p>
 </div>
 <div class="section level3">
 <h3 id="add-titles-in-each-step">Add titles in each step<a class="anchor" aria-label="anchor" href="#add-titles-in-each-step"></a>
@@ -248,7 +248,7 @@ flow diagrams. The argument <code>title</code> must be used in the
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">31</span>, <span class="fl">34</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Lost to follow-up"</span>, title <span class="op">=</span> <span class="st">"Follow-up"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">32</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Analyzed"</span>, title <span class="op">=</span> <span class="st">"Analysis"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" width="768"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="768"></p>
 </div>
 <div class="section level3">
 <h3 id="percentage-with-respect-to-the-total-rows">Percentage with respect to the total rows<a class="anchor" aria-label="anchor" href="#percentage-with-respect-to-the-total-rows"></a>
@@ -264,7 +264,7 @@ to the initial box with the total number of rows:</p>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span>, perc_total <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span>, perc_total <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" width="576"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="576"></p>
 </div>
 <div class="section level3">
 <h3 id="offset">Offset<a class="anchor" aria-label="anchor" href="#offset"></a>
@@ -277,14 +277,14 @@ using the argument <code>offset</code>:</p>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span>, perc_total <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span>, offset <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-13-1.png" class="r-plt" width="576"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-13-1.png" class="r-plt" alt="" width="576"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Patients assessed for eligibility"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span>, perc_total <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span>, offset <span class="op">=</span> <span class="op">-</span><span class="fl">0.1</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-13-2.png" class="r-plt" width="576"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-13-2.png" class="r-plt" alt="" width="576"></p>
 <p>We can also add/remove space to the distance between the excluded box
 in a filter using the argument <code>offset_exc</code>:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
@@ -293,7 +293,7 @@ in a filter using the argument <code>offset_exc</code>:</p>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span>, offset_exc <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" width="576"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="" width="576"></p>
 </div>
 <div class="section level3">
 <h3 id="change-box-corner-style">Change Box Corner Style<a class="anchor" aria-label="anchor" href="#change-box-corner-style"></a>
@@ -306,7 +306,7 @@ in a filter using the argument <code>offset_exc</code>:</p>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Randomized"</span>, show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span>box_corners <span class="op">=</span> <span class="st">"sharp"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" width="576"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="" width="576"></p>
 </div>
 <div class="section level3">
 <h3 id="use-expressions">Use expressions<a class="anchor" aria-label="anchor" href="#use-expressions"></a>
@@ -319,7 +319,7 @@ change the font of all the box text.</p>
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Patients "</span>, <span class="fu">italic</span><span class="op">(</span><span class="st">"assessed"</span><span class="op">)</span>, <span class="st">" for "</span>, <span class="fu">bold</span><span class="op">(</span><span class="st">"eligibility"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" width="700"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="" width="700"></p>
 <p>Now, let’s use it also in the text pattern of the box:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span></span>
@@ -331,12 +331,12 @@ change the font of all the box text.</p>
 <span>            text_pattern_exc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"{label}"</span>, <span class="fu">bold</span><span class="op">(</span><span class="st">"{n}"</span><span class="op">)</span>, <span class="st">"({perc})%"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>            show_exc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-17-1.png" class="r-plt" width="700"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-17-1.png" class="r-plt" alt="" width="700"></p>
 <p>Expressions even allow the use of formulas. For example:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/as_fc.html">as_fc</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fl">500</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">y</span>, <span class="st">" = "</span>, <span class="va">alpha</span>, <span class="st">" + "</span>, <span class="va">beta</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span>, text_pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"{label}"</span>, <span class="fu">bold</span><span class="op">(</span><span class="st">"{n}"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-18-1.png" class="r-plt" width="700"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-18-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="split-in-one-group">Split in one group<a class="anchor" aria-label="anchor" href="#split-in-one-group"></a>
@@ -352,7 +352,7 @@ the argument <code>sel_group=</code>:</p>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: `object$data` has been grouped by a new variable called `split1_sel_group`,</span></span>
 <span><span class="co">## because `sel_group` has been used in the split.</span></span></code></pre>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-19-1.png" class="r-plt" width="576"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-19-1.png" class="r-plt" alt="" width="576"></p>
 <p>Then, we could also perform a filter in the other group:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safo</span> <span class="op">|&gt;</span> </span>
@@ -364,7 +364,7 @@ the argument <code>sel_group=</code>:</p>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: `object$data` has been grouped by a new variable called `split1_sel_group`,</span></span>
 <span><span class="co">## because `sel_group` has been used in the split.</span></span></code></pre>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-20-1.png" class="r-plt" width="576"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-20-1.png" class="r-plt" alt="" width="576"></p>
 <p>If we want to select a group in a flowchart with more than two groups
 we have to supply a vector in <code>sel_group=</code> with the desired
 groups to be selected:</p>
@@ -376,7 +376,7 @@ groups to be selected:</p>
 <span>  <span class="fu"><a href="../reference/fc_split.html">fc_split</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">55</span>, <span class="fl">10</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_filter.html">fc_filter</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fl">60</span>, sel_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cloxacillin alone"</span>, <span class="st">"group 2"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-21-1.png" class="r-plt" width="576"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-21-1.png" class="r-plt" alt="" width="576"></p>
 <p>Previous to modifying it, we can use the function
 <code><a href="../reference/fc_view.html">fc_view()</a></code> to inspect the element <code>$fc</code> that we
 want to change:</p>
@@ -413,7 +413,7 @@ and <em>y</em> coordinate:</p>
 <span>      <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/fc_draw.html">fc_draw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-23-1.png" class="r-plt" width="672"></p>
+<p><img src="flowchart-customization_files/figure-html/unnamed-chunk-23-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
