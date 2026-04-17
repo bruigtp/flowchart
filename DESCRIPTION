@@ -43,6 +43,6 @@ Depends:
     R (>= 4.1.0)
 RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
-URL: https://bruigtp.github.io/flowchart/
+URL: https://bruigtp.github.io/flowchart/, https://doi.org/10.5334/jors.649
 Config/testthat/edition: 3
 Config/Needs/website: rmarkdown
