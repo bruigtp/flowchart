@@ -32,6 +32,7 @@ useful if we want to apply the same style to all the boxes. For example,
 let’s customize the following flowchart:
 
 ``` r
+
 safo |> 
   dplyr::filter(!is.na(group)) |> 
   as_fc(label = "Randomized patients") |>
@@ -44,6 +45,7 @@ safo |>
 Let’s change the style of all the boxes:
 
 ``` r
+
 safo |> 
   dplyr::filter(!is.na(group)) |> 
   as_fc(label = "Randomized patients") |>
@@ -62,6 +64,7 @@ flowchart by modifying its parameters, which are stored in `.$fc`.
 For example, let’s customize the following flowchart:
 
 ``` r
+
 safo_fc <- safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) 
@@ -76,6 +79,7 @@ Previous to modifying it, we can use the function fc_view() to inspect
 the element \$fc that we want to change:
 
 ``` r
+
 safo_fc |> 
   fc_view("fc")
 ```
@@ -94,6 +98,7 @@ Let’s customise the text in the exclusion box (id = 3) to specify
 different reasons for exclusion, and change the x and y coordinate:
 
 ``` r
+
 safo_fc |> 
   fc_modify(
     ~ . |> 
@@ -121,6 +126,7 @@ In these examples, we will explore some of the arguments to customize
 the following flowchart:
 
 ``` r
+
 safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
@@ -135,6 +141,7 @@ safo |>
 You can set the background color of each box using `bg_fill=`:
 
 ``` r
+
 safo |> 
   as_fc(label = "Patients assessed for eligibility", width = 0.6, text_fs = 10, text_fface = 2, text_ffamily = "serif", text_padding = 2, bg_fill = "lightgrey") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, text_color = "white", bg_fill = "darkgreen", text_color_exc = "white", bg_fill_exc = "firebrick") |> 
@@ -157,6 +164,7 @@ You can also alter the background of the canvas behind the flowchart
 boxes using the `bg_canvas=` argument in `fc_draw`:
 
 ``` r
+
 safo |> 
   as_fc(label = "Patients assessed for eligibility", width = 0.6, text_fs = 10, text_fface = 2, text_ffamily = "serif", text_padding = 2, bg_fill = "lightgrey") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, text_color = "white", bg_fill = "darkgreen", text_color_exc = "white", bg_fill_exc = "firebrick") |> 
@@ -182,6 +190,7 @@ We can add a title to the flowchart using the argument `title=` in the
 function:
 
 ``` r
+
 safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
@@ -203,6 +212,7 @@ or
 functions:
 
 ``` r
+
 as_fc(N = 100, label = "Assessed for eligibility", title = "Enrollment") |> 
   fc_filter(N = 80, label = "Randomized") |> 
   fc_split(N = c(40, 40), label = c("Allocated to control", "Allocated to intervention"), title = "Allocation") |> 
@@ -222,6 +232,7 @@ calculate it with respect to the initial box with the total number of
 rows:
 
 ``` r
+
 safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, perc_total = TRUE) |> 
@@ -237,6 +248,7 @@ We can add/remove space to the distance between boxes in a split using
 the argument `offset`:
 
 ``` r
+
 safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, perc_total = TRUE) |> 
@@ -247,6 +259,7 @@ safo |>
 ![](flowchart-customization_files/figure-html/unnamed-chunk-13-1.png)
 
 ``` r
+
 safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, perc_total = TRUE) |> 
@@ -260,6 +273,7 @@ We can also add/remove space to the distance between the excluded box in
 a filter using the argument `offset_exc`:
 
 ``` r
+
 safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE, offset_exc = 0.1) |> 
@@ -275,6 +289,7 @@ We can change the corner style of the flowchart boxes using the
 `box_corners` argument with `fc_draw`:
 
 ``` r
+
 safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
@@ -293,6 +308,7 @@ change the font of all the box text.
 For example, let’s put and expression in the label:
 
 ``` r
+
 safo |> 
   as_fc(label = expression(paste("Patients ", italic("assessed"), " for ", bold("eligibility")))) |>
   fc_draw()
@@ -303,6 +319,7 @@ safo |>
 Now, let’s use it also in the text pattern of the box:
 
 ``` r
+
 safo |>
   as_fc(label = expression(paste("Patients ", italic("assessed"), " for ", bold("eligibility"))), text_pattern = expression(paste("{label}", bold("{n}")))) |>
   fc_filter(filter = chronic_heart_failure == "No",
@@ -319,6 +336,7 @@ safo |>
 Expressions even allow the use of formulas. For example:
 
 ``` r
+
 as_fc(N = 500, label = expression(paste(y, " = ", alpha, " + ", beta, x)), text_pattern = expression(paste("{label}", bold("{n}")))) |>
   fc_draw()
 ```
@@ -331,6 +349,7 @@ We can perform an additional split only in one of the groups using the
 argument `sel_group=`:
 
 ``` r
+
 safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
@@ -347,6 +366,7 @@ safo |>
 Then, we could also perform a filter in the other group:
 
 ``` r
+
 safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
@@ -366,6 +386,7 @@ have to supply a vector in `sel_group=` with the desired groups to be
 selected:
 
 ``` r
+
 safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
@@ -382,6 +403,7 @@ Previous to modifying it, we can use the function
 to inspect the element `$fc` that we want to change:
 
 ``` r
+
 safo_fc |> 
   fc_view("fc")
 ```
@@ -400,6 +422,7 @@ Let’s customise the text in the exclusion box (`id = 3`) to specify
 different reasons for exclusion, and change the *x* and *y* coordinate:
 
 ``` r
+
 safo_fc |> 
   fc_modify(
     ~ . |> 

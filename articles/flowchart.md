@@ -40,12 +40,14 @@ can be combined with `|>` to create all kinds of flowcharts from a
 We can install the stable version in CRAN:
 
 ``` r
+
 install.packages("flowchart")
 ```
 
 Or the development version from GitHub:
 
 ``` r
+
 # install.packages("remotes")
 remotes::install_github('bruigtp/flowchart')
 ```
@@ -53,14 +55,15 @@ remotes::install_github('bruigtp/flowchart')
 ## `safo` dataset
 
 We will use the built-in dataset `safo`, which is a randomly generated
-dataset from the SAFO trial[¹](#fn1). SAFO is an open-label,
-multicentre, phase III–IV superiority randomised clinical trial designed
-to assess whether cloxacillin plus fosfomycin administered during the
-first 7 days of therapy achieves better treatment outcomes than
-cloxacillin alone in hospitalised patients with meticillin-sensitive
-Staphylococcus aureus bacteraemia.
+dataset from the SAFO trial[^1]. SAFO is an open-label, multicentre,
+phase III–IV superiority randomised clinical trial designed to assess
+whether cloxacillin plus fosfomycin administered during the first 7 days
+of therapy achieves better treatment outcomes than cloxacillin alone in
+hospitalised patients with meticillin-sensitive Staphylococcus aureus
+bacteraemia.
 
 ``` r
+
 library(flowchart)
 
 data(safo)
@@ -100,6 +103,7 @@ To initialize a flowchart from a dataset we have to use the
 function:
 
 ``` r
+
 safo_fc <- safo |> 
   as_fc()
 
@@ -118,6 +122,7 @@ and the tibble that stores the flowchart parameters. In this example,
 contains the parameters of the initial flowchart:
 
 ``` r
+
 safo_fc$fc
 ```
 
@@ -142,6 +147,7 @@ the last example, we can draw the initial flowchart that has been
 previously created:
 
 ``` r
+
 safo_fc |> 
   fc_draw()
 ```
@@ -156,6 +162,7 @@ specifying the logic in which the filter is to be applied. For example,
 we can show the number of patients that were randomized in the study:
 
 ``` r
+
 safo |> 
   as_fc(label = "Patients assessed for eligibility") |> 
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
@@ -173,6 +180,7 @@ Alternatively, if the column to filter is not available, we can use the
 filter:
 
 ``` r
+
 safo |> 
   as_fc(label = "Patients assessed for eligibility") |> 
   fc_filter(N = 215, label = "Randomized", show_exc = TRUE) |> 
@@ -191,6 +199,7 @@ can split the previous flowchart showing the patients allocated in the
 two study treatments:
 
 ``` r
+
 safo |>
   dplyr::filter(!is.na(group)) |>
   as_fc(label = "Randomized patients") |>
@@ -207,6 +216,7 @@ Alternatively, if the column to split is not available, we can use the
 the resulting split:
 
 ``` r
+
 safo |>
   dplyr::filter(!is.na(group)) |>
   as_fc(label = "Randomized patients") |>
@@ -231,6 +241,7 @@ image formats, including both bitmap (png, jpeg, tiff, bmp) and vector
 [`fc_export()`](https://bruigtp.github.io/flowchart/reference/fc_export.md):
 
 ``` r
+
 safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
@@ -241,6 +252,7 @@ safo |>
 We can change the size and resolution of the stored image.
 
 ``` r
+
 safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
@@ -248,9 +260,7 @@ safo |>
   fc_export("flowchart.png", width = 3000, height = 4000, res = 700)
 ```
 
-------------------------------------------------------------------------
-
-1.  Grillo, S., Pujol, M., Miró, J.M. et al. Cloxacillin plus fosfomycin
-    versus cloxacillin alone for methicillin-susceptible Staphylococcus
-    aureus bacteremia: a randomized trial. Nat Med 29, 2518–2525 (2023).
-    <https://doi.org/10.1038/s41591-023-02569-0>
+[^1]: Grillo, S., Pujol, M., Miró, J.M. et al. Cloxacillin plus
+    fosfomycin versus cloxacillin alone for methicillin-susceptible
+    Staphylococcus aureus bacteremia: a randomized trial. Nat Med 29,
+    2518–2525 (2023). <https://doi.org/10.1038/s41591-023-02569-0>

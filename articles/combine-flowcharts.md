@@ -16,6 +16,7 @@ the ITT population with the flow of patients included in the PP
 population.
 
 ``` r
+
 # Create first flowchart for ITT
 fc1 <- safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
@@ -27,6 +28,7 @@ fc_draw(fc1)
 ![](combine-flowcharts_files/figure-html/unnamed-chunk-2-1.png)
 
 ``` r
+
 # Create second flowchart for visits
 fc2 <- safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
@@ -38,6 +40,7 @@ fc_draw(fc2)
 ![](combine-flowcharts_files/figure-html/unnamed-chunk-2-2.png)
 
 ``` r
+
 list(fc1, fc2) |> 
   fc_merge() |> 
   fc_draw()
@@ -53,6 +56,7 @@ For example, we can combine the same two flowcharts vertically instead
 of horizontally.
 
 ``` r
+
 list(fc1, fc2) |> 
   fc_stack() |> 
   fc_draw()
@@ -66,6 +70,7 @@ boxes at the beginning and at the end, or if one of the flowcharts has
 one box at the beginning or at the end. For example:
 
 ``` r
+
 fc1 <- safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(itt == "Yes", label = "Intention to treat (ITT)")  |> 
@@ -83,6 +88,7 @@ list(fc1, fc2) |>
 ![](combine-flowcharts_files/figure-html/unnamed-chunk-4-1.png)
 
 ``` r
+
 fc1 <- safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(itt == "Yes", label = "Intention to treat (ITT)") 
@@ -100,6 +106,7 @@ list(fc1, fc2) |>
 ![](combine-flowcharts_files/figure-html/unnamed-chunk-5-1.png)
 
 ``` r
+
 fc1 <- safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(itt == "Yes", label = "Intention to treat (ITT)") |> 

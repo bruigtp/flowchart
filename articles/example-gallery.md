@@ -6,6 +6,7 @@ In this example, we will try to create a flowchart for the complete flow
 of patients in the SAFO study:
 
 ``` r
+
 safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
@@ -27,6 +28,7 @@ First, we need to do some pre-processing to reproduce the text in the
 larger boxes:
 
 ``` r
+
 # Create labels for exclusion box:
 label_exc <- paste(
   c(str_glue("{sum(safo$inclusion_crit == 'Yes' | safo$exclusion_crit == 'Yes' | safo$decline_part == 'Yes', na.rm = T)} excluded:"),
@@ -63,6 +65,7 @@ Second, let’s create and customize the flowchart using the functions in
 the package:
 
 ``` r
+
 safo |> 
   as_fc(label = "patients assessed for eligibility", text_pattern = "{N} {label}") |> 
   fc_filter(!is.na(group), label = "randomized", text_pattern = "{n} {label}", show_exc = TRUE, just_exc = "left", text_pattern_exc = "{label}", label_exc = label_exc, text_fs_exc = 7, offset_exc = 0.15) |>
@@ -88,6 +91,7 @@ using the `N` argument to manually specify the numbers to display in the
 boxes:
 
 ``` r
+
 as_fc(N = 300) |> 
   fc_filter(N = 240, label = "Randomized patients", show_exc = TRUE) |> 
   fc_split(N = c(100, 80, 60), label = c("Group A", "Group B", "Group C")) |>
@@ -104,6 +108,7 @@ In this example, we will use the `N=` argument in a flowchart that uses
 a `data.frame`:
 
 ``` r
+
 safo |> 
   as_fc(label = "Patients assessed for eligibility") |>
   fc_filter(!is.na(group), label = "Randomized", show_exc = TRUE) |> 
@@ -122,6 +127,7 @@ the
 guideline:
 
 ``` r
+
 as_fc(N = 200, label = "Assessed for eligibility", title = "Enrollment") |> 
   fc_filter(N = 150, label = "Randomized", show_exc = TRUE, just_exc = "left") |> 
   fc_split(N = c(70, 80), label = c("Allocated to control", "Allocated to intervention"), title = "Allocation", x_title = 0.5) |> 

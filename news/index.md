@@ -297,3 +297,8 @@ CRAN release: 2025-11-26
   `unite = TRUE`.
 
 - Created `print`, `summary` and `plot` S3 methods.
+
+## flowchart 1.0.1
+
+- Fixed `bug` when using `sel_group` with
+  [`fc_split()`](https://bruigtp.github.io/flowchart/reference/fc_split.md).
