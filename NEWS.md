@@ -141,3 +141,7 @@
 * Fixed `bug` when drawing with two stacked flowcharts with `unite = TRUE`.
 
 * Created `print`, `summary` and `plot` S3 methods.
+
+# flowchart 1.0.1
+
+* Fixed `bug` when using `sel_group` with `fc_split()`. 

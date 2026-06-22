@@ -328,7 +328,7 @@ fc_split.fc <- function(object, var = NULL, N = NULL, label = NULL, text_pattern
       dplyr::ungroup() |>
       #Deal with missings from sel_group variables
       dplyr::mutate(dplyr::across(dplyr::all_of(group0), ~dplyr::case_when(is.na(.) & !grepl("sel_group$", dplyr::cur_column()) ~ "NA", .default = .))) |>
-      tidyr::unite("temp_var_PauSatorra_12345", dplyr::all_of(group0), sep = "//", remove = FALSE, na.rm = TRUE) |>
+      tidyr::unite("temp_var_PauSatorra_12345", dplyr::all_of(group0), sep = " // ", remove = FALSE, na.rm = TRUE) |>
       dplyr::mutate("{var}_sel_group" := dplyr::case_when(
         .data$temp_var_PauSatorra_12345 == sel_group ~ get(var),
         .default = NA
